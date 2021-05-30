@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BF9BB8B2663E8BE0092C658 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9BB8A2663E8BE0092C658 /* Highlightr */; };
 		3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78172663E16D002AD588 /* AppDelegate.swift */; };
 		3BFD781A2663E16E002AD588 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD78192663E16E002AD588 /* Assets.xcassets */; };
 		3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD781B2663E16E002AD588 /* MainMenu.xib */; };
@@ -112,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF9BB8B2663E8BE0092C658 /* Highlightr in Frameworks */,
 				3BFD78482663E27D002AD588 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +267,9 @@
 			dependencies = (
 			);
 			name = "Code Previewer";
+			packageProductDependencies = (
+				3BF9BB8A2663E8BE0092C658 /* Highlightr */,
+			);
 			productName = "Code Previewer";
 			productReference = 3BFD78452663E27D002AD588 /* Code Previewer.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -303,6 +308,9 @@
 				Base,
 			);
 			mainGroup = 3BFD780B2663E16D002AD588;
+			packageReferences = (
+				3BF9BB892663E8BE0092C658 /* XCRemoteSwiftPackageReference "Highlightr" */,
+			);
 			productRefGroup = 3BFD78152663E16D002AD588 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -768,6 +776,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3BF9BB892663E8BE0092C658 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raspu/Highlightr.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3BF9BB8A2663E8BE0092C658 /* Highlightr */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF9BB892663E8BE0092C658 /* XCRemoteSwiftPackageReference "Highlightr" */;
+			productName = Highlightr;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3BFD780C2663E16D002AD588 /* Project object */;
 }

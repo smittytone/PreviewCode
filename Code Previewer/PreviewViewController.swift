@@ -47,9 +47,12 @@ class PreviewViewController: NSViewController,
             do {
                 // Get the file contents as a string
                 let data: Data = try Data.init(contentsOf: url, options: [.uncached])
-                if let yamlFileString: String = String.init(data: data, encoding: .utf8) {
+                if let codeFileString: String = String.init(data: data, encoding: .utf8) {
+                    // Set the language
+                    let language = getLanguage(url.path)
+                    
                     // Get the key string first
-                    let yamlAttString: NSAttributedString = getAttributedString(yamlFileString, false)
+                    let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, false)
                     
                     // Knock back the light background to make the scroll bars visible in dark mode
                     // NOTE If !doShowLightBackground,
@@ -67,7 +70,7 @@ class PreviewViewController: NSViewController,
                          * such calls with beginEditing() and endEditing() messages.
                          */
                         renderTextStorage.beginEditing()
-                        renderTextStorage.setAttributedString(yamlAttString)
+                        renderTextStorage.setAttributedString(codeAttString)
                         renderTextStorage.endEditing()
                     } else {
                         handler(setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING))

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Highlightr",
+        "repositoryURL": "https://github.com/raspu/Highlightr.git",
+        "state": {
+          "branch": null,
+          "revision": "93199b9e434f04bda956a613af8f571933f9f037",
+          "version": "2.1.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
