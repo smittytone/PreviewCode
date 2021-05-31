@@ -1,8 +1,8 @@
 /*
  *  Constants.swift
- *  PreviewYaml
+ *  PreviewCode
  *
- *  Created by Tony Smith on 12/08/2020.
+ *  Created by Tony Smith on 30/05/2021.
  *  Copyright © 2021 Tony Smith. All rights reserved.
  */
 
@@ -26,7 +26,7 @@ struct BUFFOON_CONSTANTS {
             static let NO_ERROR             = "No error"
             static let FILE_INACCESSIBLE    = "Can't access file"
             static let FILE_WONT_OPEN       = "Can't open file"
-            static let BAD_MD_STRING        = "Can't get yaml data"
+            static let BAD_MD_STRING        = "Can't get source code"
             static let BAD_TS_STRING        = "Can't access NSTextView's TextStorage"
         }
     }
@@ -49,5 +49,8 @@ struct BUFFOON_CONSTANTS {
 
     static let FONT_SIZE_OPTIONS: [CGFloat] = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
     
-    static let YAML_INDENT                  = 2
+    static let DEFAULT_THEME                = "agate"
+    static let DEFAULT_FONT                 = "Courier"
+    
+    static let SUITE_NAME                   = ".suite.preview-code"
 }

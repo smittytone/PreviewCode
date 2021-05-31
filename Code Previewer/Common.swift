@@ -1,9 +1,9 @@
 /*
  *  Common.swift
- *  PreviewYaml
- *  Code common to Yaml Previewer and Yaml Thumbnailer
+ *  PreviewCode
+ *  Code common to Code Previewer and Code Thumbnailer
  *
- *  Created by Tony Smith on 22/04/2021.
+ *  Created by Tony Smith on 30/05/2021.
  *  Copyright © 2021 Tony Smith. All rights reserved.
  */
 
@@ -14,46 +14,42 @@ import AppKit
 
 
 // Use defaults for some user-selectable values
-private var doShowLightBackground: Bool = false
-private var codeTheme: String = "atom-one-light"
-private var fontBaseSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+private var codeTheme: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+private var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
+private var fontBase: NSFont = NSFont.systemFont(ofSize: fontSize)
+private var backgroundColour: NSColor = NSColor.black
+private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 
-
-// YAML string attributes...
-private var keyAtts: [NSAttributedString.Key: Any] = [
-    .foregroundColor: getColour(0),
-    .font: NSFont.systemFont(ofSize: fontBaseSize)
+private var errAtts: [NSAttributedString.Key: Any] = [
+    .foregroundColor: NSColor.purple,
+    .font: fontBase
 ]
-
-// String artefacts...
-private var hr = NSAttributedString(string: "\n\u{00A0}\u{0009}\u{00A0}\n\n",
-                                    attributes: [.strikethroughStyle: NSUnderlineStyle.patternDot.rawValue,
-                                                 .strikethroughColor: NSColor.labelColor])
-private var newLine: NSAttributedString = NSAttributedString.init(string: "\n", attributes: keyAtts)
 
 
 // MARK: Primary Function
 
 func getAttributedString(_ codeFileString: String, _ language: String, _ isThumbnail: Bool) -> NSAttributedString {
 
-    // Use YamlSwift to render the input YAML as an NSAttributedString, which is returned.
-    // NOTE Set the font colour according to whether we're rendering a thumbail or a preview
-    //      (thumbnails always rendered black on white; previews may be the opposite [dark mode])
+    // Use Highlightr to render the input source file as an NSAttributedString, which is returned.
 
-    // Set up the base string
-    var renderedString: NSAttributedString?
-    
     // Parse the code file
-    if let highlightr: Highlightr = Highlightr() {
+    var renderedString: NSAttributedString? = nil
+    
+    if let highlightr: Highlightr = Highlightr.init() {
         highlightr.setTheme(to: codeTheme)
+        backgroundColour = highlightr.theme.themeBackgroundColor
+        highlightr.theme.setCodeFont(fontBase)
         renderedString = highlightr.highlight(codeFileString, as: language)
     }
     
+    // If the rendered string is good, return it
     if let rs: NSAttributedString = renderedString {
         return rs
-    } else {
-        return NSAttributedString.init(string: "Could not render source code", attributes: keyAtts)
     }
+    
+    // Return an error message
+    return NSAttributedString.init(string: "Could not render source code (\(language))", attributes: errAtts)
 }
 
 
@@ -61,81 +57,99 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 
 func setBaseValues(_ isThumbnail: Bool) {
 
-    // Set common base style values for the markdown render
-    // NOTE This should now be called only once
+    // Set common base style values for the source code render
+    // NOTE This should now be called only ONCE, before the code is rendered
 
     // The suite name is the app group name, set in each extension's entitlements, and the host app's
-    if let defaults = UserDefaults(suiteName: MNU_SECRETS.PID + ".suite.preview-code") {
+    if let defaults = UserDefaults(suiteName: appSuiteName) {
         defaults.synchronize()
-        fontBaseSize = CGFloat(isThumbnail
-                              ? defaults.float(forKey: "com-bps-previewcode-thumb-font-size")
-                              : defaults.float(forKey: "com-bps-previewcode-base-font-size"))
-        doShowLightBackground = defaults.bool(forKey: "com-bps-previewcode-do-use-light")
-        codeTheme = defaults.string(forKey: "com-bps-previewcode-code-theme") ?? "atom-one-light"
+        fontSize = CGFloat(isThumbnail
+                           ? defaults.float(forKey: "com-bps-previewcode-thumb-font-size")
+                           : defaults.float(forKey: "com-bps-previewcode-base-font-size"))
+        codeTheme   = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
+        fontName    = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
     }
 
     // Just in case the above block reads in zero values
-    // NOTE The other valyes CAN be zero
-    if fontBaseSize < 1.0 || fontBaseSize > 28.0 {
-        fontBaseSize = CGFloat(isThumbnail ? BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE : BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+    if fontSize < 1.0 || fontSize > 28.0 {
+        fontSize = CGFloat(isThumbnail ? BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE : BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
     }
 
-    // Set the YAML key:value fonts and sizes
-    var font: NSFont
-    if codeFontIndex == 0 {
-        font = NSFont.systemFont(ofSize: fontBaseSize)
+    // Set the font and its sizes
+    if let chosenFont: NSFont = NSFont.init(name: fontName, size: fontSize) {
+        fontBase = chosenFont
     } else {
-        if let otherFont = NSFont.init(name: codeFonts[codeFontIndex], size: fontBaseSize) {
-            font = otherFont
-        } else {
-            font = NSFont.systemFont(ofSize: fontBaseSize)
+        fontBase = NSFont.systemFont(ofSize: fontSize)
+    }
+    
+    // Update the display data
+    errAtts = [
+        .foregroundColor: NSColor.purple,
+        .font: fontBase
+    ]
+}
+
+
+func getLanguage(_ sourceFilePath: String) -> String {
+    
+    // Determine the source file's language, and return
+    // it as a string, eg. 'public.swift-source' -> 'swift'
+    
+    var sourceLanguage: String = "public.swift-source"
+    let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
+    let parts = sourceFileUTI.components(separatedBy: ".")
+    if parts.count > 0 {
+        if let endIndex = parts[1].range(of: "-source")?.lowerBound {
+            sourceLanguage = String(parts[1][..<endIndex])
         }
     }
     
-    keyAtts = [
-        .foregroundColor: getColour(0),
-        .font: font
-    ]
-    
-    hr = NSAttributedString(string: "\n\u{00A0}\u{0009}\u{00A0}\n\n",
-                            attributes: [.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
-                                         .strikethroughColor: (isThumbnail || doShowLightBackground ? NSColor.black : NSColor.white)])
-    
-    newLine = NSAttributedString.init(string: "\n",
-                                      attributes: keyAtts)
+    return sourceLanguage
 }
 
 
-func getColour(_ index: Int) -> NSColor {
-
-    // Return the colour from the selection
-
-    switch index {
-        case 0:
-            return NSColor.systemPurple
-        case 1:
-            return NSColor.systemBlue
-        case 2:
-            return NSColor.systemRed
-        case 3:
-            return NSColor.systemGreen
-        case 4:
-            return NSColor.systemOrange
-        case 5:
-            return NSColor.systemPink
-        case 6:
-            return NSColor.systemTeal
-        case 7:
-            return NSColor.systemBrown
-        case 8:
-            return NSColor.systemYellow
-        case 9:
-            return NSColor.systemIndigo
-        default:
-            return NSColor.systemGray
+func getSourceFileUTI(_ sourceFilePath: String) -> String {
+    
+    // Get the passed code file's UTI - we'll use it to]
+    // determine the programming language
+    
+    var sourceFileUTI: String = ""
+    
+    // Just in case, but this shouldn't be necessary
+    // (we wouldn't have got this far otherwise)
+    if FileManager.default.fileExists(atPath: sourceFilePath) {
+        // Create a URL reference to the sample file
+        let sourceFileURL = URL.init(fileURLWithPath: sourceFilePath)
+        
+        do {
+            // Read back the UTI from the URL
+            if let uti = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
+                sourceFileUTI = uti
+            }
+        } catch {
+            // NOP
+        }
     }
-}
     
+    return sourceFileUTI
+}
+
+
+func getStyle() -> String {
+    
+    // Simple getter
+    
+    return codeTheme
+}
+
+
+func getBackgroundColour() -> NSColor {
+    
+    // Simple getter
+    
+    return backgroundColour
+}
+
 
 func setError(_ code: Int) -> NSError {
     
@@ -162,42 +176,5 @@ func setError(_ code: Int) -> NSError {
                    userInfo: [NSLocalizedDescriptionKey: errDesc])
 }
 
-
-func getLanguage(_ path: String) -> String {
-    
-    var sourceLanguage: String = "public.swift-source"
-    let sourceUTI: String = getSourceFileUTI(path)
-    let parts = sourceUTI.components(separatedBy: ".")
-    if parts.count > 0 {
-        if let endIndex = parts[1].range(of: "-source")?.lowerBound {
-            sourceLanguage = String(parts[1][..<endIndex])
-        }
-    }
-    
-    return sourceLanguage
-}
-
-
-func getSourceFileUTI(_ path: String) -> String {
-    
-    // This is not PII. It used solely for debugging purposes
-    
-    var sourceUTI: String = "UNKNOWN"
-    if FileManager.default.fileExists(atPath: path) {
-        // Create a URL reference to the sample file
-        let fileURL = URL.init(fileURLWithPath: path)
-        
-        do {
-            // Read back the UTI from the URL
-            if let uti = try fileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
-                sourceUTI = uti
-            }
-        } catch {
-            // NOP
-        }
-    }
-    
-    return sourceUTI
-}
 
 

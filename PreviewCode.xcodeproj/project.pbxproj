@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BF9BB8B2663E8BE0092C658 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9BB8A2663E8BE0092C658 /* Highlightr */; };
+		3B3271B02665261000FED580 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3271AF2665261000FED580 /* Highlightr */; };
+		3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B52D6492664B98D0001D160 /* themes-list.txt */; };
+		3BFBEC382663FDD400B4E70C /* new in Resources */ = {isa = PBXBuildFile; fileRef = 3BFBEC372663FDD400B4E70C /* new */; };
+		3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */; };
 		3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78172663E16D002AD588 /* AppDelegate.swift */; };
 		3BFD781A2663E16E002AD588 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD78192663E16E002AD588 /* Assets.xcassets */; };
 		3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD781B2663E16E002AD588 /* MainMenu.xib */; };
@@ -21,7 +24,6 @@
 		3BFD785A2663E2C9002AD588 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
 		3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
 		3BFD785D2663E38F002AD588 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
-		3BFD785F2663E4C9002AD588 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 		3BFD78602663E4C9002AD588 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B52D6492664B98D0001D160 /* themes-list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "themes-list.txt"; sourceTree = "<group>"; };
+		3BFBEC372663FDD400B4E70C /* new */ = {isa = PBXFileReference; lastKnownFileType = folder; name = new; path = ../../../OneDrive/Programming/PreviewCode/new; sourceTree = "<group>"; };
+		3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableCellView.swift; sourceTree = "<group>"; };
 		3BFD78142663E16D002AD588 /* PreviewCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PreviewCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFD78172663E16D002AD588 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BFD78192663E16E002AD588 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/smitty/OneDrive/Programming/PreviewCode/Assets.xcassets; sourceTree = "<absolute>"; };
@@ -113,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BF9BB8B2663E8BE0092C658 /* Highlightr in Frameworks */,
+				3B3271B02665261000FED580 /* Highlightr in Frameworks */,
 				3BFD78482663E27D002AD588 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,9 +155,12 @@
 				3BFD78582663E2C9002AD588 /* Constants.swift */,
 				3BFD785B2663E38F002AD588 /* Secrets.swift */,
 				3BFD78172663E16D002AD588 /* AppDelegate.swift */,
+				3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */,
 				3BFD781B2663E16E002AD588 /* MainMenu.xib */,
 				3BFD781E2663E16E002AD588 /* Info.plist */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
+				3B52D6492664B98D0001D160 /* themes-list.txt */,
+				3BFBEC372663FDD400B4E70C /* new */,
 				3BFD78192663E16E002AD588 /* Assets.xcassets */,
 			);
 			path = PreviewCode;
@@ -268,7 +276,7 @@
 			);
 			name = "Code Previewer";
 			packageProductDependencies = (
-				3BF9BB8A2663E8BE0092C658 /* Highlightr */,
+				3B3271AF2665261000FED580 /* Highlightr */,
 			);
 			productName = "Code Previewer";
 			productReference = 3BFD78452663E27D002AD588 /* Code Previewer.appex */;
@@ -309,7 +317,7 @@
 			);
 			mainGroup = 3BFD780B2663E16D002AD588;
 			packageReferences = (
-				3BF9BB892663E8BE0092C658 /* XCRemoteSwiftPackageReference "Highlightr" */,
+				3B3271AE2665261000FED580 /* XCRemoteSwiftPackageReference "Highlightr" */,
 			);
 			productRefGroup = 3BFD78152663E16D002AD588 /* Products */;
 			projectDirPath = "";
@@ -328,6 +336,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */,
+				3BFBEC382663FDD400B4E70C /* new in Resources */,
 				3BFD781A2663E16E002AD588 /* Assets.xcassets in Resources */,
 				3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */,
 			);
@@ -362,8 +372,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BFD785F2663E4C9002AD588 /* Common.swift in Sources */,
 				3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */,
+				3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */,
 				3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */,
 				3BFD78592663E2C9002AD588 /* Constants.swift in Sources */,
 			);
@@ -558,7 +568,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PreviewCode/PreviewCode.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -569,8 +580,10 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -582,7 +595,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PreviewCode/PreviewCode.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -593,8 +607,11 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -687,7 +704,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
@@ -696,10 +714,17 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Previewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -709,7 +734,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
@@ -718,10 +744,16 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Previewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -778,7 +810,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3BF9BB892663E8BE0092C658 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+		3B3271AE2665261000FED580 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/raspu/Highlightr.git";
 			requirement = {
@@ -789,9 +821,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3BF9BB8A2663E8BE0092C658 /* Highlightr */ = {
+		3B3271AF2665261000FED580 /* Highlightr */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3BF9BB892663E8BE0092C658 /* XCRemoteSwiftPackageReference "Highlightr" */;
+			package = 3B3271AE2665261000FED580 /* XCRemoteSwiftPackageReference "Highlightr" */;
 			productName = Highlightr;
 		};
 /* End XCSwiftPackageProductDependency section */

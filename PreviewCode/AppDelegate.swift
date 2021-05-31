@@ -16,7 +16,9 @@ class AppDelegate: NSObject,
                    NSApplicationDelegate,
                    URLSessionDelegate,
                    URLSessionDataDelegate,
-                   WKNavigationDelegate {
+                   WKNavigationDelegate,
+                   NSTableViewDelegate,
+                   NSTableViewDataSource {
 
     // MARK:- Class UI Properies
     // Menu Items
@@ -34,33 +36,32 @@ class AppDelegate: NSObject,
     @IBOutlet var window: NSWindow!
 
     // Report Sheet
-    @IBOutlet weak var reportWindow: NSWindow!
-    @IBOutlet weak var feedbackText: NSTextField!
-    @IBOutlet weak var connectionProgress: NSProgressIndicator!
+    @IBOutlet var reportWindow: NSWindow!
+    @IBOutlet var feedbackText: NSTextField!
+    @IBOutlet var connectionProgress: NSProgressIndicator!
 
     // Preferences Sheet
-    @IBOutlet weak var preferencesWindow: NSWindow!
-    @IBOutlet weak var fontSizeSlider: NSSlider!
-    @IBOutlet weak var fontSizeLabel: NSTextField!
-    @IBOutlet weak var useLightCheckbox: NSButton!
-    @IBOutlet weak var doShowTagCheckbox: NSButton!
-    @IBOutlet weak var doIndentScalarsCheckbox: NSButton!
-    @IBOutlet weak var doShowRawYamlCheckbox: NSButton!
-    @IBOutlet weak var codeFontPopup: NSPopUpButton!
-    @IBOutlet weak var codeColourPopup: NSPopUpButton!
-    @IBOutlet weak var codeIndentPopup: NSPopUpButton!
+    @IBOutlet var preferencesWindow: NSWindow!
+    @IBOutlet var fontSizeSlider: NSSlider!
+    @IBOutlet var fontSizeLabel: NSTextField!
+    @IBOutlet var themeTable: NSTableView!
+    @IBOutlet var fontNamesPopup: NSPopUpButton!
 
     // What's New Sheet
-    @IBOutlet weak var whatsNewWindow: NSWindow!
-    @IBOutlet weak var whatsNewWebView: WKWebView!
+    @IBOutlet var whatsNewWindow: NSWindow!
+    @IBOutlet var whatsNewWebView: WKWebView!
 
     // MARK:- Private Properies
     private var feedbackTask: URLSessionTask? = nil
     private var whatsNewNav: WKNavigation? = nil
     private var previewFontSize: CGFloat = 16.0
     private var doShowLightBackground: Bool = false
-    private var doShowTag: Bool = false
     private var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
+    
+    private var previewFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
+    private var previewThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+    private var selectedThemeIndex: Int = 37
+    private var themes: [String] = []
     
     
     // MARK:- Class Lifecycle Functions
@@ -120,9 +121,7 @@ class AppDelegate: NSObject,
         var path: String = "https://smittytone.net/previewcode/index.html"
         
         // Depending on the menu selected, set the load path
-        if item == self.helpMenuAcknowledgments {
-            path += "#acknowledgements"
-        } else if item == self.helpAppStoreRating {
+        if item == self.helpAppStoreRating {
             path = PVC_SECRETS.APP_STORE
         } else if item == self.helpMenuPreviewCode {
             path += "#how-to-use-previewcode"
@@ -260,43 +259,89 @@ class AppDelegate: NSObject,
 
         // The suite name is the app group name, set in each the entitlements file of
         // the host app and of each extension
-        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-            self.previewFontSize = CGFloat(defaults.float(forKey: "com-bps-previewyaml-base-font-size"))
-            self.previewCodeColour = defaults.integer(forKey: "com-bps-previewyaml-code-colour-index")
-            self.previewCodeFont = defaults.integer(forKey: "com-bps-previewyaml-code-font-index")
-            self.previewIndentDepth = defaults.integer(forKey: "com-bps-previewyaml-yaml-indent")
-            self.doShowLightBackground = defaults.bool(forKey: "com-bps-previewyaml-do-use-light")
-            self.doShowTag = defaults.bool(forKey: "com-bps-previewyaml-do-show-tag")
-            self.doShowRawYaml = defaults.bool(forKey: "com-bps-previewyaml-show-bad-yaml")
-            self.doIndentScalars = defaults.bool(forKey: "com-bps-previewyaml-do-indent-scalars")
+        if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName) {
+            self.previewFontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
+            self.previewFontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
+            self.previewThemeName = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
+            self.doShowLightBackground = defaults.bool(forKey: "com-bps-previewcode-do-use-light")
         }
 
-        // Get the menu item index from the stored value
-        // NOTE The index is that of the list of available fonts (see 'Common.swift') so
-        //      we need to convert this to an equivalent menu index because the menu also
-        //      contains a separator and two title items
-        var fontIndex: Int = self.previewCodeFont + 1
-        if fontIndex > 7 { fontIndex += 2 }
-        
+        // Set the font size slider
         let index: Int = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.lastIndex(of: self.previewFontSize) ?? 3
-        
         self.fontSizeSlider.floatValue = Float(index)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
-        self.codeColourPopup.selectItem(at: self.previewCodeColour)
-        self.codeFontPopup.selectItem(at: fontIndex)
-        self.useLightCheckbox.state = self.doShowLightBackground ? .on : .off
-        self.doShowTagCheckbox.state = self.doShowTag ? .on : .off
-        self.doShowRawYamlCheckbox.state = self.doShowRawYaml ? .on : .off
-        self.doIndentScalarsCheckbox.state = self.doIndentScalars ? .on : .off
         
-        let indents: [Int] = [1, 2, 4, 8]
-        self.codeIndentPopup.selectItem(at: indents.firstIndex(of: self.previewIndentDepth)!)
+        // Set the font name popup
+        // List the current system's monospace fonts
+        // TODO Some outliers here, which we may want to remove
+        let fm: NSFontManager = NSFontManager.shared
+        self.fontNamesPopup.removeAllItems()
+        if let fonts: [String] = fm.availableFontNames(with: .fixedPitchFontMask) {
+            for font in fonts {
+                if !font.hasPrefix(".") {
+                    // Set the font's display name...
+                    var fontDisplayName: String? = nil
+                    if let namedFont: NSFont = NSFont.init(name: font, size: self.previewFontSize) {
+                        fontDisplayName = namedFont.displayName
+                    }
+                    
+                    if fontDisplayName == nil {
+                        fontDisplayName = font.replacingOccurrences(of: "-", with: " ")
+                    }
+                    
+                    // ...and add it to the popup
+                    self.fontNamesPopup.addItem(withTitle: fontDisplayName!)
+                    
+                    // Retain the font's PostScript name for use later
+                    if let addedMenuItem: NSMenuItem = self.fontNamesPopup.item(at: self.fontNamesPopup.itemArray.count - 1) {
+                        addedMenuItem.representedObject = font
+                        
+                        if font == self.previewFontName {
+                            self.fontNamesPopup.select(addedMenuItem)
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Set the themes table
+        if self.themes.count == 0 {
+            // Prep. the list of themes
+            initThemes()
+        }
+        
+        // Update the themes table
+        self.themeTable.reloadData()
+        let idx: IndexSet = IndexSet.init(integer: self.selectedThemeIndex)
+        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
         
         // Display the sheet
         self.window.beginSheet(self.preferencesWindow, completionHandler: nil)
     }
 
 
+    func initThemes() {
+            
+        // Load in the current theme list
+        let themesFileURL: URL = URL.init(fileURLWithPath: Bundle.main.bundlePath + "/Contents/Resources/themes-list.txt")
+        let data: Data = try! Data.init(contentsOf: themesFileURL, options: [])
+        if let themeFileString: String = String.init(data: data, encoding: .utf8) {
+            let themes: [String] = themeFileString.components(separatedBy: "\n")
+            for theme in themes {
+                self.themes.append(theme)
+            }
+        }
+        
+        // Set the theme selection
+        for i: Int in 0..<self.themes.count {
+            if self.themes[i] == self.previewThemeName {
+                self.selectedThemeIndex = i
+                break
+            }
+        }
+    }
+    
+    
     @IBAction func doMoveSlider(sender: Any) {
         
         // When the slider is moved and released, this function updates
@@ -309,7 +354,7 @@ class AppDelegate: NSObject,
     @IBAction func doClosePreferences(sender: Any) {
 
         // Close the 'Preferences' sheet
-
+        
         self.window.endSheet(self.preferencesWindow)
     }
 
@@ -319,68 +364,40 @@ class AppDelegate: NSObject,
         // Close the 'Preferences' sheet and save the settings, if they have changed
 
         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-            if self.codeColourPopup.indexOfSelectedItem != self.previewCodeColour {
-                defaults.setValue(self.codeColourPopup.indexOfSelectedItem,
-                                  forKey: "com-bps-previewyaml-code-colour-index")
-            }
-            
             // Decode the font menu index value into a font list index
-            var fontIndex: Int = self.codeFontPopup.indexOfSelectedItem - 1
-            if fontIndex > 6 { fontIndex -= 2 }
-            if fontIndex != self.previewCodeFont {
-                defaults.setValue(fontIndex,
-                                  forKey: "com-bps-previewyaml-code-font-index")
-            }
             
+            // Set the chosen text size if it has changed
             let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
             if newValue != self.previewFontSize {
                 defaults.setValue(newValue,
-                                  forKey: "com-bps-previewyaml-base-font-size")
+                                  forKey: "com-bps-previewcode-base-font-size")
             }
             
-            // Set this here for now
-            defaults.setValue(CGFloat(32.0), forKey: "com-bps-previewyaml-thumb-font-size")
-
-            var state: Bool = self.useLightCheckbox.state == .on
-            if self.doShowLightBackground != state {
-                defaults.setValue(state,
-                                  forKey: "com-bps-previewyaml-do-use-light")
-            }
-
-            state = self.doShowTagCheckbox.state == .on
-            if self.doShowTag != state {
-                defaults.setValue(state,
-                                  forKey: "com-bps-previewyaml-do-show-tag")
+            // Set the chosen theme if it has changed
+            let selectedTheme: Int = self.themeTable.selectedRow
+            if selectedTheme != self.selectedThemeIndex {
+                let selectedThemeName = self.themes[selectedTheme]
+                self.selectedThemeIndex = selectedTheme
+                defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
             }
             
-            state = self.doShowRawYamlCheckbox.state == .on
-            if self.doShowRawYaml != state {
-                defaults.setValue(state,
-                                  forKey: "com-bps-previewyaml-show-bad-yaml")
-            }
-            
-            state = self.doIndentScalarsCheckbox.state == .on
-            if self.doIndentScalars != state {
-                defaults.setValue(state,
-                                  forKey: "com-bps-previewyaml-do-indent-scalars")
-            }
-            
-            let indents: [Int] = [1, 2, 4, 8]
-            let indent: Int = indents[self.codeIndentPopup.indexOfSelectedItem]
-            if self.previewIndentDepth != indent {
-                defaults.setValue(indent, forKey: "com-bps-previewyaml-yaml-indent")
+            // Set the chosen font if it has changed
+            if let selectedMenuItem: NSMenuItem = self.fontNamesPopup.selectedItem {
+                let selectedName: String = selectedMenuItem.representedObject as! String
+                if selectedName != self.previewFontName {
+                    self.previewFontName = selectedName
+                    defaults.setValue(selectedName, forKey: "com-bps-previewcode-base-font-name")
+                }
             }
 
             // Sync any changes
             defaults.synchronize()
         }
-
+        
         // Remove the sheet now we have the data
         self.window.endSheet(self.preferencesWindow)
     }
-
-
-    // MARK: What's New Sheet Functions
+    
     
     @IBAction func doShowWhatsNew(_ sender: Any) {
 
@@ -396,7 +413,7 @@ class AppDelegate: NSObject,
             // if we need to show the sheet by the checking the prefs
             if let defaults = UserDefaults(suiteName: self.appSuiteName) {
                 // Get the version-specific preference key
-                let key: String = "com-bps-previewyaml-do-show-whats-new-" + getVersion()
+                let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
                 doShowSheet = defaults.bool(forKey: key)
             }
         }
@@ -442,7 +459,7 @@ class AppDelegate: NSObject,
 
         // Set this version's preference
         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-            let key: String = "com-bps-previewyaml-do-show-whats-new-" + getVersion()
+            let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
             defaults.setValue(false, forKey: key)
 
             #if DEBUG
@@ -562,50 +579,40 @@ class AppDelegate: NSObject,
             // Check if each preference value exists -- set if it doesn't
             // Preview body font size, stored as a CGFloat
             // Default: 16.0
-            let bodyFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-base-font-size")
-            if bodyFontSizeDefault == nil {
+            let previewFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-base-font-size")
+            if previewFontSizeDefault == nil {
                 defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE),
-                                  forKey: "com-bps-previewyaml-base-font-size")
+                                  forKey: "com-bps-previewcode-base-font-size")
             }
 
             // Thumbnail view base font size, stored as a CGFloat, not currently used
             // Default: 32.0
-            let thumbFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-thumb-font-size")
+            let thumbFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-thumb-font-size")
             if thumbFontSizeDefault == nil {
                 defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE),
-                                  forKey: "com-bps-previewyaml-thumb-font-size")
+                                  forKey: "com-bps-previewcode-thumb-font-size")
             }
 
-            // Colour of code blocks in the preview, stored as in integer array index
-            // Default: 0 (purple)
-            let codeColourDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-code-colour-index")
-            if codeColourDefault == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.CODE_COLOUR_INDEX,
-                                  forKey: "com-bps-previewyaml-code-colour-index")
+            // Font for previews and thumbnails
+            // Default: Courier
+            let codeFontName: Any? = defaults.object(forKey: "com-bps-previewcode-base-font-name")
+            if codeFontName == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_FONT,
+                                  forKey: "com-bps-previewcode-base-font-name")
             }
-
-            // Font for code blocks in the preview, stored as in integer array index
-            // Default: 0 (Andale Mono)
-            let codeFontDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-code-font-index")
-            if codeFontDefault == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.CODE_FONT_INDEX,
-                                  forKey: "com-bps-previewyaml-code-font-index")
+            
+            // Theme for previews
+            let themeName: Any? = defaults.object(forKey: "com-bps-previewcode-theme-name")
+            if themeName == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME, forKey: "com-bps-previewcode-theme-name")
             }
 
             // Use light background even in dark mode, stored as a bool
             // Default: false
-            let useLightDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-do-use-light")
+            let useLightDefault: Any? = defaults.object(forKey: "com-bps-previewcode-do-use-light")
             if useLightDefault == nil {
                 defaults.setValue(false,
-                                  forKey: "com-bps-previewyaml-do-use-light")
-            }
-
-            // Show the file identity ('tag') on Finder thumbnails
-            // Default: true
-            let showTagDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-do-show-tag")
-            if showTagDefault == nil {
-                defaults.setValue(true,
-                                  forKey: "com-bps-previewyaml-do-show-tag")
+                                  forKey: "com-bps-previewcode-do-use-light")
             }
 
             // Show the What's New sheet
@@ -614,36 +621,12 @@ class AppDelegate: NSObject,
             // this will persist, but with each new major and/or minor version, we make a
             // new preference that will be read by 'doShowWhatsNew()' to see if the sheet
             // should be shown this run
-            let key: String = "com-bps-previewyaml-do-show-whats-new-" + getVersion()
+            let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
             let showNewDefault: Any? = defaults.object(forKey: key)
             if showNewDefault == nil {
                 defaults.setValue(true, forKey: key)
             }
             
-            // Record the preferred indent depth in spaces
-            // Default: 2
-            let indentDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-yaml-indent")
-            if indentDefault == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.YAML_INDENT,
-                                  forKey: "com-bps-previewyaml-yaml-indent")
-            }
-            
-            // Indent scalar values?
-            // Default: false
-            let indentScalarsDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-do-indent-scalars")
-            if indentScalarsDefault == nil {
-                defaults.setValue(false,
-                                  forKey: "com-bps-previewyaml-do-indent-scalars")
-            }
-            
-            // Present malformed YAML on error?
-            // Default: false
-            let presentBadYamlDefault: Any? = defaults.object(forKey: "com-bps-previewyaml-show-bad-yaml")
-            if presentBadYamlDefault == nil {
-                defaults.setValue(false,
-                                  forKey: "com-bps-previewyaml-show-bad-yaml")
-            }
-
             // Sync any additions
             defaults.synchronize()
         }
@@ -651,31 +634,6 @@ class AppDelegate: NSObject,
     }
     
     
-    func getLocalYamlUTI() -> String {
-        
-        // This is not PII. It used solely for debugging purposes
-        
-        var localYamlUTI: String = "NONE"
-        let samplePath = Bundle.main.resourcePath! + "/sample.yml"
-        
-        if FileManager.default.fileExists(atPath: samplePath) {
-            // Create a URL reference to the sample file
-            let sampleURL = URL.init(fileURLWithPath: samplePath)
-            
-            do {
-                // Read back the UTI from the URL
-                if let uti = try sampleURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
-                    localYamlUTI = uti
-                }
-            } catch {
-                // NOP
-            }
-        }
-        
-        return localYamlUTI
-    }
-
-
     func getVersion() -> String {
 
         // Build a basic 'major.manor' version string for prefs usage
@@ -711,8 +669,30 @@ class AppDelegate: NSObject,
         return "\(app)/\(version)-\(build) (Mac macOS \(sysVer.majorVersion).\(sysVer.minorVersion).\(sysVer.patchVersion))"
     }
 
+    
+    // MARK: - NSTableView Data Source / Delegate Functions
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+
+        // Just return the number of themes available
+        return self.themes.count
+    }
 
 
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+
+        let themeName: String = self.themes[row]
+        let cell: ThemeTableCellView? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? ThemeTableCellView
+        
+        if cell != nil {
+            // Configure the cell's title and its three buttons
+            // NOTE 'buttonA' is the right-most button
+            cell!.themePreviewTitle.stringValue = themeName.replacingOccurrences(of: "-", with: " ").capitalized
+            cell!.themePreviewImage.image = NSImage.init(named: themeName)
+        }
+
+        return cell
+    }
 
 }
 
