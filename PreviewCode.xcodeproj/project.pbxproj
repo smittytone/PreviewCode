@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B3271B02665261000FED580 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3271AF2665261000FED580 /* Highlightr */; };
+		3B3271B226657F4600FED580 /* themes-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3271B126657F4600FED580 /* themes-list.json */; };
 		3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B52D6492664B98D0001D160 /* themes-list.txt */; };
 		3BFBEC382663FDD400B4E70C /* new in Resources */ = {isa = PBXBuildFile; fileRef = 3BFBEC372663FDD400B4E70C /* new */; };
 		3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B3271B126657F4600FED580 /* themes-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "themes-list.json"; sourceTree = "<group>"; };
 		3B52D6492664B98D0001D160 /* themes-list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "themes-list.txt"; sourceTree = "<group>"; };
 		3BFBEC372663FDD400B4E70C /* new */ = {isa = PBXFileReference; lastKnownFileType = folder; name = new; path = ../../../OneDrive/Programming/PreviewCode/new; sourceTree = "<group>"; };
 		3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableCellView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				3BFD781E2663E16E002AD588 /* Info.plist */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
 				3B52D6492664B98D0001D160 /* themes-list.txt */,
+				3B3271B126657F4600FED580 /* themes-list.json */,
 				3BFBEC372663FDD400B4E70C /* new */,
 				3BFD78192663E16E002AD588 /* Assets.xcassets */,
 			);
@@ -338,6 +341,7 @@
 			files = (
 				3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */,
 				3BFBEC382663FDD400B4E70C /* new in Resources */,
+				3B3271B226657F4600FED580 /* themes-list.json in Resources */,
 				3BFD781A2663E16E002AD588 /* Assets.xcassets in Resources */,
 				3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */,
 			);
