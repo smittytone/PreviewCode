@@ -46,6 +46,7 @@ class AppDelegate: NSObject,
     @IBOutlet var fontSizeLabel: NSTextField!
     @IBOutlet var themeTable: NSTableView!
     @IBOutlet var fontNamesPopup: NSPopUpButton!
+    @IBOutlet var themePreviewImageView: NSImageView!
 
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
@@ -328,7 +329,9 @@ class AppDelegate: NSObject,
         if let themeFileString: String = String.init(data: data, encoding: .utf8) {
             let themes: [String] = themeFileString.components(separatedBy: "\n")
             for theme in themes {
-                self.themes.append(theme)
+                if theme.count > 0 {
+                    self.themes.append(theme)
+                }
             }
         }
         
@@ -692,6 +695,16 @@ class AppDelegate: NSObject,
         }
 
         return cell
+    }
+    
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        
+        let row: Int = self.themeTable.selectedRow
+        if row != -1 {
+            let themeName: String = self.themes[row]
+            self.themePreviewImageView.image = NSImage.init(named: themeName)
+        }
     }
 
 }

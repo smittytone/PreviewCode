@@ -45,7 +45,10 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
     
     // If the rendered string is good, return it
     if let rs: NSAttributedString = renderedString {
-        return rs
+        // Trap any incorrectly parsed language names
+        if (rs.string != "undefined") {
+            return rs
+        }
     }
     
     // Return an error message
@@ -97,11 +100,36 @@ func getLanguage(_ sourceFilePath: String) -> String {
     
     var sourceLanguage: String = "public.swift-source"
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
+    
+    // Trap non-standard UTIs
+    if sourceFileUTI == "com.apple.applescript.text" || sourceFileUTI == "com.apple.applescript.script" {
+        return "applescript"
+    }
+    
+    if sourceFileUTI == "public.script" {
+        return "bash"
+    }
+    
     let parts = sourceFileUTI.components(separatedBy: ".")
     if parts.count > 0 {
-        if let endIndex = parts[1].range(of: "-source")?.lowerBound {
-            sourceLanguage = String(parts[1][..<endIndex])
+        let index: Int = parts.count - 1
+        var endIndex: Range<String.Index>? = parts[index].range(of: "-source")
+        if endIndex == nil { endIndex = parts[index].range(of: "-header") }
+        if endIndex == nil { endIndex = parts[index].range(of: "-script") }
+        
+        if let anEndIndex = endIndex {
+            sourceLanguage = String(parts[index][..<anEndIndex.lowerBound])
         }
+    }
+    
+    // Address those languages that are referenced slightly differently
+    // in highlight.js, eg. 'objective-c' -> 'objectivec'
+    if sourceLanguage == "objective-c" || sourceLanguage == "objective-c-plus-plus" {
+        sourceLanguage = "objectivec"
+    }
+    
+    if sourceLanguage == "shell" {
+        sourceLanguage = "bash"
     }
     
     return sourceLanguage
