@@ -332,13 +332,13 @@ class AppDelegate: NSObject,
             }
         }
         
-        // Set the theme selection
-        for i: Int in 0..<self.themes.count {
-            if self.themes[i] == self.previewThemeName {
-                self.selectedThemeIndex = i
-                break
-            }
-        }
+         // Set the theme selection
+         for i: Int in 0..<self.themes.count {
+             if self.themes[i] == self.previewThemeName {
+                 self.selectedThemeIndex = i
+                 break
+             }
+         }
     }
     
     
