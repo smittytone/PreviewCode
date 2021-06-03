@@ -129,17 +129,25 @@ func getLanguage(_ sourceFilePath: String) -> String {
     // Address those languages that are referenced slightly differently
     // in highlight.js, eg. 'objective-c' -> 'objectivec'
     if sourceLanguage == "objective-c" || sourceLanguage == "objective-c-plus-plus" {
-        sourceLanguage = "objectivec"
+        return "objectivec"
     }
     
     if sourceLanguage == "shell" || sourceLanguage == "zsh" ||
         sourceLanguage == "csh" || sourceLanguage == "tcsh" ||
         sourceLanguage == "ksh" {
-        sourceLanguage = "bash"
+        return "bash"
     }
     
     if sourceLanguage == "toml" {
-        sourceLanguage = "ini"
+        return "ini"
+    }
+    
+    if sourceLanguage == "pascal" {
+        return "delphi"
+    }
+    
+    if sourceLanguage == "assembly" {
+        return "armasm"
     }
     
     return sourceLanguage
