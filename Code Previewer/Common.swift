@@ -22,7 +22,7 @@ private var backgroundColour: NSColor = NSColor.black
 private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 
 private var errAtts: [NSAttributedString.Key: Any] = [
-    .foregroundColor: NSColor.purple,
+    .foregroundColor: NSColor.red,
     .font: fontBase
 ]
 
@@ -78,6 +78,11 @@ func setBaseValues(_ isThumbnail: Bool) {
         fontSize = CGFloat(isThumbnail ? BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE : BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
     }
 
+    // Set a specific theme for thumbnails
+    if isThumbnail {
+        codeTheme = "xcode"
+    }
+
     // Set the font and its sizes
     if let chosenFont: NSFont = NSFont.init(name: fontName, size: fontSize) {
         fontBase = chosenFont
@@ -85,9 +90,9 @@ func setBaseValues(_ isThumbnail: Bool) {
         fontBase = NSFont.systemFont(ofSize: fontSize)
     }
     
-    // Update the display data
+    // Set the error format to the font chosen by the user
     errAtts = [
-        .foregroundColor: NSColor.purple,
+        .foregroundColor: NSColor.red,
         .font: fontBase
     ]
 }
@@ -101,8 +106,8 @@ func getLanguage(_ sourceFilePath: String) -> String {
     var sourceLanguage: String = "public.swift-source"
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
     
-    // Trap non-standard UTIs
-    if sourceFileUTI == "com.apple.applescript.text" || sourceFileUTI == "com.apple.applescript.script" {
+    // Trap 'non-standard' UTIs
+    if sourceFileUTI.hasPrefix("com.apple.applescript") {
         return "applescript"
     }
     
