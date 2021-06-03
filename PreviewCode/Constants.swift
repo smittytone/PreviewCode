@@ -53,4 +53,6 @@ struct BUFFOON_CONSTANTS {
     static let DEFAULT_FONT                 = "Courier"
     
     static let SUITE_NAME                   = ".suite.preview-code"
+    static let APP_STORE                    = ""
+    
 }

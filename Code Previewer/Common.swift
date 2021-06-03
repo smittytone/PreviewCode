@@ -58,6 +58,24 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 
 // MARK: Formatting Functions
 
+func setPreviewValues(_ theme: String) {
+    
+    // Set base values for the theme previews in the Preferences pane
+    // Only called by AppDelegate
+    
+    fontSize = 7.0
+    fontName = "menlo"
+    codeTheme = theme
+    
+    // Set the font and its sizes
+    if let font: NSFont = NSFont.init(name: fontName, size: fontSize) {
+        fontBase = font
+    } else {
+        fontBase = NSFont.systemFont(ofSize: fontSize)
+    }
+}
+
+
 func setBaseValues(_ isThumbnail: Bool) {
 
     // Set common base style values for the source code render

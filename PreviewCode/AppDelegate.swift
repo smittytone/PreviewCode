@@ -9,6 +9,7 @@
 import Cocoa
 import CoreServices
 import WebKit
+import Highlightr
 
 
 @main
@@ -18,14 +19,16 @@ class AppDelegate: NSObject,
                    URLSessionDataDelegate,
                    WKNavigationDelegate,
                    NSTableViewDelegate,
-                   NSTableViewDataSource {
+                   NSTableViewDataSource,
+                   NSTextViewDelegate {
 
     // MARK:- Class UI Properies
     // Menu Items
     @IBOutlet var helpMenuPreviewCode: NSMenuItem!
     @IBOutlet var helpMenuAcknowledgments: NSMenuItem!
     @IBOutlet var helpAppStoreRating: NSMenuItem!
-    @IBOutlet var helpMenuHighlighter: NSMenuItem!
+    @IBOutlet var helpMenuHighlightr: NSMenuItem!
+    @IBOutlet var helpMenuHighlightjs: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
     
@@ -63,6 +66,7 @@ class AppDelegate: NSObject,
     private var previewThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private var selectedThemeIndex: Int = 37
     private var themes: [String] = []
+    private var sampleCodeString: String = ""
     
     
     // MARK:- Class Lifecycle Functions
@@ -123,13 +127,17 @@ class AppDelegate: NSObject,
         
         // Depending on the menu selected, set the load path
         if item == self.helpAppStoreRating {
-            path = PVC_SECRETS.APP_STORE
+            path = BUFFOON_CONSTANTS.APP_STORE
         } else if item == self.helpMenuPreviewCode {
             path += "#how-to-use-previewcode"
         } else if item == self.helpMenuOthersPreviewMarkdown {
             path = "https://smittytone.net/previewmarkdown/index.html"
         } else if item == self.helpMenuOthersPreviewYaml {
             path = "https://smittytone.net/previewyaml/index.html"
+        } else if item == self.helpMenuHighlightr {
+            path = "https://github.com/raspu/Highlightr"
+        } else if item == self.helpMenuHighlightjs {
+            path = "https://github.com/highlightjs/highlight.js"
         }
         
         // Open the selected website
@@ -305,6 +313,10 @@ class AppDelegate: NSObject,
             }
         }
         
+        let path: String? = Bundle.main.path(forResource: "sample", ofType: "txt")
+        let sampleURL: URL = URL.init(fileURLWithPath: path!)
+        self.sampleCodeString = try! String.init(contentsOf: sampleURL)
+        
         // Set the themes table
         if self.themes.count == 0 {
             // Prep. the list of themes
@@ -315,6 +327,7 @@ class AppDelegate: NSObject,
         self.themeTable.reloadData()
         let idx: IndexSet = IndexSet.init(integer: self.selectedThemeIndex)
         self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+        self.themeTable.scrollRowToVisible(self.selectedThemeIndex)
         
         // Display the sheet
         self.window.beginSheet(self.preferencesWindow, completionHandler: nil)
@@ -684,27 +697,47 @@ class AppDelegate: NSObject,
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
-        let themeName: String = self.themes[row]
         let cell: ThemeTableCellView? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? ThemeTableCellView
         
         if cell != nil {
-            // Configure the cell's title and its three buttons
-            // NOTE 'buttonA' is the right-most button
+            // Configure the cell's title and its theme preview
+            let themeName: String = self.themes[row]
             cell!.themePreviewTitle.stringValue = themeName.replacingOccurrences(of: "-", with: " ").capitalized
-            cell!.themePreviewImage.image = NSImage.init(named: themeName)
+            cell!.rowValue = row
+            
+            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 3, 256, 155))
+            ptv.isEditable = false
+            setPreviewValues(themeName)
+            if let renderTextStorage: NSTextStorage = ptv.textStorage {
+                renderTextStorage.beginEditing()
+                renderTextStorage.setAttributedString(getAttributedString(self.sampleCodeString, "swift", false))
+                renderTextStorage.endEditing()
+                ptv.backgroundColor = getBackgroundColour()
+            }
+            
+            cell!.addSubview(ptv)
+            
+            // IMPORTANT Don't set the delegate until the PreviewTextView has
+            //           been added to the superview
+            ptv.delegate = self
         }
 
         return cell
     }
     
     
-    func tableViewSelectionDidChange(_ notification: Notification) {
+    // NSTextView Delegate Methods
+    
+    func textViewDidChangeSelection(_ notification: Notification) {
         
-        let row: Int = self.themeTable.selectedRow
-        if row != -1 {
-            let themeName: String = self.themes[row]
-            self.themePreviewImageView.image = NSImage.init(named: themeName)
-        }
+        // Get the clicked NSTextView and use it to determine the parent
+        // ThemeTableCellView, from which we get the table row that
+        // we need to select
+        
+        let clickedView: PreviewTextView = notification.object as! PreviewTextView
+        let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
+        let idx: IndexSet = IndexSet.init(integer: parentView.rowValue)
+        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
     }
 
 }

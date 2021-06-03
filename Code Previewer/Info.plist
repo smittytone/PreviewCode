@@ -65,7 +65,7 @@
 				<string>com.bps.sql-source</string>
 				<string>com.bps.toml-source</string>
 				<string>com.bps.arduino-source</string>
-				<string>com.bps.latext-source</string>
+				<string>com.bps.latex-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>

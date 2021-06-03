@@ -14,7 +14,12 @@ class ThemeTableCellView: NSTableCellView {
 
     // MARK: - Outlets
     
-    @IBOutlet var themePreviewImage: NSImageView!
     @IBOutlet var themePreviewTitle: NSTextField!
+    
+    
+    // MARK: - Public Properties
+    
+    // Record the table row the cell view is placed at
+    var rowValue: Int = -1
     
 }
