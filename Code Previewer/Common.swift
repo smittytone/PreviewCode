@@ -132,8 +132,14 @@ func getLanguage(_ sourceFilePath: String) -> String {
         sourceLanguage = "objectivec"
     }
     
-    if sourceLanguage == "shell" || sourceLanguage == "zsh" {
+    if sourceLanguage == "shell" || sourceLanguage == "zsh" ||
+        sourceLanguage == "csh" || sourceLanguage == "tcsh" ||
+        sourceLanguage == "ksh" {
         sourceLanguage = "bash"
+    }
+    
+    if sourceLanguage == "toml" {
+        sourceLanguage = "ini"
     }
     
     return sourceLanguage

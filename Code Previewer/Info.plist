@@ -36,12 +36,18 @@
 				<string>public.c-plus-plus-header</string>
 				<string>public.objective-c-source</string>
 				<string>public.objective-c-plus-plus-source</string>
+				<string>public.fortran-source</string>
+				<string>public.pascal-source</string>
+				<string>public.protobuf-source</string>
 				<string>com.netscape.javascript-source</string>
 				<string>public.ruby-script</string>
 				<string>public.perl-script</string>
 				<string>public.php-script</string>
 				<string>public.shell-script</string>
 				<string>public.zsh-script</string>
+				<string>public.csh-script</string>
+				<string>public.ksh-script</string>
+				<string>public.tcsh-script</string>
 				<string>public.css</string>
 				<string>public.ada-source</string>
 				<string>com.apple.applescript.text</string>
