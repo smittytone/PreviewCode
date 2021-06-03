@@ -41,8 +41,21 @@
 				<string>public.perl-script</string>
 				<string>public.php-script</string>
 				<string>public.shell-script</string>
+				<string>public.zsh-script</string>
+				<string>public.css</string>
 				<string>com.apple.applescript.text</string>
 				<string>com.apple.applescript.script</string>
+				<string>com.sun.java-source</string>
+				<string>com.bps.rust-source</string>
+				<string>com.bps.go-source</string>
+				<string>com.bps.coffee-source</string>
+				<string>com.bps.typescript-source</string>
+				<string>com.bps.lua-source</string>
+				<string>com.bps.csharp-source</string>
+				<string>com.bps.vbscript-source</string>
+				<string>com.bps.scss-source</string>
+				<string>com.bps.toml-source</string>
+				<string>com.bps.arduino-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>

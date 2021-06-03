@@ -110,6 +110,10 @@ func getLanguage(_ sourceFilePath: String) -> String {
         return "bash"
     }
     
+    if sourceFileUTI == "public.css" {
+        return "css"
+    }
+    
     let parts = sourceFileUTI.components(separatedBy: ".")
     if parts.count > 0 {
         let index: Int = parts.count - 1
@@ -128,7 +132,7 @@ func getLanguage(_ sourceFilePath: String) -> String {
         sourceLanguage = "objectivec"
     }
     
-    if sourceLanguage == "shell" {
+    if sourceLanguage == "shell" || sourceLanguage == "zsh" {
         sourceLanguage = "bash"
     }
     
