@@ -44,6 +44,7 @@
 				<string>public.zsh-script</string>
 				<string>public.css</string>
 				<string>com.apple.applescript.text</string>
+				<string>com.bps.latex-source</string>
 				<string>com.apple.applescript.script</string>
 				<string>com.sun.java-source</string>
 				<string>com.bps.rust-source</string>
@@ -54,8 +55,10 @@
 				<string>com.bps.csharp-source</string>
 				<string>com.bps.vbscript-source</string>
 				<string>com.bps.scss-source</string>
+				<string>com.bps.sql-source</string>
 				<string>com.bps.toml-source</string>
 				<string>com.bps.arduino-source</string>
+				<string>com.bps.ada-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>
