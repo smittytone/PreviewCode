@@ -243,7 +243,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFK-cW-IUJ">
-                        <rect key="frame" x="18" y="184" width="574" height="32"/>
+                        <rect key="frame" x="18" y="192" width="574" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="9u4-lb-rT7"/>
                         </constraints>
@@ -255,12 +255,12 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wao-aS-JHP">
-                        <rect key="frame" x="278" y="13" width="54" height="32"/>
+                        <rect key="frame" x="275" y="13" width="60" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="tXC-aP-yHR"/>
                             <constraint firstAttribute="height" constant="20" id="udA-Sg-EmE"/>
                         </constraints>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WzE-6l-rP0">
+                        <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WzE-6l-rP0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -318,6 +318,20 @@ DQ
                             <action selector="doShowReportWindowWithSender:" target="Voe-Tx-rLC" id="1AA-t5-tea"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YVT-Hp-N8B">
+                        <rect key="frame" x="209" y="127" width="192" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="0F9-l3-TqI"/>
+                            <constraint firstAttribute="width" constant="178" id="3y3-MQ-Jwm"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Show Preview Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="10f-FE-x64">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="doShowPreferencesWithSender:" target="Voe-Tx-rLC" id="xMM-Kd-Rpq"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="uyh-RX-zrN" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="5QO-ky-9VZ"/>
@@ -329,6 +343,7 @@ DQ
                     <constraint firstAttribute="trailing" secondItem="9WJ-du-sIm" secondAttribute="trailing" constant="20" symbolic="YES" id="CCa-jv-ifJ"/>
                     <constraint firstItem="9WJ-du-sIm" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="K2x-62-W9Z"/>
                     <constraint firstItem="Pfk-9U-7X4" firstAttribute="top" secondItem="PVG-26-lfC" secondAttribute="bottom" constant="8" symbolic="YES" id="KXB-l8-mXf"/>
+                    <constraint firstItem="wsQ-ot-4qZ" firstAttribute="top" secondItem="YVT-Hp-N8B" secondAttribute="bottom" constant="12" symbolic="YES" id="KbB-6u-QPI"/>
                     <constraint firstAttribute="trailing" secondItem="PVG-26-lfC" secondAttribute="trailing" constant="20" symbolic="YES" id="SKq-qL-lhJ"/>
                     <constraint firstAttribute="trailing" secondItem="gnK-6R-XxR" secondAttribute="trailing" constant="20" symbolic="YES" id="ULF-LD-pLR"/>
                     <constraint firstItem="uyh-RX-zrN" firstAttribute="top" secondItem="Pfk-9U-7X4" secondAttribute="bottom" constant="8" symbolic="YES" id="Ywz-nr-D0p"/>
@@ -337,7 +352,8 @@ DQ
                     <constraint firstItem="PVG-26-lfC" firstAttribute="top" secondItem="gnK-6R-XxR" secondAttribute="bottom" constant="8" symbolic="YES" id="ere-CP-qtf"/>
                     <constraint firstItem="9WJ-du-sIm" firstAttribute="top" secondItem="wsQ-ot-4qZ" secondAttribute="bottom" constant="20" symbolic="YES" id="fBE-HT-VW2"/>
                     <constraint firstItem="wsQ-ot-4qZ" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="fuJ-zu-07p"/>
-                    <constraint firstItem="oFK-cW-IUJ" firstAttribute="top" secondItem="uyh-RX-zrN" secondAttribute="bottom" constant="16" id="nep-Ow-J5L"/>
+                    <constraint firstItem="YVT-Hp-N8B" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="geZ-9Q-Tuf"/>
+                    <constraint firstItem="oFK-cW-IUJ" firstAttribute="top" secondItem="uyh-RX-zrN" secondAttribute="bottom" constant="8" id="nep-Ow-J5L"/>
                     <constraint firstItem="PVG-26-lfC" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="oID-4O-gxK"/>
                     <constraint firstAttribute="bottom" secondItem="wao-aS-JHP" secondAttribute="bottom" constant="20" symbolic="YES" id="ovh-ru-ATY"/>
                     <constraint firstItem="oFK-cW-IUJ" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="rI1-6K-lsq"/>
@@ -359,6 +375,9 @@ DQ
             <view key="contentView" id="sR8-0k-h5k">
                 <rect key="frame" x="0.0" y="0.0" width="560" height="388"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <userGuides>
+                    <userLayoutGuide location="280" affinity="minX"/>
+                </userGuides>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6NP-d0-Kh9">
                         <rect key="frame" x="18" y="352" width="524" height="16"/>
@@ -469,7 +488,7 @@ DQ
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn editable="NO" width="506" maxWidth="518" id="PmI-9Z-ArN">
+                                        <tableColumn editable="NO" width="474" maxWidth="518" id="PmI-9Z-ArN">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -482,11 +501,11 @@ DQ
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="previewcode-theme-cell" id="9VX-DW-m69" customClass="ThemeTableCellView" customModule="PreviewCode" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="502" height="161"/>
+                                                    <rect key="frame" x="10" y="0.0" width="486" height="161"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iz-Ro-waZ">
-                                                            <rect key="frame" x="267" y="73" width="234" height="16"/>
+                                                            <rect key="frame" x="267" y="73" width="227" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="vcJ-OR-hx8">
                                                                 <font key="font" usesAppearanceFont="YES"/>
