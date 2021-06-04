@@ -137,17 +137,16 @@ class ThumbnailProvider: QLThumbnailProvider {
         // Set the paragraph style we'll use -- just centred text
         let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
         style.alignment = .center
+        style.lineBreakMode = .byTruncatingMiddle
         
-        var fontSize: CGFloat = 70
-        
-        for i: Int in stride(from: 70, to: 340, by: 10) {
-            let font: NSFont = NSFont.systemFont(ofSize: CGFloat(i))
-            let fontAttributes: [NSAttributedString.Key: Any] = [.font: font]
-            let size: NSSize = (tag as NSString).size(withAttributes: fontAttributes)
-            if size.width > width {
-                break
-            } else {
-                fontSize = CGFloat(i)
+        // Set the point size
+        var fontSize: CGFloat = 146
+        let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
+        if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
+            let ratio: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH - 20) / renderSize.width
+            fontSize *= ratio;
+            if fontSize < 118 {
+                fontSize = 118
             }
         }
         
@@ -156,11 +155,12 @@ class ThumbnailProvider: QLThumbnailProvider {
             .paragraphStyle: style as NSParagraphStyle,
             .font: NSFont.systemFont(ofSize: fontSize),
             .foregroundColor: (width < 128
-                                ? NSColor.init(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
-                                : NSColor.init(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0))
+                                ? NSColor.init(red: 0.3, green: 0.0, blue: 0.0, alpha: 1.0)
+                                : NSColor.init(red: 0.4, green: 0.0, blue: 0.0, alpha: 1.0))
         ]
 
         // Return the attributed string built from the tag
-        return NSAttributedString.init(string: tag, attributes: tagAtts)
+        return NSAttributedString.init(string: tag,
+                                       attributes: tagAtts)
     }
 }

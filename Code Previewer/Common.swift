@@ -92,7 +92,7 @@ func setBaseValues(_ isThumbnail: Bool) {
 
     // Choose a specific theme for thumbnails
     if isThumbnail {
-        setPreviewValues("light.xcode")
+        setPreviewValues("light.atom-one-light")
         fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE)
     }
 
