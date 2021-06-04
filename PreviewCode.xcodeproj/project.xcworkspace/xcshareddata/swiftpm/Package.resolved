@@ -5,9 +5,9 @@
         "package": "Highlightr",
         "repositoryURL": "https://github.com/smittytone/Highlightr.git",
         "state": {
-          "branch": null,
-          "revision": "93199b9e434f04bda956a613af8f571933f9f037",
-          "version": "2.1.2"
+          "branch": "master",
+          "revision": "2d2237a66e677bf6c99101a24c5eda4e65765e3a",
+          "version": null
         }
       }
     ]
