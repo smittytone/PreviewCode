@@ -7,39 +7,38 @@
  *  Copyright © 2021 Tony Smith. All rights reserved.
  */
 
-import Foundation
-import Highlightr
-import AppKit
 
+import Foundation
+import AppKit
+import Highlightr
 
 
 // Use defaults for some user-selectable values
 private var codeTheme: String = BUFFOON_CONSTANTS.DEFAULT_THEME
-private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
 private var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-private var fontBase: NSFont = NSFont.systemFont(ofSize: fontSize)
+private var fontBase: NSFont = NSFont.init(name: fontName, size: fontSize)!
 private var backgroundColour: NSColor = NSColor.black
 private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
-
 private var errAtts: [NSAttributedString.Key: Any] = [
     .foregroundColor: NSColor.red,
     .font: fontBase
 ]
 
 
-// MARK: Primary Function
+
+// MARK:- Primary Function
 
 func getAttributedString(_ codeFileString: String, _ language: String, _ isThumbnail: Bool) -> NSAttributedString {
 
     // Use Highlightr to render the input source file as an NSAttributedString, which is returned.
-
-    // Parse the code file
-    var renderedString: NSAttributedString? = nil
     
+    // Run the specified code string through Highlightr/Highlight.js
+    var renderedString: NSAttributedString? = nil
     if let highlightr: Highlightr = Highlightr.init() {
         highlightr.setTheme(to: codeTheme)
-        backgroundColour = highlightr.theme.themeBackgroundColor
         highlightr.theme.setCodeFont(fontBase)
+        backgroundColour = highlightr.theme.themeBackgroundColor
         renderedString = highlightr.highlight(codeFileString, as: language)
     }
     
@@ -56,30 +55,21 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 }
 
 
-// MARK: Formatting Functions
+// MARK:- Formatting Functions
 
 func setPreviewValues(_ theme: String) {
     
     // Set base values for the theme previews in the Preferences pane
     // Only called by AppDelegate
-    
-    fontSize = 7.0
-    fontName = "menlo"
     codeTheme = theme
-    
-    // Set the font and its sizes
-    if let font: NSFont = NSFont.init(name: fontName, size: fontSize) {
-        fontBase = font
-    } else {
-        fontBase = NSFont.systemFont(ofSize: fontSize)
-    }
 }
 
 
 func setBaseValues(_ isThumbnail: Bool) {
 
     // Set common base style values for the source code render
-    // NOTE This should now be called only ONCE, before the code is rendered
+    // NOTE This should now be called only ONCE, before the code is rendered,
+    //      and only by the previwer
 
     // The suite name is the app group name, set in each extension's entitlements, and the host app's
     if let defaults = UserDefaults(suiteName: appSuiteName) {
@@ -92,11 +82,12 @@ func setBaseValues(_ isThumbnail: Bool) {
     }
 
     // Just in case the above block reads in zero values
-    if fontSize < 1.0 || fontSize > 28.0 {
+    if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
+        fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
         fontSize = CGFloat(isThumbnail ? BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE : BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
     }
 
-    // Set a specific theme for thumbnails
+    // Choose a specific theme for thumbnails
     if isThumbnail {
         codeTheme = "xcode"
     }
@@ -116,12 +107,29 @@ func setBaseValues(_ isThumbnail: Bool) {
 }
 
 
+func getStyle() -> String {
+    
+    // Simple getter
+    
+    return codeTheme
+}
+
+
+func getBackgroundColour() -> NSColor {
+    
+    // Simple getter
+    
+    return backgroundColour
+}
+
+
+// MARK: - Utility Functions
+
 func getLanguage(_ sourceFilePath: String) -> String {
     
     // Determine the source file's language, and return
     // it as a string, eg. 'public.swift-source' -> 'swift'
     
-    var sourceLanguage: String = "public.swift-source"
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
     
     // Trap 'non-standard' UTIs
@@ -137,6 +145,7 @@ func getLanguage(_ sourceFilePath: String) -> String {
         return "css"
     }
     
+    var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE
     let parts = sourceFileUTI.components(separatedBy: ".")
     if parts.count > 0 {
         let index: Int = parts.count - 1
@@ -150,7 +159,9 @@ func getLanguage(_ sourceFilePath: String) -> String {
     }
     
     // Address those languages that are referenced slightly differently
-    // in highlight.js, eg. 'objective-c' -> 'objectivec'
+    // in highlight.js, eg. 'objective-c' -> 'objectivec'; are accessed
+    // as aliases, eg. 'pascal' -> 'delphi'; or all use the same language,
+    // eg. all shells -> 'bash'
     if sourceLanguage == "objective-c" || sourceLanguage == "objective-c-plus-plus" {
         return "objectivec"
     }
@@ -169,6 +180,7 @@ func getLanguage(_ sourceFilePath: String) -> String {
         return "delphi"
     }
     
+    // TODO need some way of identifying arm64 vs x86-64
     if sourceLanguage == "assembly" {
         return "armasm"
     }
@@ -201,22 +213,6 @@ func getSourceFileUTI(_ sourceFilePath: String) -> String {
     }
     
     return sourceFileUTI
-}
-
-
-func getStyle() -> String {
-    
-    // Simple getter
-    
-    return codeTheme
-}
-
-
-func getBackgroundColour() -> NSColor {
-    
-    // Simple getter
-    
-    return backgroundColour
 }
 
 

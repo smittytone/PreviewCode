@@ -43,14 +43,13 @@ struct BUFFOON_CONSTANTS {
 
     static let BASE_PREVIEW_FONT_SIZE       = 16.0
     static let BASE_THUMB_FONT_SIZE         = 32.0
-
-    static let CODE_COLOUR_INDEX            = 0
-    static let CODE_FONT_INDEX              = 2     // Helvetica
+    static let THEME_PREVIEW_FONT_SIZE      = 7.0
 
     static let FONT_SIZE_OPTIONS: [CGFloat] = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
     
     static let DEFAULT_THEME                = "agate"
-    static let DEFAULT_FONT                 = "Courier"
+    static let DEFAULT_FONT                 = "menlo"
+    static let DEFAULT_LANGUAGE             = "swift-source"
     
     static let SUITE_NAME                   = ".suite.preview-code"
     static let APP_STORE                    = ""

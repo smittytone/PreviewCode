@@ -6,6 +6,7 @@
  *  Copyright © 2021 Tony Smith. All rights reserved.
  */
 
+
 import Cocoa
 import Quartz
 
@@ -13,11 +14,13 @@ import Quartz
 class PreviewViewController: NSViewController,
                              QLPreviewingController {
     
-    // MARK:- Class Properties
+    // MARK:- Class UI Properties
 
     @IBOutlet var renderTextView: NSTextView!
     @IBOutlet var renderTextScrollView: NSScrollView!
 
+    // MARK:- Public Properties
+    
     override var nibName: NSNib.Name? {
         return NSNib.Name("PreviewViewController")
     }
@@ -49,6 +52,8 @@ class PreviewViewController: NSViewController,
                     // Get data based on the previous line's action
                     let style: String = getStyle()
                     
+                    // Set text and scroll view attributes according to style
+                    // TODO Do a better job of checking whether theme is dark or light
                     self.renderTextView.backgroundColor = getBackgroundColour()
                     self.renderTextScrollView.scrollerKnobStyle = style.contains("dark") ? .dark : .light
 
