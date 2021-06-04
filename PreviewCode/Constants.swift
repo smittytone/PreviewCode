@@ -54,5 +54,5 @@ struct BUFFOON_CONSTANTS {
     
     static let SUITE_NAME                   = ".suite.preview-code"
     static let APP_STORE                    = ""
-    
+    static let MAIN_URL                     = "https://smittytone.net/previewcode/index.html"
 }

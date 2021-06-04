@@ -6,6 +6,7 @@
  *  Copyright © 2021 Tony Smith. All rights reserved.
  */
 
+
 import Cocoa
 import CoreServices
 import WebKit
@@ -49,7 +50,6 @@ class AppDelegate: NSObject,
     @IBOutlet var fontSizeLabel: NSTextField!
     @IBOutlet var themeTable: NSTableView!
     @IBOutlet var fontNamesPopup: NSPopUpButton!
-    @IBOutlet var themePreviewImageView: NSImageView!
 
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
@@ -61,7 +61,7 @@ class AppDelegate: NSObject,
     private var previewFontSize: CGFloat = 16.0
     private var doShowLightBackground: Bool = false
     private var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
-    
+    private var feedbackPath: String = MNU_SECRETS.ADDRESS.A
     private var previewFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
     private var previewThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private var selectedThemeIndex: Int = 37
@@ -109,7 +109,7 @@ class AppDelegate: NSObject,
 
     // MARK:- Action Functions
 
-    @IBAction func doClose(_ sender: Any) {
+    @IBAction private func doClose(_ sender: Any) {
         
         // Reset the QL thumbnail cache... just in case it helps
         _ = runProcess(app: "/usr/bin/qlmanage", with: ["-r", "cache"])
@@ -119,17 +119,19 @@ class AppDelegate: NSObject,
     }
     
     
-    @IBAction @objc func doShowSites(sender: Any) {
+    @IBAction @objc private func doShowSites(sender: Any) {
         
         // Open the websites for contributors, help and suc
         let item: NSMenuItem = sender as! NSMenuItem
-        var path: String = "https://smittytone.net/previewcode/index.html"
+        var path: String = BUFFOON_CONSTANTS.MAIN_URL
         
         // Depending on the menu selected, set the load path
-        if item == self.helpAppStoreRating {
-            path = BUFFOON_CONSTANTS.APP_STORE
-        } else if item == self.helpMenuPreviewCode {
+        if item == self.helpMenuPreviewCode {
             path += "#how-to-use-previewcode"
+        } else if item == self.helpMenuAcknowledgments {
+            path += "#acknowledgements"
+        } else if item == self.helpAppStoreRating {
+            path = BUFFOON_CONSTANTS.APP_STORE
         } else if item == self.helpMenuOthersPreviewMarkdown {
             path = "https://smittytone.net/previewmarkdown/index.html"
         } else if item == self.helpMenuOthersPreviewYaml {
@@ -145,7 +147,7 @@ class AppDelegate: NSObject,
     }
 
 
-    @IBAction func doOpenSysPrefs(sender: Any) {
+    @IBAction private func doOpenSysPrefs(sender: Any) {
 
         // Open the System Preferences app at the Extensions pane
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
@@ -154,7 +156,7 @@ class AppDelegate: NSObject,
 
     // MARK: Report Functions
     
-    @IBAction @objc func doShowReportWindow(sender: Any?) {
+    @IBAction @objc private func doShowReportWindow(sender: Any?) {
 
         // Display a window in which the user can submit feedback,
         // or report a bug
@@ -168,7 +170,7 @@ class AppDelegate: NSObject,
     }
 
 
-    @IBAction @objc func doCancelReportWindow(sender: Any) {
+    @IBAction @objc private func doCancelReportWindow(sender: Any) {
 
         // User has clicked the Report window's 'Cancel' button,
         // so just close the sheet
@@ -178,7 +180,7 @@ class AppDelegate: NSObject,
     }
 
 
-    @IBAction @objc func doSendFeedback(sender: Any) {
+    @IBAction @objc private func doSendFeedback(sender: Any) {
 
         // User has clicked the Report window's 'Send' button,
         // so get the message (if there is one) from the text field and submit it
@@ -209,12 +211,13 @@ class AppDelegate: NSObject,
     }
     
     
-    func submitFeedback(_ feedback: String) -> URLSessionTask? {
+    private func submitFeedback(_ feedback: String) -> URLSessionTask? {
         
         // Send the feedback string etc.
         
         // First get the data we need to build the user agent string
         let userAgent: String = getUserAgentForFeedback()
+        let endPoint: String = MNU_SECRETS.ADDRESS.B
         
         // Get the date as a string
         let dateString: String = getDateForFeedback()
@@ -235,7 +238,7 @@ class AppDelegate: NSObject,
         dict.setObject(true, forKey: NSString.init(string: "mrkdwn"))
         
         // Make and return the HTTPS request for sending
-        if let url: URL = URL.init(string: MNU_SECRETS.ADDRESS.A + MNU_SECRETS.ADDRESS.B) {
+        if let url: URL = URL.init(string: self.feedbackPath + endPoint) {
             var request: URLRequest = URLRequest.init(url: url)
             request.httpMethod = "POST"
 
@@ -262,7 +265,7 @@ class AppDelegate: NSObject,
 
     // MARK: Preferences Functions
     
-    @IBAction func doShowPreferences(sender: Any) {
+    @IBAction private func doShowPreferences(sender: Any) {
 
         // Display the 'Preferences' sheet
 
@@ -334,7 +337,7 @@ class AppDelegate: NSObject,
     }
 
 
-    func initThemes() {
+    private func initThemes() {
             
         // Load in the current theme list
         let themesFileURL: URL = URL.init(fileURLWithPath: Bundle.main.bundlePath + "/Contents/Resources/themes-list.txt")
@@ -358,7 +361,7 @@ class AppDelegate: NSObject,
     }
     
     
-    @IBAction func doMoveSlider(sender: Any) {
+    @IBAction private func doMoveSlider(sender: Any) {
         
         // When the slider is moved and released, this function updates
         // the font size readout
@@ -367,7 +370,7 @@ class AppDelegate: NSObject,
     }
 
 
-    @IBAction func doClosePreferences(sender: Any) {
+    @IBAction private func doClosePreferences(sender: Any) {
 
         // Close the 'Preferences' sheet
         
@@ -375,7 +378,7 @@ class AppDelegate: NSObject,
     }
 
 
-    @IBAction func doSavePreferences(sender: Any) {
+    @IBAction private func doSavePreferences(sender: Any) {
 
         // Close the 'Preferences' sheet and save the settings, if they have changed
 
@@ -415,7 +418,7 @@ class AppDelegate: NSObject,
     }
     
     
-    @IBAction func doShowWhatsNew(_ sender: Any) {
+    @IBAction private func doShowWhatsNew(_ sender: Any) {
 
         // Show the 'What's New' sheet, if we're on a new, non-patch version,
         // of the user has explicitly asked to see it with a menu click
@@ -448,21 +451,7 @@ class AppDelegate: NSObject,
     }
 
 
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-
-        // Asynchronously show the sheet once the HTML has loaded
-        // (triggered by delegate method)
-
-        if let nav = self.whatsNewNav {
-            if nav == navigation {
-                // Display the sheet
-                self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
-            }
-        }
-    }
-
-
-    @IBAction func doCloseWhatsNew(_ sender: Any) {
+    @IBAction private func doCloseWhatsNew(_ sender: Any) {
 
         // Close the 'What's New' sheet, making sure we clear the preference flag for this minor version,
         // so that the sheet is not displayed next time the app is run (unless the version changes)
@@ -488,7 +477,7 @@ class AppDelegate: NSObject,
     }
 
 
-    func runProcess(app path: String, with args: [String]) -> Bool {
+    private func runProcess(app path: String, with args: [String]) -> Bool {
 
         // Generic task creation and run function
 
@@ -532,38 +521,9 @@ class AppDelegate: NSObject,
     }
 
 
-    // MARK: - URLSession Delegate Functions
-
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-
-        // Some sort of connection error - report it
-        self.connectionProgress.stopAnimation(self)
-        sendFeedbackError()
-    }
-
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-
-        // The operation to send the comment completed
-        self.connectionProgress.stopAnimation(self)
-        if let _ = error {
-            // An error took place - report it
-            sendFeedbackError()
-        } else {
-            // The comment was submitted successfully
-            let alert: NSAlert = showAlert("Thanks For Your Feedback!",
-                                           "Your comments have been received and we’ll take a look at them shortly.")
-            alert.beginSheetModal(for: self.reportWindow) { (resp) in
-                // Close the feedback window when the modal alert returns
-                self.window.endSheet(self.reportWindow)
-            }
-        }
-    }
-
-
     // MARK: - Misc Functions
 
-    func sendFeedbackError() {
+    private func sendFeedbackError() {
 
         // Present an error message specific to sending feedback
         // This is called from multiple locations: if the initial request can't be created,
@@ -576,7 +536,7 @@ class AppDelegate: NSObject,
     }
 
 
-    func showAlert(_ head: String, _ message: String) -> NSAlert {
+    private func showAlert(_ head: String, _ message: String) -> NSAlert {
 
         // Generic alert presentation
         let alert: NSAlert = NSAlert()
@@ -587,7 +547,7 @@ class AppDelegate: NSObject,
     }
 
 
-    func registerPreferences() {
+    private func registerPreferences() {
 
         // Called by the app at launch to register its initial defaults
 
@@ -650,7 +610,7 @@ class AppDelegate: NSObject,
     }
     
     
-    func getVersion() -> String {
+    private func getVersion() -> String {
 
         // Build a basic 'major.manor' version string for prefs usage
 
@@ -660,7 +620,7 @@ class AppDelegate: NSObject,
     }
     
     
-    func getDateForFeedback() -> String {
+    private func getDateForFeedback() -> String {
 
         // Refactor code out into separate function for clarity
 
@@ -673,7 +633,7 @@ class AppDelegate: NSObject,
     }
 
 
-    func getUserAgentForFeedback() -> String {
+    private func getUserAgentForFeedback() -> String {
 
         // Refactor code out into separate function for clarity
 
@@ -686,6 +646,37 @@ class AppDelegate: NSObject,
     }
 
     
+    // MARK: - URLSession Delegate Functions
+
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+
+        // Some sort of connection error - report it
+        self.connectionProgress.stopAnimation(self)
+        sendFeedbackError()
+    }
+
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+
+        // The operation to send the comment completed
+        self.connectionProgress.stopAnimation(self)
+        if let _ = error {
+            // An error took place - report it
+            sendFeedbackError()
+        } else {
+            // The comment was submitted successfully
+            let alert: NSAlert = showAlert("Thanks For Your Feedback!",
+                                           "Your comments have been received and we’ll take a look at them shortly.")
+            alert.beginSheetModal(for: self.reportWindow) { (resp) in
+                // Close the feedback window when the modal alert returns
+                let _: Timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { timer in
+                    self.window.endSheet(self.reportWindow)
+                }
+            }
+        }
+    }
+
+
     // MARK: - NSTableView Data Source / Delegate Functions
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -726,7 +717,7 @@ class AppDelegate: NSObject,
     }
     
     
-    // NSTextView Delegate Methods
+    // MARK: - NSTextView Delegate Functions
     
     func textViewDidChangeSelection(_ notification: Notification) {
         
@@ -739,6 +730,25 @@ class AppDelegate: NSObject,
         let idx: IndexSet = IndexSet.init(integer: parentView.rowValue)
         self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
     }
+    
+    
+    // MARK: - WKWebViewNavigation Delegate Functions
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+
+        // Asynchronously show the sheet once the HTML has loaded
+        // (triggered by delegate method)
+
+        if let nav = self.whatsNewNav {
+            if nav == navigation {
+                // Display the sheet
+                self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
+            }
+        }
+    }
+
+
+    
 
 }
 

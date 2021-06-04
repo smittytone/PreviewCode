@@ -12,10 +12,9 @@ import Cocoa
 
 class ThemeTableCellView: NSTableCellView {
 
-    // MARK: - Outlets
+    // MARK:- Class UI Properies
     
     @IBOutlet var themePreviewTitle: NSTextField!
-    
     
     // MARK: - Public Properties
     
