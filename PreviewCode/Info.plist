@@ -269,6 +269,48 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Clojure</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.clojure-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>clj</string>
+					<string>cljs</string>
+					<string>cljc</string>
+					<string>edn</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Erlang</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.erlang-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>erl</string>
+					<string>hrl</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

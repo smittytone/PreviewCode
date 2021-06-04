@@ -134,6 +134,7 @@ func getLanguage(_ sourceFilePath: String) -> String {
     // it as a string, eg. 'public.swift-source' -> 'swift'
     
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
+    let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension
     
     // Trap 'non-standard' UTIs
     if sourceFileUTI.hasPrefix("com.apple.applescript") {
@@ -169,6 +170,10 @@ func getLanguage(_ sourceFilePath: String) -> String {
         return "objectivec"
     }
     
+    if sourceLanguage == "c-plus-plus" {
+        return "cpp"
+    }
+    
     if sourceLanguage == "shell" || sourceLanguage == "zsh" ||
         sourceLanguage == "csh" || sourceLanguage == "tcsh" ||
         sourceLanguage == "ksh" {
@@ -185,7 +190,13 @@ func getLanguage(_ sourceFilePath: String) -> String {
     
     // TODO need some way of identifying arm64 vs x86-64
     if sourceLanguage == "assembly" {
-        return "armasm"
+        if sourceFileExtension == "s" {
+            return "armasm"
+        }
+        
+        if sourceFileExtension == "asm" {
+            return "x86asm"
+        }
     }
     
     return sourceLanguage
