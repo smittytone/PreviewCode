@@ -95,11 +95,13 @@ class ThumbnailProvider: QLThumbnailProvider {
                         if let tagTextStorage: NSTextStorage = tagTextView!.textStorage {
                             // NOTE We use 'request.maximumSize' for more accurate results
                             tagTextStorage.setAttributedString(self.getTagString(language.uppercased(), request.maximumSize.width))
+                            tagTextView!.textContainer!.lineFragmentPadding = 0.0
+                            tagTextView!.textContainer!.maximumNumberOfLines = 1
                         } else {
                             // Set this on error so we don't try and draw the tag later
                             tagFrame = nil
                         }
-
+                        
                         // Generate the bitmap from the rendered YAML text view
                         guard let imageRep: NSBitmapImageRep = codeTextView.bitmapImageRepForCachingDisplay(in: codeFrame) else { return false }
                         
