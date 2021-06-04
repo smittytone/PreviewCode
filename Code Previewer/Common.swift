@@ -19,6 +19,7 @@ private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZ
 private var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
 private var fontBase: NSFont = NSFont.init(name: fontName, size: fontSize)!
 private var backgroundColour: NSColor = NSColor.black
+private var isDarkTheme: Bool = false
 private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 private var errAtts: [NSAttributedString.Key: Any] = [
     .foregroundColor: NSColor.red,
@@ -35,6 +36,7 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
     
     // Run the specified code string through Highlightr/Highlight.js
     var renderedString: NSAttributedString? = nil
+    
     if let highlightr: Highlightr = Highlightr.init() {
         highlightr.setTheme(to: codeTheme)
         highlightr.theme.setCodeFont(fontBase)
@@ -60,8 +62,9 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 func setPreviewValues(_ theme: String) {
     
     // Set base values for the theme previews in the Preferences pane
-    // Only called by AppDelegate
-    codeTheme = theme
+    let themeParts: [String] = theme.components(separatedBy: ".")
+    codeTheme = themeParts[1]
+    isDarkTheme = (themeParts[0] == "dark")
 }
 
 
@@ -77,8 +80,8 @@ func setBaseValues(_ isThumbnail: Bool) {
         fontSize = CGFloat(isThumbnail
                            ? defaults.float(forKey: "com-bps-previewcode-thumb-font-size")
                            : defaults.float(forKey: "com-bps-previewcode-base-font-size"))
-        codeTheme   = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
         fontName    = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
+        setPreviewValues(defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME)
     }
 
     // Just in case the above block reads in zero values
@@ -89,7 +92,7 @@ func setBaseValues(_ isThumbnail: Bool) {
 
     // Choose a specific theme for thumbnails
     if isThumbnail {
-        codeTheme = "xcode"
+        setPreviewValues("light.xcode")
     }
 
     // Set the font and its sizes
@@ -107,11 +110,11 @@ func setBaseValues(_ isThumbnail: Bool) {
 }
 
 
-func getStyle() -> String {
+func getMode() -> Bool {
     
     // Simple getter
     
-    return codeTheme
+    return isDarkTheme
 }
 
 
@@ -240,6 +243,5 @@ func setError(_ code: Int) -> NSError {
                    code: code,
                    userInfo: [NSLocalizedDescriptionKey: errDesc])
 }
-
 
 

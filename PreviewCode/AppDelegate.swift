@@ -316,12 +316,12 @@ class AppDelegate: NSObject,
             }
         }
         
-        let path: String? = Bundle.main.path(forResource: "sample", ofType: "txt")
-        let sampleURL: URL = URL.init(fileURLWithPath: path!)
-        self.sampleCodeString = try! String.init(contentsOf: sampleURL)
-        
-        // Set the themes table
+        // Set the themes table, once per runtime
         if self.themes.count == 0 {
+            let path: String? = Bundle.main.path(forResource: "sample", ofType: "txt")
+            let sampleURL: URL = URL.init(fileURLWithPath: path!)
+            self.sampleCodeString = try! String.init(contentsOf: sampleURL)
+            
             // Prep. the list of themes
             initThemes()
         }
@@ -351,13 +351,14 @@ class AppDelegate: NSObject,
             }
         }
         
-         // Set the theme selection
-         for i: Int in 0..<self.themes.count {
-             if self.themes[i] == self.previewThemeName {
-                 self.selectedThemeIndex = i
-                 break
-             }
-         }
+        // Set the theme selection
+        // Remember this called only one per run
+        for i: Int in 0..<self.themes.count {
+            if self.themes[i] == self.previewThemeName {
+                self.selectedThemeIndex = i
+                break
+            }
+        }
     }
     
     
@@ -692,13 +693,13 @@ class AppDelegate: NSObject,
         
         if cell != nil {
             // Configure the cell's title and its theme preview
-            let themeName: String = self.themes[row]
-            cell!.themePreviewTitle.stringValue = themeName.replacingOccurrences(of: "-", with: " ").capitalized
+            let themeParts: [String] = self.themes[row].components(separatedBy: ".")
+            cell!.themePreviewTitle.stringValue = themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized
             cell!.rowValue = row
             
             let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 3, 256, 155))
             ptv.isEditable = false
-            setPreviewValues(themeName)
+            setPreviewValues(self.themes[row])
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
                 renderTextStorage.beginEditing()
                 renderTextStorage.setAttributedString(getAttributedString(self.sampleCodeString, "swift", false))
@@ -746,9 +747,6 @@ class AppDelegate: NSObject,
             }
         }
     }
-
-
-    
 
 }
 

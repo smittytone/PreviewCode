@@ -49,13 +49,10 @@ class PreviewViewController: NSViewController,
                     // Get the key string first
                     let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, false)
                     
-                    // Get data based on the previous line's action
-                    let style: String = getStyle()
-                    
                     // Set text and scroll view attributes according to style
                     // TODO Do a better job of checking whether theme is dark or light
                     self.renderTextView.backgroundColor = getBackgroundColour()
-                    self.renderTextScrollView.scrollerKnobStyle = style.contains("dark") ? .dark : .light
+                    self.renderTextScrollView.scrollerKnobStyle = getMode() ? .light : .dark
 
                     if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
                         /*
