@@ -63,11 +63,9 @@
 				<string>com.bps.vbscript-source</string>
 				<string>com.bps.scss-source</string>
 				<string>com.bps.sql-source</string>
-				<string>com.bps.toml-source</string>
 				<string>com.bps.arduino-source</string>
 				<string>com.bps.clojure-source</string>
 				<string>com.bps.erlang-source</string>
-				<string>com.bps.latex-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>

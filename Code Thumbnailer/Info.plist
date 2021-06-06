@@ -28,7 +28,32 @@
 		<dict>
 			<key>QLSupportedContentTypes</key>
 			<array>
+				<string>public.swift-source</string>
 				<string>public.python-script</string>
+				<string>public.c-source</string>
+				<string>public.c-header</string>
+				<string>public.c-plus-plus-source</string>
+				<string>public.c-plus-plus-header</string>
+				<string>public.objective-c-source</string>
+				<string>public.objective-c-plus-plus-source</string>
+				<string>public.fortran-source</string>
+				<string>public.pascal-source</string>
+				<string>public.protobuf-source</string>
+				<string>com.netscape.javascript-source</string>
+				<string>public.ruby-script</string>
+				<string>public.perl-script</string>
+				<string>public.php-script</string>
+				<string>public.shell-script</string>
+				<string>public.zsh-script</string>
+				<string>public.csh-script</string>
+				<string>public.ksh-script</string>
+				<string>public.tcsh-script</string>
+				<string>public.css</string>
+				<string>public.ada-source</string>
+				<string>public.assembly-source</string>
+				<string>com.apple.applescript.text</string>
+				<string>com.apple.applescript.script</string>
+				<string>com.sun.java-source</string>
 				<string>com.bps.rust-source</string>
 				<string>com.bps.go-source</string>
 				<string>com.bps.coffee-source</string>
@@ -38,13 +63,9 @@
 				<string>com.bps.vbscript-source</string>
 				<string>com.bps.scss-source</string>
 				<string>com.bps.sql-source</string>
-				<string>com.bps.toml-source</string>
 				<string>com.bps.arduino-source</string>
 				<string>com.bps.clojure-source</string>
 				<string>com.bps.erlang-source</string>
-				<string>com.bps.latex-source</string>
-				<string>public.fortran-source</string>
-				<string>public.pascal-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>
