@@ -703,7 +703,7 @@ class AppDelegate: NSObject,
             cell!.themePreviewTitle.stringValue = themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized
             cell!.rowValue = row
             
-            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 3, 256, 155))
+            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 8, 256, 150))
             ptv.isEditable = false
             setPreviewValues(self.themes[row])
             if let renderTextStorage: NSTextStorage = ptv.textStorage {

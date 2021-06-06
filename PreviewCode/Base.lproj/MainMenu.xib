@@ -475,14 +475,14 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="161" horizontalPageScroll="10" verticalLineScroll="161" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYb-qG-NEg">
+                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="166" horizontalPageScroll="10" verticalLineScroll="166" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYb-qG-NEg">
                         <rect key="frame" x="20" y="60" width="520" height="206"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="SHm-fd-m1x">
                             <rect key="frame" x="1" y="1" width="518" height="204"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="161" rowSizeStyle="automatic" viewBased="YES" floatsGroupRows="NO" id="fuT-RR-f1g">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="166" viewBased="YES" floatsGroupRows="NO" id="fuT-RR-f1g">
                                     <rect key="frame" x="0.0" y="0.0" width="518" height="204"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -553,14 +553,14 @@ DQ
         <window title="What's New" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="tKr-h4-TOq">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="206" width="560" height="372"/>
+            <rect key="contentRect" x="196" y="206" width="560" height="388"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <value key="minSize" type="size" width="560" height="372"/>
-            <value key="maxSize" type="size" width="560" height="372"/>
-            <value key="minFullScreenContentSize" type="size" width="560" height="372"/>
-            <value key="maxFullScreenContentSize" type="size" width="560" height="372"/>
+            <value key="minSize" type="size" width="560" height="388"/>
+            <value key="maxSize" type="size" width="560" height="388"/>
+            <value key="minFullScreenContentSize" type="size" width="560" height="388"/>
+            <value key="maxFullScreenContentSize" type="size" width="560" height="388"/>
             <view key="contentView" id="9Ng-aK-BQ4">
-                <rect key="frame" x="0.0" y="0.0" width="560" height="372"/>
+                <rect key="frame" x="0.0" y="0.0" width="560" height="388"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ed1-Rx-KY0">
@@ -581,7 +581,7 @@ DQ
                         </connections>
                     </button>
                     <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JhS-5O-6sp">
-                        <rect key="frame" x="0.0" y="60" width="560" height="312"/>
+                        <rect key="frame" x="0.0" y="60" width="560" height="328"/>
                         <wkWebViewConfiguration key="configuration">
                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                             <wkPreferences key="preferences"/>
@@ -601,7 +601,7 @@ DQ
                     <constraint firstItem="ed1-Rx-KY0" firstAttribute="top" secondItem="JhS-5O-6sp" secondAttribute="bottom" constant="20" symbolic="YES" id="mG2-mW-qTD"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-853" y="-748"/>
+            <point key="canvasLocation" x="-853" y="-740"/>
         </window>
         <window title="Feedback" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="nk4-l2-g5W">
             <windowStyleMask key="styleMask" titled="YES"/>
