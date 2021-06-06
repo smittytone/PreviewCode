@@ -52,6 +52,9 @@ struct BUFFOON_CONSTANTS {
     static let DEFAULT_LANGUAGE             = "swift-source"
     static let DEFAULT_THUMB_THEME          = "light.atom-one-light"
     
+    static let FILE_CODE_SAMPLE             = "code-sample"
+    static let FILE_THEME_LIST              = "themes-list"
+    
     static let SUITE_NAME                   = ".suite.preview-code"
     static let APP_STORE                    = ""
     static let MAIN_URL                     = "https://smittytone.net/previewcode/index.html"

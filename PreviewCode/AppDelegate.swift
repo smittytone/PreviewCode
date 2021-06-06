@@ -318,12 +318,11 @@ class AppDelegate: NSObject,
         
         // Set the themes table, once per runtime
         if self.themes.count == 0 {
-            let path: String? = Bundle.main.path(forResource: "sample", ofType: "txt")
-            let sampleURL: URL = URL.init(fileURLWithPath: path!)
-            self.sampleCodeString = try! String.init(contentsOf: sampleURL)
+            // Load in the code sample we'll preview the themes with
+            self.sampleCodeString = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE)
             
-            // Prep. the list of themes
-            initThemes()
+            // Load and prepare the list of themes
+            loadThemeList()
         }
         
         // Update the themes table
@@ -337,17 +336,14 @@ class AppDelegate: NSObject,
     }
 
 
-    private func initThemes() {
+    private func loadThemeList() {
             
         // Load in the current theme list
-        let themesFileURL: URL = URL.init(fileURLWithPath: Bundle.main.bundlePath + "/Contents/Resources/themes-list.txt")
-        let data: Data = try! Data.init(contentsOf: themesFileURL, options: [])
-        if let themeFileString: String = String.init(data: data, encoding: .utf8) {
-            let themes: [String] = themeFileString.components(separatedBy: "\n")
-            for theme in themes {
-                if theme.count > 0 {
-                    self.themes.append(theme)
-                }
+        let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
+        let themes: [String] = themesString.components(separatedBy: "\n")
+        for theme in themes {
+            if theme.count > 0 {
+                self.themes.append(theme)
             }
         }
         
@@ -359,6 +355,16 @@ class AppDelegate: NSObject,
                 break
             }
         }
+    }
+    
+    
+    private func loadBundleFile(_ file: String) -> String {
+        
+        // Load the required resource and return its contents
+        let filePath: String? = Bundle.main.path(forResource: file,
+                                                 ofType: "txt")
+        let fileContents: String = try! String.init(contentsOf: URL.init(fileURLWithPath: filePath!))
+        return fileContents
     }
     
     

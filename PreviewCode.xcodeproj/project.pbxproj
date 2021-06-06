@@ -10,9 +10,9 @@
 		3B30F63026660FF9009E5293 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B30F62F26660FF9009E5293 /* Highlightr */; };
 		3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B52D6492664B98D0001D160 /* themes-list.txt */; };
 		3B6ABAC52669649500A436AA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
-		3B6ABAC72669664300A436AA /* sample.txt in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* sample.txt */; };
+		3B6ABAC72669664300A436AA /* code-sample.txt in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* code-sample.txt */; };
 		3B6ABAC92669669400A436AA /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6ABAC82669669400A436AA /* Highlightr */; };
-		3B6ABACA266966DA00A436AA /* sample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* sample.txt */; };
+		3B6ABACA266966DA00A436AA /* code-sample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* code-sample.txt */; };
 		3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PreviewTextView.swift */; };
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
@@ -90,7 +90,7 @@
 
 /* Begin PBXFileReference section */
 		3B52D6492664B98D0001D160 /* themes-list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "themes-list.txt"; sourceTree = "<group>"; };
-		3B6ABAC62669664300A436AA /* sample.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample.txt; sourceTree = "<group>"; };
+		3B6ABAC62669664300A436AA /* code-sample.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "code-sample.txt"; sourceTree = "<group>"; };
 		3B6ABACB2669703800A436AA /* PreviewTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTextView.swift; sourceTree = "<group>"; };
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 				3BFD781E2663E16E002AD588 /* Info.plist */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
 				3B52D6492664B98D0001D160 /* themes-list.txt */,
-				3B6ABAC62669664300A436AA /* sample.txt */,
+				3B6ABAC62669664300A436AA /* code-sample.txt */,
 				3BFBEC372663FDD400B4E70C /* new */,
 				3BFD78192663E16E002AD588 /* Assets.xcassets */,
 			);
@@ -431,7 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B6ABACA266966DA00A436AA /* sample.txt in Resources */,
+				3B6ABACA266966DA00A436AA /* code-sample.txt in Resources */,
 				3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */,
 				3BFBEC382663FDD400B4E70C /* new in Resources */,
 				3BFD781A2663E16E002AD588 /* Assets.xcassets in Resources */,
@@ -482,7 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */,
-				3B6ABAC72669664300A436AA /* sample.txt in Sources */,
+				3B6ABAC72669664300A436AA /* code-sample.txt in Sources */,
 				3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */,
 				3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */,
 				3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */,
