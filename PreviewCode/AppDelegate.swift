@@ -705,8 +705,9 @@ class AppDelegate: NSObject,
             
             let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 8, 256, 150))
             ptv.isEditable = false
-            setPreviewValues(self.themes[row])
+
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
+                setThemeValues(self.themes[row])
                 renderTextStorage.beginEditing()
                 renderTextStorage.setAttributedString(getAttributedString(self.sampleCodeString, "swift", false))
                 renderTextStorage.endEditing()

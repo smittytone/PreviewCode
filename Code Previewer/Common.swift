@@ -14,17 +14,20 @@ import Highlightr
 
 
 // Use defaults for some user-selectable values
-private var codeTheme: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+private var theme: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+private var themeBackgroundColor: NSColor = NSColor.black
+private var isThemeDark: Bool = false
+
+private var font: NSFont = NSFont.init(name: fontName, size: fontSize)!
 private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
 private var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-private var fontBase: NSFont = NSFont.init(name: fontName, size: fontSize)!
-private var backgroundColour: NSColor = NSColor.black
-private var isDarkTheme: Bool = false
+
 private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 private var errAtts: [NSAttributedString.Key: Any] = [
     .foregroundColor: NSColor.red,
-    .font: fontBase
+    .font: font
 ]
+private var highlighter: Highlightr? = nil
 
 
 
@@ -38,9 +41,8 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
     var renderedString: NSAttributedString? = nil
     
     if let highlightr: Highlightr = Highlightr.init() {
-        highlightr.setTheme(to: codeTheme)
-        highlightr.theme.setCodeFont(fontBase)
-        backgroundColour = highlightr.theme.themeBackgroundColor
+        highlightr.setTheme(to: theme)
+        highlightr.theme.setCodeFont(font)
         renderedString = highlightr.highlight(codeFileString, as: language)
     }
     
@@ -59,29 +61,44 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 
 // MARK:- Formatting Functions
 
-func setPreviewValues(_ theme: String) {
+func setThemeValues(_ themeData: String) {
     
-    // Set base values for the theme previews in the Preferences pane
-    let themeParts: [String] = theme.components(separatedBy: ".")
-    codeTheme = themeParts[1]
-    isDarkTheme = (themeParts[0] == "dark")
+    // We record in prefs a string combinining the theme's Highlight.js name
+    // and its 'mode' (light or dark), so we need to call this function at some
+    // point to extract these two data points.
+    //
+    // It shuld be called before rendering, so we're not rewriting the values, with
+    // the threading issues that raises. This is called by 'setBaseValues()' and
+    // 'AppDelegate' (frequently, once for each theme)
+    let themeParts: [String] = themeData.components(separatedBy: ".")
+    theme = themeParts[1]
+    isThemeDark = (themeParts[0] == "dark")
+
+    // Set the background colour here
+    if let highlightr: Highlightr = Highlightr.init() {
+        highlightr.setTheme(to: theme)
+        themeBackgroundColor = highlightr.theme.themeBackgroundColor
+    }
 }
 
 
 func setBaseValues(_ isThumbnail: Bool) {
 
     // Set common base style values for the source code render
-    // NOTE This should now be called only ONCE, before the code is rendered,
-    //      and only by the previwer
+    // NOTE This should now be called only ONCE, before the code is rendered
 
     // The suite name is the app group name, set in each extension's entitlements, and the host app's
     if let defaults = UserDefaults(suiteName: appSuiteName) {
+        // Read back the theme and typeface prefs
         defaults.synchronize()
         fontSize = CGFloat(isThumbnail
                            ? defaults.float(forKey: "com-bps-previewcode-thumb-font-size")
                            : defaults.float(forKey: "com-bps-previewcode-base-font-size"))
-        fontName    = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
-        setPreviewValues(defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME)
+        fontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
+
+        // NOTE We store the raw theme name, so 'setThemeValues()' is called
+        //      to extract the actual name and its mode (light or dark)
+        setThemeValues(defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME)
     }
 
     // Just in case the above block reads in zero values
@@ -90,23 +107,23 @@ func setBaseValues(_ isThumbnail: Bool) {
         fontSize = CGFloat(isThumbnail ? BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE : BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
     }
 
-    // Choose a specific theme for thumbnails
+    // Choose a specific theme values for thumbnails
     if isThumbnail {
-        setPreviewValues(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
+        setThemeValues(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
         fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE)
     }
 
-    // Set the font and its sizes
+    // Generate the font we'll use, at the required size
     if let chosenFont: NSFont = NSFont.init(name: fontName, size: fontSize) {
-        fontBase = chosenFont
+        font = chosenFont
     } else {
-        fontBase = NSFont.systemFont(ofSize: fontSize)
+        font = NSFont.systemFont(ofSize: fontSize)
     }
     
-    // Set the error format to the font chosen by the user
+    // Set the error format attributes to the font chosen by the user
     errAtts = [
         .foregroundColor: NSColor.red,
-        .font: fontBase
+        .font: font
     ]
 }
 
@@ -115,15 +132,15 @@ func getMode() -> Bool {
     
     // Simple getter
     
-    return isDarkTheme
+    return isThemeDark
 }
 
 
 func getBackgroundColour() -> NSColor {
     
     // Simple getter
-    
-    return backgroundColour
+
+    return themeBackgroundColor
 }
 
 
@@ -132,7 +149,12 @@ func getBackgroundColour() -> NSColor {
 func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
     // Determine the source file's language, and return
-    // it as a string, eg. 'public.swift-source' -> 'swift'
+    // it as a string, eg. 'public.swift-source' -> 'swift'.
+    //
+    // If 'isForTag' is true, it returns the actual name of the language,
+    // not the naming used by Highlight.js, which it returns if 'isForTag'
+    // is false. This is because these are not always the same
+    // eg. 'c++' vs 'cpp', or 'pascal' vs 'delphi'
 
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
     let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension
@@ -184,7 +206,8 @@ func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
     case "nasm-assembly":
         sourceLanguage = isForTag ? "x86-64" : "x86asm"
     default:
-        return sourceLanguage
+        // NOP
+        break
     }
 
     return sourceLanguage
@@ -193,25 +216,21 @@ func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
 func getSourceFileUTI(_ sourceFilePath: String) -> String {
     
-    // Get the passed code file's UTI - we'll use it to]
-    // determine the programming language
-    
+    // Get the passed code file's UTI - we'll use it to
+    // determine the file's programming language
+
+    // Create a URL reference to the sample file
     var sourceFileUTI: String = ""
-    
-    // Just in case, but this shouldn't be necessary
-    // (we wouldn't have got this far otherwise)
-    if FileManager.default.fileExists(atPath: sourceFilePath) {
-        // Create a URL reference to the sample file
-        let sourceFileURL = URL.init(fileURLWithPath: sourceFilePath)
-        
-        do {
-            // Read back the UTI from the URL
-            if let uti = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
-                sourceFileUTI = uti
-            }
-        } catch {
-            // NOP
+    let sourceFileURL = URL.init(fileURLWithPath: sourceFilePath)
+
+    do {
+        // Read back the UTI from the URL
+        // NOTE '.typeIdentifier' yields an optional
+        if let uti = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
+            sourceFileUTI = uti
         }
+    } catch {
+        // NOP
     }
     
     return sourceFileUTI
