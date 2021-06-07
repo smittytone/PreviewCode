@@ -44,7 +44,7 @@ class PreviewViewController: NSViewController,
                 let data: Data = try Data.init(contentsOf: url, options: [.uncached])
                 if let codeFileString: String = String.init(data: data, encoding: .utf8) {
                     // Set the language
-                    let language: String = getLanguage(url.path)
+                    let language: String = getLanguage(url.path, false)
                     
                     // Get the key string first
                     let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, false)

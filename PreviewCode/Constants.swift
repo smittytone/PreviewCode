@@ -49,7 +49,8 @@ struct BUFFOON_CONSTANTS {
     
     static let DEFAULT_THEME                = "dark.agate"
     static let DEFAULT_FONT                 = "menlo"
-    static let DEFAULT_LANGUAGE             = "swift-source"
+    static let DEFAULT_LANGUAGE_UTI         = "swift-source"
+    static let DEFAULT_LANGUAGE             = "swift"
     static let DEFAULT_THUMB_THEME          = "light.atom-one-light"
     
     static let FILE_CODE_SAMPLE             = "code-sample"

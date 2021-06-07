@@ -129,77 +129,64 @@ func getBackgroundColour() -> NSColor {
 
 // MARK: - Utility Functions
 
-func getLanguage(_ sourceFilePath: String) -> String {
-    
+func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
+
     // Determine the source file's language, and return
     // it as a string, eg. 'public.swift-source' -> 'swift'
-    
+
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
     let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension
-    
+
     // Trap 'non-standard' UTIs
     if sourceFileUTI.hasPrefix("com.apple.applescript") {
         return "applescript"
     }
-    
+
     if sourceFileUTI == "public.script" {
         return "bash"
     }
-    
+
     if sourceFileUTI == "public.css" {
         return "css"
     }
-    
-    var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE
+
+    var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
     let parts = sourceFileUTI.components(separatedBy: ".")
     if parts.count > 0 {
         let index: Int = parts.count - 1
         var endIndex: Range<String.Index>? = parts[index].range(of: "-source")
         if endIndex == nil { endIndex = parts[index].range(of: "-header") }
         if endIndex == nil { endIndex = parts[index].range(of: "-script") }
-        
+
         if let anEndIndex = endIndex {
             sourceLanguage = String(parts[index][..<anEndIndex.lowerBound])
         }
     }
-    
+
     // Address those languages that are referenced slightly differently
     // in highlight.js, eg. 'objective-c' -> 'objectivec'; are accessed
     // as aliases, eg. 'pascal' -> 'delphi'; or all use the same language,
     // eg. all shells -> 'bash'
-    if sourceLanguage == "objective-c" || sourceLanguage == "objective-c-plus-plus" {
-        return "objectivec"
+    switch(sourceLanguage) {
+    case "objective-c":
+        sourceLanguage = isForTag ? "obj-c" : "objectivec"
+    case "objective-c-plus-plus":
+        sourceLanguage = isForTag ? "obj-c++" : "objectivec"
+    case "c-plus-plus":
+        sourceLanguage = isForTag ? "c++" : "cpp"
+    case "shell", "zsh", "csh", "ksh", "tsch":
+        if !isForTag { sourceLanguage = "bash" }
+    case "pascal":
+        if !isForTag { sourceLanguage = "delphi" }
+    case "assembly":
+        if sourceFileExtension == "s" { sourceLanguage = isForTag ? "arm" : "armasm" }
+        if sourceFileExtension == "asm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
+    case "nasm-assembly":
+        sourceLanguage = isForTag ? "x86-64" : "x86asm"
+    default:
+        return sourceLanguage
     }
-    
-    if sourceLanguage == "c-plus-plus" {
-        return "cpp"
-    }
-    
-    if sourceLanguage == "shell" || sourceLanguage == "zsh" ||
-        sourceLanguage == "csh" || sourceLanguage == "tcsh" ||
-        sourceLanguage == "ksh" {
-        return "bash"
-    }
-    
-    if sourceLanguage == "toml" {
-        return "ini"
-    }
-    
-    if sourceLanguage == "pascal" {
-        return "delphi"
-    }
-    
-    // TODO need some way of identifying arm64 vs x86-64
-    if sourceLanguage == "assembly" {
-        if sourceFileExtension == "s" {
-            return "armasm"
-        }
-        
-        if sourceFileExtension == "asm" {
-            return "x86asm"
-        }
-    }
-    
+
     return sourceLanguage
 }
 

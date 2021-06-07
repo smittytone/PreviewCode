@@ -51,7 +51,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         guard let codeFileString: String = String.init(data: data, encoding: .utf8) else { return false }
                         
                         // Set the language
-                        let language: String = getLanguage(request.fileURL.path)
+                        let language: String = getLanguage(request.fileURL.path, false)
                         
                         // Get the Attributed String
                         let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, true)
@@ -94,7 +94,8 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Write the tag rendered as an NSAttributedString into the view's text storage
                         if let tagTextStorage: NSTextStorage = tagTextView!.textStorage {
                             // NOTE We use 'request.maximumSize' for more accurate results
-                            tagTextStorage.setAttributedString(self.getTagString(language.uppercased(), request.maximumSize.width))
+                            let tag: String = getLanguage(request.fileURL.path, true).uppercased()
+                            tagTextStorage.setAttributedString(self.getTagString(tag, request.maximumSize.width))
                             tagTextView!.textContainer!.lineFragmentPadding = 0.0
                             tagTextView!.textContainer!.maximumNumberOfLines = 1
                         } else {
