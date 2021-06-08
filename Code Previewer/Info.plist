@@ -66,6 +66,7 @@
 				<string>com.bps.arduino-source</string>
 				<string>com.bps.clojure-source</string>
 				<string>com.bps.erlang-source</string>
+				<string>com.bps.latex-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>

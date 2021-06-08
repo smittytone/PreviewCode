@@ -218,6 +218,10 @@ func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
         if sourceFileExtension == "asm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
     case "nasm-assembly":
         sourceLanguage = isForTag ? "x86-64" : "x86asm"
+    case "latex":
+        if !isForTag { sourceLanguage = "tex" }
+    case "csharp":
+        if isForTag { sourceLanguage = "c#" }
     default:
         // NOP
         break
