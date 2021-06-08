@@ -30,6 +30,10 @@ class PreviewViewController: NSViewController,
 
     func preparePreviewOfFile(at url: URL, completionHandler handler: @escaping (Error?) -> Void) {
 
+        /*
+         * This is the main entry point for macOS' preview system
+         */
+
         // Get an error message ready for use
         var reportError: NSError? = nil
         

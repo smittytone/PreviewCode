@@ -20,6 +20,13 @@ class ThumbnailProvider: QLThumbnailProvider {
     // MARK:- Lifecycle Required Functions
     
     override init() {
+        
+        /* 
+         * Override the init() method so we can do all the setup we need
+         * BEFORE we start rendering, ie. so we don't write values another
+         * thread may be trying to read
+         */
+        
         // Must call the super class because we don't know
         // what operations it performs
         super.init()
@@ -32,6 +39,10 @@ class ThumbnailProvider: QLThumbnailProvider {
     
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
         
+        /*
+         * This is the main entry point for macOS' thumbnailing system
+         */
+
         let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                 0.0,
                                                 CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
@@ -127,7 +138,9 @@ class ThumbnailProvider: QLThumbnailProvider {
     
     func getTagString(_ tag: String, _ width: CGFloat) -> NSAttributedString {
 
-        // Set the text for the bottom-of-thumbnail file type tag
+        /*
+         * Set the text for the bottom-of-thumbnail file type tag
+         */
 
         // Set the paragraph style we'll use -- just centred text
         let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()

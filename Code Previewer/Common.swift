@@ -27,15 +27,16 @@ private var errAtts: [NSAttributedString.Key: Any] = [
     .foregroundColor: NSColor.red,
     .font: font
 ]
-private var highlighter: Highlightr? = nil
-
 
 
 // MARK:- Primary Function
 
 func getAttributedString(_ codeFileString: String, _ language: String, _ isThumbnail: Bool) -> NSAttributedString {
 
-    // Use Highlightr to render the input source file as an NSAttributedString, which is returned.
+    /*
+     * Use Highlightr to render the input source file as an NSAttributedString,
+     * which is returned.
+     */
     
     // Run the specified code string through Highlightr/Highlight.js
     var renderedString: NSAttributedString? = nil
@@ -63,13 +64,16 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 
 func setThemeValues(_ themeData: String) {
     
-    // We record in prefs a string combinining the theme's Highlight.js name
-    // and its 'mode' (light or dark), so we need to call this function at some
-    // point to extract these two data points.
-    //
-    // It shuld be called before rendering, so we're not rewriting the values, with
-    // the threading issues that raises. This is called by 'setBaseValues()' and
-    // 'AppDelegate' (frequently, once for each theme)
+    /*
+     * We record in prefs a string combinining the theme's Highlight.js name
+     * and its 'mode' (light or dark), so we need to call this function at some
+     * point to extract these two data points.
+     *
+     * NOTE This should now be called only ONCE, before the code is rendered
+     *      to avoid threading race conditions. This is called by 'setBaseValues()'
+     *      and 'AppDelegate' (frequently, once for each theme)
+     */
+    
     let themeParts: [String] = themeData.components(separatedBy: ".")
     theme = themeParts[1]
     isThemeDark = (themeParts[0] == "dark")
@@ -84,9 +88,13 @@ func setThemeValues(_ themeData: String) {
 
 func setBaseValues(_ isThumbnail: Bool) {
 
-    // Set common base style values for the source code render
-    // NOTE This should now be called only ONCE, before the code is rendered
-
+    /*
+     * Set common base style values for the source code render
+     *
+     * NOTE This should now be called only ONCE, before the code is rendered
+     *      to avoid threading race conditions
+     */
+    
     // The suite name is the app group name, set in each extension's entitlements, and the host app's
     if let defaults = UserDefaults(suiteName: appSuiteName) {
         // Read back the theme and typeface prefs
@@ -151,14 +159,16 @@ func getBackgroundColour() -> NSColor {
 
 func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
-    // Determine the source file's language, and return
-    // it as a string, eg. 'public.swift-source' -> 'swift'.
-    //
-    // If 'isForTag' is true, it returns the actual name of the language,
-    // not the naming used by Highlight.js, which it returns if 'isForTag'
-    // is false. This is because these are not always the same
-    // eg. 'c++' vs 'cpp', or 'pascal' vs 'delphi'
-
+    /*
+     * Determine the source file's language, and return
+     * it as a string, eg. 'public.swift-source' -> 'swift'.
+     *
+     * If 'isForTag' is true, it returns the actual name of the language,
+     * not the naming used by Highlight.js, which it returns if 'isForTag'
+     * is false. This is because these are not always the same
+     * eg. 'c++' vs 'cpp', or 'pascal' vs 'delphi'
+     */
+    
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
     let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension
 
@@ -219,9 +229,11 @@ func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
 func getSourceFileUTI(_ sourceFilePath: String) -> String {
     
-    // Get the passed code file's UTI - we'll use it to
-    // determine the file's programming language
-
+    /*
+     * Get the passed code file's UTI - we'll use it to
+     * determine the file's programming language
+     */
+    
     // Create a URL reference to the sample file
     var sourceFileUTI: String = ""
     let sourceFileURL = URL.init(fileURLWithPath: sourceFilePath)

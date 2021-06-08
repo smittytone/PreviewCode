@@ -121,6 +121,10 @@ class AppDelegate: NSObject,
     
     @IBAction @objc private func doShowSites(sender: Any) {
         
+        /*
+         * Called from the Help menu's items to open various websites
+         */
+
         // Open the websites for contributors, help and suc
         let item: NSMenuItem = sender as! NSMenuItem
         var path: String = BUFFOON_CONSTANTS.MAIN_URL
@@ -149,7 +153,10 @@ class AppDelegate: NSObject,
 
     @IBAction private func doOpenSysPrefs(sender: Any) {
 
-        // Open the System Preferences app at the Extensions pane
+        /*
+         * Open the System Preferences app at the Extensions pane
+         */
+        
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
     }
 
@@ -158,8 +165,10 @@ class AppDelegate: NSObject,
     
     @IBAction @objc private func doShowReportWindow(sender: Any?) {
 
-        // Display a window in which the user can submit feedback,
-        // or report a bug
+        /*
+         * Display a window in which the user can submit feedback,
+         * or report a bug
+         */
 
         // Reset the UI
         self.connectionProgress.stopAnimation(self)
@@ -172,9 +181,11 @@ class AppDelegate: NSObject,
 
     @IBAction @objc private func doCancelReportWindow(sender: Any) {
 
-        // User has clicked the Report window's 'Cancel' button,
-        // so just close the sheet
-
+        /*
+         * User has clicked the Report window's 'Cancel' button,
+         * so just close the sheet
+         */
+        
         self.connectionProgress.stopAnimation(self)
         self.window.endSheet(self.reportWindow)
     }
@@ -182,9 +193,12 @@ class AppDelegate: NSObject,
 
     @IBAction @objc private func doSendFeedback(sender: Any) {
 
-        // User has clicked the Report window's 'Send' button,
-        // so get the message (if there is one) from the text field and submit it
-        
+        /*
+         * User has clicked the Report window's 'Send' button,
+         * so get the message (if there is one) from the text field
+         * and submit it
+         */
+
         let feedback: String = self.feedbackText.stringValue
 
         if feedback.count > 0 {
@@ -213,7 +227,9 @@ class AppDelegate: NSObject,
     
     private func submitFeedback(_ feedback: String) -> URLSessionTask? {
         
-        // Send the feedback string etc.
+        /*
+         * Send the feedback string etc.
+         */
         
         // First get the data we need to build the user agent string
         let userAgent: String = getUserAgentForFeedback()
@@ -267,7 +283,9 @@ class AppDelegate: NSObject,
     
     @IBAction private func doShowPreferences(sender: Any) {
 
-        // Display the 'Preferences' sheet
+        /*
+         * Initialise and display the 'Preferences' sheet
+         */
 
         // The suite name is the app group name, set in each the entitlements file of
         // the host app and of each extension
@@ -337,7 +355,12 @@ class AppDelegate: NSObject,
 
 
     private func loadThemeList() {
-            
+        
+        /*
+         * Read the list of themes from the file in the bundle
+         * into an array property
+         */
+        
         // Load in the current theme list
         let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
         let themes: [String] = themesString.components(separatedBy: "\n")
@@ -370,8 +393,11 @@ class AppDelegate: NSObject,
     
     @IBAction private func doMoveSlider(sender: Any) {
         
-        // When the slider is moved and released, this function updates
-        // the font size readout
+        /*
+         * When the font size slider is moved and released, this function updates
+         * the font size readout
+         */
+
         let index: Int = Int(self.fontSizeSlider.floatValue)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
     }
@@ -379,7 +405,9 @@ class AppDelegate: NSObject,
 
     @IBAction private func doClosePreferences(sender: Any) {
 
-        // Close the 'Preferences' sheet
+        /*
+         * Close the 'Preferences' sheet without saving
+         */
         
         self.window.endSheet(self.preferencesWindow)
     }
@@ -387,8 +415,10 @@ class AppDelegate: NSObject,
 
     @IBAction private func doSavePreferences(sender: Any) {
 
-        // Close the 'Preferences' sheet and save the settings, if they have changed
-
+        /*
+         * Close the 'Preferences' sheet and save any settings that have changed
+         */
+        
         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
             // Decode the font menu index value into a font list index
             
@@ -427,11 +457,15 @@ class AppDelegate: NSObject,
     
     @IBAction private func doShowWhatsNew(_ sender: Any) {
 
-        // Show the 'What's New' sheet, if we're on a new, non-patch version,
-        // of the user has explicitly asked to see it with a menu click
-           
-        // See if we're coming from a menu click (sender != self) or
-        // directly in code from 'appDidFinishLoading()' (sender == self)
+        /*
+         * Show the 'What's New' sheet, if we're on a new, non-patch version,
+         * of the user has explicitly asked to see it with a menu click
+         *
+         * See if we're coming from a menu click (sender != self) or
+         * directly in code from 'appDidFinishLoading()' (sender == self)
+         */
+        
+        // Check how we got here
         var doShowSheet: Bool = type(of: self) != type(of: sender)
         
         if !doShowSheet {
@@ -460,8 +494,10 @@ class AppDelegate: NSObject,
 
     @IBAction private func doCloseWhatsNew(_ sender: Any) {
 
-        // Close the 'What's New' sheet, making sure we clear the preference flag for this minor version,
-        // so that the sheet is not displayed next time the app is run (unless the version changes)
+        /*
+         * Close the 'What's New' sheet, making sure we clear the preference flag for this minor version,
+         * so that the sheet is not displayed next time the app is run (unless the version changes)
+         */
 
         // Close the sheet
         self.window.endSheet(self.whatsNewWindow)
@@ -486,14 +522,16 @@ class AppDelegate: NSObject,
 
     private func runProcess(app path: String, with args: [String]) -> Bool {
 
-        // Generic task creation and run function
-
+        /*
+         * Generic macOS process creation and run function
+         */
+        
         let task: Process = Process()
         task.executableURL = URL.init(fileURLWithPath: path)
         task.arguments = args
 
         // Pipe out the output to avoid putting it in the log
-        let outputPipe = Pipe()
+        let outputPipe: Pipe = Pipe()
         task.standardOutput = outputPipe
         task.standardError = outputPipe
 
@@ -509,7 +547,7 @@ class AppDelegate: NSObject,
         if !task.isRunning {
             if (task.terminationStatus != 0) {
                 // Command failed -- collect the output if there is any
-                let outputHandle = outputPipe.fileHandleForReading
+                let outputHandle: FileHandle = outputPipe.fileHandleForReading
                 var outString: String = ""
                 if let line = String(data: outputHandle.availableData, encoding: String.Encoding.utf8) {
                     outString = line
@@ -532,9 +570,12 @@ class AppDelegate: NSObject,
 
     private func sendFeedbackError() {
 
-        // Present an error message specific to sending feedback
-        // This is called from multiple locations: if the initial request can't be created,
-        // there was a send failure, or a server error
+        /*
+         * Present an error message specific to sending feedback
+         * This is called from multiple locations: if the initial request can't be created,
+         * there was a send failure, or a server error
+         */
+        
         let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
                                        "Unfortunately, your comments could not be send at this time. Please try again later.")
         alert.beginSheetModal(for: self.reportWindow,
@@ -545,7 +586,10 @@ class AppDelegate: NSObject,
 
     private func showAlert(_ head: String, _ message: String) -> NSAlert {
 
-        // Generic alert presentation
+        /*
+         * Generic alert presentation
+         */
+
         let alert: NSAlert = NSAlert()
         alert.messageText = head
         alert.informativeText = message
@@ -556,7 +600,9 @@ class AppDelegate: NSObject,
 
     private func registerPreferences() {
 
-        // Called by the app at launch to register its initial defaults
+        /*
+         * Called by the app at launch to register its initial defaults
+         */
 
         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
             // Check if each preference value exists -- set if it doesn't
@@ -619,7 +665,9 @@ class AppDelegate: NSObject,
     
     private func getVersion() -> String {
 
-        // Build a basic 'major.manor' version string for prefs usage
+        /*
+         * Build a basic 'major.manor' version string for prefs usage
+         */
 
         let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let parts: [String] = (version as NSString).components(separatedBy: ".")
@@ -629,7 +677,9 @@ class AppDelegate: NSObject,
     
     private func getDateForFeedback() -> String {
 
-        // Refactor code out into separate function for clarity
+        /*
+         * Build a date string string for feedback usage
+         */
 
         let date: Date = Date()
         let dateFormatter: DateFormatter = DateFormatter()
@@ -642,7 +692,9 @@ class AppDelegate: NSObject,
 
     private func getUserAgentForFeedback() -> String {
 
-        // Refactor code out into separate function for clarity
+        /*
+         * Build a user-agent string string for feedback usage
+         */
 
         let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
         let bundle: Bundle = Bundle.main
@@ -695,6 +747,7 @@ class AppDelegate: NSObject,
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
+        // Assemble the table cell view
         let cell: ThemeTableCellView? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? ThemeTableCellView
         
         if cell != nil {
@@ -703,7 +756,10 @@ class AppDelegate: NSObject,
             cell!.themePreviewTitle.stringValue = themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized
             cell!.rowValue = row
             
+            // Generate the theme preview view programmatically
             let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 8, 256, 150))
+            
+            // We want the text view to be selectable but not editable
             ptv.isEditable = false
 
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
@@ -714,6 +770,7 @@ class AppDelegate: NSObject,
                 ptv.backgroundColor = getBackgroundColour()
             }
             
+            // Add the new view to the cell
             cell!.addSubview(ptv)
             
             // IMPORTANT Don't set the delegate until the PreviewTextView has
@@ -729,9 +786,10 @@ class AppDelegate: NSObject,
     
     func textViewDidChangeSelection(_ notification: Notification) {
         
-        // Get the clicked NSTextView and use it to determine the parent
-        // ThemeTableCellView, from which we get the table row that
-        // we need to select
+        /* Get the clicked NSTextView and use it to determine the parent
+         * ThemeTableCellView, from which we get the table row that
+         * we need to select
+         */
         
         let clickedView: PreviewTextView = notification.object as! PreviewTextView
         let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
@@ -744,9 +802,11 @@ class AppDelegate: NSObject,
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 
-        // Asynchronously show the sheet once the HTML has loaded
-        // (triggered by delegate method)
-
+        /*
+         * Asynchronously show the sheet once the HTML has loaded
+         * (triggered by delegate method)
+         */
+        
         if let nav = self.whatsNewNav {
             if nav == navigation {
                 // Display the sheet
