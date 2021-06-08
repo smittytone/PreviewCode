@@ -10,7 +10,6 @@
 		3B30F63026660FF9009E5293 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B30F62F26660FF9009E5293 /* Highlightr */; };
 		3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B52D6492664B98D0001D160 /* themes-list.txt */; };
 		3B6ABAC52669649500A436AA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
-		3B6ABAC72669664300A436AA /* code-sample.txt in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* code-sample.txt */; };
 		3B6ABAC92669669400A436AA /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6ABAC82669669400A436AA /* Highlightr */; };
 		3B6ABACA266966DA00A436AA /* code-sample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* code-sample.txt */; };
 		3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PreviewTextView.swift */; };
@@ -482,7 +481,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */,
-				3B6ABAC72669664300A436AA /* code-sample.txt in Sources */,
 				3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */,
 				3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */,
 				3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */,
