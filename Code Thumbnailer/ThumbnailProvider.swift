@@ -70,50 +70,42 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Write the code NSAttributedString into the view's text storage
                         guard let codeTextStorage: NSTextStorage = codeTextView.textStorage else { return false }
+                        codeTextStorage.beginEditing()
                         codeTextStorage.setAttributedString(codeAttString)
-
-                        // Also generate text for the bottom-of-thumbnail file type tag,
-                        // if the user has this set as a preference
-                        var tagTextView: NSTextView? = nil
-                        var tagFrame: CGRect? = nil
-
+                        codeTextStorage.endEditing()
+                        
+                        // Also generate text for the bottom-of-thumbnail file type tag
                         // Define the frame of the tag area
-                        tagFrame = CGRect.init(x: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X,
-                                               y: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y,
-                                               width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
-                                               height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT)
+                        let tagFrame: CGRect = CGRect.init(x: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X,
+                                                           y: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y,
+                                                           width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
+                                                           height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT)
 
                         // Instantiate an NSTextView to display the NSAttributedString render of the tag,
                         // this time with a clear background
                         // Make sure it is not selectable, ie. not interactive
                         // NOTE 'tagTextView' is an optional
-                        tagTextView = NSTextView.init(frame: tagFrame!)
-                        tagTextView!.isSelectable = false
-                        tagTextView!.backgroundColor = NSColor.clear
+                        let tagTextView: NSTextView = NSTextView.init(frame: tagFrame)
+                        tagTextView.isSelectable = false
+                        tagTextView.backgroundColor = NSColor.clear
 
                         // Write the tag rendered as an NSAttributedString into the view's text storage
-                        if let tagTextStorage: NSTextStorage = tagTextView!.textStorage {
+                        if let tagTextStorage: NSTextStorage = tagTextView.textStorage {
                             // NOTE We use 'request.maximumSize' for more accurate results
                             let tag: String = getLanguage(request.fileURL.path, true).uppercased()
+                            tagTextStorage.beginEditing()
                             tagTextStorage.setAttributedString(self.getTagString(tag, request.maximumSize.width))
-                            tagTextView!.textContainer!.lineFragmentPadding = 0.0
-                            tagTextView!.textContainer!.maximumNumberOfLines = 1
-                        } else {
-                            // Set this on error so we don't try and draw the tag later
-                            tagFrame = nil
+                            tagTextStorage.endEditing()
+                            tagTextView.textContainer!.lineFragmentPadding = 0.0
+                            tagTextView.textContainer!.maximumNumberOfLines = 1
                         }
                         
                         // Generate the bitmap from the rendered YAML text view
                         guard let imageRep: NSBitmapImageRep = codeTextView.bitmapImageRepForCachingDisplay(in: codeFrame) else { return false }
                         
-                        // Draw into the bitmap first the YAML view...
+                        // Draw the code view into the bitmap and then the tag
                         codeTextView.cacheDisplay(in: codeFrame, to: imageRep)
-
-                        // ...then the tag view
-                        if tagFrame != nil && tagTextView != nil {
-                            tagTextView!.cacheDisplay(in: tagFrame!, to: imageRep)
-                        }
-
+                        tagTextView.cacheDisplay(in: tagFrame, to: imageRep)
                         return imageRep.draw(in: thumbnailFrame)
                     } catch {
                         // NOP: fall through to error
@@ -143,13 +135,13 @@ class ThumbnailProvider: QLThumbnailProvider {
         style.lineBreakMode = .byTruncatingMiddle
         
         // Set the point size
-        var fontSize: CGFloat = 146
+        var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_SIZE)
         let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
         if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
             let ratio: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH - 20) / renderSize.width
             fontSize *= ratio;
-            if fontSize < 118 {
-                fontSize = 118
+            if fontSize < CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE) {
+                fontSize = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE)
             }
         }
         
@@ -157,9 +149,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         let tagAtts: [NSAttributedString.Key: Any] = [
             .paragraphStyle: style as NSParagraphStyle,
             .font: NSFont.systemFont(ofSize: fontSize),
-            .foregroundColor: (width < 128
-                                ? NSColor.init(red: 0.3, green: 0.0, blue: 0.0, alpha: 1.0)
-                                : NSColor.init(red: 0.4, green: 0.0, blue: 0.0, alpha: 1.0))
+            .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
         ]
 
         // Return the attributed string built from the tag

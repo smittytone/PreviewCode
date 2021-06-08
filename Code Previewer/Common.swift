@@ -91,26 +91,29 @@ func setBaseValues(_ isThumbnail: Bool) {
     if let defaults = UserDefaults(suiteName: appSuiteName) {
         // Read back the theme and typeface prefs
         defaults.synchronize()
-        fontSize = CGFloat(isThumbnail
-                           ? defaults.float(forKey: "com-bps-previewcode-thumb-font-size")
-                           : defaults.float(forKey: "com-bps-previewcode-base-font-size"))
         fontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
-
-        // NOTE We store the raw theme name, so 'setThemeValues()' is called
-        //      to extract the actual name and its mode (light or dark)
-        setThemeValues(defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME)
-    }
-
-    // Just in case the above block reads in zero values
-    if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
-        fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
-        fontSize = CGFloat(isThumbnail ? BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE : BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+        
+        // No need to run the following for thumbnails - we set these manually
+        if !isThumbnail {
+            fontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
+            
+            // NOTE We store the raw theme name, so 'setThemeValues()' is called
+            //      to extract the actual name and its mode (light or dark)
+            setThemeValues(defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME)
+        }
     }
 
     // Choose a specific theme values for thumbnails
     if isThumbnail {
-        setThemeValues(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
+        theme = "atom-one-light"
+        isThemeDark = false
         fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE)
+    } else {
+        // Just in case the above block reads in zero value for the preview font size
+        if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
+            fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
+            fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+        }
     }
 
     // Generate the font we'll use, at the required size
