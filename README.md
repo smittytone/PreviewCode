@@ -33,6 +33,7 @@ You will now be able to select from a range of text sizes, choose a monospace fo
 * Ada (`.ads`, `.adb`)
 * Pascal (`.pas`)
 * Fortran (`.for`)
+* F# (`.fs`, `.fsx`, `.fsi`, `.fsscript`)
 
 ### Interpreted Languages
 
@@ -41,6 +42,7 @@ You will now be able to select from a range of text sizes, choose a monospace fo
 * TypeScript (`.tsx`)
 * AppleScript (`.applescript`)
 * CoffeeScript (`.coffee`)
+* ActionScript (`.as`)
 * Lua (`.lua`)
 * Java (`.java`)
 * PHP (`.php`)
@@ -49,6 +51,13 @@ You will now be able to select from a range of text sizes, choose a monospace fo
 * Visual Basic Script (`.vbs`)
 * Clojure (`.clj`, `.cljs`, `.cljc`, `.edn`)
 * Erlang (`.erl`, `.hrl`)
+* Elixir (`.ex`, `.exs`)
+* Haskell (`.hs`, `.lhs`)
+* Brainfuck (`.b`, `.bf`)
+* Dart (`.dart`)
+* Lisp (`.lisp`, `.lsp`, `.l`, `.cl`, `.fasl`)
+* Kotlin (`.kt`, `.kts`, `.ktm`)
+* Dylan (`.dylan`, `.lid`)
 
 ### Shell Scripting
 
@@ -58,17 +67,19 @@ You will now be able to select from a range of text sizes, choose a monospace fo
 * Korn Shell (`.ksh`)
 * TCSH (`.tsch`)
 
-### Misc
+### Assembly
+
+* ARM Assembler (`.s`)
+* x86-64 Assembler (`.asm`, `.nasm`)
+
+### Others
 
 * SQL script (`.sql`)
-* ARM Assembler (`.s`)
-* x86-64 Assembler (`.asm`)
-
-## Data
-
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
 * CSS (`.css`)
+* Twig (`.twig`)
+* LaTex (`.tex`)
 
 ## Source Code ##
 
