@@ -326,7 +326,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="fn9-PN-fju"/>
                         </constraints>
-                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" title="PreviewCode © 2021, Tony Smith. Contains Highlight.js © 2006 Ivan Sagalaev, Highlightr © 2016 Juan Pablo Illanes" id="g12-Ft-65u">
+                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" title="PreviewCode © 2021, Tony Smith. Contains Highlight.js © 2006-21 Ivan Sagalaev, Highlightr © 2016 Juan Pablo Illanes" id="g12-Ft-65u">
                             <font key="font" metaFont="miniSystem"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

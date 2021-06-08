@@ -222,6 +222,10 @@ func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
         if !isForTag { sourceLanguage = "tex" }
     case "csharp":
         if isForTag { sourceLanguage = "c#" }
+    case "fsharp":
+        if isForTag { sourceLanguage = "f#" }
+    case "brainfuck":
+        if isForTag { sourceLanguage = "brainf**k" }
     default:
         // NOP
         break

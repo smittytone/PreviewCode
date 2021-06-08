@@ -67,6 +67,16 @@
 				<string>com.bps.clojure-source</string>
 				<string>com.bps.erlang-source</string>
 				<string>com.bps.latex-source</string>
+                <string>com.bps.haskell-source</string>
+                <string>com.bps.brainfuck-source</string>
+                <string>com.bps.actionscript-source</string>
+                <string>com.bps.twig-source</string>
+                <string>com.bps.dart-source</string>
+                <string>com.bps.fsharp-source</string>
+                <string>com.bps.julia-source</string>
+                <string>com.bps.lisp-source</string>
+                <string>com.bps.kotlin-source</string>
+                <string>public.dylan-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>
