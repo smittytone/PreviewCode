@@ -119,12 +119,14 @@ class AppDelegate: NSObject,
     }
     
     
+    /**
+        Called from the Help menu's items to open various websites.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction @objc private func doShowSites(sender: Any) {
         
-        /*
-         * Called from the Help menu's items to open various websites
-         */
-
         // Open the websites for contributors, help and suc
         let item: NSMenuItem = sender as! NSMenuItem
         var path: String = BUFFOON_CONSTANTS.MAIN_URL
@@ -151,24 +153,27 @@ class AppDelegate: NSObject,
     }
 
 
+    /**
+        Open the System Preferences app at the Extensions pane.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction private func doOpenSysPrefs(sender: Any) {
 
-        /*
-         * Open the System Preferences app at the Extensions pane
-         */
-        
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
     }
 
 
     // MARK: Report Functions
     
+    /**
+        Display a window in which the user can submit feedback, or report a bug.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction @objc private func doShowReportWindow(sender: Any?) {
-
-        /*
-         * Display a window in which the user can submit feedback,
-         * or report a bug
-         */
 
         // Reset the UI
         self.connectionProgress.stopAnimation(self)
@@ -179,25 +184,28 @@ class AppDelegate: NSObject,
     }
 
 
+    /**
+        User has clicked the Report window's 'Cancel' button, so just close the sheet.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction @objc private func doCancelReportWindow(sender: Any) {
 
-        /*
-         * User has clicked the Report window's 'Cancel' button,
-         * so just close the sheet
-         */
-        
         self.connectionProgress.stopAnimation(self)
         self.window.endSheet(self.reportWindow)
     }
 
 
+    /**
+        User has clicked the Report window's 'Send' button.
+     
+        Get the message (if there is one) from the text field and submit it.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction @objc private func doSendFeedback(sender: Any) {
-
-        /*
-         * User has clicked the Report window's 'Send' button,
-         * so get the message (if there is one) from the text field
-         * and submit it
-         */
 
         let feedback: String = self.feedbackText.stringValue
 
@@ -225,11 +233,15 @@ class AppDelegate: NSObject,
     }
     
     
+    /**
+        Send the feedback string etc.
+     
+        - Parameters:
+            - feedback: The text of the user's comment.
+     
+        - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
+     */
     private func submitFeedback(_ feedback: String) -> URLSessionTask? {
-        
-        /*
-         * Send the feedback string etc.
-         */
         
         // First get the data we need to build the user agent string
         let userAgent: String = getUserAgentForFeedback()
@@ -281,11 +293,13 @@ class AppDelegate: NSObject,
 
     // MARK: Preferences Functions
     
+    /**
+        Initialise and display the 'Preferences' sheet.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction private func doShowPreferences(sender: Any) {
-
-        /*
-         * Initialise and display the 'Preferences' sheet
-         */
 
         // The suite name is the app group name, set in each the entitlements file of
         // the host app and of each extension
@@ -354,12 +368,10 @@ class AppDelegate: NSObject,
     }
 
 
+    /**
+     Read the list of themes from the file in the bundle into an array property.
+     */
     private func loadThemeList() {
-        
-        /*
-         * Read the list of themes from the file in the bundle
-         * into an array property
-         */
         
         // Load in the current theme list
         let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
@@ -381,44 +393,57 @@ class AppDelegate: NSObject,
     }
     
     
-    private func loadBundleFile(_ file: String) -> String {
+    /**
+        Load a known text file from the app bundle.
+     
+        - Parameters:
+            - file: The name of the text file without its extension.
+     
+        - Returns: The contents of the loaded file
+     */
+    private func loadBundleFile(_ fileName: String) -> String {
         
         // Load the required resource and return its contents
-        let filePath: String? = Bundle.main.path(forResource: file,
+        let filePath: String? = Bundle.main.path(forResource: fileName,
                                                  ofType: "txt")
         let fileContents: String = try! String.init(contentsOf: URL.init(fileURLWithPath: filePath!))
         return fileContents
     }
     
     
+    /**
+        When the font size slider is moved and released, this function updates the font size readout.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction private func doMoveSlider(sender: Any) {
         
-        /*
-         * When the font size slider is moved and released, this function updates
-         * the font size readout
-         */
-
         let index: Int = Int(self.fontSizeSlider.floatValue)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
     }
 
 
+    /**
+        Close the **Preferences** sheet without saving.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction private func doClosePreferences(sender: Any) {
 
-        /*
-         * Close the 'Preferences' sheet without saving
-         */
-        
         self.window.endSheet(self.preferencesWindow)
     }
 
 
+    /**
+        Close the **Preferences** sheet and save any settings that have changed.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction private func doSavePreferences(sender: Any) {
 
-        /*
-         * Close the 'Preferences' sheet and save any settings that have changed
-         */
-        
         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
             // Decode the font menu index value into a font list index
             

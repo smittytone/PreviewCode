@@ -10,6 +10,10 @@
 import Cocoa
 
 
+/**
+    A very basic subclass so we can store useful info within the cell.
+*/
+
 class ThemeTableCellView: NSTableCellView {
 
     // MARK:- Class UI Properies
@@ -18,7 +22,7 @@ class ThemeTableCellView: NSTableCellView {
     
     // MARK: - Public Properties
     
-    // Record the table row the cell view is placed at
+    /// Record the table row the cell view is placed at
     var rowValue: Int = -1
     
 }
