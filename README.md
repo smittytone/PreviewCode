@@ -1,8 +1,8 @@
 # PreviewCode 1.0.0
 
-*PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for a wide variety of programming and scripting languages, and data files.
+*PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
-It is not exhaustive, nor is it intended to be. It is intended to support [the most popular languages](#languages) used by Mac-based developers, whether for use on a Mac or on other platforms.
+It is not exhaustive, nor is it intended to be. It is, however, intended to support [the most popular languages](#languages) used by Mac-based developers, whether for use on a Mac or on other platforms.
 
 ## Installation and Usage ##
 
@@ -14,7 +14,7 @@ You can disable and re-enable the Code Previewer and Code Thumbnailer extensions
 
 Open the main app and click on **Show Preview Preferences**, or select **Preferences...** from the **PreviewCode** menu.
 
-You will now be able to select from a range of text sizes, choose a monospace font, and pick which theme you would like previews to use.
+You will now be able to select from a range of text sizes, choose a monospace font, and pick which theme you would like previews to use. One hundred themes are included.
 
 *PreviewCode* will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we made add support for this in a future release.
 
@@ -22,50 +22,49 @@ You will now be able to select from a range of text sizes, choose a monospace fo
 
 ### Compiled Languages
 
-* Swift (`.swift`)
+* ActionScript (`.as`)
+* Ada (`.ads`, `.adb`)
+* AppleScript (`.applescript`)
+* Arduino (`.ino`)
+* Basic (`.bas`)
+* Brainfuck (`.b`, `.bf`)
 * C (`.c`, `.h`)
 * C++ (`.cpp`, `.hpp`)
-* Objective-C (`.m`)
 * C# (`.csx`)
-* Rust (`.rs`)
-* Go (`.go`)
-* Arduino (`.ino`)
-* Ada (`.ads`, `.adb`)
-* Pascal (`.pas`)
+* Clojure (`.clj`, `.cljs`, `.cljc`, `.edn`)
+* CoffeeScript (`.coffee`)
+* Dart (`.dart`)
+* Dylan (`.dylan`, `.lid`)
+* Elixir (`.ex`, `.exs`)
+* Erlang (`.erl`, `.hrl`)
 * Fortran (`.for`)
 * F# (`.fs`, `.fsx`, `.fsi`, `.fsscript`)
-
-### Interpreted Languages
-
-* Python (`.py`)
-* JavaScript (`.js`)
-* TypeScript (`.tsx`)
-* AppleScript (`.applescript`)
-* CoffeeScript (`.coffee`)
-* ActionScript (`.as`)
-* Lua (`.lua`)
-* Java (`.java`)
-* PHP (`.php`)
-* Perl (`.perl`)
-* Ruby (`.rb`)
-* Visual Basic Script (`.vbs`)
-* Clojure (`.clj`, `.cljs`, `.cljc`, `.edn`)
-* Erlang (`.erl`, `.hrl`)
-* Elixir (`.ex`, `.exs`)
+* Go (`.go`)
 * Haskell (`.hs`, `.lhs`)
-* Brainfuck (`.b`, `.bf`)
-* Dart (`.dart`)
-* Lisp (`.lisp`, `.lsp`, `.l`, `.cl`, `.fasl`)
+* Java (`.java`)
+* JavaScript (`.js`)
+* Julia (`.jl`)
 * Kotlin (`.kt`, `.kts`, `.ktm`)
-* Dylan (`.dylan`, `.lid`)
+* Lisp (`.lisp`, `.lsp`, `.l`, `.cl`, `.fasl`)
+* Lua (`.lua`)
+* Objective-C (`.m`)
+* Pascal (`.pas`)
+* Perl (`.perl`)
+* PHP (`.php`)
+* Python (`.py`)
+* Ruby (`.rb`)
+* Rust (`.rs`)
+* Swift (`.swift`)
+* TypeScript (`.tsx`)
+* Visual Basic Script (`.vbs`)
 
 ### Shell Scripting
 
 * Bash (`.sh`)
-* Z Shell (`.zsh`)
 * C Shell (`.csh`)
 * Korn Shell (`.ksh`)
 * TCSH (`.tsch`)
+* Z Shell (`.zsh`)
 
 ### Assembly
 
@@ -74,12 +73,12 @@ You will now be able to select from a range of text sizes, choose a monospace fo
 
 ### Others
 
-* SQL script (`.sql`)
+* CSS (`.css`)
+* LaTex (`.tex`)
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
-* CSS (`.css`)
+* SQL script (`.sql`)
 * Twig (`.twig`)
-* LaTex (`.tex`)
 
 ## Source Code ##
 
@@ -87,7 +86,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Acknowledgements
 
-*PreviewCode* makes use of [Highlightr]() which provides a Swift wrapper for [Highlight.js]().
+*PreviewCode* makes use of [HighlightSwift](https://github.com/smittytone/HighlightSwift) which provides a Swift wrapper for [Highlight.js](https://github.com/highlightjs/highlight.js) and is derived from [Highlightr](https://github.com/raspu/Highlightr).
 
 ## Release Notes ##
 
@@ -100,25 +99,8 @@ Primary app code and UI design &copy; 2021, Tony Smith.
 
 Code portions &copy; 2016 Juan Pablo Illanes. Code portions &copy; 2006 Ivan Sagalaev.
 
-
-
-
-
 ## Todo
 
 public.precompiled-c-header, .pch
 com.bps.gradle-source, .gradle
-com.bps.basic-source, .bas
-com.bps.twig-source., .twig
-com.bps.actionscript-source, .???
-com.bps.brainfuck-source, .???
-com.bps.dart-source, .???
-com.bps.delphi-source, .???
-com.bps.elixir-source, .???
-com.bps.fsharp-source, .???
-com.bps.haskell-source, .???
-com.bps.julia-source. ,???
-lisp
-kotlin - may have UTI
-dockerfile - may have UTI
 smalltalk
