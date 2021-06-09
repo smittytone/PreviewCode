@@ -10,7 +10,7 @@
 
 import Foundation
 import AppKit
-import Highlightr
+import Highlighter
 
 
 // Use defaults for some user-selectable values
@@ -41,8 +41,8 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
     // Run the specified code string through Highlightr/Highlight.js
     var renderedString: NSAttributedString? = nil
     
-    if let highlightr: Highlightr = Highlightr.init() {
-        highlightr.setTheme(to: theme)
+    if let highlightr: Highlighter = Highlighter.init() {
+        highlightr.setTheme(theme)
         highlightr.theme.setCodeFont(font)
         renderedString = highlightr.highlight(codeFileString, as: language)
     }
@@ -79,9 +79,9 @@ func setThemeValues(_ themeData: String) {
     isThemeDark = (themeParts[0] == "dark")
 
     // Set the background colour here
-    if let highlightr: Highlightr = Highlightr.init() {
-        highlightr.setTheme(to: theme)
-        themeBackgroundColor = highlightr.theme.themeBackgroundColor
+    if let highlightr: Highlighter = Highlighter.init() {
+        highlightr.setTheme(theme)
+        themeBackgroundColor = highlightr.theme.themeBackgroundColour
     }
 }
 

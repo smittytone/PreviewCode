@@ -10,7 +10,7 @@
 import Cocoa
 import CoreServices
 import WebKit
-import Highlightr
+import Highlighter
 
 
 @main

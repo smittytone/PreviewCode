@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B30F63026660FF9009E5293 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B30F62F26660FF9009E5293 /* Highlightr */; };
+		3B1108B826714ADA00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B726714ADA00A36A48 /* Highlighter */; };
+		3B1108BA26714AE700A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B926714AE700A36A48 /* Highlighter */; };
+		3B1108BC26714AED00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108BB26714AED00A36A48 /* Highlighter */; };
 		3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B52D6492664B98D0001D160 /* themes-list.txt */; };
 		3B6ABAC52669649500A436AA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
-		3B6ABAC92669669400A436AA /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6ABAC82669669400A436AA /* Highlightr */; };
 		3B6ABACA266966DA00A436AA /* code-sample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* code-sample.txt */; };
 		3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PreviewTextView.swift */; };
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
@@ -19,7 +20,6 @@
 		3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
 		3BE0EBA1266A845B00C9924E /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0EBA0266A845B00C9924E /* ThumbnailProvider.swift */; };
 		3BE0EBA6266A845B00C9924E /* Code Thumbnailer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3BE0EBAB266A847B00C9924E /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE0EBAA266A847B00C9924E /* Highlightr */; };
 		3BE0EBAC266A848400C9924E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 		3BF52B11266A883F002EC860 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
 		3BF52B12266A8842002EC860 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
@@ -129,7 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */,
-				3BE0EBAB266A847B00C9924E /* Highlightr in Frameworks */,
+				3B1108BC26714AED00A36A48 /* Highlighter in Frameworks */,
 				3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B6ABAC92669669400A436AA /* Highlightr in Frameworks */,
+				3B1108B826714ADA00A36A48 /* Highlighter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B30F63026660FF9009E5293 /* Highlightr in Frameworks */,
+				3B1108BA26714AE700A36A48 /* Highlighter in Frameworks */,
 				3BFD78482663E27D002AD588 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,7 +280,7 @@
 			);
 			name = "Code Thumbnailer";
 			packageProductDependencies = (
-				3BE0EBAA266A847B00C9924E /* Highlightr */,
+				3B1108BB26714AED00A36A48 /* Highlighter */,
 			);
 			productName = "Code Thumbnailer";
 			productReference = 3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */;
@@ -303,7 +303,7 @@
 			);
 			name = PreviewCode;
 			packageProductDependencies = (
-				3B6ABAC82669669400A436AA /* Highlightr */,
+				3B1108B726714ADA00A36A48 /* Highlighter */,
 			);
 			productName = PreviewCode;
 			productReference = 3BFD78142663E16D002AD588 /* PreviewCode.app */;
@@ -359,7 +359,7 @@
 			);
 			name = "Code Previewer";
 			packageProductDependencies = (
-				3B30F62F26660FF9009E5293 /* Highlightr */,
+				3B1108B926714AE700A36A48 /* Highlighter */,
 			);
 			productName = "Code Previewer";
 			productReference = 3BFD78452663E27D002AD588 /* Code Previewer.appex */;
@@ -403,7 +403,7 @@
 			);
 			mainGroup = 3BFD780B2663E16D002AD588;
 			packageReferences = (
-				3B30F62E26660FF9009E5293 /* XCRemoteSwiftPackageReference "Highlightr" */,
+				3B1108B626714ADA00A36A48 /* XCRemoteSwiftPackageReference "HighlighterSwift" */,
 			);
 			productRefGroup = 3BFD78152663E16D002AD588 /* Products */;
 			projectDirPath = "";
@@ -567,7 +567,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
@@ -592,7 +592,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
@@ -736,7 +736,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PreviewCode/Info.plist;
@@ -764,7 +764,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PreviewCode/Info.plist;
@@ -873,7 +873,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
@@ -904,7 +904,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
@@ -988,31 +988,31 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3B30F62E26660FF9009E5293 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+		3B1108B626714ADA00A36A48 /* XCRemoteSwiftPackageReference "HighlighterSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/smittytone/Highlightr.git";
+			repositoryURL = "https://github.com/smittytone/HighlighterSwift.git";
 			requirement = {
-				branch = master;
+				branch = develop;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3B30F62F26660FF9009E5293 /* Highlightr */ = {
+		3B1108B726714ADA00A36A48 /* Highlighter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B30F62E26660FF9009E5293 /* XCRemoteSwiftPackageReference "Highlightr" */;
-			productName = Highlightr;
+			package = 3B1108B626714ADA00A36A48 /* XCRemoteSwiftPackageReference "HighlighterSwift" */;
+			productName = Highlighter;
 		};
-		3B6ABAC82669669400A436AA /* Highlightr */ = {
+		3B1108B926714AE700A36A48 /* Highlighter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B30F62E26660FF9009E5293 /* XCRemoteSwiftPackageReference "Highlightr" */;
-			productName = Highlightr;
+			package = 3B1108B626714ADA00A36A48 /* XCRemoteSwiftPackageReference "HighlighterSwift" */;
+			productName = Highlighter;
 		};
-		3BE0EBAA266A847B00C9924E /* Highlightr */ = {
+		3B1108BB26714AED00A36A48 /* Highlighter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B30F62E26660FF9009E5293 /* XCRemoteSwiftPackageReference "Highlightr" */;
-			productName = Highlightr;
+			package = 3B1108B626714ADA00A36A48 /* XCRemoteSwiftPackageReference "HighlighterSwift" */;
+			productName = Highlighter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
