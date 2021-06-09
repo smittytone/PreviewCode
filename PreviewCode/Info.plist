@@ -471,7 +471,6 @@
 				<array>
 					<string>lisp</string>
 					<string>lsp</string>
-					<string>l</string>
 					<string>cl</string>
 					<string>fasl</string>
 				</array>
