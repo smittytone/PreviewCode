@@ -67,6 +67,7 @@
 				<string>com.bps.clojure-source</string>
 				<string>com.bps.erlang-source</string>
 				<string>com.bps.latex-source</string>
+				<string>com.bps.elixir-source</string>
 				<string>com.bps.haskell-source</string>
 				<string>com.bps.brainfuck-source</string>
 				<string>com.bps.actionscript-source</string>
