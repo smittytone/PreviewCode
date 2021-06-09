@@ -30,6 +30,7 @@ class AppDelegate: NSObject,
     @IBOutlet var helpAppStoreRating: NSMenuItem!
     @IBOutlet var helpMenuHighlightr: NSMenuItem!
     @IBOutlet var helpMenuHighlightjs: NSMenuItem!
+    @IBOutlet var helpMenuHighlightSwift: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
     
@@ -146,6 +147,8 @@ class AppDelegate: NSObject,
             path = "https://github.com/raspu/Highlightr"
         } else if item == self.helpMenuHighlightjs {
             path = "https://github.com/highlightjs/highlight.js"
+        } else if item == self.helpMenuHighlightSwift {
+            path = "https://github.com/smittytone/HighlightSwift"
         }
         
         // Open the selected website
@@ -480,16 +483,19 @@ class AppDelegate: NSObject,
     }
     
     
+    /**
+        Show the 'What's New' sheet.
+     
+        If we're on a new, non-patch version, of the user has explicitly
+        asked to see it with a menu click See if we're coming from a menu click
+        (`sender != self`) or directly in code from *appDidFinishLoading()*
+        (`sender == self`)
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
     @IBAction private func doShowWhatsNew(_ sender: Any) {
 
-        /*
-         * Show the 'What's New' sheet, if we're on a new, non-patch version,
-         * of the user has explicitly asked to see it with a menu click
-         *
-         * See if we're coming from a menu click (sender != self) or
-         * directly in code from 'appDidFinishLoading()' (sender == self)
-         */
-        
         // Check how we got here
         var doShowSheet: Bool = type(of: self) != type(of: sender)
         
@@ -517,12 +523,16 @@ class AppDelegate: NSObject,
     }
 
 
-    @IBAction private func doCloseWhatsNew(_ sender: Any) {
-
-        /*
-         * Close the 'What's New' sheet, making sure we clear the preference flag for this minor version,
-         * so that the sheet is not displayed next time the app is run (unless the version changes)
-         */
+    /**
+        Close the 'What's New' sheet.
+     
+        Make sure we clear the preference flag for this minor version, so that
+        the sheet is not displayed next time the app is run (unless the version changes)
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
+     @IBAction private func doCloseWhatsNew(_ sender: Any) {
 
         // Close the sheet
         self.window.endSheet(self.whatsNewWindow)
@@ -545,12 +555,20 @@ class AppDelegate: NSObject,
     }
 
 
-    private func runProcess(app path: String, with args: [String]) -> Bool {
-
-        /*
-         * Generic macOS process creation and run function
-         */
+    /**
+        Generic macOS process creation and run function.
+     
+        Make sure we clear the preference flag for this minor version, so that
+        the sheet is not displayed next time the app is run (unless the version changes)
+     
+        - Parameters:
+            - app: The location of the app.
+            - with: Array of arguments to pass to the app
         
+        - Returns: `true` if the operation was successful, otherwise `false`
+     */
+     private func runProcess(app path: String, with args: [String]) -> Bool {
+
         let task: Process = Process()
         task.executableURL = URL.init(fileURLWithPath: path)
         task.arguments = args
@@ -593,14 +611,14 @@ class AppDelegate: NSObject,
 
     // MARK: - Misc Functions
 
-    private func sendFeedbackError() {
+    /**
+        Present an error message specific to sending feedback.
+     
+        This is called from multiple locations: if the initial request can't be created,
+        there was a send failure, or a server error
+     */
+     private func sendFeedbackError() {
 
-        /*
-         * Present an error message specific to sending feedback
-         * This is called from multiple locations: if the initial request can't be created,
-         * there was a send failure, or a server error
-         */
-        
         let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
                                        "Unfortunately, your comments could not be send at this time. Please try again later.")
         alert.beginSheetModal(for: self.reportWindow,
@@ -609,11 +627,16 @@ class AppDelegate: NSObject,
     }
 
 
-    private func showAlert(_ head: String, _ message: String) -> NSAlert {
-
-        /*
-         * Generic alert presentation
-         */
+    /**
+        Generic alert generator.
+     
+        - Parameters:
+            - head:    The alert's title.
+            - message: The alert's message.
+     
+     - Returns: The NSAlert
+     */
+     private func showAlert(_ head: String, _ message: String) -> NSAlert {
 
         let alert: NSAlert = NSAlert()
         alert.messageText = head
@@ -623,11 +646,10 @@ class AppDelegate: NSObject,
     }
 
 
-    private func registerPreferences() {
-
-        /*
-         * Called by the app at launch to register its initial defaults
-         */
+    /**
+        Called by the app at launch to register its initial defaults.
+     */
+     private func registerPreferences() {
 
         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
             // Check if each preference value exists -- set if it doesn't
@@ -688,11 +710,12 @@ class AppDelegate: NSObject,
     }
     
     
-    private func getVersion() -> String {
-
-        /*
-         * Build a basic 'major.manor' version string for prefs usage
-         */
+    /**
+        Build a basic 'major.manor' version string for prefs usage.
+     
+        - Returns: The version string
+     */
+     private func getVersion() -> String {
 
         let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let parts: [String] = (version as NSString).components(separatedBy: ".")
@@ -700,11 +723,12 @@ class AppDelegate: NSObject,
     }
     
     
-    private func getDateForFeedback() -> String {
-
-        /*
-         * Build a date string string for feedback usage
-         */
+    /**
+        Build a date string string for feedback usage.
+     
+        - Returns: The date string
+     */
+     private func getDateForFeedback() -> String {
 
         let date: Date = Date()
         let dateFormatter: DateFormatter = DateFormatter()
@@ -715,11 +739,12 @@ class AppDelegate: NSObject,
     }
 
 
-    private func getUserAgentForFeedback() -> String {
-
-        /*
-         * Build a user-agent string string for feedback usage
-         */
+    /**
+        Build a user-agent string string for feedback usage.
+     
+        - Returns: The user-agent string
+     */
+     private func getUserAgentForFeedback() -> String {
 
         let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
         let bundle: Bundle = Bundle.main

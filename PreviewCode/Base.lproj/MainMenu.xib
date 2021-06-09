@@ -23,6 +23,7 @@
                 <outlet property="fontSizeSlider" destination="OfZ-N6-qKG" id="oDv-Or-Fni"/>
                 <outlet property="helpAppStoreRating" destination="jLd-Pw-5jM" id="P5Q-5y-ShE"/>
                 <outlet property="helpMenuAcknowledgments" destination="F5z-Fy-aVo" id="BcI-3U-6rw"/>
+                <outlet property="helpMenuHighlightSwift" destination="cGX-As-gSz" id="KzM-fb-0Bd"/>
                 <outlet property="helpMenuHighlightjs" destination="HJD-GL-x7D" id="SH5-iY-xGq"/>
                 <outlet property="helpMenuHighlightr" destination="9hO-8K-lXX" id="Y3Z-mF-15I"/>
                 <outlet property="helpMenuOthersPreviewMarkdown" destination="a5a-JN-xae" id="efo-wb-Yel"/>
@@ -171,16 +172,22 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" id="wXY-AB-12u">
                                     <items>
-                                        <menuItem title="Highlightr" id="9hO-8K-lXX">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="5C7-ch-yd9"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Highlight.js" id="HJD-GL-x7D">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="1cU-ah-pc7"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="HighlighterSwift" id="cGX-As-gSz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="clF-Vh-npv"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Highlightr" id="9hO-8K-lXX">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="5C7-ch-yd9"/>
                                             </connections>
                                         </menuItem>
                                     </items>
