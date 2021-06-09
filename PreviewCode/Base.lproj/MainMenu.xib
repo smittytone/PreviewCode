@@ -23,7 +23,7 @@
                 <outlet property="fontSizeSlider" destination="OfZ-N6-qKG" id="oDv-Or-Fni"/>
                 <outlet property="helpAppStoreRating" destination="jLd-Pw-5jM" id="P5Q-5y-ShE"/>
                 <outlet property="helpMenuAcknowledgments" destination="F5z-Fy-aVo" id="BcI-3U-6rw"/>
-                <outlet property="helpMenuHighlightSwift" destination="cGX-As-gSz" id="KzM-fb-0Bd"/>
+                <outlet property="helpMenuHighlighterSwift" destination="cGX-As-gSz" id="SWc-7J-sl4"/>
                 <outlet property="helpMenuHighlightjs" destination="HJD-GL-x7D" id="SH5-iY-xGq"/>
                 <outlet property="helpMenuHighlightr" destination="9hO-8K-lXX" id="Y3Z-mF-15I"/>
                 <outlet property="helpMenuOthersPreviewMarkdown" destination="a5a-JN-xae" id="efo-wb-Yel"/>
@@ -333,8 +333,9 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="fn9-PN-fju"/>
                         </constraints>
-                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" title="PreviewCode © 2021, Tony Smith. Contains Highlight.js © 2006-21 Ivan Sagalaev, Highlightr © 2016 Juan Pablo Illanes" id="g12-Ft-65u">
+                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" id="g12-Ft-65u">
                             <font key="font" metaFont="miniSystem"/>
+                            <string key="title">PreviewCode and HighlighterSwift © 2021, Tony Smith. Contains Highlight.js © 2006-2021, Ivan Sagalaev and Highlightr © 2016, Juan Pablo Illanes</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>

@@ -30,7 +30,7 @@ class AppDelegate: NSObject,
     @IBOutlet var helpAppStoreRating: NSMenuItem!
     @IBOutlet var helpMenuHighlightr: NSMenuItem!
     @IBOutlet var helpMenuHighlightjs: NSMenuItem!
-    @IBOutlet var helpMenuHighlightSwift: NSMenuItem!
+    @IBOutlet var helpMenuHighlighterSwift: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
     
@@ -147,8 +147,8 @@ class AppDelegate: NSObject,
             path = "https://github.com/raspu/Highlightr"
         } else if item == self.helpMenuHighlightjs {
             path = "https://github.com/highlightjs/highlight.js"
-        } else if item == self.helpMenuHighlightSwift {
-            path = "https://github.com/smittytone/HighlightSwift"
+        } else if item == self.helpMenuHighlighterSwift {
+            path = "https://github.com/smittytone/HighlighterSwift"
         }
         
         // Open the selected website
