@@ -78,6 +78,7 @@
 				<string>com.bps.lisp-source</string>
 				<string>com.bps.kotlin-source</string>
 				<string>public.dylan-source</string>
+				<string>com.bps.basic-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>
