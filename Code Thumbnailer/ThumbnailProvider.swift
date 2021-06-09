@@ -102,13 +102,16 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Write the tag rendered as an NSAttributedString into the view's text storage
                         if let tagTextStorage: NSTextStorage = tagTextView.textStorage {
+                            // Remove offsets
+                            tagTextView.textContainer!.lineFragmentPadding = 0.0
+                            tagTextView.textContainer!.maximumNumberOfLines = 1
+                            
                             // NOTE We use 'request.maximumSize' for more accurate results
                             let tag: String = getLanguage(request.fileURL.path, true).uppercased()
                             tagTextStorage.beginEditing()
                             tagTextStorage.setAttributedString(self.getTagString(tag, request.maximumSize.width))
                             tagTextStorage.endEditing()
-                            tagTextView.textContainer!.lineFragmentPadding = 0.0
-                            tagTextView.textContainer!.maximumNumberOfLines = 1
+                            
                         }
                         
                         // Generate the bitmap from the rendered YAML text view
