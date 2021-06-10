@@ -93,5 +93,6 @@ light.tomorrow.css
 light.vs.css
 dark.vs2015.css
 light.xcode.css
+dark.xcode-dusk.css
 dark.xt256.css
 dark.zenburn.css
