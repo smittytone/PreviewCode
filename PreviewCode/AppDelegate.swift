@@ -51,6 +51,7 @@ class AppDelegate: NSObject,
     @IBOutlet var fontSizeLabel: NSTextField!
     @IBOutlet var themeTable: NSTableView!
     @IBOutlet var fontNamesPopup: NSPopUpButton!
+    @IBOutlet var displayModeSegmentedControl: NSSegmentedControl!
 
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
@@ -67,6 +68,9 @@ class AppDelegate: NSObject,
     private var previewThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private var selectedThemeIndex: Int = 37
     private var themes: [String] = []
+    private var darkThemes: [Int] = []
+    private var lightThemes: [Int] = []
+    private var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
     private var sampleCodeString: String = ""
     
     
@@ -121,10 +125,10 @@ class AppDelegate: NSObject,
     
     
     /**
-        Called from the Help menu's items to open various websites.
+     Called from the Help menu's items to open various websites.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction @objc private func doShowSites(sender: Any) {
         
@@ -157,10 +161,10 @@ class AppDelegate: NSObject,
 
 
     /**
-        Open the System Preferences app at the Extensions pane.
+     Open the System Preferences app at the Extensions pane.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doOpenSysPrefs(sender: Any) {
 
@@ -171,12 +175,12 @@ class AppDelegate: NSObject,
     // MARK: Report Functions
     
     /**
-        Display a window in which the user can submit feedback, or report a bug.
+     Display a window in which the user can submit feedback, or report a bug.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
-    @IBAction @objc private func doShowReportWindow(sender: Any?) {
+    @IBAction @objc private func doShowReportWindow(sender: Any) {
 
         // Reset the UI
         self.connectionProgress.stopAnimation(self)
@@ -188,10 +192,10 @@ class AppDelegate: NSObject,
 
 
     /**
-        User has clicked the Report window's 'Cancel' button, so just close the sheet.
+     User has clicked the Report window's 'Cancel' button, so just close the sheet.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction @objc private func doCancelReportWindow(sender: Any) {
 
@@ -201,12 +205,12 @@ class AppDelegate: NSObject,
 
 
     /**
-        User has clicked the Report window's 'Send' button.
+     User has clicked the Report window's 'Send' button.
      
-        Get the message (if there is one) from the text field and submit it.
+     Get the message (if there is one) from the text field and submit it.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction @objc private func doSendFeedback(sender: Any) {
 
@@ -237,12 +241,12 @@ class AppDelegate: NSObject,
     
     
     /**
-        Send the feedback string etc.
+     Send the feedback string etc.
      
-        - Parameters:
-            - feedback: The text of the user's comment.
+     - Parameters:
+        - feedback: The text of the user's comment.
      
-        - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
+     - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
      */
     private func submitFeedback(_ feedback: String) -> URLSessionTask? {
         
@@ -297,10 +301,10 @@ class AppDelegate: NSObject,
     // MARK: Preferences Functions
     
     /**
-        Initialise and display the 'Preferences' sheet.
+     Initialise and display the 'Preferences' sheet.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doShowPreferences(sender: Any) {
 
@@ -360,11 +364,8 @@ class AppDelegate: NSObject,
             loadThemeList()
         }
         
-        // Update the themes table
-        self.themeTable.reloadData()
-        let idx: IndexSet = IndexSet.init(integer: self.selectedThemeIndex)
-        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
-        self.themeTable.scrollRowToVisible(self.selectedThemeIndex)
+        // Prepare the table
+        loadTable()
         
         // Display the sheet
         self.window.beginSheet(self.preferencesWindow, completionHandler: nil)
@@ -390,19 +391,26 @@ class AppDelegate: NSObject,
         for i: Int in 0..<self.themes.count {
             if self.themes[i] == self.previewThemeName {
                 self.selectedThemeIndex = i
-                break
+                //break
+            }
+            
+            // Also record themes by type
+            if self.themes[i].hasPrefix("dark") {
+                self.darkThemes.append(i)
+            } else {
+                self.lightThemes.append(i)
             }
         }
     }
     
     
     /**
-        Load a known text file from the app bundle.
+     Load a known text file from the app bundle.
      
-        - Parameters:
-            - file: The name of the text file without its extension.
+     - Parameters:
+        - file: The name of the text file without its extension.
      
-        - Returns: The contents of the loaded file
+     - Returns: The contents of the loaded file
      */
     private func loadBundleFile(_ fileName: String) -> String {
         
@@ -411,6 +419,29 @@ class AppDelegate: NSObject,
                                                  ofType: "txt")
         let fileContents: String = try! String.init(contentsOf: URL.init(fileURLWithPath: filePath!))
         return fileContents
+    }
+    
+    
+    private func loadTable() {
+        
+        // Set the segmented control
+        var selectedIndex: Int = 0
+        var scrollRow: Int = self.selectedThemeIndex
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            selectedIndex = 1
+            scrollRow = 0
+        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            selectedIndex = 2
+            scrollRow = 0
+        }
+        
+        self.displayModeSegmentedControl.selectedSegment = selectedIndex
+        
+        // Update the themes table
+        self.themeTable.reloadData()
+        let idx: IndexSet = getSelectionIndex(self.selectedThemeIndex)
+        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+        self.themeTable.scrollRowToVisible(scrollRow)
     }
     
     
@@ -428,6 +459,29 @@ class AppDelegate: NSObject,
 
 
     /**
+        Change the theme.
+     
+        - Parameters:
+            - sender: The source of the action.
+     */
+    @IBAction private func doSwitchMode(sender: Any) {
+
+        let mode: Int = self.displayModeSegmentedControl.selectedSegment
+        switch (mode) {
+        case 1:
+            self.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
+        case 2:
+            self.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
+        default:
+            self.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
+        }
+        
+        // Reload the table and its selection
+        loadTable()
+    }
+    
+    
+    /**
         Close the **Preferences** sheet without saving.
      
         - Parameters:
@@ -438,7 +492,7 @@ class AppDelegate: NSObject,
         self.window.endSheet(self.preferencesWindow)
     }
 
-
+    
     /**
         Close the **Preferences** sheet and save any settings that have changed.
      
@@ -458,7 +512,19 @@ class AppDelegate: NSObject,
             }
             
             // Set the chosen theme if it has changed
-            let selectedTheme: Int = self.themeTable.selectedRow
+            // Get the table's selected row
+            var selectedTheme: Int = self.themeTable.selectedRow
+            
+            // If we're viewing a subset of the themes, converted
+            // the selected row value to the row that would be selected
+            // if all the data was being shown.
+            if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+                selectedTheme = self.darkThemes[selectedTheme]
+            } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+                selectedTheme = self.lightThemes[selectedTheme]
+            }
+            
+            // Match the selection against the recorded selection
             if selectedTheme != self.selectedThemeIndex {
                 let selectedThemeName = self.themes[selectedTheme]
                 self.selectedThemeIndex = selectedTheme
@@ -791,7 +857,14 @@ class AppDelegate: NSObject,
     func numberOfRows(in tableView: NSTableView) -> Int {
 
         // Just return the number of themes available
-        return self.themes.count
+        switch (self.themeDisplayMode) {
+        case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
+            return self.darkThemes.count
+        case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
+            return self.lightThemes.count
+        default:
+            return self.themes.count
+        }
     }
 
 
@@ -802,9 +875,18 @@ class AppDelegate: NSObject,
         
         if cell != nil {
             // Configure the cell's title and its theme preview
-            let themeParts: [String] = self.themes[row].components(separatedBy: ".")
+            var index: Int = row
+            
+            if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+                index = self.darkThemes[row]
+            } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+                index = self.lightThemes[row]
+            }
+            
+            let theme: String = self.themes[index]
+            let themeParts: [String] = theme.components(separatedBy: ".")
             cell!.themePreviewTitle.stringValue = themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized
-            cell!.rowValue = row
+            cell!.themeIndex = index
             
             // Generate the theme preview view programmatically
             let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 8, 256, 150))
@@ -813,7 +895,7 @@ class AppDelegate: NSObject,
             ptv.isEditable = false
 
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
-                setThemeValues(self.themes[row])
+                setThemeValues(self.themes[index])
                 renderTextStorage.beginEditing()
                 renderTextStorage.setAttributedString(getAttributedString(self.sampleCodeString, "swift", false))
                 renderTextStorage.endEditing()
@@ -843,8 +925,43 @@ class AppDelegate: NSObject,
         
         let clickedView: PreviewTextView = notification.object as! PreviewTextView
         let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
-        let idx: IndexSet = IndexSet.init(integer: parentView.rowValue)
+        var idx: IndexSet = getSelectionIndex(parentView.themeIndex)
         self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+    }
+    
+   
+    /**
+     Generate a selection index for the displayed table.
+     
+     Bases the selection on whether the full data set is being displayed
+     or only a subset.
+     
+     - Parameters:
+        - baseIndex: the selected row's reference to an entry in the main list of themes.
+     
+     - Returns: the row to select
+     */
+    private func getSelectionIndex(_ baseIndex: Int) -> IndexSet {
+        
+        var idx: IndexSet = IndexSet.init(integer: baseIndex)
+        
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            for i: Int in 0..<self.darkThemes.count {
+                if self.darkThemes[i] == baseIndex {
+                    idx = IndexSet.init(integer: i)
+                    break
+                }
+            }
+        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            for i: Int in 0..<self.lightThemes.count {
+                if self.lightThemes[i] == baseIndex {
+                    idx = IndexSet.init(integer: i)
+                    break
+                }
+            }
+        }
+        
+        return idx
     }
     
     

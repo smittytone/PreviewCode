@@ -40,6 +40,13 @@ struct BUFFOON_CONSTANTS {
         static let ASPECT                   = 0.75
         static let TAG_HEIGHT               = 180
     }
+    
+    struct DISPLAY_MODE {
+        
+        static let ALL                      = 0
+        static let DARK                     = 1
+        static let LIGHT                    = 2
+    }
 
     static let BASE_PREVIEW_FONT_SIZE       = 16.0
     static let BASE_THUMB_FONT_SIZE         = 24.0

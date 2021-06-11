@@ -23,6 +23,6 @@ class ThemeTableCellView: NSTableCellView {
     // MARK: - Public Properties
     
     /// Record the table row the cell view is placed at
-    var rowValue: Int = -1
+    var themeIndex: Int = -1
     
 }
