@@ -43,8 +43,6 @@ light.github-gist.css
 light.github.css
 dark.gml.css
 light.googlecode.css
-dark.gradient-dark.css
-light.gradient-light.css
 light.grayscale.css
 dark.gruvbox-dark.css
 light.gruvbox-light.css
@@ -79,6 +77,9 @@ dark.rainbow.css
 light.routeros.css
 light.school-book.css
 dark.shades-of-purple.css
+dark.silk-dark.css
+light.silk-light.css
+dark.snazzy.css
 dark.solarized-dark.css
 light.solarized-light.css
 dark.srcery.css
@@ -92,6 +93,7 @@ dark.tomorrow-night.css
 light.tomorrow.css
 light.vs.css
 dark.vs2015.css
+dark.vulcan.css
 light.xcode.css
 dark.xcode-dusk.css
 dark.xt256.css
