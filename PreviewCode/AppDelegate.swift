@@ -67,6 +67,7 @@ class AppDelegate: NSObject,
     private var previewFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
     private var previewThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private var selectedThemeIndex: Int = 37
+    private var newThemeIndex: Int = 37
     private var themes: [String] = []
     private var darkThemes: [Int] = []
     private var lightThemes: [Int] = []
@@ -365,86 +366,26 @@ class AppDelegate: NSObject,
         }
         
         // Prepare the table
+        self.newThemeIndex = self.selectedThemeIndex
         loadTable()
+        
+        // Set the mode control
+        var selectedIndex: Int = 0
+        
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            selectedIndex = 1
+        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            selectedIndex = 2
+        }
+        
+        self.displayModeSegmentedControl.selectedSegment = selectedIndex
+        self.preferencesWindow.makeFirstResponder(self.themeTable)
         
         // Display the sheet
         self.window.beginSheet(self.preferencesWindow, completionHandler: nil)
     }
 
 
-    /**
-     Read the list of themes from the file in the bundle into an array property.
-     */
-    private func loadThemeList() {
-        
-        // Load in the current theme list
-        let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
-        let themes: [String] = themesString.components(separatedBy: "\n")
-        for theme in themes {
-            if theme.count > 0 {
-                self.themes.append(theme)
-            }
-        }
-        
-        // Set the theme selection
-        // Remember this called only one per run
-        for i: Int in 0..<self.themes.count {
-            if self.themes[i] == self.previewThemeName {
-                self.selectedThemeIndex = i
-                //break
-            }
-            
-            // Also record themes by type
-            if self.themes[i].hasPrefix("dark") {
-                self.darkThemes.append(i)
-            } else {
-                self.lightThemes.append(i)
-            }
-        }
-    }
-    
-    
-    /**
-     Load a known text file from the app bundle.
-     
-     - Parameters:
-        - file: The name of the text file without its extension.
-     
-     - Returns: The contents of the loaded file
-     */
-    private func loadBundleFile(_ fileName: String) -> String {
-        
-        // Load the required resource and return its contents
-        let filePath: String? = Bundle.main.path(forResource: fileName,
-                                                 ofType: "txt")
-        let fileContents: String = try! String.init(contentsOf: URL.init(fileURLWithPath: filePath!))
-        return fileContents
-    }
-    
-    
-    private func loadTable() {
-        
-        // Set the segmented control
-        var selectedIndex: Int = 0
-        var scrollRow: Int = self.selectedThemeIndex
-        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-            selectedIndex = 1
-            scrollRow = 0
-        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-            selectedIndex = 2
-            scrollRow = 0
-        }
-        
-        self.displayModeSegmentedControl.selectedSegment = selectedIndex
-        
-        // Update the themes table
-        self.themeTable.reloadData()
-        let idx: IndexSet = getSelectionIndex(self.selectedThemeIndex)
-        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
-        self.themeTable.scrollRowToVisible(scrollRow)
-    }
-    
-    
     /**
         When the font size slider is moved and released, this function updates the font size readout.
      
@@ -511,23 +452,10 @@ class AppDelegate: NSObject,
                                   forKey: "com-bps-previewcode-base-font-size")
             }
             
-            // Set the chosen theme if it has changed
-            // Get the table's selected row
-            var selectedTheme: Int = self.themeTable.selectedRow
-            
-            // If we're viewing a subset of the themes, converted
-            // the selected row value to the row that would be selected
-            // if all the data was being shown.
-            if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-                selectedTheme = self.darkThemes[selectedTheme]
-            } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-                selectedTheme = self.lightThemes[selectedTheme]
-            }
-            
             // Match the selection against the recorded selection
-            if selectedTheme != self.selectedThemeIndex {
-                let selectedThemeName = self.themes[selectedTheme]
-                self.selectedThemeIndex = selectedTheme
+            if self.newThemeIndex != self.selectedThemeIndex {
+                let selectedThemeName = self.themes[self.newThemeIndex]
+                self.selectedThemeIndex = self.newThemeIndex
                 defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
             }
             
@@ -548,6 +476,8 @@ class AppDelegate: NSObject,
         self.window.endSheet(self.preferencesWindow)
     }
     
+    
+    // MARK: What's New Functions
     
     /**
         Show the 'What's New' sheet.
@@ -620,7 +550,159 @@ class AppDelegate: NSObject,
         }
     }
 
-
+    
+    // MARK:- Table Data Functions
+    
+    /**
+     Set up the themes table.
+     */
+    private func loadTable() {
+        
+        // De-select and update the themes table
+        self.themeTable.reloadData()
+        self.themeTable.deselectAll(self)
+        
+        // Select the chosen theme
+        // 'getSelectionIndex()' returns nil if nothing is selected
+        // on the table, ie. a dark theme has been chosen but we're
+        // viewing the light table
+        if let idx: IndexSet = getSelectionIndex(self.newThemeIndex) {
+            let row: Int = idx.min()!
+            self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+            self.themeTable.scrollRowToVisible(row)
+            
+            // If we're viewing a subset of the themes, converted
+            // the selected row value to the row that would be selected
+            // if all the data was being shown.
+            self.newThemeIndex = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.ALL)
+                ? self.themeTable.selectedRow
+                : getBaseIndex(row)
+        } else {
+            self.themeTable.scrollRowToVisible(0)
+        }
+    }
+    
+    
+    /**
+     Generate a selection index for the displayed table.
+     
+     Bases the selection on whether the full data set is being displayed
+     or only a subset.
+     
+     - Parameters:
+        - indexInFullThemeList: the selected row's reference to an entry in the main list of themes.
+     
+     - Returns: the row to select
+     */
+    private func getSelectionIndex(_ indexInFullThemeList: Int) -> IndexSet? {
+        
+        // Assume we're showing all themes as the default
+        var idx: IndexSet? = IndexSet.init(integer: indexInFullThemeList)
+        
+        // But check if we're actually viewing a subset
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            idx = nil
+            for i: Int in 0..<self.darkThemes.count {
+                if self.darkThemes[i] == indexInFullThemeList {
+                    idx = IndexSet.init(integer: i)
+                    break
+                }
+            }
+        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            idx = nil
+            for i: Int in 0..<self.lightThemes.count {
+                if self.lightThemes[i] == indexInFullThemeList {
+                    idx = IndexSet.init(integer: i)
+                    break
+                }
+            }
+        }
+        
+        return idx
+    }
+    
+    
+    /**
+     Calculate a main theme list index from a sub-list index.
+     
+     - Parameters:
+        - subListIndex: the sub-list row index.
+     
+     - Returns: the full theme list index.
+     */
+    func getBaseIndex(_ subListIndex: Int) -> Int {
+        
+        var fullListIndex: Int = -1
+        
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            fullListIndex = self.darkThemes[subListIndex]
+        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            fullListIndex = self.lightThemes[subListIndex]
+        }
+        
+        return fullListIndex
+    }
+   
+    
+    // MARK:- Theme Loading Functions
+    
+    /**
+     Read the list of themes from the file in the bundle into an array property.
+     
+     Should only be called once.
+     */
+    private func loadThemeList() {
+        
+        // Load in the current theme list
+        let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
+        let themes: [String] = themesString.components(separatedBy: "\n")
+        
+        if themes.count > 0 {
+            for theme in themes {
+                if theme.count > 0 {
+                    self.themes.append(theme)
+                }
+            }
+        }
+        
+        // Set the theme selection
+        // Remember this called only one per run
+        for i: Int in 0..<self.themes.count {
+            if self.themes[i] == self.previewThemeName {
+                self.selectedThemeIndex = i
+            }
+            
+            // Also record themes by type: these arrays
+            // record indices from from the main array
+            if self.themes[i].hasPrefix("d") {
+                self.darkThemes.append(i)
+            } else {
+                self.lightThemes.append(i)
+            }
+        }
+    }
+    
+    
+    /**
+     Load a known text file from the app bundle.
+     
+     - Parameters:
+        - file: The name of the text file without its extension.
+     
+     - Returns: The contents of the loaded file
+     */
+    private func loadBundleFile(_ fileName: String) -> String {
+        
+        // Load the required resource and return its contents
+        let filePath: String? = Bundle.main.path(forResource: fileName,
+                                                 ofType: "txt")
+        let fileContents: String = try! String.init(contentsOf: URL.init(fileURLWithPath: filePath!))
+        return fileContents
+    }
+    
+    
+    // MARK:- Process Handling Functions
+    
     /**
         Generic macOS process creation and run function.
      
@@ -875,21 +957,14 @@ class AppDelegate: NSObject,
         
         if cell != nil {
             // Configure the cell's title and its theme preview
-            var index: Int = row
-            
-            if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-                index = self.darkThemes[row]
-            } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-                index = self.lightThemes[row]
-            }
-            
+            let index: Int = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.ALL) ? row : getBaseIndex(row)
             let theme: String = self.themes[index]
             let themeParts: [String] = theme.components(separatedBy: ".")
             cell!.themePreviewTitle.stringValue = themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized
             cell!.themeIndex = index
             
             // Generate the theme preview view programmatically
-            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 8, 256, 150))
+            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 4, 256, 134))
             
             // We want the text view to be selectable but not editable
             ptv.isEditable = false
@@ -914,6 +989,24 @@ class AppDelegate: NSObject,
     }
     
     
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        
+        /* Get the clicked NSTableCellView and use it to d get the table row
+         * that we need to select
+         */
+        
+        self.newThemeIndex = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.ALL)
+            ? self.themeTable.selectedRow
+            : getBaseIndex(self.themeTable.selectedRow)
+        
+        // Make sure the table becomes first responder so that the selection
+        // is highlighted correctly
+        if self.themeTable.selectedRow != -1 {
+            self.preferencesWindow.makeFirstResponder(self.themeTable)
+        }
+    }
+    
+    
     // MARK: - NSTextView Delegate Functions
     
     func textViewDidChangeSelection(_ notification: Notification) {
@@ -925,43 +1018,11 @@ class AppDelegate: NSObject,
         
         let clickedView: PreviewTextView = notification.object as! PreviewTextView
         let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
-        var idx: IndexSet = getSelectionIndex(parentView.themeIndex)
-        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
-    }
-    
-   
-    /**
-     Generate a selection index for the displayed table.
-     
-     Bases the selection on whether the full data set is being displayed
-     or only a subset.
-     
-     - Parameters:
-        - baseIndex: the selected row's reference to an entry in the main list of themes.
-     
-     - Returns: the row to select
-     */
-    private func getSelectionIndex(_ baseIndex: Int) -> IndexSet {
-        
-        var idx: IndexSet = IndexSet.init(integer: baseIndex)
-        
-        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-            for i: Int in 0..<self.darkThemes.count {
-                if self.darkThemes[i] == baseIndex {
-                    idx = IndexSet.init(integer: i)
-                    break
-                }
-            }
-        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-            for i: Int in 0..<self.lightThemes.count {
-                if self.lightThemes[i] == baseIndex {
-                    idx = IndexSet.init(integer: i)
-                    break
-                }
-            }
+        if let idx: IndexSet = getSelectionIndex(parentView.themeIndex) {
+            self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+            self.newThemeIndex = parentView.themeIndex
+            self.preferencesWindow.makeFirstResponder(self.themeTable)
         }
-        
-        return idx
     }
     
     
