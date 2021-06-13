@@ -19,6 +19,7 @@ class PreviewViewController: NSViewController,
     @IBOutlet var renderTextView: NSTextView!
     @IBOutlet var renderTextScrollView: NSScrollView!
 
+    
     // MARK:- Public Properties
     
     override var nibName: NSNib.Name? {

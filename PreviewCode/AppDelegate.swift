@@ -24,6 +24,7 @@ class AppDelegate: NSObject,
                    NSTextViewDelegate {
 
     // MARK:- Class UI Properies
+    
     // Menu Items
     @IBOutlet var helpMenuPreviewCode: NSMenuItem!
     @IBOutlet var helpMenuAcknowledgments: NSMenuItem!
@@ -57,7 +58,9 @@ class AppDelegate: NSObject,
     @IBOutlet var whatsNewWindow: NSWindow!
     @IBOutlet var whatsNewWebView: WKWebView!
 
+    
     // MARK:- Private Properies
+    
     private var feedbackTask: URLSessionTask? = nil
     private var whatsNewNav: WKNavigation? = nil
     private var previewFontSize: CGFloat = 16.0
@@ -115,6 +118,12 @@ class AppDelegate: NSObject,
 
     // MARK:- Action Functions
 
+    /**
+     Called from the File menu's Close item and the various Quit controls.
+     
+     - Parameters:
+        - sender: The source of the action.
+     */
     @IBAction private func doClose(_ sender: Any) {
         
         // Reset the QL thumbnail cache... just in case it helps
@@ -315,7 +324,6 @@ class AppDelegate: NSObject,
             self.previewFontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
             self.previewFontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
             self.previewThemeName = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
-            self.doShowLightBackground = defaults.bool(forKey: "com-bps-previewcode-do-use-light")
         }
 
         // Set the font size slider
@@ -325,7 +333,7 @@ class AppDelegate: NSObject,
         
         // Set the font name popup
         // List the current system's monospace fonts
-        // TODO Some outliers here, which we may want to remove
+        // TODO Some outliers here, which we may want to remove manually
         let fm: NSFontManager = NSFontManager.shared
         self.fontNamesPopup.removeAllItems()
         if let fonts: [String] = fm.availableFontNames(with: .fixedPitchFontMask) {
@@ -356,32 +364,31 @@ class AppDelegate: NSObject,
             }
         }
         
-        // Set the themes table, once per runtime
+        // Set the themes table's contents store, once per runtime
         if self.themes.count == 0 {
             // Load in the code sample we'll preview the themes with
-            self.sampleCodeString = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE)
+            if let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE) {
+                self.sampleCodeString = loadedCode
+            }
             
             // Load and prepare the list of themes
             loadThemeList()
         }
         
-        // Prepare the table
+        // Load the table with themes
+        // 'newThemeIndex' starts as the current selection, but may change
+        // NOTE These should always indicted an index in the full list of themes
         self.newThemeIndex = self.selectedThemeIndex
         loadTable()
         
         // Set the mode control
-        var selectedIndex: Int = 0
-        
-        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-            selectedIndex = 1
-        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-            selectedIndex = 2
-        }
-        
-        self.displayModeSegmentedControl.selectedSegment = selectedIndex
-        self.preferencesWindow.makeFirstResponder(self.themeTable)
+        var selectedMode: Int = 0
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK { selectedMode = 1 }
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT { selectedMode = 2 }
+        self.displayModeSegmentedControl.selectedSegment = selectedMode
         
         // Display the sheet
+        self.preferencesWindow.makeFirstResponder(self.themeTable)
         self.window.beginSheet(self.preferencesWindow, completionHandler: nil)
     }
 
@@ -400,7 +407,7 @@ class AppDelegate: NSObject,
 
 
     /**
-        Change the theme.
+        When the NSSegmentedContro is clicked, change the theme mode.
      
         - Parameters:
             - sender: The source of the action.
@@ -452,13 +459,6 @@ class AppDelegate: NSObject,
                                   forKey: "com-bps-previewcode-base-font-size")
             }
             
-            // Match the selection against the recorded selection
-            if self.newThemeIndex != self.selectedThemeIndex {
-                let selectedThemeName = self.themes[self.newThemeIndex]
-                self.selectedThemeIndex = self.newThemeIndex
-                defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
-            }
-            
             // Set the chosen font if it has changed
             if let selectedMenuItem: NSMenuItem = self.fontNamesPopup.selectedItem {
                 let selectedName: String = selectedMenuItem.representedObject as! String
@@ -466,6 +466,13 @@ class AppDelegate: NSObject,
                     self.previewFontName = selectedName
                     defaults.setValue(selectedName, forKey: "com-bps-previewcode-base-font-name")
                 }
+            }
+            
+            // Update the theme selection if it has changed
+            if self.newThemeIndex != self.selectedThemeIndex {
+                self.selectedThemeIndex = self.newThemeIndex
+                let selectedThemeName = self.themes[self.newThemeIndex]
+                defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
             }
 
             // Sync any changes
@@ -567,6 +574,7 @@ class AppDelegate: NSObject,
         // on the table, ie. a dark theme has been chosen but we're
         // viewing the light table
         if let idx: IndexSet = getSelectionIndex(self.newThemeIndex) {
+            // We can use '.min()' because 'idx' should contain only one value
             let row: Int = idx.min()!
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
             self.themeTable.scrollRowToVisible(row)
@@ -626,9 +634,9 @@ class AppDelegate: NSObject,
      Calculate a main theme list index from a sub-list index.
      
      - Parameters:
-        - subListIndex: the sub-list row index.
+        - subListIndex: The sub-list row index.
      
-     - Returns: the full theme list index.
+     - Returns: The full theme list index.
      */
     func getBaseIndex(_ subListIndex: Int) -> Int {
         
@@ -649,16 +657,23 @@ class AppDelegate: NSObject,
     /**
      Read the list of themes from the file in the bundle into an array property.
      
-     Should only be called once.
+     We also create two subset arrays, one for dark themes, the other for light ones.
+     
+     Should only be called once per run.
      */
     private func loadThemeList() {
         
         // Load in the current theme list
-        let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
+        guard let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
+        else {
+            // Error already posted by 'loadBundleFile()'
+            return
+        }
+        
         let themes: [String] = themesString.components(separatedBy: "\n")
         
         if themes.count > 0 {
-            for theme in themes {
+            for theme: String in themes {
                 if theme.count > 0 {
                     self.themes.append(theme)
                 }
@@ -691,29 +706,39 @@ class AppDelegate: NSObject,
      
      - Returns: The contents of the loaded file
      */
-    private func loadBundleFile(_ fileName: String) -> String {
+    private func loadBundleFile(_ fileName: String) -> String? {
         
         // Load the required resource and return its contents
-        let filePath: String? = Bundle.main.path(forResource: fileName,
-                                                 ofType: "txt")
-        let fileContents: String = try! String.init(contentsOf: URL.init(fileURLWithPath: filePath!))
-        return fileContents
+        guard let filePath: String = Bundle.main.path(forResource: fileName, ofType: "txt")
+        else {
+            // TODO Post error
+            return nil
+        }
+        
+        do {
+            let fileContents: String = try String.init(contentsOf: URL.init(fileURLWithPath: filePath))
+            return fileContents
+        } catch {
+            // TODO Post error
+        }
+        
+        return nil
     }
     
     
     // MARK:- Process Handling Functions
     
     /**
-        Generic macOS process creation and run function.
+     Generic macOS process creation and run function.
      
-        Make sure we clear the preference flag for this minor version, so that
-        the sheet is not displayed next time the app is run (unless the version changes)
+     Make sure we clear the preference flag for this minor version, so that
+     the sheet is not displayed next time the app is run (unless the version changes)
      
-        - Parameters:
-            - app: The location of the app.
-            - with: Array of arguments to pass to the app
+     - Parameters:
+        - app: The location of the app.
+        - with: Array of arguments to pass to the app
         
-        - Returns: `true` if the operation was successful, otherwise `false`
+     - Returns: `true` if the operation was successful, otherwise `false`
      */
      private func runProcess(app path: String, with args: [String]) -> Bool {
 
@@ -760,10 +785,10 @@ class AppDelegate: NSObject,
     // MARK: - Misc Functions
 
     /**
-        Present an error message specific to sending feedback.
+     Present an error message specific to sending feedback.
      
-        This is called from multiple locations: if the initial request can't be created,
-        there was a send failure, or a server error
+     This is called from multiple locations: if the initial request can't be created,
+     there was a send failure, or a server error
      */
      private func sendFeedbackError() {
 
@@ -776,11 +801,11 @@ class AppDelegate: NSObject,
 
 
     /**
-        Generic alert generator.
+     Generic alert generator.
      
-        - Parameters:
-            - head:    The alert's title.
-            - message: The alert's message.
+     - Parameters:
+        - head:    The alert's title.
+        - message: The alert's message.
      
      - Returns: The NSAlert
      */
@@ -795,7 +820,7 @@ class AppDelegate: NSObject,
 
 
     /**
-        Called by the app at launch to register its initial defaults.
+     Called by the app at launch to register its initial defaults.
      */
      private func registerPreferences() {
 
@@ -833,6 +858,7 @@ class AppDelegate: NSObject,
 
             // Use light background even in dark mode, stored as a bool
             // Default: false
+            // NOTE Currently unused
             let useLightDefault: Any? = defaults.object(forKey: "com-bps-previewcode-do-use-light")
             if useLightDefault == nil {
                 defaults.setValue(false,
@@ -859,9 +885,9 @@ class AppDelegate: NSObject,
     
     
     /**
-        Build a basic 'major.manor' version string for prefs usage.
+     Build a basic 'major.manor' version string for prefs usage.
      
-        - Returns: The version string
+     - Returns: The version string
      */
      private func getVersion() -> String {
 
@@ -872,9 +898,9 @@ class AppDelegate: NSObject,
     
     
     /**
-        Build a date string string for feedback usage.
+     Build a date string string for feedback usage.
      
-        - Returns: The date string
+     - Returns: The date string
      */
      private func getDateForFeedback() -> String {
 
@@ -888,9 +914,9 @@ class AppDelegate: NSObject,
 
 
     /**
-        Build a user-agent string string for feedback usage.
+     Build a user-agent string string for feedback usage.
      
-        - Returns: The user-agent string
+     - Returns: The user-agent string
      */
      private func getUserAgentForFeedback() -> String {
 

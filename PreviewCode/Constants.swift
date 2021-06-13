@@ -38,7 +38,7 @@ struct BUFFOON_CONSTANTS {
         static let WIDTH                    = 768
         static let HEIGHT                   = 1024
         static let ASPECT                   = 0.75
-        static let TAG_HEIGHT               = 180
+        static let TAG_HEIGHT               = 214
     }
     
     struct DISPLAY_MODE {

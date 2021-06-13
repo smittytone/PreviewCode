@@ -13,6 +13,8 @@ import AppKit
 import Highlighter
 
 
+// MARK:- Global Properties
+
 // Use defaults for some user-selectable values
 private var theme: String = BUFFOON_CONSTANTS.DEFAULT_THEME
 private var themeBackgroundColor: NSColor = NSColor.black
@@ -29,15 +31,20 @@ private var errAtts: [NSAttributedString.Key: Any] = [
 ]
 
 
-// MARK:- Primary Function
+// MARK:- The Primary Function
 
+/**
+ Use HightlightSwift to style the source code string.
+ 
+ - Parameters:
+    - codeFileString: The raw source code.
+    - language:       The source code language, eg. `swift`.
+    - isThumbnail:    Are we rendering a thumbnail (`true`) or a preview (`false`).
+ 
+ - Returns: The rendered source as an NSAttributedString.
+ */
 func getAttributedString(_ codeFileString: String, _ language: String, _ isThumbnail: Bool) -> NSAttributedString {
 
-    /*
-     * Use Highlightr to render the input source file as an NSAttributedString,
-     * which is returned.
-     */
-    
     // Run the specified code string through Highlightr/Highlight.js
     var renderedString: NSAttributedString? = nil
     
@@ -62,17 +69,21 @@ func getAttributedString(_ codeFileString: String, _ language: String, _ isThumb
 
 // MARK:- Formatting Functions
 
+/**
+ Set key theme parameters.
+ 
+ We record in prefs a string combinining the theme's Highlight.js name and
+ its 'mode' (light or dark), so we need to call this function at some
+ point to extract these two data points.
+ 
+ **NOTE** This should now be called only **once**, before the code is rendered
+      to avoid threading race conditions. This is called by `setBaseValues()`
+      and `AppDelegate` (frequently, once for each theme).
+ 
+ - Parameters:
+    - themeData: The PreviewCode theme info string, eg. `dark.an-old-hope`.
+ */
 func setThemeValues(_ themeData: String) {
-    
-    /*
-     * We record in prefs a string combinining the theme's Highlight.js name
-     * and its 'mode' (light or dark), so we need to call this function at some
-     * point to extract these two data points.
-     *
-     * NOTE This should now be called only ONCE, before the code is rendered
-     *      to avoid threading race conditions. This is called by 'setBaseValues()'
-     *      and 'AppDelegate' (frequently, once for each theme)
-     */
     
     let themeParts: [String] = themeData.components(separatedBy: ".")
     theme = themeParts[1]
@@ -86,15 +97,17 @@ func setThemeValues(_ themeData: String) {
 }
 
 
+/**
+ Set common base style values for the source code render.
+ 
+ **NOTE** This should now be called only ONCE, before the code is rendered
+          to avoid threading race conditions.
+ 
+ - Parameters:
+    - isThumbnail:    Are we rendering a thumbnail (`true`) or a preview (`false`).
+ */
 func setBaseValues(_ isThumbnail: Bool) {
 
-    /*
-     * Set common base style values for the source code render
-     *
-     * NOTE This should now be called only ONCE, before the code is rendered
-     *      to avoid threading race conditions
-     */
-    
     // The suite name is the app group name, set in each extension's entitlements, and the host app's
     if let defaults = UserDefaults(suiteName: appSuiteName) {
         // Read back the theme and typeface prefs
@@ -139,36 +152,26 @@ func setBaseValues(_ isThumbnail: Bool) {
 }
 
 
-func getMode() -> Bool {
-    
-    // Simple getter
-    
-    return isThemeDark
-}
-
-
-func getBackgroundColour() -> NSColor {
-    
-    // Simple getter
-
-    return themeBackgroundColor
-}
-
-
 // MARK: - Utility Functions
 
+/**
+ Determine the source file's language from its UTI.
+ 
+ For example, `public.swift-source` -> `swift`.
+ 
+ If `isForTag` is `true`, it returns the actual name of the language,
+ not the naming used by Highlight.js, which it returns if `isForTag`
+ is `false`. This is because these are not always the same,
+ eg. `c++` vs `cpp`, `pascal` vs `delphi`.
+ 
+ - Parameters:
+    - sourceFilePath: The path to the source code file.
+    - isForTag:       Are we rendering a thumbnail tag (`true`) or not (`false`).
+ 
+ - Returns: The source code's language.
+ */
 func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
-    /*
-     * Determine the source file's language, and return
-     * it as a string, eg. 'public.swift-source' -> 'swift'.
-     *
-     * If 'isForTag' is true, it returns the actual name of the language,
-     * not the naming used by Highlight.js, which it returns if 'isForTag'
-     * is false. This is because these are not always the same
-     * eg. 'c++' vs 'cpp', or 'pascal' vs 'delphi'
-     */
-    
     let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
     let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension
 
@@ -235,12 +238,17 @@ func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 }
 
 
+/**
+ Get the supplied source file's UTI.
+ 
+ We'll use it to determine the file's programming language.
+ 
+ - Parameters:
+    - sourceFilePath: The path to the source code file.
+ 
+ - Returns: The source code's UTI.
+ */
 func getSourceFileUTI(_ sourceFilePath: String) -> String {
-    
-    /*
-     * Get the passed code file's UTI - we'll use it to
-     * determine the file's programming language
-     */
     
     // Create a URL reference to the sample file
     var sourceFileUTI: String = ""
@@ -260,9 +268,17 @@ func getSourceFileUTI(_ sourceFilePath: String) -> String {
 }
 
 
+/**
+ Generate an NSError for an internal error, specified by its code.
+ 
+ Codes are listed in `Constants.swift`
+ 
+ - Parameters:
+    - code: The internal error code.
+ 
+ - Returns: The described error as an NSError.
+ */
 func setError(_ code: Int) -> NSError {
-    
-    // NSError generation function
     
     var errDesc: String
     
@@ -286,3 +302,28 @@ func setError(_ code: Int) -> NSError {
 }
 
 
+// MARK:- Threading-friendly Property Getters
+/**
+ Thread-friendly getter for the theme mode. May not be necessary.
+ 
+ - Returns: Whether the theme is dark (`true`) or light (`false`).
+ */
+func getMode() -> Bool {
+    
+    // Simple getter
+    
+    return isThemeDark
+}
+
+
+/**
+ Thread-friendly getter for the theme background colour. May not be necessary.
+ 
+ - Returns: The theme background colour as an NSColor.
+ */
+func getBackgroundColour() -> NSColor {
+    
+    // Simple getter
+
+    return themeBackgroundColor
+}

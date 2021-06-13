@@ -22,7 +22,7 @@ class ThemeTableCellView: NSTableCellView {
     
     // MARK: - Public Properties
     
-    /// Record the table row the cell view is placed at
+    // Record the table row the cell view is placed at
     var themeIndex: Int = -1
     
 }

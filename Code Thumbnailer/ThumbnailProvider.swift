@@ -13,7 +13,8 @@ import Cocoa
 
 class ThumbnailProvider: QLThumbnailProvider {
     
-    // MARK: Private Properties
+    // MARK:- Private Properties
+    
     private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
     
     
@@ -48,7 +49,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                 CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
                                                 request.maximumSize.height)
         
-        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { () -> Bool in
+        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { [self] () -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
             let success = autoreleasepool { () -> Bool in
                 // Load the source file using a co-ordinator as we don't know what thread this function
@@ -91,35 +92,20 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                            y: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y,
                                                            width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
                                                            height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT)
-
-                        // Instantiate an NSTextView to display the NSAttributedString render of the tag,
-                        // this time with a clear background
-                        // Make sure it is not selectable, ie. not interactive
-                        // NOTE 'tagTextView' is an optional
-                        let tagTextView: NSTextView = NSTextView.init(frame: tagFrame)
-                        tagTextView.isSelectable = false
-                        tagTextView.backgroundColor = NSColor.clear
-
-                        // Write the tag rendered as an NSAttributedString into the view's text storage
-                        if let tagTextStorage: NSTextStorage = tagTextView.textStorage {
-                            // Remove offsets
-                            tagTextView.textContainer!.lineFragmentPadding = 0.0
-                            tagTextView.textContainer!.maximumNumberOfLines = 1
-                            
-                            // NOTE We use 'request.maximumSize' for more accurate results
-                            let tag: String = getLanguage(request.fileURL.path, true).uppercased()
-                            tagTextStorage.beginEditing()
-                            tagTextStorage.setAttributedString(self.getTagString(tag, request.maximumSize.width))
-                            tagTextStorage.endEditing()
-                            
-                        }
+                        
+                        // NOTE Using an NSTextField label appears to work better
+                        //      than using an NSTextView for the file icon tag
+                        let tag: String = getLanguage(request.fileURL.path, true).uppercased()
+                        let aTag: NSAttributedString = self.getTagString(tag, CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH))
+                        let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: aTag)
+                        tagTextField.frame = tagFrame
                         
                         // Generate the bitmap from the rendered YAML text view
                         guard let imageRep: NSBitmapImageRep = codeTextView.bitmapImageRepForCachingDisplay(in: codeFrame) else { return false }
                         
                         // Draw the code view into the bitmap and then the tag
                         codeTextView.cacheDisplay(in: codeFrame, to: imageRep)
-                        tagTextView.cacheDisplay(in: tagFrame, to: imageRep)
+                        tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
                         return imageRep.draw(in: thumbnailFrame)
                     } catch {
                         // NOP: fall through to error
@@ -137,13 +123,20 @@ class ThumbnailProvider: QLThumbnailProvider {
     }
     
     
-    // MARK:- Misc Functions
+    // MARK:- Utility Functions
     
+    /**
+     Create an attributed string for a file icon tag.
+     
+     We'll use it to determine the file's programming language.
+     
+     - Parameters:
+        - tag:   The text of the tag.
+        - width: The fractional pixel width we need to tag to fit into.
+     
+     - Returns: The tag as an NSAttributedString.
+     */
     func getTagString(_ tag: String, _ width: CGFloat) -> NSAttributedString {
-
-        /*
-         * Set the text for the bottom-of-thumbnail file type tag
-         */
 
         // Set the paragraph style we'll use -- just centred text
         let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
@@ -163,7 +156,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         
         // Build the tag's string attributes
         let tagAtts: [NSAttributedString.Key: Any] = [
-            .paragraphStyle: style as NSParagraphStyle,
+            .paragraphStyle: style,
             .font: NSFont.systemFont(ofSize: fontSize),
             .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
         ]

@@ -17,7 +17,7 @@ class PreviewTextView: NSTextView {
 
     override func mouseMoved(with event: NSEvent) {
         
-        /// Re-set the cursor to an arrow on mouse movement
+        // Re-set the cursor to an arrow on mouse movement
         NSCursor.arrow.set()
     }
     
