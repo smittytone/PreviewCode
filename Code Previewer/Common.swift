@@ -128,7 +128,7 @@ func setBaseValues(_ isThumbnail: Bool) {
     if isThumbnail {
         theme = "atom-one-light"
         isThemeDark = false
-        fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE)
+        fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
     } else {
         // Just in case the above block reads in zero value for the preview font size
         if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||

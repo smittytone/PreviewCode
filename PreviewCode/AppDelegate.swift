@@ -838,7 +838,7 @@ class AppDelegate: NSObject,
             // Default: 32.0
             let thumbFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-thumb-font-size")
             if thumbFontSizeDefault == nil {
-                defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_THUMB_FONT_SIZE),
+                defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE),
                                   forKey: "com-bps-previewcode-thumb-font-size")
             }
 
