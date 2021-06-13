@@ -67,6 +67,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         
                         // Get the Attributed String
                         let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, true)
+                        
 
                         // Set the primary drawing frame and a base font size
                         let codeFrame: CGRect = CGRect.init(x: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X,
@@ -74,6 +75,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                             width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
                                                             height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.HEIGHT)
 
+                        /*
                         // Instantiate an NSTextView to display the NSAttributedString render of the code
                         // Make sure it is not selectable, ie. not interactive
                         let codeTextView: NSTextView = NSTextView.init(frame: codeFrame)
@@ -85,6 +87,18 @@ class ThumbnailProvider: QLThumbnailProvider {
                         codeTextStorage.beginEditing()
                         codeTextStorage.setAttributedString(codeAttString)
                         codeTextStorage.endEditing()
+                        */
+                        
+                        // Set a paragraph style to wrap so we get a multi-line label
+                        let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+                        style.lineBreakMode = .byWordWrapping
+                        let extraAtts: [NSAttributedString.Key: Any] = [.paragraphStyle: style]
+                        
+                        let fixAttrString: NSMutableAttributedString = NSMutableAttributedString.init(attributedString: codeAttString)
+                        fixAttrString.addAttributes(extraAtts, range: NSMakeRange(0, fixAttrString.string.count))
+                        
+                        let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: fixAttrString)
+                        codeTextField.frame = codeFrame
                         
                         // Also generate text for the bottom-of-thumbnail file type tag
                         // Define the frame of the tag area
@@ -101,10 +115,10 @@ class ThumbnailProvider: QLThumbnailProvider {
                         tagTextField.frame = tagFrame
                         
                         // Generate the bitmap from the rendered YAML text view
-                        guard let imageRep: NSBitmapImageRep = codeTextView.bitmapImageRepForCachingDisplay(in: codeFrame) else { return false }
+                        guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else { return false }
                         
                         // Draw the code view into the bitmap and then the tag
-                        codeTextView.cacheDisplay(in: codeFrame, to: imageRep)
+                        codeTextField.cacheDisplay(in: codeFrame, to: imageRep)
                         tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
                         return imageRep.draw(in: thumbnailFrame)
                     } catch {
