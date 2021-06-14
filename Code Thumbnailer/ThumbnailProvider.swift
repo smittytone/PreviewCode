@@ -89,15 +89,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         codeTextStorage.endEditing()
                         */
                         
-                        // Set a paragraph style to wrap so we get a multi-line label
-                        let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-                        style.lineBreakMode = .byWordWrapping
-                        let extraAtts: [NSAttributedString.Key: Any] = [.paragraphStyle: style]
-                        
-                        let fixAttrString: NSMutableAttributedString = NSMutableAttributedString.init(attributedString: codeAttString)
-                        fixAttrString.addAttributes(extraAtts, range: NSMakeRange(0, fixAttrString.string.count))
-                        
-                        let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: fixAttrString)
+                        let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAttString)
                         codeTextField.frame = codeFrame
                         
                         // Also generate text for the bottom-of-thumbnail file type tag
