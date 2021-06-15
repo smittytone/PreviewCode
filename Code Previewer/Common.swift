@@ -10,6 +10,7 @@
 
 import Foundation
 import AppKit
+import UniformTypeIdentifiers
 import Highlighter
 
 
@@ -256,9 +257,16 @@ func getSourceFileUTI(_ sourceFilePath: String) -> String {
 
     do {
         // Read back the UTI from the URL
-        // NOTE '.typeIdentifier' yields an optional
-        if let uti = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
-            sourceFileUTI = uti
+        // Use Big Sur's UTType API
+        if #available(macOS 11, *) {
+            if let uti: UTType = try sourceFileURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
+                sourceFileUTI = uti.identifier
+            }
+        } else {
+            // NOTE '.typeIdentifier' yields an optional
+            if let uti: String = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
+                sourceFileUTI = uti
+            }
         }
     } catch {
         // NOP
