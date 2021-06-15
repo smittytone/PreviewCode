@@ -80,6 +80,8 @@
 				<string>public.dylan-source</string>
 				<string>com.bps.basic-source</string>
 			</array>
+			<key>QLSupportsSearchableItems</key>
+			<false/>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>
 		</dict>
