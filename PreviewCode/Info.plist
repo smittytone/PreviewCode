@@ -36,6 +36,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Rust</string>
@@ -56,6 +58,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Go</string>
@@ -75,6 +79,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>CoffeeScript</string>
@@ -95,6 +101,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TypeScript</string>
@@ -115,6 +123,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Lua</string>
@@ -134,6 +144,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>C-Sharp</string>
@@ -154,6 +166,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>VBScript</string>
@@ -176,6 +190,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>SQL</string>
@@ -216,6 +232,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Arduino</string>
@@ -235,6 +253,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Clojure</string>
@@ -257,6 +277,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Erlang</string>
@@ -297,6 +319,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Elixir</string>
@@ -317,6 +341,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Haskell</string>
@@ -337,6 +363,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Brainfuck</string>
@@ -357,6 +385,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ActionScript</string>
@@ -400,6 +430,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Dart</string>
@@ -419,6 +451,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>FSharp</string>
@@ -441,6 +475,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Julia</string>
@@ -460,6 +496,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Lisp</string>
@@ -482,6 +520,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Kotlin</string>
@@ -500,25 +540,11 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>UTTypeDescription</key>
-			<string>Dylan</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>public.dylan-source</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>dlyan</string>
-					<string>lid</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Basic</string>
