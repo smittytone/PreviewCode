@@ -75,20 +75,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                             width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
                                                             height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.HEIGHT)
 
-                        /*
-                        // Instantiate an NSTextView to display the NSAttributedString render of the code
-                        // Make sure it is not selectable, ie. not interactive
-                        let codeTextView: NSTextView = NSTextView.init(frame: codeFrame)
-                        codeTextView.isSelectable = false
-                        codeTextView.backgroundColor = NSColor.white
-
-                        // Write the code NSAttributedString into the view's text storage
-                        guard let codeTextStorage: NSTextStorage = codeTextView.textStorage else { return false }
-                        codeTextStorage.beginEditing()
-                        codeTextStorage.setAttributedString(codeAttString)
-                        codeTextStorage.endEditing()
-                        */
-                        
+                        // Instantiate an NSTextField to display the NSAttributedString render of the code
                         let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAttString)
                         codeTextField.frame = codeFrame
                         
@@ -99,8 +86,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                            width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
                                                            height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT)
                         
-                        // NOTE Using an NSTextField label appears to work better
-                        //      than using an NSTextView for the file icon tag
+                        // Instantiate an NSTextField to display the NSAttributedString render of the tag
                         let tag: String = getLanguage(request.fileURL.path, true).uppercased()
                         let aTag: NSAttributedString = self.getTagString(tag, CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH))
                         let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: aTag)
