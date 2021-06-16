@@ -97,10 +97,4 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 Primary app code and UI design &copy; 2021, Tony Smith.
 
-Code portions &copy; 2016 Juan Pablo Illanes. Code portions &copy; 2006 Ivan Sagalaev.
-
-## Todo
-
-public.precompiled-c-header, .pch
-com.bps.gradle-source, .gradle
-smalltalk
+Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-21 Ivan Sagalaev.
