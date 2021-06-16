@@ -375,21 +375,23 @@ DQ
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jjd-uj-Puq">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="206" width="560" height="388"/>
+            <rect key="contentRect" x="196" y="206" width="560" height="420"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <value key="minSize" type="size" width="560" height="388"/>
-            <value key="maxSize" type="size" width="560" height="388"/>
-            <value key="minFullScreenContentSize" type="size" width="560" height="388"/>
-            <value key="maxFullScreenContentSize" type="size" width="560" height="388"/>
+            <value key="minSize" type="size" width="560" height="420"/>
+            <value key="maxSize" type="size" width="560" height="420"/>
+            <value key="minFullScreenContentSize" type="size" width="560" height="420"/>
+            <value key="maxFullScreenContentSize" type="size" width="560" height="420"/>
             <view key="contentView" id="sR8-0k-h5k">
-                <rect key="frame" x="0.0" y="0.0" width="560" height="388"/>
+                <rect key="frame" x="0.0" y="0.0" width="560" height="420"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <userGuides>
                     <userLayoutGuide location="280" affinity="minX"/>
+                    <userLayoutGuide location="20" affinity="minX"/>
+                    <userLayoutGuide location="21" affinity="maxX"/>
                 </userGuides>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6NP-d0-Kh9">
-                        <rect key="frame" x="18" y="352" width="524" height="16"/>
+                        <rect key="frame" x="18" y="384" width="524" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Preview Text Size" usesSingleLineMode="YES" id="H0I-8w-LW2">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -398,7 +400,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2HA-Yj-cyf">
-                        <rect key="frame" x="18" y="352" width="524" height="16"/>
+                        <rect key="frame" x="18" y="384" width="524" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="18pt" usesSingleLineMode="YES" id="jTK-Ia-z7e">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -407,7 +409,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OfZ-N6-qKG">
-                        <rect key="frame" x="18" y="318" width="524" height="28"/>
+                        <rect key="frame" x="18" y="350" width="524" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" maxValue="6" doubleValue="3" tickMarkPosition="below" numberOfTickMarks="7" allowsTickMarkValuesOnly="YES" sliderType="linear" id="Wik-8f-xJm"/>
                         <connections>
@@ -415,7 +417,7 @@ DQ
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E2f-Ly-G4Y">
-                        <rect key="frame" x="18" y="291" width="533" height="33"/>
+                        <rect key="frame" x="278" y="323" width="273" height="33"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="A" usesSingleLineMode="YES" id="uHa-um-QgY">
                             <font key="font" metaFont="system" size="28"/>
@@ -424,7 +426,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8hT-Js-gGr">
-                        <rect key="frame" x="18" y="298" width="524" height="16"/>
+                        <rect key="frame" x="15" y="330" width="266" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="A" usesSingleLineMode="YES" id="dgW-1d-9xP">
                             <font key="font" metaFont="system" size="10"/>
@@ -460,39 +462,15 @@ DQ
                             <action selector="doSavePreferencesWithSender:" target="Voe-Tx-rLC" id="hOW-fE-aH9"/>
                         </connections>
                     </button>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6q-bM-YKo">
-                        <rect key="frame" x="105" y="17" width="179" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zaq-LP-oz0" id="Xh7-Ib-ERd">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="cLb-8k-8Ot">
-                                <items>
-                                    <menuItem title="Item 1" state="on" id="zaq-LP-oz0"/>
-                                    <menuItem title="Item 2" id="1qx-M5-iKS"/>
-                                    <menuItem title="Item 3" id="EIt-Ea-0nY"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Abc-Nd-4fL">
-                        <rect key="frame" x="18" y="23" width="84" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Preview font:" id="mDA-5G-Kv9">
-                            <font key="font" usesAppearanceFont="YES"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="144" horizontalPageScroll="10" verticalLineScroll="144" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYb-qG-NEg">
-                        <rect key="frame" x="20" y="60" width="520" height="168"/>
+                        <rect key="frame" x="20" y="60" width="520" height="208"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="SHm-fd-m1x">
-                            <rect key="frame" x="1" y="1" width="518" height="166"/>
+                            <rect key="frame" x="1" y="1" width="518" height="206"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="144" viewBased="YES" floatsGroupRows="NO" id="fuT-RR-f1g">
-                                    <rect key="frame" x="0.0" y="0.0" width="518" height="166"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="518" height="206"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -511,7 +489,7 @@ DQ
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="previewcode-theme-cell" id="9VX-DW-m69" customClass="ThemeTableCellView" customModule="PreviewCode" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="0.0" width="486" height="144"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="486" height="144"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <userGuides>
                                                         <userLayoutGuide location="72" affinity="minY"/>
@@ -551,7 +529,7 @@ DQ
                         </scroller>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rRd-lu-31F">
-                        <rect key="frame" x="18" y="274" width="524" height="16"/>
+                        <rect key="frame" x="18" y="306" width="524" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Choose a code preview theme:" id="MHh-zJ-KFx">
                             <font key="font" metaFont="system"/>
@@ -560,7 +538,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vaa-WK-2Gr">
-                        <rect key="frame" x="18" y="243" width="524" height="24"/>
+                        <rect key="frame" x="18" y="275" width="524" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="cpE-4n-Wzf">
                             <font key="font" metaFont="system"/>
@@ -574,9 +552,33 @@ DQ
                             <action selector="doSwitchModeWithSender:" target="Voe-Tx-rLC" id="cgc-E4-jXN"/>
                         </connections>
                     </segmentedControl>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6q-bM-YKo">
+                        <rect key="frame" x="105" y="16" width="179" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zaq-LP-oz0" id="Xh7-Ib-ERd">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="cLb-8k-8Ot">
+                                <items>
+                                    <menuItem title="Item 1" state="on" id="zaq-LP-oz0"/>
+                                    <menuItem title="Item 2" id="1qx-M5-iKS"/>
+                                    <menuItem title="Item 3" id="EIt-Ea-0nY"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Abc-Nd-4fL">
+                        <rect key="frame" x="18" y="22" width="84" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Preview font:" id="mDA-5G-Kv9">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-183" y="-740"/>
+            <point key="canvasLocation" x="-183" y="-724"/>
         </window>
         <window title="What's New" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="tKr-h4-TOq">
             <windowStyleMask key="styleMask" titled="YES"/>
