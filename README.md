@@ -1,4 +1,4 @@
-# PreviewCode 1.0.0
+# PreviewCode 1.0.1
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -91,6 +91,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 ## Release Notes ##
 
 * 1.0.0 *Unreleased*
+    * Apple wants links to other apps to be App Store links. What Apple wants, Apple gets.
+* 1.0.0 *16 June 2021*
     * Initial public release.
 
 ## Copyright and Credits ##
