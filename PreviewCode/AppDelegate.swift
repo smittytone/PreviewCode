@@ -154,9 +154,9 @@ class AppDelegate: NSObject,
         } else if item == self.helpAppStoreRating {
             path = BUFFOON_CONSTANTS.APP_STORE
         } else if item == self.helpMenuOthersPreviewMarkdown {
-            path = "https://smittytone.net/previewmarkdown/index.html"
+            path = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
         } else if item == self.helpMenuOthersPreviewYaml {
-            path = "https://smittytone.net/previewyaml/index.html"
+            path = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
         } else if item == self.helpMenuHighlightr {
             path = "https://github.com/raspu/Highlightr"
         } else if item == self.helpMenuHighlightjs {
