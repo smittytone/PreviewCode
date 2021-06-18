@@ -91,6 +91,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 ## Release Notes ##
 
 * 1.0.0 *Unreleased*
+    * Better scaling for retina displays.
     * Apple wants links to other apps to be App Store links. What Apple wants, Apple gets.
 * 1.0.0 *16 June 2021*
     * Initial public release.
