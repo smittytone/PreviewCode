@@ -43,11 +43,14 @@ class ThumbnailProvider: QLThumbnailProvider {
         /*
          * This is the main entry point for macOS' thumbnailing system
          */
+        
+        let targetHeight: CGFloat = request.maximumSize.height
+        let targetWidth: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height
 
         let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                 0.0,
-                                                CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
-                                                request.maximumSize.height)
+                                                targetWidth,
+                                                targetHeight)
         
         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { [self] () -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
