@@ -333,32 +333,42 @@ class AppDelegate: NSObject,
         
         // Set the font name popup
         // List the current system's monospace fonts
-        // TODO Some outliers here, which we may want to remove manually
         let fm: NSFontManager = NSFontManager.shared
         self.fontNamesPopup.removeAllItems()
         if let fonts: [String] = fm.availableFontNames(with: .fixedPitchFontMask) {
             for font in fonts {
-                if !font.hasPrefix(".") {
-                    // Set the font's display name...
-                    var fontDisplayName: String? = nil
-                    if let namedFont: NSFont = NSFont.init(name: font, size: self.previewFontSize) {
-                        fontDisplayName = namedFont.displayName
+                if font.hasPrefix(".") {
+                    continue
+                }
+                
+                // FROM 1.0.1
+                if font == "AppleColorEmoji" || (font as NSString).hasPrefix("AppleBraille") {
+                    // We want to hide these, but the user may have selected them previously
+                    // so keep them on in that case
+                    if self.previewFontName != font {
+                        continue
                     }
+                }
+                
+                // Set the font's display name...
+                var fontDisplayName: String? = nil
+                if let namedFont: NSFont = NSFont.init(name: font, size: self.previewFontSize) {
+                    fontDisplayName = namedFont.displayName
+                }
+                
+                if fontDisplayName == nil {
+                    fontDisplayName = font.replacingOccurrences(of: "-", with: " ")
+                }
+                
+                // ...and add it to the popup
+                self.fontNamesPopup.addItem(withTitle: fontDisplayName!)
+                
+                // Retain the font's PostScript name for use later
+                if let addedMenuItem: NSMenuItem = self.fontNamesPopup.item(at: self.fontNamesPopup.itemArray.count - 1) {
+                    addedMenuItem.representedObject = font
                     
-                    if fontDisplayName == nil {
-                        fontDisplayName = font.replacingOccurrences(of: "-", with: " ")
-                    }
-                    
-                    // ...and add it to the popup
-                    self.fontNamesPopup.addItem(withTitle: fontDisplayName!)
-                    
-                    // Retain the font's PostScript name for use later
-                    if let addedMenuItem: NSMenuItem = self.fontNamesPopup.item(at: self.fontNamesPopup.itemArray.count - 1) {
-                        addedMenuItem.representedObject = font
-                        
-                        if font == self.previewFontName {
-                            self.fontNamesPopup.select(addedMenuItem)
-                        }
+                    if font == self.previewFontName {
+                        self.fontNamesPopup.select(addedMenuItem)
                     }
                 }
             }
