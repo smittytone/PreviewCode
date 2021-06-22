@@ -46,13 +46,12 @@ class ThumbnailProvider: QLThumbnailProvider {
         
         let targetHeight: CGFloat = request.maximumSize.height
         let targetWidth: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height
-
         let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                 0.0,
                                                 targetWidth,
                                                 targetHeight)
         
-        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { [self] () -> Bool in
+        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { () -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
             let success = autoreleasepool { () -> Bool in
                 // Load the source file using a co-ordinator as we don't know what thread this function
@@ -89,10 +88,32 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                            width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
                                                            height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT)
                         
-                        // Instantiate an NSTextField to display the NSAttributedString render of the tag
+                        // Set the paragraph style we'll use -- just centred text
+                        let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+                        style.alignment = .center
+                        style.lineBreakMode = .byTruncatingMiddle
+                        
+                        // Set the point size
                         let tag: String = getLanguage(request.fileURL.path, true).uppercased()
-                        let aTag: NSAttributedString = self.getTagString(tag, CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH))
-                        let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: aTag)
+                        var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_SIZE)
+                        let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
+                        if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
+                            let ratio: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH - 20) / renderSize.width
+                            fontSize *= ratio;
+                            if fontSize < CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE) {
+                                fontSize = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE)
+                            }
+                        }
+                        
+                        // Build the tag's string attributes
+                        let tagAtts: [NSAttributedString.Key: Any] = [
+                            .paragraphStyle: style as NSParagraphStyle,
+                            .font: NSFont.systemFont(ofSize: fontSize),
+                            .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
+                        ]
+
+                        // Instantiate an NSTextField to display the NSAttributedString render of the tag
+                        let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: NSAttributedString.init(string: tag, attributes: tagAtts))
                         tagTextField.frame = tagFrame
                         
                         // Generate the bitmap from the rendered YAML text view
@@ -118,6 +139,7 @@ class ThumbnailProvider: QLThumbnailProvider {
     }
     
     
+    /*
     // MARK:- Utility Functions
     
     /**
@@ -127,11 +149,10 @@ class ThumbnailProvider: QLThumbnailProvider {
      
      - Parameters:
         - tag:   The text of the tag.
-        - width: The fractional pixel width we need to tag to fit into.
      
      - Returns: The tag as an NSAttributedString.
      */
-    func getTagString(_ tag: String, _ width: CGFloat) -> NSAttributedString {
+    func getTagString(_ tag: String) -> NSAttributedString {
 
         // Set the paragraph style we'll use -- just centred text
         let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
@@ -160,4 +181,5 @@ class ThumbnailProvider: QLThumbnailProvider {
         return NSAttributedString.init(string: tag,
                                        attributes: tagAtts)
     }
+    */
 }
