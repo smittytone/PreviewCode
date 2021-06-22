@@ -51,7 +51,7 @@ class AppDelegate: NSObject,
     @IBOutlet var fontSizeSlider: NSSlider!
     @IBOutlet var fontSizeLabel: NSTextField!
     @IBOutlet var themeTable: NSTableView!
-    @IBOutlet var fontNamesPopup: NSPopUpButton!
+    @IBOutlet var codeFontPopup: NSPopUpButton!
     @IBOutlet var displayModeSegmentedControl: NSSegmentedControl!
 
     // What's New Sheet
@@ -63,18 +63,18 @@ class AppDelegate: NSObject,
     
     internal var whatsNewNav: WKNavigation? = nil
     private var feedbackTask: URLSessionTask? = nil
-    private var previewFontSize: CGFloat = 16.0
+    private var codeFontSize: CGFloat = 16.0
+    private var codeFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
     private var doShowLightBackground: Bool = false
     private var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
     private var feedbackPath: String = MNU_SECRETS.ADDRESS.A
-    private var previewFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-    private var previewThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+    private var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+    private var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
     private var selectedThemeIndex: Int = 37
     private var newThemeIndex: Int = 37
     private var themes: [String] = []
     private var darkThemes: [Int] = []
     private var lightThemes: [Int] = []
-    private var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
     private var sampleCodeString: String = ""
     
     
@@ -321,20 +321,21 @@ class AppDelegate: NSObject,
         // The suite name is the app group name, set in each the entitlements file of
         // the host app and of each extension
         if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName) {
-            self.previewFontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
-            self.previewFontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
-            self.previewThemeName = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
+            self.codeFontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
+            self.codeFontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
+            self.themeName = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
         }
 
         // Set the font size slider
-        let index: Int = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.lastIndex(of: self.previewFontSize) ?? 3
+        let index: Int = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.lastIndex(of: self.codeFontSize) ?? 3
         self.fontSizeSlider.floatValue = Float(index)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
         
         // Set the font name popup
         // List the current system's monospace fonts
         let fm: NSFontManager = NSFontManager.shared
-        self.fontNamesPopup.removeAllItems()
+        var selectedItem: NSMenuItem? = nil
+        self.codeFontPopup.removeAllItems()
         if let fonts: [String] = fm.availableFontNames(with: .fixedPitchFontMask) {
             for font in fonts {
                 if font.hasPrefix(".") {
@@ -345,33 +346,36 @@ class AppDelegate: NSObject,
                 if font == "AppleColorEmoji" || (font as NSString).hasPrefix("AppleBraille") {
                     // We want to hide these, but the user may have selected them previously
                     // so keep them on in that case
-                    if self.previewFontName != font {
+                    if self.codeFontName != font {
                         continue
                     }
                 }
                 
                 // Set the font's display name...
                 var fontDisplayName: String? = nil
-                if let namedFont: NSFont = NSFont.init(name: font, size: self.previewFontSize) {
+                if let namedFont: NSFont = NSFont.init(name: font, size: self.codeFontSize) {
                     fontDisplayName = namedFont.displayName
-                }
-                
-                if fontDisplayName == nil {
+                } else {
                     fontDisplayName = font.replacingOccurrences(of: "-", with: " ")
                 }
                 
                 // ...and add it to the popup
-                self.fontNamesPopup.addItem(withTitle: fontDisplayName!)
+                self.codeFontPopup.addItem(withTitle: fontDisplayName!)
                 
                 // Retain the font's PostScript name for use later
-                if let addedMenuItem: NSMenuItem = self.fontNamesPopup.item(at: self.fontNamesPopup.itemArray.count - 1) {
+                if let addedMenuItem: NSMenuItem = self.codeFontPopup.lastItem {
                     addedMenuItem.representedObject = font
                     
-                    if font == self.previewFontName {
-                        self.fontNamesPopup.select(addedMenuItem)
+                    if self.codeFontName == font {
+                        selectedItem = addedMenuItem
                     }
                 }
             }
+        }
+        
+        // Select the current font
+        if selectedItem != nil  {
+            self.codeFontPopup.select(selectedItem!)
         }
         
         // Set the themes table's contents store, once per runtime
@@ -464,16 +468,16 @@ class AppDelegate: NSObject,
             
             // Set the chosen text size if it has changed
             let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
-            if newValue != self.previewFontSize {
+            if newValue != self.codeFontSize {
                 defaults.setValue(newValue,
                                   forKey: "com-bps-previewcode-base-font-size")
             }
             
             // Set the chosen font if it has changed
-            if let selectedMenuItem: NSMenuItem = self.fontNamesPopup.selectedItem {
+            if let selectedMenuItem: NSMenuItem = self.codeFontPopup.selectedItem {
                 let selectedName: String = selectedMenuItem.representedObject as! String
-                if selectedName != self.previewFontName {
-                    self.previewFontName = selectedName
+                if selectedName != self.codeFontName {
+                    self.codeFontName = selectedName
                     defaults.setValue(selectedName, forKey: "com-bps-previewcode-base-font-name")
                 }
             }
@@ -693,7 +697,7 @@ class AppDelegate: NSObject,
         // Set the theme selection
         // Remember this called only one per run
         for i: Int in 0..<self.themes.count {
-            if self.themes[i] == self.previewThemeName {
+            if self.themes[i] == self.themeName {
                 self.selectedThemeIndex = i
             }
             
@@ -747,8 +751,8 @@ class AppDelegate: NSObject,
             // Check if each preference value exists -- set if it doesn't
             // Preview body font size, stored as a CGFloat
             // Default: 16.0
-            let previewFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-base-font-size")
-            if previewFontSizeDefault == nil {
+            let codeFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-base-font-size")
+            if codeFontSizeDefault == nil {
                 defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE),
                                   forKey: "com-bps-previewcode-base-font-size")
             }

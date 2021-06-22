@@ -16,10 +16,10 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="PreviewCode" customModuleProvider="target">
             <connections>
+                <outlet property="codeFontPopup" destination="y6q-bM-YKo" id="OPc-np-Gji"/>
                 <outlet property="connectionProgress" destination="tAy-4n-Mlm" id="JrN-W5-JML"/>
                 <outlet property="displayModeSegmentedControl" destination="Vaa-WK-2Gr" id="UHr-2h-lne"/>
                 <outlet property="feedbackText" destination="rME-5J-5yH" id="yEn-3B-e4A"/>
-                <outlet property="fontNamesPopup" destination="y6q-bM-YKo" id="rMK-Gj-WL5"/>
                 <outlet property="fontSizeLabel" destination="2HA-Yj-cyf" id="psJ-3Z-WQI"/>
                 <outlet property="fontSizeSlider" destination="OfZ-N6-qKG" id="oDv-Or-Fni"/>
                 <outlet property="helpAppStoreRating" destination="jLd-Pw-5jM" id="P5Q-5y-ShE"/>
