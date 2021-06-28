@@ -16,6 +16,7 @@
 		3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PreviewTextView.swift */; };
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
+		3BDB3175268A6D1900EB3DC2 /* thumbs in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB3174268A6D1900EB3DC2 /* thumbs */; };
 		3BDE3EF6267CE9890037351C /* GenericExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE3EF5267CE9890037351C /* GenericExtensions.swift */; };
 		3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */; };
 		3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
@@ -94,6 +95,7 @@
 		3B6ABACB2669703800A436AA /* PreviewTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTextView.swift; sourceTree = "<group>"; };
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
+		3BDB3174268A6D1900EB3DC2 /* thumbs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = thumbs; path = ../../../OneDrive/Programming/PreviewCode/thumbs; sourceTree = "<group>"; };
 		3BDE3EF5267CE9890037351C /* GenericExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericExtensions.swift; sourceTree = "<group>"; };
 		3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Code Thumbnailer.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
@@ -220,6 +222,7 @@
 				3B52D6492664B98D0001D160 /* themes-list.txt */,
 				3B6ABAC62669664300A436AA /* code-sample.txt */,
 				3BFBEC372663FDD400B4E70C /* new */,
+				3BDB3174268A6D1900EB3DC2 /* thumbs */,
 				3BFD78192663E16E002AD588 /* Assets.xcassets */,
 			);
 			path = PreviewCode;
@@ -436,6 +439,7 @@
 				3B6ABACA266966DA00A436AA /* code-sample.txt in Resources */,
 				3B52D64A2664B98D0001D160 /* themes-list.txt in Resources */,
 				3BFBEC382663FDD400B4E70C /* new in Resources */,
+				3BDB3175268A6D1900EB3DC2 /* thumbs in Resources */,
 				3BFD781A2663E16E002AD588 /* Assets.xcassets in Resources */,
 				3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */,
 			);

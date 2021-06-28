@@ -77,7 +77,7 @@ class AppDelegate: NSObject,
     private var lightThemes: [Int] = []
     private var sampleCodeString: String = ""
     // FROM 1.0.1
-    private var themesNames: [String] = []
+    private var themeNames: [String] = []
     
     
     // MARK:- Class Lifecycle Functions
@@ -382,10 +382,11 @@ class AppDelegate: NSObject,
         
         // Set the themes table's contents store, once per runtime
         if self.themes.count == 0 {
-            // Load in the code sample we'll preview the themes with
+            /* Load in the code sample we'll preview the themes with
             if let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE) {
                 self.sampleCodeString = loadedCode
             }
+            */
             
             // Load and prepare the list of themes
             loadThemeList()
@@ -687,6 +688,7 @@ class AppDelegate: NSObject,
         }
         
         self.themes = themesString.components(separatedBy: "\n")
+        self.themes.removeLast()
         
         // Set the theme selection
         // Remember this called only one per run
@@ -832,29 +834,36 @@ class AppDelegate: NSObject,
             cell!.themeIndex = index
             
             // Generate the theme preview view programmatically
-            //let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 4, 256, 134))
-            let ptv: NSTextField = NSTextField.init(labelWithAttributedString: getAttributedString(self.sampleCodeString, "swift", false))
-            ptv.frame = NSMakeRect(3, 4, 256, 134)
-            ptv.backgroundColor = getBackgroundColour()
-                     
+            let previewName: String = "thumbs/" + self.themeNames[index]
+            if let previewPath: String = Bundle.main.path(forResource: previewName, ofType: "png") {
+                if let themePreview: NSImage = NSImage.init(contentsOf: URL.init(fileURLWithPath: previewPath)) {
+                    let imv: NSImageView = NSImageView.init(image: themePreview)
+                    imv.frame = NSMakeRect(3, 4, 256, 134)
+                    cell!.addSubview(imv)
+                }
+            }
+
             /* We want the text view to be selectable but not editable
+             * This code renders a full NSTextView preview of each theme —
+               it works, but is expensice
+            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 4, 256, 134))
             ptv.isEditable = false
 
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
                 setThemeValues(self.themes[index])
-                renderTextStorage.beginEditing()
+                //renderTextStorage.beginEditing()
                 renderTextStorage.setAttributedString(getAttributedString(self.sampleCodeString, "swift", false))
-                renderTextStorage.endEditing()
+                //renderTextStorage.endEditing()
                 ptv.backgroundColor = getBackgroundColour()
             }
-            */
-          
+            
             // Add the new view to the cell
             cell!.addSubview(ptv)
-            
+             
             // IMPORTANT Don't set the delegate until the PreviewTextView has
             //           been added to the superview
             ptv.delegate = self
+            */
         }
 
         return cell
