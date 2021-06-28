@@ -76,6 +76,8 @@ class AppDelegate: NSObject,
     private var darkThemes: [Int] = []
     private var lightThemes: [Int] = []
     private var sampleCodeString: String = ""
+    // FROM 1.0.1
+    private var themesNames: [String] = []
     
     
     // MARK:- Class Lifecycle Functions
@@ -684,15 +686,7 @@ class AppDelegate: NSObject,
             return
         }
         
-        let themes: [String] = themesString.components(separatedBy: "\n")
-        
-        if themes.count > 0 {
-            for theme: String in themes {
-                if theme.count > 0 {
-                    self.themes.append(theme)
-                }
-            }
-        }
+        self.themes = themesString.components(separatedBy: "\n")
         
         // Set the theme selection
         // Remember this called only one per run
@@ -700,6 +694,9 @@ class AppDelegate: NSObject,
             if self.themes[i] == self.themeName {
                 self.selectedThemeIndex = i
             }
+          
+            let themeParts: [String] = self.themes[i].components(separatedBy: ".")
+            self.themeNames.append(themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized)
             
             // Also record themes by type: these arrays
             // record indices from from the main array
@@ -831,15 +828,16 @@ class AppDelegate: NSObject,
         if cell != nil {
             // Configure the cell's title and its theme preview
             let index: Int = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.ALL) ? row : getBaseIndex(row)
-            let theme: String = self.themes[index]
-            let themeParts: [String] = theme.components(separatedBy: ".")
-            cell!.themePreviewTitle.stringValue = themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized
+            cell!.themePreviewTitle.stringValue = self.themeNames[index]
             cell!.themeIndex = index
             
             // Generate the theme preview view programmatically
-            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 4, 256, 134))
-            
-            // We want the text view to be selectable but not editable
+            //let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 4, 256, 134))
+            let ptv: NSTextField = NSTextField.init(labelWithAttributedString: getAttributedString(self.sampleCodeString, "swift", false))
+            ptv.frame = NSMakeRect(3, 4, 256, 134)
+            ptv.backgroundColor = getBackgroundColour()
+                     
+            /* We want the text view to be selectable but not editable
             ptv.isEditable = false
 
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
@@ -849,7 +847,8 @@ class AppDelegate: NSObject,
                 renderTextStorage.endEditing()
                 ptv.backgroundColor = getBackgroundColour()
             }
-            
+            */
+          
             // Add the new view to the cell
             cell!.addSubview(ptv)
             
