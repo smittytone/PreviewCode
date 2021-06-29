@@ -30,6 +30,7 @@
                 <outlet property="helpMenuOthersPreviewMarkdown" destination="a5a-JN-xae" id="efo-wb-Yel"/>
                 <outlet property="helpMenuOthersPreviewYaml" destination="xJX-CD-e0x" id="amy-a4-mCi"/>
                 <outlet property="helpMenuPreviewCode" destination="Tys-ee-tfE" id="mhF-1J-Wos"/>
+                <outlet property="helpMenuRenderThemes" destination="l5z-pu-n53" id="7Zw-Hx-3B4"/>
                 <outlet property="preferencesWindow" destination="jjd-uj-Puq" id="1ud-bv-mbH"/>
                 <outlet property="reportWindow" destination="nk4-l2-g5W" id="SNf-z1-JQ2"/>
                 <outlet property="themeTable" destination="fuT-RR-f1g" id="9sS-Y2-G0e"/>
@@ -124,6 +125,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" autoenablesItems="NO" id="F2S-fz-NVQ">
                         <items>
+                            <menuItem title="Render Themes" hidden="YES" id="l5z-pu-n53">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="doRenderThemes:" target="Voe-Tx-rLC" id="UL5-BF-T2l"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Get Online Help" id="Tys-ee-tfE">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

@@ -34,6 +34,7 @@ class AppDelegate: NSObject,
     @IBOutlet var helpMenuHighlighterSwift: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
+    @IBOutlet var helpMenuRenderThemes: NSMenuItem!
     
     // Panel Items
     @IBOutlet var versionLabel: NSTextField!
@@ -72,17 +73,20 @@ class AppDelegate: NSObject,
     private var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
     private var selectedThemeIndex: Int = 37
     private var newThemeIndex: Int = 37
-    private var themes: [String] = []
+    private var themes: [Any] = []
     private var darkThemes: [Int] = []
     private var lightThemes: [Int] = []
-    private var sampleCodeString: String = ""
-    // FROM 1.0.1
-    private var themeNames: [String] = []
     
     
     // MARK:- Class Lifecycle Functions
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        
+        // FROM 1.0.1
+        // Use for rendering theme selection graphics
+        #if DEBUG
+        self.helpMenuRenderThemes.isHidden = false
+        #endif
         
         // Set application group-level defaults
         registerPreferences()
@@ -382,12 +386,6 @@ class AppDelegate: NSObject,
         
         // Set the themes table's contents store, once per runtime
         if self.themes.count == 0 {
-            /* Load in the code sample we'll preview the themes with
-            if let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE) {
-                self.sampleCodeString = loadedCode
-            }
-            */
-            
             // Load and prepare the list of themes
             loadThemeList()
         }
@@ -488,7 +486,7 @@ class AppDelegate: NSObject,
             // Update the theme selection if it has changed
             if self.newThemeIndex != self.selectedThemeIndex {
                 self.selectedThemeIndex = self.newThemeIndex
-                let selectedThemeName = self.themes[self.newThemeIndex]
+                let selectedThemeName: String = codedName(self.newThemeIndex)
                 defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
             }
 
@@ -687,22 +685,31 @@ class AppDelegate: NSObject,
             return
         }
         
-        self.themes = themesString.components(separatedBy: "\n")
-        self.themes.removeLast()
+        // FROM 1.0.1
+        // Theme list is now a JSON file
+        var dict: [String: Any] = [:]
+        if let data: Data = themesString.data(using: .utf8) {
+            dict = try! JSONSerialization.jsonObject(with: data,
+                                                     options: []) as! [String: Any]
+        }
         
         // Set the theme selection
         // Remember this called only one per run
+        self.themes = dict["themes"] as! [Any]
         for i: Int in 0..<self.themes.count {
-            if self.themes[i] == self.themeName {
+            // FROM 1.0.1
+            // Get the coded name, eg. 'dark.atom-one-dark', as this is what's
+            // stored in prefs and used by Code Previewer and Code Thumbnailer
+            let codedThemeName: String = codedName(i)
+            if codedThemeName == self.themeName {
                 self.selectedThemeIndex = i
             }
           
-            let themeParts: [String] = self.themes[i].components(separatedBy: ".")
-            self.themeNames.append(themeParts[1].replacingOccurrences(of: "-", with: " ").capitalized)
-            
             // Also record themes by type: these arrays
             // record indices from from the main array
-            if self.themes[i].hasPrefix("d") {
+            let theme: [String: Any] = self.themes[i] as! [String: Any]
+            let isDark: Bool = theme["dark"] as! Bool
+            if isDark {
                 self.darkThemes.append(i)
             } else {
                 self.lightThemes.append(i)
@@ -719,10 +726,10 @@ class AppDelegate: NSObject,
      
      - Returns: The contents of the loaded file
      */
-    private func loadBundleFile(_ fileName: String) -> String? {
+    private func loadBundleFile(_ fileName: String, _ type: String = "json") -> String? {
         
         // Load the required resource and return its contents
-        guard let filePath: String = Bundle.main.path(forResource: fileName, ofType: "txt")
+        guard let filePath: String = Bundle.main.path(forResource: fileName, ofType: type)
         else {
             // TODO Post error
             return nil
@@ -806,6 +813,24 @@ class AppDelegate: NSObject,
     }
     
     
+    /**
+     Get the 'coded' name of a theme, eg. 'agate-dark' -> 'dark.agate-dark'.
+     
+     - Parameters:
+        - themeIndex: The theme's index in the array.
+     
+     - Returns: The coded name as a string.
+     */
+    
+    private func codedName(_ themeIndex: Int) -> String {
+        
+        let theme: [String: Any] = self.themes[themeIndex] as! [String: Any]
+        let isDark: Bool = theme["dark"] as! Bool
+        let cssName: String = theme["css"] as! String
+        return (isDark ? "dark." : "light.") + cssName
+    }
+    
+    
     // MARK: - NSTableView Data Source / Delegate Functions
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -830,40 +855,21 @@ class AppDelegate: NSObject,
         if cell != nil {
             // Configure the cell's title and its theme preview
             let index: Int = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.ALL) ? row : getBaseIndex(row)
-            cell!.themePreviewTitle.stringValue = self.themeNames[index]
+            let themeInfo: [String: Any] = self.themes[index] as! [String: Any]
+            let themeName: String = themeInfo["name"] as! String
+            let themeCSS: String = themeInfo["css"] as! String
+            
+            cell!.themePreviewTitle.stringValue = themeName
             cell!.themeIndex = index
             
-            // Generate the theme preview view programmatically
-            let previewName: String = "thumbs/" + self.themeNames[index]
-            if let previewPath: String = Bundle.main.path(forResource: previewName, ofType: "png") {
-                if let themePreview: NSImage = NSImage.init(contentsOf: URL.init(fileURLWithPath: previewPath)) {
-                    let imv: NSImageView = NSImageView.init(image: themePreview)
-                    imv.frame = NSMakeRect(3, 4, 256, 134)
-                    cell!.addSubview(imv)
-                }
+            // FROM 1.0.1
+            // Generate the theme preview view programmatically, and use
+            // images rather then JIT-rendered NSTextViews
+            if let themePreview: NSImage = NSImage.init(named: themeCSS) {
+                let imv: NSImageView = NSImageView.init(image: themePreview)
+                imv.frame = NSMakeRect(3, 4, 256, 134)
+                cell!.addSubview(imv)
             }
-
-            /* We want the text view to be selectable but not editable
-             * This code renders a full NSTextView preview of each theme —
-               it works, but is expensice
-            let ptv: PreviewTextView = PreviewTextView.init(frame: NSMakeRect(3, 4, 256, 134))
-            ptv.isEditable = false
-
-            if let renderTextStorage: NSTextStorage = ptv.textStorage {
-                setThemeValues(self.themes[index])
-                //renderTextStorage.beginEditing()
-                renderTextStorage.setAttributedString(getAttributedString(self.sampleCodeString, "swift", false))
-                //renderTextStorage.endEditing()
-                ptv.backgroundColor = getBackgroundColour()
-            }
-            
-            // Add the new view to the cell
-            cell!.addSubview(ptv)
-             
-            // IMPORTANT Don't set the delegate until the PreviewTextView has
-            //           been added to the superview
-            ptv.delegate = self
-            */
         }
 
         return cell
@@ -905,6 +911,58 @@ class AppDelegate: NSObject,
             self.preferencesWindow.makeFirstResponder(self.themeTable)
         }
     }
+    
+    
+    /**
+     Render all the themes as 512 x 268 PNG files.
+     
+     Run this from the **Help** menu in debug sessions.
+     
+     - Parameters:
+        - sender: The object that triggered the action
+     */
+    @IBAction private func doRenderThemes(_ sender: Any) {
+        
+        let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
+        let fm: FileManager = FileManager.init()
+        let homeFolder: String = fm.homeDirectoryForCurrentUser.path
+        
+        // Load in the code sample we'll preview the themes with
+        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
+        
+        if self.themes.count == 0 {
+            loadThemeList()
+        }
+        
+        for i: Int in 0..<self.themes.count {
+            let name: String = codedName(i)
+            setThemeValues(name)
+            let pas: NSAttributedString = getAttributedString(loadedCode, "swift", false)
+            let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
+            ptv.isSelectable = false
 
+            if let renderTextStorage: NSTextStorage = ptv.textStorage {
+                renderTextStorage.beginEditing()
+                renderTextStorage.setAttributedString(pas)
+                renderTextStorage.endEditing()
+                ptv.backgroundColor = getBackgroundColour()
+            }
+            
+            if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
+                ptv.cacheDisplay(in: renderFrame, to: imageRep)
+                if let data: Data = imageRep.representation(using: .png, properties: [:]) {
+                    do {
+                        let theme: [String: Any] = self.themes[i] as! [String: Any]
+                        let filename: String = theme["css"] as! String
+                        let path: String = homeFolder + filename + ".png"
+                        try data.write(to: URL.init(fileURLWithPath: path))
+                    } catch {
+                        // NOP
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
