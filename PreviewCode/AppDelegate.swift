@@ -61,21 +61,23 @@ class AppDelegate: NSObject,
 
     
     // MARK:- Private Properies
-    
+
     internal var whatsNewNav: WKNavigation? = nil
-    private var feedbackTask: URLSessionTask? = nil
-    private var codeFontSize: CGFloat = 16.0
-    private var codeFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-    private var doShowLightBackground: Bool = false
-    private var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
-    private var feedbackPath: String = MNU_SECRETS.ADDRESS.A
-    private var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
-    private var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
-    private var selectedThemeIndex: Int = 37
-    private var newThemeIndex: Int = 37
-    private var themes: [Any] = []
-    private var darkThemes: [Int] = []
-    private var lightThemes: [Int] = []
+    private  var feedbackTask: URLSessionTask? = nil
+    private  var codeFontSize: CGFloat = 16.0
+    private  var codeFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
+    private  var doShowLightBackground: Bool = false
+    private  var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
+    private  var feedbackPath: String = MNU_SECRETS.ADDRESS.A
+    private  var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+    private  var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
+    private  var selectedThemeIndex: Int = 37
+    private  var newThemeIndex: Int = 37
+    private  var themes: [Any] = []
+    private  var darkThemes: [Int] = []
+    private  var lightThemes: [Int] = []
+
+    // FROM 1.0.1
     internal var codeFonts: [String] = []
     
     
