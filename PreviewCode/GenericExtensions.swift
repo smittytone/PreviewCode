@@ -204,4 +204,66 @@ extension AppDelegate {
         }
     }
 
+
+    // MARK: - Font Management
+
+    /**
+     Build a list of available fonts.
+
+     Should be called asynchronously. Two sets created: monospace fonts and regular fonts.
+     Requires 'bodyFonts' and 'codeFonts' to be set as instance properties.
+     Comment out either of these, as required.
+
+     The final font lists each comprise pairs of strings: the font's PostScript name
+     then its display name.
+     */
+    internal func asyncGetFonts() {
+
+        var cf: [String] = []
+        //var bf: [String] = []
+
+        let mono: UInt = NSFontTraitMask.fixedPitchFontMask.rawValue
+        // let bold: UInt = NSFontTraitMask.boldFontMask.rawValue
+        // let ital: UInt = NSFontTraitMask.italicFontMask.rawValue
+        // let symb: UInt = NSFontTraitMask.nonStandardCharacterSetFontMask.rawValue
+
+        let fm: NSFontManager = NSFontManager.shared
+
+        let families: [String] = fm.availableFontFamilies
+        for family in families {
+            if !family.hasPrefix(".") {
+                if let fonts: [[Any]] = fm.availableMembers(ofFontFamily: family) {
+                    for font in fonts {
+                        let pname: String = font[0] as! String
+                        let traits: UInt = font[3] as! UInt
+
+                        if mono & traits != 0 {
+                            if pname.hasPrefix("AppleBra") || pname == "AppleColorEmoji" {
+                                break
+                            }
+
+                            cf.append(pname)
+                            let aFont: NSFont? = NSFont.init(name: pname, size: 0)
+                            cf.append(aFont!.displayName ?? pname)
+                            continue
+                        }
+
+                        /*
+                        if traits & bold == 0 && traits & ital == 0 && traits & symb == 0 {
+                            bf.append(pname)
+                            let aFont: NSFont? = NSFont.init(name: pname, size: 0)
+                            bf.append(aFont!.displayName ?? pname)
+                        }
+                         */
+                    }
+                }
+            }
+        }
+
+        DispatchQueue.main.async {
+            //self.bodyFonts = bf
+            self.codeFonts = cf
+        }
+    }
+
 }

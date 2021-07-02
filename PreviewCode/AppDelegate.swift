@@ -76,6 +76,7 @@ class AppDelegate: NSObject,
     private var themes: [Any] = []
     private var darkThemes: [Int] = []
     private var lightThemes: [Int] = []
+    internal var codeFonts: [String] = []
     
     
     // MARK:- Class Lifecycle Functions
@@ -87,6 +88,12 @@ class AppDelegate: NSObject,
         #if DEBUG
         self.helpMenuRenderThemes.isHidden = false
         #endif
+
+        // FROM 1.0.1
+        // Asynchronously get the list of code fonts
+        DispatchQueue.init(label: "com.bps.previecode.async-queue").async {
+            self.asyncGetFonts()
+        }
         
         // Set application group-level defaults
         registerPreferences()
@@ -339,9 +346,12 @@ class AppDelegate: NSObject,
         
         // Set the font name popup
         // List the current system's monospace fonts
-        let fm: NSFontManager = NSFontManager.shared
         var selectedItem: NSMenuItem? = nil
         self.codeFontPopup.removeAllItems()
+
+        /*
+        let fm: NSFontManager = NSFontManager.shared
+
         if let fonts: [String] = fm.availableFontNames(with: .fixedPitchFontMask) {
             for font in fonts {
                 if font.hasPrefix(".") {
@@ -378,7 +388,21 @@ class AppDelegate: NSObject,
                 }
             }
         }
-        
+         */
+
+        for i: Int in stride(from: 0, through: self.codeFonts.count - 1, by: 2) {
+            self.codeFontPopup.addItem(withTitle: self.codeFonts[i + 1])
+
+            // Retain the font's PostScript name for use later
+            if let addedMenuItem: NSMenuItem = self.codeFontPopup.lastItem {
+                addedMenuItem.representedObject = self.codeFonts[i]
+
+                if self.codeFonts[i] == self.codeFontName {
+                    selectedItem = addedMenuItem
+                }
+            }
+        }
+
         // Select the current font outside of the loop
         if selectedItem != nil  {
             self.codeFontPopup.select(selectedItem!)
