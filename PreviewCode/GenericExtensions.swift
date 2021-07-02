@@ -244,7 +244,7 @@ extension AppDelegate {
 
                             cf.append(pname)
                             let aFont: NSFont? = NSFont.init(name: pname, size: 0)
-                            cf.append(aFont!.displayName ?? pname)
+                            cf.append(aFont!.displayName ?? pname.replacingOccurrences(of: "-", with: " "))
                             continue
                         }
 
