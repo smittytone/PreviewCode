@@ -54,6 +54,8 @@ class AppDelegate: NSObject,
     @IBOutlet var themeTable: NSTableView!
     @IBOutlet var codeFontPopup: NSPopUpButton!
     @IBOutlet var displayModeSegmentedControl: NSSegmentedControl!
+    // FROM 1.0.1
+    @IBOutlet weak var codeStylePopup: NSPopUpButton!
 
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
@@ -78,7 +80,7 @@ class AppDelegate: NSObject,
     private  var lightThemes: [Int] = []
 
     // FROM 1.0.1
-    internal var codeFonts: [String] = []
+    internal var codeFonts: [PMFont] = []
     
     
     // MARK:- Class Lifecycle Functions
@@ -346,11 +348,6 @@ class AppDelegate: NSObject,
         self.fontSizeSlider.floatValue = Float(index)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
         
-        // Set the font name popup
-        // List the current system's monospace fonts
-        var selectedItem: NSMenuItem? = nil
-        self.codeFontPopup.removeAllItems()
-
         /*
         let fm: NSFontManager = NSFontManager.shared
 
@@ -392,24 +389,18 @@ class AppDelegate: NSObject,
         }
          */
 
-        for i: Int in stride(from: 0, through: self.codeFonts.count - 1, by: 2) {
-            self.codeFontPopup.addItem(withTitle: self.codeFonts[i + 1])
-
-            // Retain the font's PostScript name for use later
-            if let addedMenuItem: NSMenuItem = self.codeFontPopup.lastItem {
-                addedMenuItem.representedObject = self.codeFonts[i]
-
-                if self.codeFonts[i] == self.codeFontName {
-                    selectedItem = addedMenuItem
-                }
-            }
+        // FROM 1.0.1
+        // Set the font name popup
+        // List the current system's monospace fonts
+        self.codeFontPopup.removeAllItems()
+        for i: Int in 0..<self.codeFonts.count {
+            let font: PMFont = self.codeFonts[i]
+            self.codeFontPopup.addItem(withTitle: font.displayName)
         }
 
-        // Select the current font outside of the loop
-        if selectedItem != nil  {
-            self.codeFontPopup.select(selectedItem!)
-        }
-        
+        self.codeStylePopup.isEnabled = false
+        selectFontByPostScriptName(self.codeFontName)
+
         // Set the themes table's contents store, once per runtime
         if self.themes.count == 0 {
             // Load and prepare the list of themes
@@ -471,6 +462,21 @@ class AppDelegate: NSObject,
     
     
     /**
+     Called when the user selects a font from either list.
+
+     FROM 1.0.1
+
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction private func doUpdateFonts(sender: Any) {
+        
+        // Update the menu of available styles
+        setStylePopup()
+    }
+
+    
+    /**
         Close the **Preferences** sheet without saving.
      
         - Parameters:
@@ -500,15 +506,16 @@ class AppDelegate: NSObject,
                                   forKey: "com-bps-previewcode-base-font-size")
             }
             
+            // FROM 1.0.1
             // Set the chosen font if it has changed
-            if let selectedMenuItem: NSMenuItem = self.codeFontPopup.selectedItem {
-                let selectedName: String = selectedMenuItem.representedObject as! String
-                if selectedName != self.codeFontName {
-                    self.codeFontName = selectedName
-                    defaults.setValue(selectedName, forKey: "com-bps-previewcode-base-font-name")
+            if let fontName: String = getPostScriptName() {
+                if fontName != self.codeFontName {
+                    self.codeFontName = fontName
+                    defaults.setValue(fontName,
+                                      forKey: "com-bps-previewcode-base-font-name")
                 }
             }
-            
+
             // Update the theme selection if it has changed
             if self.newThemeIndex != self.selectedThemeIndex {
                 self.selectedThemeIndex = self.newThemeIndex

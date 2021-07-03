@@ -219,51 +219,115 @@ extension AppDelegate {
      */
     internal func asyncGetFonts() {
 
-        var cf: [String] = []
-        //var bf: [String] = []
-
-        let mono: UInt = NSFontTraitMask.fixedPitchFontMask.rawValue
-        // let bold: UInt = NSFontTraitMask.boldFontMask.rawValue
-        // let ital: UInt = NSFontTraitMask.italicFontMask.rawValue
-        // let symb: UInt = NSFontTraitMask.nonStandardCharacterSetFontMask.rawValue
-
+        var cf: [PMFont] = []
+        let monoTrait: UInt = NSFontTraitMask.fixedPitchFontMask.rawValue
         let fm: NSFontManager = NSFontManager.shared
-
         let families: [String] = fm.availableFontFamilies
         for family in families {
-            if !family.hasPrefix(".") {
-                if let fonts: [[Any]] = fm.availableMembers(ofFontFamily: family) {
-                    for font in fonts {
-                        let pname: String = font[0] as! String
-                        let traits: UInt = font[3] as! UInt
+            // Remove known unwanted fonts
+            if family.hasPrefix(".") || family == "Apple Braille" || family == "Apple Color Emoji" {
+                continue
+            }
 
-                        if mono & traits != 0 {
-                            if pname.hasPrefix("AppleBra") || pname == "AppleColorEmoji" {
-                                break
-                            }
+            // For each family, examine its fonts for suitable ones
+            if let fonts: [[Any]] = fm.availableMembers(ofFontFamily: family) {
+                // This will hold a font family: individual fonts will be added to
+                // the 'styles' array
+                var familyRecord: PMFont = PMFont.init()
+                familyRecord.displayName = family
 
-                            cf.append(pname)
-                            let aFont: NSFont? = NSFont.init(name: pname, size: 0)
-                            cf.append(aFont!.displayName ?? pname.replacingOccurrences(of: "-", with: " "))
-                            continue
+                for font: [Any] in fonts {
+                    let fontTraits: UInt = font[3] as! UInt
+                    if monoTrait & fontTraits != 0 {
+                        // The font is good to use, so add it to the list
+                        var fontRecord: PMFont = PMFont.init()
+                        fontRecord.postScriptName = font[0] as! String
+                        fontRecord.styleName = font[1] as! String
+                        fontRecord.traits = fontTraits
+
+                        if familyRecord.styles == nil {
+                            familyRecord.styles = []
                         }
 
-                        /*
-                        if traits & bold == 0 && traits & ital == 0 && traits & symb == 0 {
-                            bf.append(pname)
-                            let aFont: NSFont? = NSFont.init(name: pname, size: 0)
-                            bf.append(aFont!.displayName ?? pname)
-                        }
-                         */
+                        familyRecord.styles!.append(fontRecord)
                     }
+                }
+
+                if familyRecord.styles != nil && familyRecord.styles!.count > 0 {
+                    cf.append(familyRecord)
                 }
             }
         }
 
         DispatchQueue.main.async {
-            //self.bodyFonts = bf
             self.codeFonts = cf
         }
+    }
+    
+    
+    /**
+     Build and enable the font style popup.
+     */
+    internal func setStylePopup() {
+        
+        if let selectedFamily: String = self.codeFontPopup.titleOfSelectedItem {
+            self.codeStylePopup.removeAllItems()
+            for family: PMFont in self.codeFonts {
+                if selectedFamily == family.displayName {
+                    if let styles: [PMFont] = family.styles {
+                        self.codeStylePopup.isEnabled = true
+                        for style: PMFont in styles {
+                            self.codeStylePopup.addItem(withTitle: style.styleName)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
+    /**
+     Select the font popup using the stored PostScript name
+     of the user's chosen font.
+     
+     - Parameters:
+        - postScriptName: The PostScript name of the font.
+     */
+    internal func selectFontByPostScriptName(_ postScriptName: String) {
+
+        for family: PMFont in self.codeFonts {
+            if let styles: [PMFont] = family.styles {
+                for style: PMFont in styles {
+                    if style.postScriptName == postScriptName {
+                        self.codeFontPopup.selectItem(withTitle: family.displayName)
+                        setStylePopup()
+                    }
+                }
+            }
+        }
+    }
+
+    
+    /**
+     Get the PostScript name from the selected family and style.
+     
+     - Returns: The PostScript name as a string, or nil.
+     */
+    internal func getPostScriptName() -> String? {
+
+        if let selectedFont: String = self.codeFontPopup.titleOfSelectedItem {
+            let selectedStyle: Int = codeStylePopup.indexOfSelectedItem
+            for family: PMFont in self.codeFonts {
+                if family.displayName == selectedFont {
+                    if let styles: [PMFont] = family.styles {
+                        let font: PMFont = styles[selectedStyle]
+                        return font.postScriptName
+                    }
+                }
+            }
+        }
+
+        return nil
     }
 
 }
