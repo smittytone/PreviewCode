@@ -476,15 +476,15 @@ DQ
                             <action selector="doSavePreferencesWithSender:" target="Voe-Tx-rLC" id="hOW-fE-aH9"/>
                         </connections>
                     </button>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="144" horizontalPageScroll="10" verticalLineScroll="144" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYb-qG-NEg">
-                        <rect key="frame" x="20" y="91" width="520" height="187"/>
+                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="144" horizontalPageScroll="10" verticalLineScroll="144" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYb-qG-NEg">
+                        <rect key="frame" x="20" y="91" width="520" height="195"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="SHm-fd-m1x">
-                            <rect key="frame" x="1" y="1" width="518" height="185"/>
+                            <rect key="frame" x="0.0" y="0.0" width="520" height="195"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="144" viewBased="YES" floatsGroupRows="NO" id="fuT-RR-f1g">
-                                    <rect key="frame" x="0.0" y="0.0" width="518" height="185"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="520" height="195"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -503,7 +503,7 @@ DQ
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="previewcode-theme-cell" id="9VX-DW-m69" customClass="ThemeTableCellView" customModule="PreviewCode" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="0.0" width="486" height="144"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="486" height="144"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <userGuides>
                                                         <userLayoutGuide location="72" affinity="minY"/>
@@ -672,14 +672,14 @@ DQ
         <window title="What's New" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="tKr-h4-TOq">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="206" width="560" height="388"/>
+            <rect key="contentRect" x="196" y="206" width="560" height="410"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <value key="minSize" type="size" width="560" height="388"/>
-            <value key="maxSize" type="size" width="560" height="388"/>
-            <value key="minFullScreenContentSize" type="size" width="560" height="388"/>
-            <value key="maxFullScreenContentSize" type="size" width="560" height="388"/>
+            <value key="minSize" type="size" width="560" height="410"/>
+            <value key="maxSize" type="size" width="560" height="410"/>
+            <value key="minFullScreenContentSize" type="size" width="560" height="410"/>
+            <value key="maxFullScreenContentSize" type="size" width="560" height="410"/>
             <view key="contentView" id="9Ng-aK-BQ4">
-                <rect key="frame" x="0.0" y="0.0" width="560" height="388"/>
+                <rect key="frame" x="0.0" y="0.0" width="560" height="410"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ed1-Rx-KY0">
@@ -700,7 +700,7 @@ DQ
                         </connections>
                     </button>
                     <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JhS-5O-6sp">
-                        <rect key="frame" x="0.0" y="60" width="560" height="328"/>
+                        <rect key="frame" x="0.0" y="60" width="560" height="350"/>
                         <wkWebViewConfiguration key="configuration">
                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                             <wkPreferences key="preferences"/>
