@@ -1,4 +1,4 @@
-# PreviewCode 1.0.1
+# PreviewCode 1.1.0
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -16,9 +16,9 @@ You can disable and re-enable the Code Previewer and Code Thumbnailer extensions
 
 Open the main app and click on **Show Preview Preferences**, or select **Preferences...** from the **PreviewCode** menu.
 
-You will now be able to select from a range of text sizes, choose a monospace font, and pick which theme you would like previews to use. One hundred themes are included.
+You will now be able to select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — and pick which theme you would like previews to use. One hundred themes are included.
 
-*PreviewCode* will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we made add support for this in a future release.
+*PreviewCode* will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we may add support for this in a future release.
 
 ## Languages
 
@@ -92,10 +92,11 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-* 1.0.0 *Unreleased*
+* 1.1.0 *Unreleased*
     * Improved font selection code.
-    * Speed **Preferences** panel loading.
-    * Apple wants links to other apps to be App Store links. What Apple wants, Apple gets.
+    * Font style selection.
+    * Speed **Preferences** panel loading, especially on Intel Macs.
+    * Apple wants links to other apps to be App Store links. So be it. What Apple wants, Apple gets.
 * 1.0.0 *16 June 2021*
     * Initial public release.
 
