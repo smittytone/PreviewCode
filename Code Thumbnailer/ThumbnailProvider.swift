@@ -53,7 +53,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         
         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { () -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
-            let success = autoreleasepool { () -> Bool in
+            //let success = autoreleasepool { () -> Bool in
                 // Load the source file using a co-ordinator as we don't know what thread this function
                 // will be executed in when it's called by macOS' QuickLook code
                 if FileManager.default.isReadableFile(atPath: request.fileURL.path) {
@@ -130,11 +130,11 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                 // We didn't draw anything because of an error
                 return false
-            }
+            //}
 
             // Pass the outcome up from out of the autorelease
             // pool code to the handler
-            return success
+            //return success
         }, nil)
     }
     
