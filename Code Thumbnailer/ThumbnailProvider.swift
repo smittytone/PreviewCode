@@ -17,6 +17,12 @@ class ThumbnailProvider: QLThumbnailProvider {
 
     private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 
+    enum ThumbnailerError: Error {
+        case badFileLoad(String)
+        case badFileUnreadable(String)
+        case badGfxBitmap
+        case badGfxDraw
+    }
 
     // MARK:- Lifecycle Required Functions
 
@@ -53,7 +59,7 @@ class ThumbnailProvider: QLThumbnailProvider {
 
         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { () -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
-            //let success = autoreleasepool { () -> Bool in
+            let result: Result<Bool, ThumbnailerError> = autoreleasepool { () -> Result<Bool, ThumbnailerError> in
                 // Load the source file using a co-ordinator as we don't know what thread this function
                 // will be executed in when it's called by macOS' QuickLook code
                 if FileManager.default.isReadableFile(atPath: request.fileURL.path) {
@@ -62,7 +68,9 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Get the file contents as a string, making sure it's not cached
                         // as we're not going to read it again any time soon
                         let data: Data = try Data.init(contentsOf: request.fileURL, options: [.uncached])
-                        guard let codeFileString: String = String.init(data: data, encoding: .utf8) else { return false }
+                        guard let codeFileString: String = String.init(data: data, encoding: .utf8) else {
+                            return .failure(ThumbnailerError.badFileLoad(request.fileURL.path))
+                        }
 
                         // Set the language
                         let language: String = getLanguage(request.fileURL.path, false)
@@ -117,24 +125,46 @@ class ThumbnailProvider: QLThumbnailProvider {
                         tagTextField.frame = tagFrame
 
                         // Generate the bitmap from the rendered code text view
-                        guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else { return false }
+                        guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
+                            return .failure(ThumbnailerError.badGfxBitmap)
+                        }
 
                         // Draw the code view into the bitmap and then the tag
                         codeTextField.cacheDisplay(in: codeFrame, to: imageRep)
                         tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
-                        return imageRep.draw(in: thumbnailFrame)
+                        let drawResult = imageRep.draw(in: thumbnailFrame)
+                        if drawResult {
+                            return .success(true)
+                        } else {
+                            return .failure(ThumbnailerError.badGfxDraw)
+                        }
                     } catch {
                         // NOP: fall through to error
                     }
                 }
 
-                // We didn't draw anything because of an error
-                return false
-            //}
+                // We didn't draw anything because of 'can't find file' error
+                return .failure(ThumbnailerError.badFileUnreadable(request.fileURL.path))
+            }
 
             // Pass the outcome up from out of the autorelease
-            // pool code to the handler
-            //return success
+            // pool code to the handler as a bool, logging an error
+            // if appropriate
+            switch result {
+                case .success(_):
+                    return true
+                case .failure(let error):
+                    switch error {
+                        case .badFileUnreadable(let filePath):
+                            NSLog("Could not access file \(filePath)")
+                        case .badFileLoad(let filePath):
+                            NSLog("Could not render file \(filePath)")
+                        default:
+                            NSLog("Could not render thumbnail")
+                    }
+            }
+
+            return false
         }, nil)
     }
 
