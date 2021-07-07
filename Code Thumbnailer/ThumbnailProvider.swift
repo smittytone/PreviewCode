@@ -15,32 +15,11 @@ class ThumbnailProvider: QLThumbnailProvider {
 
     // MARK:- Private Properties
 
-    private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
-
-    enum ThumbnailerError: Error {
+    private enum ThumbnailerError: Error {
         case badFileLoad(String)
         case badFileUnreadable(String)
         case badGfxBitmap
         case badGfxDraw
-    }
-
-    // MARK:- Lifecycle Required Functions
-
-    override init() {
-
-        /*
-         * Override the init() method so we can do all the setup we need
-         * BEFORE we start rendering, ie. so we don't write values another
-         * thread may be trying to read
-         */
-
-        // Must call the super class because we don't know
-        // what operations it performs
-        super.init()
-
-        // Set the base values once per instantiation, not every
-        // time a string is rendered (which risks a race condition)
-        setBaseValues(true)
     }
 
 
@@ -72,11 +51,14 @@ class ThumbnailProvider: QLThumbnailProvider {
                             return .failure(ThumbnailerError.badFileLoad(request.fileURL.path))
                         }
 
+                        // Instantiate the common code within the closure
+                        let common: Common = Common.init(true)
+
                         // Set the language
-                        let language: String = getLanguage(request.fileURL.path, false)
+                        let language: String = common.getLanguage(request.fileURL.path, false)
 
                         // Get the Attributed String
-                        let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, true)
+                        let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language, true)
 
 
                         // Set the primary drawing frame and a base font size
@@ -88,6 +70,14 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Instantiate an NSTextField to display the NSAttributedString render of the code
                         let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAttString)
                         codeTextField.frame = codeFrame
+
+                        // Generate the bitmap from the rendered code text view
+                        guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
+                            return .failure(ThumbnailerError.badGfxBitmap)
+                        }
+
+                        // Draw the code view into the bitmap
+                        codeTextField.cacheDisplay(in: codeFrame, to: imageRep)
 
                         // Also generate text for the bottom-of-thumbnail file type tag
                         // Define the frame of the tag area
@@ -102,7 +92,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         style.lineBreakMode = .byTruncatingMiddle
 
                         // Set the point size
-                        let tag: String = getLanguage(request.fileURL.path, true).uppercased()
+                        let tag: String = common.getLanguage(request.fileURL.path, true).uppercased()
                         var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_SIZE)
                         let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
                         if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
@@ -121,17 +111,14 @@ class ThumbnailProvider: QLThumbnailProvider {
                         ]
 
                         // Instantiate an NSTextField to display the NSAttributedString render of the tag
-                        let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: NSAttributedString.init(string: tag, attributes: tagAtts))
+                        let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
+                        let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
                         tagTextField.frame = tagFrame
 
-                        // Generate the bitmap from the rendered code text view
-                        guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
-                            return .failure(ThumbnailerError.badGfxBitmap)
-                        }
-
-                        // Draw the code view into the bitmap and then the tag
-                        codeTextField.cacheDisplay(in: codeFrame, to: imageRep)
+                        // Draw the tag view into the bitmap
                         tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
+
+                        // Draw the bitmap into the current context
                         let drawResult = imageRep.draw(in: thumbnailFrame)
                         if drawResult {
                             return .success(true)
@@ -168,48 +155,4 @@ class ThumbnailProvider: QLThumbnailProvider {
         }, nil)
     }
 
-
-    /*
-    // MARK:- Utility Functions
-
-    /**
-     Create an attributed string for a file icon tag.
-
-     We'll use it to determine the file's programming language.
-
-     - Parameters:
-        - tag:   The text of the tag.
-
-     - Returns: The tag as an NSAttributedString.
-     */
-    func getTagString(_ tag: String) -> NSAttributedString {
-
-        // Set the paragraph style we'll use -- just centred text
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-        style.alignment = .center
-        style.lineBreakMode = .byTruncatingMiddle
-
-        // Set the point size
-        var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_SIZE)
-        let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
-        if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
-            let ratio: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH - 20) / renderSize.width
-            fontSize *= ratio;
-            if fontSize < CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE) {
-                fontSize = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE)
-            }
-        }
-
-        // Build the tag's string attributes
-        let tagAtts: [NSAttributedString.Key: Any] = [
-            .paragraphStyle: style,
-            .font: NSFont.systemFont(ofSize: fontSize),
-            .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
-        ]
-
-        // Return the attributed string built from the tag
-        return NSAttributedString.init(string: tag,
-                                       attributes: tagAtts)
-    }
-    */
 }

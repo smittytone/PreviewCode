@@ -13,20 +13,20 @@ import Quartz
 
 class PreviewViewController: NSViewController,
                              QLPreviewingController {
-    
+
     // MARK:- Class UI Properties
 
     @IBOutlet var renderTextView: NSTextView!
     @IBOutlet var renderTextScrollView: NSScrollView!
 
-    
+
     // MARK:- Public Properties
-    
+
     override var nibName: NSNib.Name? {
         return NSNib.Name("PreviewViewController")
     }
 
-    
+
     // MARK:- QLPreviewingController Required Functions
 
     func preparePreviewOfFile(at url: URL, completionHandler handler: @escaping (Error?) -> Void) {
@@ -37,10 +37,7 @@ class PreviewViewController: NSViewController,
 
         // Get an error message ready for use
         var reportError: NSError? = nil
-        
-        // Set the base values
-        setBaseValues(false)
-        
+
         // Load and process the source file
         if FileManager.default.isReadableFile(atPath: url.path) {
             // Only proceed if the file is accessible from here
@@ -48,16 +45,19 @@ class PreviewViewController: NSViewController,
                 // Get the file contents as a string
                 let data: Data = try Data.init(contentsOf: url, options: [.uncached])
                 if let codeFileString: String = String.init(data: data, encoding: .utf8) {
+                    // Instantiate the common code within the closure
+                    let common: Common = Common.init(false)
+
                     // Set the language
-                    let language: String = getLanguage(url.path, false)
-                    
+                    let language: String = common.getLanguage(url.path, false)
+
                     // Get the key string first
-                    let codeAttString: NSAttributedString = getAttributedString(codeFileString, language, false)
-                    
+                    let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language, false)
+
                     // Set text and scroll view attributes according to style
                     // TODO Do a better job of checking whether theme is dark or light
-                    self.renderTextView.backgroundColor = getBackgroundColour()
-                    self.renderTextScrollView.scrollerKnobStyle = getMode() ? .light : .dark
+                    self.renderTextView.backgroundColor = common.themeBackgroundColour
+                    self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
 
                     if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
                         /*
@@ -72,7 +72,7 @@ class PreviewViewController: NSViewController,
                         handler(setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING))
                         return
                     }
-                    
+
                     // Add the subview to the instance's own view and draw
                     self.view.display()
 
@@ -104,9 +104,45 @@ class PreviewViewController: NSViewController,
         // Is this ever called?
         NSLog("BUFFOON searchable identifier: \(identifier)")
         NSLog("BUFFOON searchable query:      " + (queryString ?? "nil"))
-        
+
         // Hand control back to QuickLook
         handler(nil)
+    }
+
+
+    // MARK:- Utility Functions
+
+    /**
+    Generate an NSError for an internal error, specified by its code.
+
+    Codes are listed in `Constants.swift`
+
+    - Parameters:
+        - code: The internal error code.
+
+    - Returns: The described error as an NSError.
+    */
+    func setError(_ code: Int) -> NSError {
+
+        var errDesc: String
+
+        switch(code) {
+        case BUFFOON_CONSTANTS.ERRORS.CODES.FILE_INACCESSIBLE:
+            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_INACCESSIBLE
+        case BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN:
+            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_WONT_OPEN
+        case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING:
+            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING
+        case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING:
+            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_MD_STRING
+        default:
+            errDesc = "UNKNOWN ERROR"
+        }
+
+        let bundleID = Bundle.main.object(forInfoDictionaryKey: "CFBundleID") as! String
+        return NSError(domain: bundleID,
+                    code: code,
+                    userInfo: [NSLocalizedDescriptionKey: errDesc])
     }
 
 }

@@ -959,6 +959,7 @@ class AppDelegate: NSObject,
         let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
         let fm: FileManager = FileManager.init()
         let homeFolder: String = fm.homeDirectoryForCurrentUser.path
+        let common: Common = Common.init(false)
         
         // Load in the code sample we'll preview the themes with
         guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
@@ -969,8 +970,8 @@ class AppDelegate: NSObject,
         
         for i: Int in 0..<self.themes.count {
             let name: String = codedName(i)
-            setThemeValues(name)
-            let pas: NSAttributedString = getAttributedString(loadedCode, "swift", false)
+            common.setThemeValues(name)
+            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift", false)
             let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
             ptv.isSelectable = false
 
@@ -978,7 +979,7 @@ class AppDelegate: NSObject,
                 renderTextStorage.beginEditing()
                 renderTextStorage.setAttributedString(pas)
                 renderTextStorage.endEditing()
-                ptv.backgroundColor = getBackgroundColour()
+                ptv.backgroundColor = common.themeBackgroundColour
             }
             
             if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
