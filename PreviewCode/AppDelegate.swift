@@ -970,8 +970,8 @@ class AppDelegate: NSObject,
         
         for i: Int in 0..<self.themes.count {
             let name: String = codedName(i)
-            common.setThemeValues(name)
-            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift", false)
+            common.updateTheme(name)
+            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
             let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
             ptv.isSelectable = false
 

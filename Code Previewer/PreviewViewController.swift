@@ -52,7 +52,7 @@ class PreviewViewController: NSViewController,
                     let language: String = common.getLanguage(url.path, false)
 
                     // Get the key string first
-                    let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language, false)
+                    let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language)
 
                     // Set text and scroll view attributes according to style
                     // TODO Do a better job of checking whether theme is dark or light

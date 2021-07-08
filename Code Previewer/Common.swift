@@ -25,15 +25,8 @@ final class Common: NSObject {
 
     // MARK:- Private Properties
 
-    private var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private var font: NSFont? = nil
-    private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
-    private var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-    private var errorAtts: [NSAttributedString.Key: Any] = [:]
     private var highlighter: Highlighter? = nil
-    
-    private let appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
-    
 
 
     // MARK:- Lifecycle Functions
@@ -42,57 +35,55 @@ final class Common: NSObject {
 
         super.init()
 
+        // Set values with default properties
+        var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
         var themeString: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+        var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
+        var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
 
-        if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName) {
-            defaults.synchronize()
-            self.fontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
+        // Read in the user preferences
+        if let prefs: UserDefaults = UserDefaults(suiteName: MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME) {
+            prefs.synchronize()
 
             if !isThumbnail {
-                self.fontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
-
-                // NOTE We store the raw theme name, so 'setThemeValues()' is called
-                //      to extract the actual name and its mode (light or dark)
-                themeString = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
+                fontSize = CGFloat(prefs.float(forKey: "com-bps-previewcode-base-font-size"))
+                themeString = prefs.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
             }
+
+            fontName = prefs.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
         }
 
-        // Choose a specific theme values for thumbnails
+        // Set instance theme-related properties
         if isThumbnail {
-            self.themeName = "atom-one-light"
+            // Thumbnails use fixed, light-on-dark values
+            themeName = "atom-one-light"
+            fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
             self.isThemeDark = false
-            self.fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
         } else {
             let themeParts: [String] = themeString.components(separatedBy: ".")
-            self.themeName = themeParts[1]
+            themeName = themeParts[1]
             self.isThemeDark = (themeParts[0] == "dark")
 
             // Just in case the above block reads in zero value for the preview font size
-            if self.fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
-                self.fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
-                self.fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+            if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
+                fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
+                fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
             }
         }
 
         // Generate the font we'll use, at the required size
-        if let chosenFont: NSFont = NSFont.init(name: self.fontName, size: self.fontSize) {
+        if let chosenFont: NSFont = NSFont.init(name: fontName, size: fontSize) {
             self.font = chosenFont
         } else {
-            self.font = NSFont.systemFont(ofSize: self.fontSize)
+            self.font = NSFont.systemFont(ofSize: fontSize)
         }
 
-        // Set the error format attributes to the font chosen by the user
-        self.errorAtts = [
-            .foregroundColor: NSColor.red,
-            .font: self.font!
-        ]
-
-        // Set the background colour here
-        if let highlightr: Highlighter = Highlighter.init() {
-            self.highlighter = highlightr
-            self.highlighter!.setTheme(self.themeName)
-            self.highlighter!.theme.setCodeFont(self.font!)
-            self.themeBackgroundColour = self.highlighter!.theme.themeBackgroundColour
+        // Set the theme
+        if let hr: Highlighter = Highlighter.init() {
+            hr.setTheme(themeName)
+            hr.theme.setCodeFont(self.font!)
+            self.themeBackgroundColour = hr.theme.themeBackgroundColour
+            self.highlighter = hr
         }
     }
 
@@ -105,17 +96,16 @@ final class Common: NSObject {
     - Parameters:
         - codeFileString: The raw source code.
         - language:       The source code language, eg. `swift`.
-        - isThumbnail:    Are we rendering a thumbnail (`true`) or a preview (`false`).
 
     - Returns: The rendered source as an NSAttributedString.
     */
-    func getAttributedString(_ codeFileString: String, _ language: String, _ isThumbnail: Bool) -> NSAttributedString {
+    func getAttributedString(_ codeFileString: String, _ language: String) -> NSAttributedString {
 
         // Run the specified code string through Highlightr/Highlight.js
         var renderedString: NSAttributedString? = nil
 
-        if let highlightr: Highlighter = self.highlighter {
-            renderedString = highlightr.highlight(codeFileString, as: language)
+        if let hr: Highlighter = self.highlighter {
+            renderedString = hr.highlight(codeFileString, as: language)
         }
 
         // If the rendered string is good, return it
@@ -127,8 +117,13 @@ final class Common: NSObject {
         }
 
         // Return an error message
-        return NSAttributedString.init(string: "Could not render source code (\(language))",
-                                       attributes: self.errorAtts)
+        let errorAtts: [NSAttributedString.Key : Any] = [
+            .foregroundColor: NSColor.red,
+            .font: self.font!
+        ]
+
+        return NSAttributedString.init(string: "Could not render source code in (\(language))",
+                                       attributes: errorAtts)
     }
 
 
@@ -148,16 +143,13 @@ final class Common: NSObject {
      - Parameters:
         - themeData: The PreviewCode theme info string, eg. `dark.an-old-hope`.
      */
-    func setThemeValues(_ themeData: String) {
+    func updateTheme(_ themeData: String) {
         
         let themeParts: [String] = themeData.components(separatedBy: ".")
-        self.themeName = themeParts[1]
-        self.isThemeDark = (themeParts[0] == "dark")
-
-        // Set the background colour here
         if let highlightr: Highlighter = self.highlighter {
-            highlightr.setTheme(self.themeName)
+            highlightr.setTheme(themeParts[1])
             self.themeBackgroundColour = highlightr.theme.themeBackgroundColour
+            self.isThemeDark = (themeParts[0] == "dark")
         }
     }
 

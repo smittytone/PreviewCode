@@ -58,7 +58,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         let language: String = common.getLanguage(request.fileURL.path, false)
 
                         // Get the Attributed String
-                        let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language, true)
+                        let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language)
 
 
                         // Set the primary drawing frame and a base font size
