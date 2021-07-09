@@ -47,6 +47,10 @@ class PreviewViewController: NSViewController,
                 if let codeFileString: String = String.init(data: data, encoding: .utf8) {
                     // Instantiate the common code within the closure
                     let common: Common = Common.init(false)
+                    if common.initError {
+                        handler(setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER))
+                        return
+                    }
 
                     // Set the language
                     let language: String = common.getLanguage(url.path, false)
@@ -127,14 +131,16 @@ class PreviewViewController: NSViewController,
         var errDesc: String
 
         switch(code) {
-        case BUFFOON_CONSTANTS.ERRORS.CODES.FILE_INACCESSIBLE:
-            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_INACCESSIBLE
-        case BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN:
-            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_WONT_OPEN
-        case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING:
-            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING
-        case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING:
-            errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_MD_STRING
+            case BUFFOON_CONSTANTS.ERRORS.CODES.FILE_INACCESSIBLE:
+                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_INACCESSIBLE
+            case BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN:
+                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_WONT_OPEN
+            case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING:
+                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING
+            case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING:
+                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_MD_STRING
+            case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER:
+                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_HIGHLIGHTER
         default:
             errDesc = "UNKNOWN ERROR"
         }

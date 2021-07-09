@@ -20,6 +20,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         case badFileUnreadable(String)
         case badGfxBitmap
         case badGfxDraw
+        case badHighlighter
     }
 
 
@@ -53,6 +54,9 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Instantiate the common code within the closure
                         let common: Common = Common.init(true)
+                        if common.initError {
+                            return .failure(ThumbnailerError.badHighlighter)
+                        }
 
                         // Set the language
                         let language: String = common.getLanguage(request.fileURL.path, false)
@@ -146,6 +150,8 @@ class ThumbnailProvider: QLThumbnailProvider {
                             NSLog("Could not access file \(filePath)")
                         case .badFileLoad(let filePath):
                             NSLog("Could not render file \(filePath)")
+                        case .badHighlighter:
+                            NSLog("This app has been tampered with and cannot render code files")
                         default:
                             NSLog("Could not render thumbnail")
                     }

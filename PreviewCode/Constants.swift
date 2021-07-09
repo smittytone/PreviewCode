@@ -20,6 +20,7 @@ struct BUFFOON_CONSTANTS {
             static let FILE_WONT_OPEN       = 401
             static let BAD_MD_STRING        = 402
             static let BAD_TS_STRING        = 403
+            static let BAD_HIGHLIGHTER      = 404
         }
 
         struct MESSAGES {
@@ -28,6 +29,7 @@ struct BUFFOON_CONSTANTS {
             static let FILE_WONT_OPEN       = "Can't open file"
             static let BAD_MD_STRING        = "Can't get source code"
             static let BAD_TS_STRING        = "Can't access NSTextView's TextStorage"
+            static let BAD_HIGHLIGHTER      = "Can’t set up the highlighting engine"
         }
     }
 
