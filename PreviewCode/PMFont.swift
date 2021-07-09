@@ -10,6 +10,9 @@
 import Foundation
 
 
+/**
+    A very basic struct so we can record key font details for the **Preferences** panel.
+*/
 struct PMFont {
 
     var postScriptName: String = ""

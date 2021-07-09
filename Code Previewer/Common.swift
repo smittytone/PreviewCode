@@ -45,8 +45,6 @@ final class Common: NSObject {
 
         // Read in the user preferences to update the above values
         if let prefs: UserDefaults = UserDefaults(suiteName: MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME) {
-            prefs.synchronize()
-
             if !isThumbnail {
                 fontSize = CGFloat(prefs.float(forKey: "com-bps-previewcode-base-font-size"))
                 themeString = prefs.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME

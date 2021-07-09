@@ -54,7 +54,7 @@ class AppDelegate: NSObject,
     @IBOutlet var themeTable: NSTableView!
     @IBOutlet var codeFontPopup: NSPopUpButton!
     @IBOutlet var displayModeSegmentedControl: NSSegmentedControl!
-    // FROM 1.0.1
+    // FROM 1.1.0
     @IBOutlet weak var codeStylePopup: NSPopUpButton!
 
     // What's New Sheet
@@ -79,7 +79,7 @@ class AppDelegate: NSObject,
     private  var darkThemes: [Int] = []
     private  var lightThemes: [Int] = []
 
-    // FROM 1.0.1
+    // FROM 1.1.0
     internal var codeFonts: [PMFont] = []
     
     
@@ -87,13 +87,13 @@ class AppDelegate: NSObject,
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         
-        // FROM 1.0.1
+        // FROM 1.1.0
         // Use for rendering theme selection graphics
         #if DEBUG
         self.helpMenuRenderThemes.isHidden = false
         #endif
 
-        // FROM 1.0.1
+        // FROM 1.1.0
         // Asynchronously get the list of code fonts
         DispatchQueue.init(label: "com.bps.previecode.async-queue").async {
             self.asyncGetFonts()
@@ -117,11 +117,7 @@ class AppDelegate: NSObject,
         self.window.makeKeyAndOrderFront(self)
 
         // Show the 'What's New' panel if we need to
-        // (and set up the WKWebBiew: no elasticity, horizontal scroller)
         // NOTE Has to take place at the end of the function
-        self.whatsNewWebView.enclosingScrollView?.hasHorizontalScroller = false
-        self.whatsNewWebView.enclosingScrollView?.horizontalScrollElasticity = .none
-        self.whatsNewWebView.enclosingScrollView?.verticalScrollElasticity = .none
         doShowWhatsNew(self)
     }
 
@@ -265,22 +261,22 @@ class AppDelegate: NSObject,
         // NOTE sheet closes asynchronously unless there was no feedback to send,
         //      or an error occured with setting up the feedback session
     }
-    
-    
+
+
     /**
      Send the feedback string etc.
-     
+
      - Parameters:
         - feedback: The text of the user's comment.
-     
+
      - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
      */
     private func submitFeedback(_ feedback: String) -> URLSessionTask? {
-        
+
         // First get the data we need to build the user agent string
         let userAgent: String = getUserAgentForFeedback()
         let endPoint: String = MNU_SECRETS.ADDRESS.B
-        
+
         // Get the date as a string
         let dateString: String = getDateForFeedback()
 
@@ -298,7 +294,7 @@ class AppDelegate: NSObject,
         dict.setObject(dataString,
                         forKey: NSString.init(string: "text"))
         dict.setObject(true, forKey: NSString.init(string: "mrkdwn"))
-        
+
         // Make and return the HTTPS request for sending
         if let url: URL = URL.init(string: self.feedbackPath + endPoint) {
             var request: URLRequest = URLRequest.init(url: url)
@@ -320,11 +316,11 @@ class AppDelegate: NSObject,
                 // NOP
             }
         }
-        
+
         return nil
     }
 
-
+    
     // MARK: Preferences Functions
     
     /**
@@ -348,48 +344,7 @@ class AppDelegate: NSObject,
         self.fontSizeSlider.floatValue = Float(index)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
         
-        /*
-        let fm: NSFontManager = NSFontManager.shared
-
-        if let fonts: [String] = fm.availableFontNames(with: .fixedPitchFontMask) {
-            for font in fonts {
-                if font.hasPrefix(".") {
-                    continue
-                }
-                
-                // FROM 1.0.1
-                if font == "AppleColorEmoji" || (font as NSString).hasPrefix("AppleBraille") {
-                    // We want to hide these, but the user may have selected them previously
-                    // so keep them on in that case
-                    if self.codeFontName != font {
-                        continue
-                    }
-                }
-                
-                // Set the font's display name...
-                var fontDisplayName: String? = nil
-                if let namedFont: NSFont = NSFont.init(name: font, size: self.codeFontSize) {
-                    fontDisplayName = namedFont.displayName
-                } else {
-                    fontDisplayName = font.replacingOccurrences(of: "-", with: " ")
-                }
-                
-                // ...and add it to the popup
-                self.codeFontPopup.addItem(withTitle: fontDisplayName!)
-                
-                // Retain the font's PostScript name for use later
-                if let addedMenuItem: NSMenuItem = self.codeFontPopup.lastItem {
-                    addedMenuItem.representedObject = font
-                    
-                    if self.codeFontName == font {
-                        selectedItem = addedMenuItem
-                    }
-                }
-            }
-        }
-         */
-
-        // FROM 1.0.1
+        // FROM 1.1.0
         // Set the font name popup
         // List the current system's monospace fonts
         self.codeFontPopup.removeAllItems()
@@ -464,7 +419,7 @@ class AppDelegate: NSObject,
     /**
      Called when the user selects a font from either list.
 
-     FROM 1.0.1
+     FROM 1.1.0
 
      - Parameters:
         - sender: The source of the action.
@@ -506,8 +461,9 @@ class AppDelegate: NSObject,
                                   forKey: "com-bps-previewcode-base-font-size")
             }
             
-            // FROM 1.0.1
+            // FROM 1.1.0
             // Set the chosen font if it has changed
+            // NOTE This covers both the font name and the style
             if let fontName: String = getPostScriptName() {
                 if fontName != self.codeFontName {
                     self.codeFontName = fontName
@@ -522,9 +478,6 @@ class AppDelegate: NSObject,
                 let selectedThemeName: String = codedName(self.newThemeIndex)
                 defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
             }
-
-            // Sync any changes
-            defaults.synchronize()
         }
         
         // Remove the sheet now we have the data
@@ -564,6 +517,11 @@ class AppDelegate: NSObject,
         if doShowSheet {
             let htmlFolderPath = Bundle.main.resourcePath! + "/new"
 
+            //Set up the WKWebBiew: no elasticity, horizontal scroller
+            self.whatsNewWebView.enclosingScrollView?.hasHorizontalScroller = false
+            self.whatsNewWebView.enclosingScrollView?.horizontalScrollElasticity = .none
+            self.whatsNewWebView.enclosingScrollView?.verticalScrollElasticity = .none
+
             // Just in case, make sure we can load the file
             if FileManager.default.fileExists(atPath: htmlFolderPath) {
                 let htmlFileURL = URL.init(fileURLWithPath: htmlFolderPath + "/new.html")
@@ -600,8 +558,6 @@ class AppDelegate: NSObject,
             print("\(key) reset back to true")
             defaults.setValue(true, forKey: key)
             #endif
-
-            defaults.synchronize()
         }
     }
 
@@ -718,7 +674,7 @@ class AppDelegate: NSObject,
             return
         }
         
-        // FROM 1.0.1
+        // FROM 1.1.0
         // Theme list is now a JSON file
         var dict: [String: Any] = [:]
         if let data: Data = themesString.data(using: .utf8) {
@@ -730,7 +686,7 @@ class AppDelegate: NSObject,
         // Remember this called only one per run
         self.themes = dict["themes"] as! [Any]
         for i: Int in 0..<self.themes.count {
-            // FROM 1.0.1
+            // FROM 1.1.0
             // Get the coded name, eg. 'dark.atom-one-dark', as this is what's
             // stored in prefs and used by Code Previewer and Code Thumbnailer
             let codedThemeName: String = codedName(i)
@@ -838,11 +794,7 @@ class AppDelegate: NSObject,
             if showNewDefault == nil {
                 defaults.setValue(true, forKey: key)
             }
-            
-            // Sync any additions
-            defaults.synchronize()
         }
-
     }
     
     
@@ -863,7 +815,60 @@ class AppDelegate: NSObject,
         return (isDark ? "dark." : "light.") + cssName
     }
     
-    
+
+    /**
+     Render all the themes as 512 x 268 PNG files.
+
+     Run this from the **Help** menu in debug sessions.
+
+     - Parameters:
+        - sender: The object that triggered the action
+     */
+    @IBAction private func doRenderThemes(_ sender: Any) {
+
+        let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
+        let fm: FileManager = FileManager.init()
+        let homeFolder: String = fm.homeDirectoryForCurrentUser.path
+        let common: Common = Common.init(false)
+
+        // Load in the code sample we'll preview the themes with
+        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
+
+        if self.themes.count == 0 {
+            loadThemeList()
+        }
+
+        for i: Int in 0..<self.themes.count {
+            let name: String = codedName(i)
+            common.updateTheme(name)
+            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
+            let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
+            ptv.isSelectable = false
+
+            if let renderTextStorage: NSTextStorage = ptv.textStorage {
+                renderTextStorage.beginEditing()
+                renderTextStorage.setAttributedString(pas)
+                renderTextStorage.endEditing()
+                ptv.backgroundColor = common.themeBackgroundColour
+            }
+
+            if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
+                ptv.cacheDisplay(in: renderFrame, to: imageRep)
+                if let data: Data = imageRep.representation(using: .png, properties: [:]) {
+                    do {
+                        let theme: [String: Any] = self.themes[i] as! [String: Any]
+                        let filename: String = theme["css"] as! String
+                        let path: String = homeFolder + filename + ".png"
+                        try data.write(to: URL.init(fileURLWithPath: path))
+                    } catch {
+                        // NOP
+                    }
+                }
+            }
+        }
+    }
+
+
     // MARK: - NSTableView Data Source / Delegate Functions
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -895,9 +900,9 @@ class AppDelegate: NSObject,
             cell!.themePreviewTitle.stringValue = themeName
             cell!.themeIndex = index
             
-            // FROM 1.0.1
+            // FROM 1.1.0
             // Generate the theme preview view programmatically, and use
-            // images rather then JIT-rendered NSTextViews
+            // images rather then JIT-rendered NSTextViews (too slow)
             if let themePreview: NSImage = NSImage.init(named: themeCSS) {
                 let imv: NSImageView = NSImageView.init(image: themePreview)
                 imv.frame = NSMakeRect(3, 4, 256, 134)
@@ -942,59 +947,6 @@ class AppDelegate: NSObject,
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
             self.newThemeIndex = parentView.themeIndex
             self.preferencesWindow.makeFirstResponder(self.themeTable)
-        }
-    }
-    
-    
-    /**
-     Render all the themes as 512 x 268 PNG files.
-     
-     Run this from the **Help** menu in debug sessions.
-     
-     - Parameters:
-        - sender: The object that triggered the action
-     */
-    @IBAction private func doRenderThemes(_ sender: Any) {
-        
-        let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
-        let fm: FileManager = FileManager.init()
-        let homeFolder: String = fm.homeDirectoryForCurrentUser.path
-        let common: Common = Common.init(false)
-        
-        // Load in the code sample we'll preview the themes with
-        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
-        
-        if self.themes.count == 0 {
-            loadThemeList()
-        }
-        
-        for i: Int in 0..<self.themes.count {
-            let name: String = codedName(i)
-            common.updateTheme(name)
-            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
-            let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
-            ptv.isSelectable = false
-
-            if let renderTextStorage: NSTextStorage = ptv.textStorage {
-                renderTextStorage.beginEditing()
-                renderTextStorage.setAttributedString(pas)
-                renderTextStorage.endEditing()
-                ptv.backgroundColor = common.themeBackgroundColour
-            }
-            
-            if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
-                ptv.cacheDisplay(in: renderFrame, to: imageRep)
-                if let data: Data = imageRep.representation(using: .png, properties: [:]) {
-                    do {
-                        let theme: [String: Any] = self.themes[i] as! [String: Any]
-                        let filename: String = theme["css"] as! String
-                        let path: String = homeFolder + filename + ".png"
-                        try data.write(to: URL.init(fileURLWithPath: path))
-                    } catch {
-                        // NOP
-                    }
-                }
-            }
         }
     }
     

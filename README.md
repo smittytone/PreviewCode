@@ -16,7 +16,7 @@ You can disable and re-enable the Code Previewer and Code Thumbnailer extensions
 
 Open the main app and click on **Show Preview Preferences**, or select **Preferences...** from the **PreviewCode** menu.
 
-You will now be able to select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — and pick which theme you would like previews to use. One hundred themes are included.
+You can select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — and pick which theme you would like previews to use. One hundred themes are included, and you can view all of them, or just dark or light ones.
 
 *PreviewCode* will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we may add support for this in a future release.
 
@@ -94,8 +94,9 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 * 1.1.0 *Unreleased*
     * Improved font selection code.
-    * Font style selection.
-    * Speed **Preferences** panel loading, especially on Intel Macs.
+    * Separate font style selection.
+    * Accelerate loading of the **Preferences** panel, especially on Intel Macs.
+    * Bug fixes and code streamlining.
     * Apple wants links to other apps to be App Store links. So be it. What Apple wants, Apple gets.
 * 1.0.0 *16 June 2021*
     * Initial public release.
