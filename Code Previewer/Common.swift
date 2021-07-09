@@ -21,7 +21,9 @@ final class Common: NSObject {
     // MARK:- Public Properties
 
     var themeBackgroundColour: NSColor = NSColor.white
-    var isThemeDark: Bool = false
+    var isThemeDark: Bool              = false
+    var initError: Bool                = false
+
 
     // MARK:- Private Properties
 
@@ -35,13 +37,13 @@ final class Common: NSObject {
 
         super.init()
 
-        // Set values with default properties
+        // Set local values with default properties
         var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
         var themeString: String = BUFFOON_CONSTANTS.DEFAULT_THEME
         var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
         var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
 
-        // Read in the user preferences
+        // Read in the user preferences to update the above values
         if let prefs: UserDefaults = UserDefaults(suiteName: MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME) {
             prefs.synchronize()
 
@@ -56,13 +58,11 @@ final class Common: NSObject {
         // Set instance theme-related properties
         if isThumbnail {
             // Thumbnails use fixed, light-on-dark values
-            themeName = "atom-one-light"
+            themeName = setTheme(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
             fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
-            self.isThemeDark = false
         } else {
-            let themeParts: [String] = themeString.components(separatedBy: ".")
-            themeName = themeParts[1]
-            self.isThemeDark = (themeParts[0] == "dark")
+            // Set preview theme details
+            themeName = setTheme(themeString)
 
             // Just in case the above block reads in zero value for the preview font size
             if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
@@ -78,12 +78,16 @@ final class Common: NSObject {
             self.font = NSFont.systemFont(ofSize: fontSize)
         }
 
-        // Set the theme
+        // Instantiate the instance's highlighter
         if let hr: Highlighter = Highlighter.init() {
             hr.setTheme(themeName)
             hr.theme.setCodeFont(self.font!)
             self.themeBackgroundColour = hr.theme.themeBackgroundColour
             self.highlighter = hr
+        } else {
+            // TODO Need a better notification for
+            //      highlighter instantiation errors
+            self.initError = true
         }
     }
 
@@ -145,13 +149,35 @@ final class Common: NSObject {
      */
     func updateTheme(_ themeData: String) {
         
-        let themeParts: [String] = themeData.components(separatedBy: ".")
+        let themeName: String = setTheme(themeData)
         if let highlightr: Highlighter = self.highlighter {
-            highlightr.setTheme(themeParts[1])
+            highlightr.setTheme(themeName)
             self.themeBackgroundColour = highlightr.theme.themeBackgroundColour
-            self.isThemeDark = (themeParts[0] == "dark")
         }
     }
+
+
+    /**
+     Extract the theme name from the storage string.
+
+     - Parameters:
+        - themeString: The base theme record, eg. `light.atom-one-light`.
+
+     - Returns: The name of the theme's filem, eg. `atom-one-light`.
+     */
+    private func setTheme(_ themeString: String) -> String {
+
+        var themeParts: [String] = themeString.components(separatedBy: ".")
+
+        // Just in case...
+        if themeParts.count != 2 {
+            themeParts = ["dark", "agate"]
+        }
+
+        self.isThemeDark = (themeParts[0] == "dark")
+        return themeParts[1]
+    }
+
 
     /**
     Determine the source file's language from its UTI.
