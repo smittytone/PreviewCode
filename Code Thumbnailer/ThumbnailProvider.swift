@@ -39,7 +39,9 @@ class ThumbnailProvider: QLThumbnailProvider {
 
         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { () -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
-            let result: Result<Bool, ThumbnailerError> = autoreleasepool { () -> Result<Bool, ThumbnailerError> in
+            
+            //let result: Result<Bool, ThumbnailerError> = autoreleasepool { () -> Result<Bool, ThumbnailerError> in
+            
                 // Load the source file using a co-ordinator as we don't know what thread this function
                 // will be executed in when it's called by macOS' QuickLook code
                 if FileManager.default.isReadableFile(atPath: request.fileURL.path) {
@@ -49,15 +51,15 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // as we're not going to read it again any time soon
                         let data: Data = try Data.init(contentsOf: request.fileURL, options: [.uncached])
                         guard let codeFileString: String = String.init(data: data, encoding: .utf8) else {
-                            return .failure(ThumbnailerError.badFileLoad(request.fileURL.path))
+                            return false //.failure(ThumbnailerError.badFileLoad(request.fileURL.path))
                         }
 
                         // Instantiate the common code within the closure
                         let common: Common = Common.init(true)
                         if common.initError {
-                            return .failure(ThumbnailerError.badHighlighter)
+                            return false //.failure(ThumbnailerError.badHighlighter)
                         }
-
+                        
                         // Set the language
                         let language: String = common.getLanguage(request.fileURL.path, false)
 
@@ -74,10 +76,11 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Instantiate an NSTextField to display the NSAttributedString render of the code
                         let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAttString)
                         codeTextField.frame = codeFrame
+                        codeTextField.needsDisplay = true
 
                         // Generate the bitmap from the rendered code text view
                         guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
-                            return .failure(ThumbnailerError.badGfxBitmap)
+                            return false //.failure(ThumbnailerError.badGfxBitmap)
                         }
 
                         // Draw the code view into the bitmap
@@ -118,29 +121,37 @@ class ThumbnailProvider: QLThumbnailProvider {
                         let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
                         let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
                         tagTextField.frame = tagFrame
+                        tagTextField.needsDisplay = true
 
                         // Draw the tag view into the bitmap
                         tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
 
                         // Draw the bitmap into the current context
                         let drawResult = imageRep.draw(in: thumbnailFrame)
+                        
+                        // Not sure why this is needed -- not using CA -- but it seems to help
+                        CATransaction.commit()
+              /*
                         if drawResult {
                             return .success(true)
                         } else {
                             return .failure(ThumbnailerError.badGfxDraw)
                         }
+                */
+                        return drawResult
                     } catch {
                         // NOP: fall through to error
                     }
                 }
 
                 // We didn't draw anything because of 'can't find file' error
-                return .failure(ThumbnailerError.badFileUnreadable(request.fileURL.path))
-            }
+                return false //.failure(ThumbnailerError.badFileUnreadable(request.fileURL.path))
+            //}
 
             // Pass the outcome up from out of the autorelease
             // pool code to the handler as a bool, logging an error
             // if appropriate
+            /*
             switch result {
                 case .success(_):
                     return true
@@ -158,6 +169,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             }
 
             return false
+             */
         }, nil)
     }
 
