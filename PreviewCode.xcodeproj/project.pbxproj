@@ -210,8 +210,8 @@
 		3BFD78162663E16D002AD588 /* PreviewCode */ = {
 			isa = PBXGroup;
 			children = (
-				3BFD78582663E2C9002AD588 /* Constants.swift */,
 				3BFD785B2663E38F002AD588 /* Secrets.swift */,
+				3BFD78582663E2C9002AD588 /* Constants.swift */,
 				3BFD78172663E16D002AD588 /* AppDelegate.swift */,
 				3BDE3EF5267CE9890037351C /* GenericExtensions.swift */,
 				3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */,
