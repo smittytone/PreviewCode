@@ -73,6 +73,7 @@ class PreviewViewController: NSViewController,
                         renderTextStorage.setAttributedString(codeAttString)
                         renderTextStorage.endEditing()
                     } else {
+                        // We couldn't access the preview NSTextView's NSTextStorage
                         handler(setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING))
                         return
                     }
@@ -98,7 +99,7 @@ class PreviewViewController: NSViewController,
         }
 
         // Call the QLPreviewingController indicating an error
-        // (argumnet is not nil)
+        // (argument is not nil)
         handler(reportError)
     }
 
@@ -145,8 +146,7 @@ class PreviewViewController: NSViewController,
             errDesc = "UNKNOWN ERROR"
         }
 
-        let bundleID = Bundle.main.object(forInfoDictionaryKey: "CFBundleID") as! String
-        return NSError(domain: bundleID,
+        return NSError(domain: "com.bps.PreviewCode.Code-Previewer",
                     code: code,
                     userInfo: [NSLocalizedDescriptionKey: errDesc])
     }
