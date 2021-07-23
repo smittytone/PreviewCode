@@ -96,7 +96,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     * Improved font selection code.
     * Separate font style selection.
     * Accelerate loading of the **Preferences** panel, especially on Intel Macs.
-    * Bug fixes and code streamlining.
+    * Code streamlining.
+    * Fixed a rare bug in the previewer error reporting code.
     * Apple wants links to other apps to be App Store links. So be it. What Apple wants, Apple gets.
 * 1.0.0 *16 June 2021*
     * Initial public release.
