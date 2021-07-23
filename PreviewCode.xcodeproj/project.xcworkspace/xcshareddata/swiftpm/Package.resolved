@@ -2,11 +2,11 @@
   "object": {
     "pins": [
       {
-        "package": "Highlighter",
+        "package": "HighlighterSwift",
         "repositoryURL": "https://github.com/smittytone/HighlighterSwift.git",
         "state": {
           "branch": "main",
-          "revision": "661effd6f6a7b4e48e1ef1a19c1fabbcb50b7708",
+          "revision": "f5eede35661c835d0f8f2e3d56f8d5937f9e6dc9",
           "version": null
         }
       }
