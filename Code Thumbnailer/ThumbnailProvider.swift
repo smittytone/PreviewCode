@@ -14,7 +14,7 @@ import Cocoa
 class ThumbnailProvider: QLThumbnailProvider {
 
     // MARK:- Private Properties
-
+    /*
     private enum ThumbnailerError: Error {
         case badFileLoad(String)
         case badFileUnreadable(String)
@@ -22,22 +22,21 @@ class ThumbnailProvider: QLThumbnailProvider {
         case badGfxDraw
         case badHighlighter
     }
-
+    */
 
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
 
         /*
          * This is the main entry point for macOS' thumbnailing system
          */
-
-        let targetHeight: CGFloat = request.maximumSize.height
-        let targetWidth: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height
+        
+        let iconScale: CGFloat = request.scale
         let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                 0.0,
-                                                targetWidth,
-                                                targetHeight)
+                                                CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
+                                                request.maximumSize.height)
 
-        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { () -> Bool in
+        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { (context) -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
             
             //let result: Result<Bool, ThumbnailerError> = autoreleasepool { () -> Result<Bool, ThumbnailerError> in
@@ -57,6 +56,8 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Instantiate the common code within the closure
                         let common: Common = Common.init(true)
                         if common.initError {
+                            // A key component of Common, eg. 'hightlight.js' is missing,
+                            // so we cannot continue
                             return false //.failure(ThumbnailerError.badHighlighter)
                         }
                         
@@ -76,7 +77,6 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Instantiate an NSTextField to display the NSAttributedString render of the code
                         let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAttString)
                         codeTextField.frame = codeFrame
-                        codeTextField.needsDisplay = true
 
                         // Generate the bitmap from the rendered code text view
                         guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
@@ -121,13 +121,24 @@ class ThumbnailProvider: QLThumbnailProvider {
                         let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
                         let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
                         tagTextField.frame = tagFrame
-                        tagTextField.needsDisplay = true
 
                         // Draw the tag view into the bitmap
                         tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
 
+                        // Alternative drawing code to make use of a supplied context
+                        // NOTE 'context' passed in by the caller, ie. macOS QL server
+                        var drawResult: Bool = false
+                        let scaleFrame: CGRect = NSMakeRect(0.0,
+                                                            0.0,
+                                                            thumbnailFrame.width * iconScale,
+                                                            thumbnailFrame.height * iconScale)
+                        if let image: CGImage = imageRep.cgImage {
+                            context.draw(image, in: scaleFrame, byTiling: false)
+                            drawResult = true
+                        }
+
                         // Draw the bitmap into the current context
-                        let drawResult = imageRep.draw(in: thumbnailFrame)
+                        //let drawResult = imageRep.draw(in: thumbnailFrame)
                         
                         // Not sure why this is needed -- not using CA -- but it seems to help
                         CATransaction.commit()
