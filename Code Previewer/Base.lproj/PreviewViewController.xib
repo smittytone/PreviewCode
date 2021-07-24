@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreviewViewController" customModule="Code_Previewer" customModuleProvider="target">
             <connections>
+                <outlet property="errorReportField" destination="Who-zj-SvJ" id="Yvl-YA-ezL"/>
                 <outlet property="renderTextScrollView" destination="ey1-91-qWo" id="phF-sv-VJy"/>
                 <outlet property="renderTextView" destination="rZ2-iI-Mjq" id="gcP-BH-Qb2"/>
                 <outlet property="view" destination="c22-O7-iKe" id="NRM-P4-wb6"/>
@@ -45,10 +46,25 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Who-zj-SvJ">
+                    <rect key="frame" x="-2" y="128" width="484" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="5qO-5Z-bvA"/>
+                        <constraint firstAttribute="height" constant="16" id="gsM-CP-1Mh"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Error Message!" id="Xju-EF-qgC">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="Who-zj-SvJ" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="0Nt-ig-VPF"/>
+                <constraint firstAttribute="trailing" secondItem="Who-zj-SvJ" secondAttribute="trailing" id="3kJ-aW-ZVl"/>
                 <constraint firstItem="ey1-91-qWo" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="8Ab-S4-Orb"/>
                 <constraint firstItem="ey1-91-qWo" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="OaD-p1-Jh9"/>
+                <constraint firstItem="Who-zj-SvJ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="cSz-D0-OFe"/>
                 <constraint firstAttribute="trailing" secondItem="ey1-91-qWo" secondAttribute="trailing" id="saj-WR-Frn"/>
                 <constraint firstAttribute="bottom" secondItem="ey1-91-qWo" secondAttribute="bottom" id="tUz-ri-Y4d"/>
             </constraints>

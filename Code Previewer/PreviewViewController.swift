@@ -18,6 +18,8 @@ class PreviewViewController: NSViewController,
 
     @IBOutlet var renderTextView: NSTextView!
     @IBOutlet var renderTextScrollView: NSScrollView!
+    // FROM 1.1.0
+    @IBOutlet var errorReportField: NSTextField!
 
 
     // MARK:- Public Properties
@@ -37,6 +39,12 @@ class PreviewViewController: NSViewController,
 
         // Get an error message ready for use
         var reportError: NSError? = nil
+        
+        // FROM 1.1.0
+        // Hide the error field
+        self.renderTextScrollView.isHidden = false
+        self.errorReportField.isHidden = true
+        self.errorReportField.stringValue = ""
 
         // Load and process the source file
         if FileManager.default.isReadableFile(atPath: url.path) {
@@ -48,7 +56,11 @@ class PreviewViewController: NSViewController,
                     // Instantiate the common code within the closure
                     let common: Common = Common.init(false)
                     if common.initError {
-                        handler(setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER))
+                        // A key component of Common, eg. 'hightlight.js' is missing,
+                        // so we cannot continue
+                        let error: NSError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
+                        showError(error)
+                        handler(error)
                         return
                     }
 
@@ -72,19 +84,18 @@ class PreviewViewController: NSViewController,
                         renderTextStorage.beginEditing()
                         renderTextStorage.setAttributedString(codeAttString)
                         renderTextStorage.endEditing()
-                    } else {
-                        // We couldn't access the preview NSTextView's NSTextStorage
-                        handler(setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING))
+                        
+                        // Add the subview to the instance's own view and draw
+                        self.view.display()
+
+                        // Call the QLPreviewingController indicating no error
+                        // (argument is nil)
+                        handler(nil)
                         return
                     }
-
-                    // Add the subview to the instance's own view and draw
-                    self.view.display()
-
-                    // Call the QLPreviewingController indicating no error
-                    // (argument is nil)
-                    handler(nil)
-                    return
+                        
+                    // We couldn't access the preview NSTextView's NSTextStorage
+                    reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
                 } else {
                     // We couldn't get the markdwn string so set an appropriate error to report back
                     reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING)
@@ -97,6 +108,9 @@ class PreviewViewController: NSViewController,
             // We couldn't access the file so set an appropriate error to report back
             reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_INACCESSIBLE)
         }
+        
+        // Display the error locally in the window
+        showError(reportError!)
 
         // Call the QLPreviewingController indicating an error
         // (argument is not nil)
@@ -116,7 +130,24 @@ class PreviewViewController: NSViewController,
 
 
     // MARK:- Utility Functions
-
+    
+    /**
+     Place an error message in its various outlets.
+     
+     - parameters:
+        - error: The error as an NSError.
+     */
+   func showError(_ error: NSError) {
+        
+        let errString: String = error.userInfo[NSLocalizedDescriptionKey] as! String
+        self.errorReportField.stringValue = errString
+        self.errorReportField.isHidden = false
+        self.renderTextScrollView.isHidden = true
+        self.view.display()
+        NSLog("BUFFOON \(errString)")
+    }
+    
+    
     /**
     Generate an NSError for an internal error, specified by its code.
 
