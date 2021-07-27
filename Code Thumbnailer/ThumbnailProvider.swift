@@ -65,33 +65,32 @@ class ThumbnailProvider: QLThumbnailProvider {
                         let language: String = common.getLanguage(request.fileURL.path, false)
 
                         // Get the Attributed String
-                        let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language)
-
+                        let codeAtts: NSAttributedString = common.getAttributedString(codeFileString, language)
 
                         // Set the primary drawing frame and a base font size
-                        let codeFrame: CGRect = CGRect.init(x: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X,
-                                                            y: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y,
-                                                            width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
-                                                            height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.HEIGHT)
+                        let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X),
+                                                           CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y),
+                                                           CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH),
+                                                           CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.HEIGHT))
 
                         // Instantiate an NSTextField to display the NSAttributedString render of the code
-                        let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAttString)
+                        let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAtts)
                         codeTextField.frame = codeFrame
 
                         // Generate the bitmap from the rendered code text view
-                        guard let imageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
+                        guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
                             return false //.failure(ThumbnailerError.badGfxBitmap)
                         }
 
                         // Draw the code view into the bitmap
-                        codeTextField.cacheDisplay(in: codeFrame, to: imageRep)
+                        codeTextField.cacheDisplay(in: codeFrame, to: bodyImageRep)
 
                         // Also generate text for the bottom-of-thumbnail file type tag
                         // Define the frame of the tag area
-                        let tagFrame: CGRect = CGRect.init(x: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X,
-                                                           y: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y,
-                                                           width: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH,
-                                                           height: BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT)
+                        let tagFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X),
+                                                          CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y),
+                                                          CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH),
+                                                          CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT))
 
                         // Set the paragraph style we'll use -- just centred text
                         let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
@@ -112,7 +111,7 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Build the tag's string attributes
                         let tagAtts: [NSAttributedString.Key: Any] = [
-                            .paragraphStyle: style as NSParagraphStyle,
+                            .paragraphStyle: style,
                             .font: NSFont.systemFont(ofSize: fontSize),
                             .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
                         ]
@@ -123,22 +122,31 @@ class ThumbnailProvider: QLThumbnailProvider {
                         tagTextField.frame = tagFrame
 
                         // Draw the tag view into the bitmap
-                        tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
+                        let tagImageRep: NSBitmapImageRep? = tagTextField.bitmapImageRepForCachingDisplay(in: tagFrame)
+                        if tagImageRep != nil {
+                            tagTextField.cacheDisplay(in: tagFrame, to: tagImageRep!)
+                        }
 
                         // Alternative drawing code to make use of a supplied context
                         // NOTE 'context' passed in by the caller, ie. macOS QL server
                         var drawResult: Bool = false
-                        let scaleFrame: CGRect = NSMakeRect(0.0,
+                        var scaleFrame: CGRect = NSMakeRect(0.0,
                                                             0.0,
                                                             thumbnailFrame.width * iconScale,
                                                             thumbnailFrame.height * iconScale)
-                        if let image: CGImage = imageRep.cgImage {
+                        if let image: CGImage = bodyImageRep.cgImage {
                             context.draw(image, in: scaleFrame, byTiling: false)
                             drawResult = true
                         }
 
-                        // Draw the bitmap into the current context
-                        //let drawResult = imageRep.draw(in: thumbnailFrame)
+                        // Add the tag
+                        scaleFrame = NSMakeRect(0.0,
+                                                0.0,
+                                                thumbnailFrame.width * iconScale,
+                                                thumbnailFrame.height * iconScale * 0.2)
+                        if let image: CGImage = tagImageRep?.cgImage {
+                            context.draw(image, in: scaleFrame, byTiling: false)
+                        }
                         
                         // Not sure why this is needed -- not using CA -- but it seems to help
                         CATransaction.commit()
