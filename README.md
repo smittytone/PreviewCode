@@ -1,4 +1,4 @@
-# PreviewCode 1.1.0
+# PreviewCode 1.1.1
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -92,6 +92,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+* 1.1.1 *Unreleased*
+    * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
 * 1.1.0 *28 July 2021*
     * Improved font selection code.
     * Separate font style selection.
