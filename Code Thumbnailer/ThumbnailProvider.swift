@@ -132,8 +132,8 @@ class ThumbnailProvider: QLThumbnailProvider {
                             // Draw the tag view into the bitmap
                             let imageRep: NSBitmapImageRep? = tagTextField.bitmapImageRepForCachingDisplay(in: tagFrame)
                             if imageRep != nil {
-                                tagTextField.cacheDisplay(in: tagFrame, to: tagImageRep!)
-                                tagImageRep = imageRep
+                                tagTextField.cacheDisplay(in: tagFrame, to: imageRep!)
+                                tagImageRep = imageRep!
                             }
                         }
 
@@ -150,11 +150,11 @@ class ThumbnailProvider: QLThumbnailProvider {
                         }
 
                         // Add the tag
-                        scaleFrame = NSMakeRect(0.0,
-                                                0.0,
-                                                thumbnailFrame.width * iconScale,
-                                                thumbnailFrame.height * iconScale * 0.2)
                         if let image: CGImage = tagImageRep?.cgImage {
+                            scaleFrame = NSMakeRect(0.0,
+                                                    0.0,
+                                                    thumbnailFrame.width * iconScale,
+                                                    thumbnailFrame.height * iconScale * 0.2)
                             context.draw(image, in: scaleFrame, byTiling: false)
                         }
                         
