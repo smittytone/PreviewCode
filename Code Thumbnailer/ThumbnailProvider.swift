@@ -35,6 +35,10 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                 0.0,
                                                 CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
                                                 request.maximumSize.height)
+        
+        // FROM 1.1.1
+        let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
+        let isMontereyPlus: Bool = (sysVer.majorVersion >= 12)
 
         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { (context) -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
@@ -84,47 +88,53 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Draw the code view into the bitmap
                         codeTextField.cacheDisplay(in: codeFrame, to: bodyImageRep)
+                        
+                        // Also generate text for the bottom-of-thumbnail file type tag,
+                        // if the user has this set as a preference
+                        var tagImageRep: NSBitmapImageRep? = nil
+                        if !isMontereyPlus {
+                            // Also generate text for the bottom-of-thumbnail file type tag
+                            // Define the frame of the tag area
+                            let tagFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X),
+                                                              CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y),
+                                                              CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH),
+                                                              CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT))
 
-                        // Also generate text for the bottom-of-thumbnail file type tag
-                        // Define the frame of the tag area
-                        let tagFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X),
-                                                          CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y),
-                                                          CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH),
-                                                          CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.TAG_HEIGHT))
+                            // Set the paragraph style we'll use -- just centred text
+                            let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+                            style.alignment = .center
+                            style.lineBreakMode = .byTruncatingMiddle
 
-                        // Set the paragraph style we'll use -- just centred text
-                        let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-                        style.alignment = .center
-                        style.lineBreakMode = .byTruncatingMiddle
-
-                        // Set the point size
-                        let tag: String = common.getLanguage(request.fileURL.path, true).uppercased()
-                        var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_SIZE)
-                        let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
-                        if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
-                            let ratio: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH - 20) / renderSize.width
-                            fontSize *= ratio;
-                            if fontSize < CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE) {
-                                fontSize = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE)
+                            // Set the point size
+                            let tag: String = common.getLanguage(request.fileURL.path, true).uppercased()
+                            var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_SIZE)
+                            let renderSize: NSSize = (tag as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)])
+                            if renderSize.width > CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH) - 20 {
+                                let ratio: CGFloat = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH - 20) / renderSize.width
+                                fontSize *= ratio;
+                                if fontSize < CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE) {
+                                    fontSize = CGFloat(BUFFOON_CONSTANTS.TAG_TEXT_MIN_SIZE)
+                                }
                             }
-                        }
 
-                        // Build the tag's string attributes
-                        let tagAtts: [NSAttributedString.Key: Any] = [
-                            .paragraphStyle: style,
-                            .font: NSFont.systemFont(ofSize: fontSize),
-                            .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
-                        ]
+                            // Build the tag's string attributes
+                            let tagAtts: [NSAttributedString.Key: Any] = [
+                                .paragraphStyle: style,
+                                .font: NSFont.systemFont(ofSize: fontSize),
+                                .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
+                            ]
 
-                        // Instantiate an NSTextField to display the NSAttributedString render of the tag
-                        let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
-                        let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
-                        tagTextField.frame = tagFrame
+                            // Instantiate an NSTextField to display the NSAttributedString render of the tag
+                            let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
+                            let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
+                            tagTextField.frame = tagFrame
 
-                        // Draw the tag view into the bitmap
-                        let tagImageRep: NSBitmapImageRep? = tagTextField.bitmapImageRepForCachingDisplay(in: tagFrame)
-                        if tagImageRep != nil {
-                            tagTextField.cacheDisplay(in: tagFrame, to: tagImageRep!)
+                            // Draw the tag view into the bitmap
+                            let imageRep: NSBitmapImageRep? = tagTextField.bitmapImageRepForCachingDisplay(in: tagFrame)
+                            if imageRep != nil {
+                                tagTextField.cacheDisplay(in: tagFrame, to: tagImageRep!)
+                                tagImageRep = imageRep
+                            }
                         }
 
                         // Alternative drawing code to make use of a supplied context
