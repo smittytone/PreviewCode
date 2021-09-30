@@ -119,7 +119,7 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                             // Build the tag's string attributes
                             let tagAtts: [NSAttributedString.Key: Any] = [
-                                .paragraphStyle: style,
+                                .paragraphStyle: style as NSParagraphStyle,
                                 .font: NSFont.systemFont(ofSize: fontSize),
                                 .foregroundColor: NSColor.init(red: 0.00, green: 0.33, blue: 0.53, alpha: 1.00)
                             ]
@@ -130,10 +130,9 @@ class ThumbnailProvider: QLThumbnailProvider {
                             tagTextField.frame = tagFrame
 
                             // Draw the tag view into the bitmap
-                            let imageRep: NSBitmapImageRep? = tagTextField.bitmapImageRepForCachingDisplay(in: tagFrame)
-                            if imageRep != nil {
-                                tagTextField.cacheDisplay(in: tagFrame, to: imageRep!)
-                                tagImageRep = imageRep!
+                            if let imageRep: NSBitmapImageRep = tagTextField.bitmapImageRepForCachingDisplay(in: tagFrame) {
+                                tagTextField.cacheDisplay(in: tagFrame, to: imageRep)
+                                tagImageRep = imageRep
                             }
                         }
 
