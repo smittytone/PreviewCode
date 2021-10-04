@@ -79,6 +79,8 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Instantiate an NSTextField to display the NSAttributedString render of the code
                         let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAtts)
+                        codeTextField.isEditable = false
+                        codeTextField.isSelectable = false
                         codeTextField.frame = codeFrame
 
                         // Generate the bitmap from the rendered code text view
@@ -127,6 +129,8 @@ class ThumbnailProvider: QLThumbnailProvider {
                             // Instantiate an NSTextField to display the NSAttributedString render of the tag
                             let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
                             let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
+                            tagTextField.isEditable = false
+                            tagTextField.isSelectable = false
                             tagTextField.frame = tagFrame
 
                             // Draw the tag view into the bitmap
