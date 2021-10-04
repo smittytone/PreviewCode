@@ -252,6 +252,8 @@ final class Common: NSObject {
             if isForTag { sourceLanguage = "f#" }
         case "brainfuck":
             if isForTag { sourceLanguage = "brainf**k" }
+        case "terraform":
+            if !isForTag { sourceLanguage = "c" }
         default:
             // NOP
             break
