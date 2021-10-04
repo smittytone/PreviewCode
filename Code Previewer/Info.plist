@@ -79,6 +79,7 @@
 				<string>com.bps.kotlin-source</string>
 				<string>public.dylan-source</string>
 				<string>com.bps.basic-source</string>
+				<string>com.bps.terraform-source</strong>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>
