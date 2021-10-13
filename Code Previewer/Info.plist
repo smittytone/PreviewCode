@@ -80,6 +80,8 @@
 				<string>public.dylan-source</string>
 				<string>com.bps.basic-source</string>
 				<string>com.bps.terraform-source</string>
+				<string>com.bps.assembly-source</string>
+				<string>com.bps.6809-assembly-source</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

@@ -240,10 +240,12 @@ final class Common: NSObject {
         case "pascal":
             if !isForTag { sourceLanguage = "delphi" }
         case "assembly":
-            if sourceFileExtension == "s" { sourceLanguage = isForTag ? "arm" : "armasm" }
+            if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "armasm" }
             if sourceFileExtension == "asm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
         case "nasm-assembly":
             sourceLanguage = isForTag ? "x86-64" : "x86asm"
+        case "6809-assembly":
+            sourceLanguage = isForTag ? "6809" : "x86asm"
         case "latex":
             if !isForTag { sourceLanguage = "tex" }
         case "csharp":
@@ -258,7 +260,7 @@ final class Common: NSObject {
             // NOP
             break
         }
-
+        
         return sourceLanguage
     }
 
