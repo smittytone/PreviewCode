@@ -14,7 +14,7 @@ import Cocoa
 class ThumbnailProvider: QLThumbnailProvider {
 
     // MARK:- Private Properties
-    /*
+    
     private enum ThumbnailerError: Error {
         case badFileLoad(String)
         case badFileUnreadable(String)
@@ -22,7 +22,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         case badGfxDraw
         case badHighlighter
     }
-    */
+    
 
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
 
@@ -43,7 +43,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { (context) -> Bool in
             // Place all the remaining code within the closure passed to 'handler()'
             
-            //let result: Result<Bool, ThumbnailerError> = autoreleasepool { () -> Result<Bool, ThumbnailerError> in
+            let result: Result<Bool, ThumbnailerError> = autoreleasepool { () -> Result<Bool, ThumbnailerError> in
             
                 // Load the source file using a co-ordinator as we don't know what thread this function
                 // will be executed in when it's called by macOS' QuickLook code
@@ -54,7 +54,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // as we're not going to read it again any time soon
                         let data: Data = try Data.init(contentsOf: request.fileURL, options: [.uncached])
                         guard let codeFileString: String = String.init(data: data, encoding: .utf8) else {
-                            return false //.failure(ThumbnailerError.badFileLoad(request.fileURL.path))
+                            return .failure(ThumbnailerError.badFileLoad(request.fileURL.path))
                         }
 
                         // Instantiate the common code within the closure
@@ -62,7 +62,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         if common.initError {
                             // A key component of Common, eg. 'hightlight.js' is missing,
                             // so we cannot continue
-                            return false //.failure(ThumbnailerError.badHighlighter)
+                            return .failure(ThumbnailerError.badHighlighter)
                         }
                         
                         // Set the language
@@ -79,13 +79,11 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                         // Instantiate an NSTextField to display the NSAttributedString render of the code
                         let codeTextField: NSTextField = NSTextField.init(labelWithAttributedString: codeAtts)
-                        codeTextField.isEditable = false
-                        codeTextField.isSelectable = false
                         codeTextField.frame = codeFrame
 
                         // Generate the bitmap from the rendered code text view
                         guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
-                            return false //.failure(ThumbnailerError.badGfxBitmap)
+                            return .failure(ThumbnailerError.badGfxBitmap)
                         }
 
                         // Draw the code view into the bitmap
@@ -129,8 +127,6 @@ class ThumbnailProvider: QLThumbnailProvider {
                             // Instantiate an NSTextField to display the NSAttributedString render of the tag
                             let tagAttString: NSAttributedString = NSAttributedString.init(string: tag, attributes: tagAtts)
                             let tagTextField: NSTextField = NSTextField.init(labelWithAttributedString: tagAttString)
-                            tagTextField.isEditable = false
-                            tagTextField.isSelectable = false
                             tagTextField.frame = tagFrame
 
                             // Draw the tag view into the bitmap
@@ -163,27 +159,27 @@ class ThumbnailProvider: QLThumbnailProvider {
                         
                         // Not sure why this is needed -- not using CA -- but it seems to help
                         CATransaction.commit()
-              /*
+
                         if drawResult {
                             return .success(true)
                         } else {
                             return .failure(ThumbnailerError.badGfxDraw)
                         }
-                */
-                        return drawResult
+
+                        // return drawResult
                     } catch {
                         // NOP: fall through to error
                     }
                 }
 
                 // We didn't draw anything because of 'can't find file' error
-                return false //.failure(ThumbnailerError.badFileUnreadable(request.fileURL.path))
-            //}
+                return .failure(ThumbnailerError.badFileUnreadable(request.fileURL.path))
+            }
 
             // Pass the outcome up from out of the autorelease
             // pool code to the handler as a bool, logging an error
             // if appropriate
-            /*
+            
             switch result {
                 case .success(_):
                     return true
@@ -201,7 +197,6 @@ class ThumbnailProvider: QLThumbnailProvider {
             }
 
             return false
-             */
         }, nil)
     }
 
