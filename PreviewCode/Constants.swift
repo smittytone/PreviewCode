@@ -51,7 +51,7 @@ struct BUFFOON_CONSTANTS {
     }
 
     static let BASE_PREVIEW_FONT_SIZE       = 16.0
-    static let BASE_THUMBNAIL_FONT_SIZE     = 22.0
+    static let BASE_THUMBNAIL_FONT_SIZE     = 18.0
     static let THEME_PREVIEW_FONT_SIZE      = 7.0
 
     static let FONT_SIZE_OPTIONS: [CGFloat] = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
@@ -73,5 +73,5 @@ struct BUFFOON_CONSTANTS {
     static let MAIN_URL                     = "https://smittytone.net/previewcode/index.html"
 
     // FROM 1.1.1
-    static let THUMBNAIL_LINE_COUNT         = 36
+    static let THUMBNAIL_LINE_COUNT         = 38
 }
