@@ -68,8 +68,18 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Set the language
                         let language: String = common.getLanguage(request.fileURL.path, false)
 
+                        // FROM 1.1.1
+                        // Only render the lines likely to appear in the thumbnail
+                        let lines: [String] = (codeFileString as NSString).components(separatedBy: "\n")
+                        var shortString: String = ""
+                        for i in 0..<lines.count {
+                            // Break at line THUMBNAIL_LINE_COUNT
+                            if i >= BUFFOON_CONSTANTS.THUMBNAIL_LINE_COUNT { break }
+                            shortString += (lines[i] + "\n")
+                        }
+
                         // Get the Attributed String
-                        let codeAtts: NSAttributedString = common.getAttributedString(codeFileString, language)
+                        let codeAtts: NSAttributedString = common.getAttributedString(shortString, language)
 
                         // Set the primary drawing frame and a base font size
                         let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X),

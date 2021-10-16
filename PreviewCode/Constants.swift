@@ -71,4 +71,7 @@ struct BUFFOON_CONSTANTS {
     static let SUITE_NAME                   = ".suite.preview-code"
     static let APP_STORE                    = "https://apps.apple.com/gb/app/previewcode/id1571797683"
     static let MAIN_URL                     = "https://smittytone.net/previewcode/index.html"
+
+    // FROM 1.1.1
+    static let THUMBNAIL_LINE_COUNT         = 36
 }
