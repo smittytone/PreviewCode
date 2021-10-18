@@ -617,7 +617,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>asm68</string>
+					<string>asm6809</string>
 				</array>
 			</dict>
 		</dict>
