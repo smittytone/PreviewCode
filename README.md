@@ -1,4 +1,4 @@
-# PreviewCode 1.1.0
+# PreviewCode 1.1.1
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -33,7 +33,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * C (`.c`, `.h`)
 * C++ (`.cpp`, `.hpp`)
 * C# (`.csx`)
-* Clojure (`.clj`, `.cljs`, `.cljc`, `.edn`)
+* Clojure (`.clj`, `.cljs`, `.cljc`)
 * CoffeeScript (`.coffee`)
 * Dart (`.dart`)
 * Dylan (`.dylan`, `.lid`)
@@ -80,7 +80,12 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
 * SQL script (`.sql`)
+* Terraform (`.tf`) **New**
 * Twig (`.twig`)
+
+## Known Issues ##
+
+*PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product. We are investigating possible workarounds.
 
 ## Source Code ##
 
@@ -92,6 +97,9 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+* 1.1.1 *19 November 2021*
+    * Support HashiCorp Terraform `.tf` files.
+    * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
 * 1.1.0 *28 July 2021*
     * Improved font selection code.
     * Separate font style selection.
