@@ -1,4 +1,4 @@
-# PreviewCode 1.1.1
+# PreviewCode 1.1.2
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -80,8 +80,9 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
 * SQL script (`.sql`)
-* Terraform (`.tf`) **New**
+* Terraform (`.tf`)
 * Twig (`.twig`)
+* Enviroment (`.env`) **New**
 
 ## Known Issues ##
 
@@ -96,6 +97,9 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 *PreviewCode* makes use of [HighlightSwift](https://github.com/smittytone/HighlightSwift) which provides a Swift wrapper for [Highlight.js](https://github.com/highlightjs/highlight.js) and is derived from [Highlightr](https://github.com/raspu/Highlightr).
 
 ## Release Notes ##
+
+* 1.1.2 *Unreleased*
+    * Support environment `.env` files.
 
 * 1.1.1 *19 November 2021*
     * Support HashiCorp Terraform `.tf` files.
