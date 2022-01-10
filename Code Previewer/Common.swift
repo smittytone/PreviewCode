@@ -210,6 +210,11 @@ final class Common: NSObject {
         if sourceFileUTI == "public.css" {
             return "css"
         }
+        
+        // FROM 1.1.2 -- Present .env files using .toml/.ini renderer
+        if sourceFileUTI.hasSuffix(".env") {
+            return "ini"
+        }
 
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
