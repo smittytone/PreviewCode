@@ -83,6 +83,7 @@
 				<string>com.bps.6809-assembly-source</string>
 				<string>com.bps.assembly-source</string>
 				<string>com.bps.env</string>
+				<string>com.bps.terraform-vars</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>

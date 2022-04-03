@@ -215,6 +215,10 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".env") {
             return "ini"
         }
+        
+        if sourceFileUTI.hasSuffix(".terraform-vars") {
+            return "json"
+        }
 
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
