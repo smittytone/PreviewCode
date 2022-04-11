@@ -742,7 +742,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" selectable="YES" id="5Mr-RD-fsQ">
                             <font key="font" usesAppearanceFont="YES"/>
-                            <string key="title">Please provide us with your feedback or report a problem that you’ve encountered (512 characters max.) We can’t respond to comments without an email address.</string>
+                            <string key="title">Please provide us with your feedback or report a problem that you’ve encountered (512 characters max.). We can’t respond to comments without an email address.</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>

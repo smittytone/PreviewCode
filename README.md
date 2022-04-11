@@ -72,6 +72,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 * ARM Assembler (`.s`)
 * x86-64 Assembler (`.asm`, `.nasm`)
+* 6809 Assembler (`.asm6890`) **New**
 
 ### Others
 
@@ -80,7 +81,8 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
 * SQL script (`.sql`)
-* Terraform (`.tf`)
+* Terraform source file (`.tf`, `.terraform`)
+* Terraform variable file (`.tfvars`) **New**
 * Twig (`.twig`)
 * Enviroment (`.env`) **New**
 
@@ -102,7 +104,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 * 1.1.2 *Unreleased*
     * Support environment `.env` files.
-
+    * Support Terraform variable `.tfvars` files.
+    * Update to use HighlighterSwift 2.0.0.
 * 1.1.1 *19 November 2021*
     * Support HashiCorp Terraform `.tf` files.
     * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
@@ -118,6 +121,6 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Copyright and Credits ##
 
-Primary app code and UI design &copy; 2021, Tony Smith.
+Primary app code and UI design &copy; 2022, Tony Smith.
 
-Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-21 Ivan Sagalaev.
+Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-22 Ivan Sagalaev.
