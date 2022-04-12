@@ -72,7 +72,6 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 * ARM Assembler (`.s`)
 * x86-64 Assembler (`.asm`, `.nasm`)
-* 6809 Assembler (`.asm6890`) **New**
 
 ### Others
 
@@ -106,6 +105,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     * Support environment `.env` files.
     * Support Terraform variable `.tfvars` files.
     * Update to use HighlighterSwift 2.0.0.
+    * Fix Haskell extension.
 * 1.1.1 *19 November 2021*
     * Support HashiCorp Terraform `.tf` files.
     * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
