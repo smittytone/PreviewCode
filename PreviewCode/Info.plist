@@ -354,7 +354,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>js</string>
+					<string>hs</string>
 					<string>lhs</string>
 				</array>
 			</dict>
@@ -646,7 +646,6 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.plain-text</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
