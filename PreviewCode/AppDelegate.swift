@@ -119,6 +119,19 @@ class AppDelegate: NSObject,
         // Show the 'What's New' panel if we need to
         // NOTE Has to take place at the end of the function
         doShowWhatsNew(self)
+        
+        // FROM 1.1.2
+        // Output language list for debuggung
+        #if DEBUG
+        if let hr: Highlighter = Highlighter.init() {
+            let list: [String] = hr.supportedLanguages()
+            print("***** Languages  *****")
+            for language in list {
+                print(language)
+            }
+            print("**********************")
+        }
+        #endif
     }
 
 
@@ -858,7 +871,7 @@ class AppDelegate: NSObject,
                     do {
                         let theme: [String: Any] = self.themes[i] as! [String: Any]
                         let filename: String = theme["css"] as! String
-                        let path: String = homeFolder + filename + ".png"
+                        let path: String = homeFolder + "/" + filename + ".png"
                         try data.write(to: URL.init(fileURLWithPath: path))
                     } catch {
                         // NOP
