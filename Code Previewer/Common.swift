@@ -114,7 +114,15 @@ final class Common: NSObject {
         if let ras: NSAttributedString = renderedString {
             // Trap any incorrectly parsed language names
             if (ras.string != "undefined") {
+                // FROM 1.1.2
+                // During debugging, add language name to preview
+                #if DEBUG
+                let hs: NSMutableAttributedString = NSMutableAttributedString.init(string: "Language: \(language)\n")
+                hs.append(ras)
+                return NSAttributedString.init(attributedString: hs)
+                #else
                 return ras
+                #endif
             }
         }
 
