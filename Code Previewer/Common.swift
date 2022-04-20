@@ -221,11 +221,15 @@ final class Common: NSObject {
         
         // FROM 1.1.2 -- Present .env files using .toml/.ini renderer
         if sourceFileUTI.hasSuffix(".env") {
-            return "ini"
+            return "toml"
         }
         
         if sourceFileUTI.hasSuffix(".terraform-vars") {
             return "json"
+        }
+        
+        if sourceFileExtension == "ino" {
+            return "arduino"
         }
 
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
@@ -258,7 +262,7 @@ final class Common: NSObject {
             if !isForTag { sourceLanguage = "delphi" }
         case "assembly":
             if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "armasm" }
-            if sourceFileExtension == "asm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
+            if sourceFileExtension == "asm" || sourceFileExtension == "nasm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
         case "nasm-assembly":
             sourceLanguage = isForTag ? "x86-64" : "x86asm"
         case "6809-assembly":
