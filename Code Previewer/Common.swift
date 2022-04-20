@@ -220,7 +220,7 @@ final class Common: NSObject {
         }
         
         // FROM 1.1.2 -- Present .env files using .toml/.ini renderer
-        if sourceFileUTI.hasSuffix(".env") {
+        if sourceFileUTI == "com.bps.env" {
             return "toml"
         }
         
@@ -228,10 +228,6 @@ final class Common: NSObject {
             return "json"
         }
         
-        if sourceFileExtension == "ino" {
-            return "arduino"
-        }
-
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
         if parts.count > 0 {
