@@ -684,12 +684,15 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string></string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.asciidoc-source</string>
 			<key>UTTypeDescription</key>
 			<string>AsciiDoc Markup</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
