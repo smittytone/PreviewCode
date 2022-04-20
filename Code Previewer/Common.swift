@@ -224,13 +224,13 @@ final class Common: NSObject {
             return "css"
         }
         
-        // FROM 1.2.0 -- Present .env files using .toml/.ini renderer
+        // FROM 1.2.0 -- Present .env files using the bash renderer
         if sourceFileUTI == "com.bps.env" {
-            return "toml"
+            return "bash"
         }
         
         if sourceFileUTI.hasSuffix(".terraform-vars") {
-            return "json"
+            return "toml"
         }
         
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
@@ -277,7 +277,7 @@ final class Common: NSObject {
         case "brainfuck":
             if isForTag { sourceLanguage = "brainf**k" }
         case "terraform":
-            if !isForTag { sourceLanguage = "c" }
+            if !isForTag { sourceLanguage = "go" }
         default:
             // NOP
             break
