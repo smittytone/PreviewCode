@@ -629,10 +629,10 @@
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
-			<key>UTTypeIdentifier</key>
-			<string>com.bps.cmake-source</string>
 			<key>UTTypeDescription</key>
 			<string>CMake File</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.cmake-source</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -678,6 +678,25 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>env</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string></string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.asciidoc-source</string>
+			<key>UTTypeDescription</key>
+			<string>AsciiDoc Markup</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>adoc</string>
+					<string>asciidoc</string>
+					<string>asc</string>
 				</array>
 			</dict>
 		</dict>
