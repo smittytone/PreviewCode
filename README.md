@@ -74,6 +74,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ### Others
 
+* AsciiDoc (`.adoc`, `.asciidoc`, `.asc`)
 * CSS (`.css`)
 * LaTex (`.tex`)
 * Protobuf (`.proto`)
@@ -105,6 +106,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     * Support environment `.env` files.
     * Support CMake `.cmake` files.
     * Support Terraform variable `.tfvars` files.
+    * Support AsciiDoc `.adoc`, `.asciidoc`, `.asc` files.
     * Fix Haskell `.hsl` extension.
     * Fix x86 `.nasm` preview.
     * Change ActionScript supported extension to `.actionscript` to avoid clash with AppleSingle `.as`.
