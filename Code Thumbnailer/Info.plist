@@ -77,13 +77,14 @@
 				<string>com.bps.julia-source</string>
 				<string>com.bps.lisp-source</string>
 				<string>com.bps.kotlin-source</string>
-				<string>public.dylan-source</string>
 				<string>com.bps.basic-source</string>
 				<string>com.bps.terraform-source</string>
 				<string>com.bps.6809-assembly-source</string>
 				<string>com.bps.assembly-source</string>
 				<string>com.bps.env</string>
 				<string>com.bps.terraform-vars</string>
+				<string>public.nasm-assembly-source</string>
+				<string>com.bps.cmake-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>
