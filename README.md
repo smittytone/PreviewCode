@@ -24,7 +24,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ### Compiled Languages
 
-* ActionScript (`.as`)
+* ActionScript (`.actionscript`)
 * Ada (`.ads`, `.adb`)
 * AppleScript (`.applescript`)
 * Arduino (`.ino`)
@@ -106,6 +106,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     * Support Terraform variable `.tfvars` files.
     * Update to use HighlighterSwift 2.0.0.
     * Fix Haskell extension.
+    * Fix x86 `.nasm` preview.
+    * Change ActionScript supported extension to `.actionscript` to avoid clash with AppleSingle `.as`.
 * 1.1.1 *19 November 2021*
     * Support HashiCorp Terraform `.tf` files.
     * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
