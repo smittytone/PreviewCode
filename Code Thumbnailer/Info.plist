@@ -85,6 +85,7 @@
 				<string>com.bps.terraform-vars</string>
 				<string>public.nasm-assembly-source</string>
 				<string>com.bps.cmake-source</string>
+				<string>com.bps.asciidoc-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>

@@ -114,10 +114,15 @@ final class Common: NSObject {
         if let ras: NSAttributedString = renderedString {
             // Trap any incorrectly parsed language names
             if (ras.string != "undefined") {
-                // FROM 1.1.2
+                // FROM 1.2.0
                 // During debugging, add language name to preview
                 #if DEBUG
-                let hs: NSMutableAttributedString = NSMutableAttributedString.init(string: "Language: \(language)\n")
+                let debugAtts: [NSAttributedString.Key : Any] = [
+                    .foregroundColor: NSColor.red,
+                    .font: self.font!
+                ]
+
+                let hs: NSMutableAttributedString = NSMutableAttributedString.init(string: "Language: \(language)\n", attributes: debugAtts)
                 hs.append(ras)
                 return NSAttributedString.init(attributedString: hs)
                 #else
@@ -219,7 +224,7 @@ final class Common: NSObject {
             return "css"
         }
         
-        // FROM 1.1.2 -- Present .env files using .toml/.ini renderer
+        // FROM 1.2.0 -- Present .env files using .toml/.ini renderer
         if sourceFileUTI == "com.bps.env" {
             return "toml"
         }

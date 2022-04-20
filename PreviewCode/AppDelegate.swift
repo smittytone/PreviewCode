@@ -120,7 +120,7 @@ class AppDelegate: NSObject,
         // NOTE Has to take place at the end of the function
         doShowWhatsNew(self)
         
-        // FROM 1.1.2
+        // FROM 1.2.0
         // Output language list for debuggung
         #if DEBUG
         if let hr: Highlighter = Highlighter.init() {
