@@ -1,4 +1,4 @@
-# PreviewCode 1.1.2
+# PreviewCode 1.2.0
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -36,7 +36,6 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Clojure (`.clj`, `.cljs`, `.cljc`)
 * CoffeeScript (`.coffee`)
 * Dart (`.dart`)
-* Dylan (`.dylan`, `.lid`)
 * Elixir (`.ex`, `.exs`)
 * Erlang (`.erl`, `.hrl`)
 * Fortran (`.for`)
@@ -47,7 +46,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * JavaScript (`.js`)
 * Julia (`.jl`)
 * Kotlin (`.kt`, `.kts`, `.ktm`)
-* Lisp (`.lisp`, `.lsp`, `.l`, `.cl`, `.fasl`)
+* Lisp (`.lisp`, `.lsp`, `.fasl`)
 * Lua (`.lua`)
 * Objective-C (`.m`)
 * Pascal (`.pas`)
@@ -101,13 +100,17 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-* 1.1.2 *Unreleased*
-    * Support environment `.env` files.
-    * Support Terraform variable `.tfvars` files.
+* 1.2.0 *Unreleased*
     * Update to use HighlighterSwift 2.0.0.
-    * Fix Haskell extension.
+    * Support environment `.env` files.
+    * Support CMake `.cmake` files.
+    * Support Terraform variable `.tfvars` files.
+    * Fix Haskell `.hsl` extension.
     * Fix x86 `.nasm` preview.
     * Change ActionScript supported extension to `.actionscript` to avoid clash with AppleSingle `.as`.
+    * Remove Dylan `.dylan` and `.lid` extensions.
+    * Remove Lisp `.cl` — clash with OpenCL source.
+    * Remove F# `.fs` — clash with OpenGL Fragment Shader source.
 * 1.1.1 *19 November 2021*
     * Support HashiCorp Terraform `.tf` files.
     * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
