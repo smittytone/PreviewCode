@@ -49,8 +49,8 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>rs</string>
 					<string>rust</string>
+					<string>rs</string>
 				</array>
 			</dict>
 		</dict>
@@ -92,6 +92,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>coffeescript</string>
 					<string>coffee</string>
 					<string>litcoffee</string>
 				</array>
@@ -114,6 +115,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>typescript</string>
 					<string>tsx</string>
 				</array>
 			</dict>
@@ -156,6 +158,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>c-sharp</string>
 					<string>cs</string>
 					<string>csx</string>
 				</array>
@@ -178,6 +181,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>vbscript</string>
 					<string>vbs</string>
 					<string>vbe</string>
 					<string>wsc</string>
@@ -209,6 +213,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -244,6 +249,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>arduino</string>
 					<string>ino</string>
 				</array>
 			</dict>
@@ -265,6 +271,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>clojure</string>
 					<string>clj</string>
 					<string>cljs</string>
 					<string>cljc</string>
@@ -288,6 +295,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>erlang</string>
 					<string>erl</string>
 					<string>hrl</string>
 				</array>
@@ -296,6 +304,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -309,6 +318,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>latex</string>
 					<string>tex</string>
 				</array>
 			</dict>
@@ -330,6 +340,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>elixir</string>
 					<string>ex</string>
 					<string>exs</string>
 				</array>
@@ -352,6 +363,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>haskell</string>
 					<string>hs</string>
 					<string>lhs</string>
 				</array>
@@ -374,6 +386,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>brainfuck</string>
 					<string>b</string>
 					<string>bf</string>
 				</array>
@@ -407,6 +420,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -462,9 +476,10 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>f-sharp</string>
+					<string>fsscript</string>
 					<string>fsi</string>
 					<string>fsx</string>
-					<string>fsscript</string>
 				</array>
 			</dict>
 		</dict>
@@ -485,6 +500,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>julia</string>
 					<string>jl</string>
 				</array>
 			</dict>
@@ -529,6 +545,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>kotlin</string>
 					<string>kt</string>
 					<string>kts</string>
 					<string>ktm</string>
@@ -552,6 +569,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>basic</string>
 					<string>bas</string>
 				</array>
 			</dict>
@@ -594,14 +612,15 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>tf</string>
 					<string>terraform</string>
+					<string>tf</string>
 				</array>
 			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -622,6 +641,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -640,6 +660,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -660,6 +681,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -680,6 +702,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.source-code</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -693,8 +716,8 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>adoc</string>
 					<string>asciidoc</string>
+					<string>adoc</string>
 					<string>asc</string>
 				</array>
 			</dict>
