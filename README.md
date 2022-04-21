@@ -39,7 +39,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Elixir (`.ex`, `.exs`)
 * Erlang (`.erl`, `.hrl`)
 * Fortran (`.for`)
-* F# (`.fs`, `.fsx`, `.fsi`, `.fsscript`)
+* F# (`.fsx`, `.fsi`, `.fsscript`)
 * Go (`.go`)
 * Haskell (`.hs`, `.lhs`)
 * Java (`.java`)
@@ -54,7 +54,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * PHP (`.php`)
 * Python (`.py`)
 * Ruby (`.rb`)
-* Rust (`.rs`)
+* Rust (`.rs`, `.rust`)
 * Swift (`.swift`)
 * TypeScript (`.tsx`)
 * Visual Basic Script (`.vbs`)
@@ -74,8 +74,9 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ### Others
 
-* AsciiDoc (`.adoc`, `.asciidoc`, `.asc`)
+* AsciiDoc (`.adoc`, `.asciidoc`, `.asc`) **New**
 * CSS (`.css`)
+* Enviroment (`.env`) **New**
 * LaTex (`.tex`)
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
@@ -83,7 +84,6 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Terraform source file (`.tf`, `.terraform`)
 * Terraform variable file (`.tfvars`) **New**
 * Twig (`.twig`)
-* Enviroment (`.env`) **New**
 
 ## Known Issues ##
 
