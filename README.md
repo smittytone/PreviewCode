@@ -27,25 +27,25 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * ActionScript (`.actionscript`)
 * Ada (`.ads`, `.adb`)
 * AppleScript (`.applescript`)
-* Arduino (`.ino`)
-* Basic (`.bas`)
-* Brainfuck (`.b`, `.bf`)
+* Arduino (`.arduino`, `.ino`)
+* Basic (`.basic`, `.bas`)
+* Brainfuck (`.brainfuck`, `.b`, `.bf`)
 * C (`.c`, `.h`)
 * C++ (`.cpp`, `.hpp`)
 * C# (`.csx`)
-* Clojure (`.clj`, `.cljs`, `.cljc`)
+* Clojure (`.clojure`, `.clj`, `.cljs`, `.cljc`)
 * CoffeeScript (`.coffee`)
 * Dart (`.dart`)
-* Elixir (`.ex`, `.exs`)
-* Erlang (`.erl`, `.hrl`)
+* Elixir (`.elxir`, `.ex`, `.exs`)
+* Erlang (`.erlang`, `.erl`, `.hrl`)
 * Fortran (`.for`)
-* F# (`.fsx`, `.fsi`, `.fsscript`)
+* F# (`.f-sharp`, `.fsx`, `.fsi`, `.fsscript`)
 * Go (`.go`)
-* Haskell (`.hs`, `.lhs`)
+* Haskell (`.haskell`, `.hs`, `.lhs`)
 * Java (`.java`)
 * JavaScript (`.js`)
-* Julia (`.jl`)
-* Kotlin (`.kt`, `.kts`, `.ktm`)
+* Julia (`.julia`, `.jl`)
+* Kotlin (`.kotlin`, `.kt`, `.kts`, `.ktm`)
 * Lisp (`.lisp`, `.lsp`, `.fasl`)
 * Lua (`.lua`)
 * Objective-C (`.m`)
@@ -56,8 +56,8 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * Ruby (`.rb`)
 * Rust (`.rs`, `.rust`)
 * Swift (`.swift`)
-* TypeScript (`.tsx`)
-* Visual Basic Script (`.vbs`)
+* TypeScript (`.typescript`, `.tsx`)
+* Visual Basic Script (`.vbscript`, `.vbs`)
 
 ### Shell Scripting
 
@@ -77,7 +77,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 * AsciiDoc (`.adoc`, `.asciidoc`, `.asc`) **New**
 * CSS (`.css`)
 * Enviroment (`.env`) **New**
-* LaTex (`.tex`)
+* LaTex (`.latex`, `.tex`)
 * Protobuf (`.proto`)
 * SASS/SCSS (`.scss`, `.sass`)
 * SQL script (`.sql`)
@@ -110,9 +110,10 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     * Fix Haskell `.hsl` extension.
     * Fix x86 `.nasm` preview.
     * Change ActionScript supported extension to `.actionscript` to avoid clash with AppleSingle `.as`.
-    * Remove Dylan `.dylan` and `.lid` extensions.
     * Remove Lisp `.cl` — clash with OpenCL source.
+    * Remove Lisp `.l` — clash with Lex source.
     * Remove F# `.fs` — clash with OpenGL Fragment Shader source.
+    * Remove Dylan `.dylan` and `.lid` extensions.
 * 1.1.1 *19 November 2021*
     * Support HashiCorp Terraform `.tf` files.
     * Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
