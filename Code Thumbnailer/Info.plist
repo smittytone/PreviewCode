@@ -79,8 +79,8 @@
 				<string>com.bps.kotlin-source</string>
 				<string>com.bps.basic-source</string>
 				<string>com.bps.terraform-source</string>
-				<string>com.bps.6809-assembly-source</string>
 				<string>com.bps.assembly-source</string>
+				<string>com.bps.6809-assembly-source</string>
 				<string>com.bps.env</string>
 				<string>com.bps.terraform-vars</string>
 				<string>public.nasm-assembly-source</string>
