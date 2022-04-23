@@ -86,6 +86,7 @@
 				<string>public.nasm-assembly-source</string>
 				<string>com.bps.cmake-source</string>
 				<string>com.bps.asciidoc-source</string>
+				<string>com.bps.conf</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>

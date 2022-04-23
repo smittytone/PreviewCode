@@ -229,6 +229,10 @@ final class Common: NSObject {
             return "bash"
         }
         
+        if sourceFileUTI == "com.bps.conf" {
+            return "makefile"
+        }
+        
         if sourceFileUTI.hasSuffix(".terraform-vars") {
             return "toml"
         }

@@ -722,6 +722,30 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.conf</string>
+			<key>UTTypeDescription</key>
+			<string>Configuration File</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>conf</string>
+					<string>ini</string>
+					<string>cfg</string>
+					<string>cnf</string>
+					<string>cf</string>
+					<string>rc</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
