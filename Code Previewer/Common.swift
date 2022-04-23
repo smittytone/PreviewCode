@@ -233,6 +233,10 @@ final class Common: NSObject {
             return "makefile"
         }
         
+        if sourceFileUTI == "com.bps.conf" {
+            return "makefile"
+        }
+        
         if sourceFileUTI.hasSuffix(".terraform-vars") {
             return "toml"
         }
@@ -282,6 +286,8 @@ final class Common: NSObject {
             if isForTag { sourceLanguage = "brainf**k" }
         case "terraform":
             if !isForTag { sourceLanguage = "go" }
+        case "arduino":
+            if !isForTag { sourceLanguage = "cpp" }
         default:
             // NOP
             break

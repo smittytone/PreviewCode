@@ -75,6 +75,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 ### Others
 
 * AsciiDoc (`.adoc`, `.asciidoc`, `.asc`) **New**
+* Config files (`.conf`, `.cf`, `.cfg`, `.ini`, `.rc`) **New**
 * CSS (`.css`)
 * Enviroment (`.env`) **New**
 * LaTex (`.latex`, `.tex`)
@@ -102,11 +103,12 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 ## Release Notes ##
 
 * 1.2.0 *Unreleased*
-    * Update to use HighlighterSwift 2.0.0.
+    * Update to use HighlighterSwift 1.1.0.
     * Support environment `.env` files.
     * Support CMake `.cmake` files.
     * Support Terraform variable `.tfvars` files.
-    * Support AsciiDoc `.adoc`, `.asciidoc`, `.asc` files.
+    * Support AsciiDoc `.adoc`, `.asciidoc` and `.asc` files.
+    * Support `.conf`, `.cf`, `.cfg`, `.ini` and `.rc` config files
     * Fix Haskell `.hsl` extension.
     * Fix x86 `.nasm` preview.
     * Change ActionScript supported extension to `.actionscript` to avoid clash with AppleSingle `.as`.
