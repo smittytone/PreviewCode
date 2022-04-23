@@ -97,7 +97,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Acknowledgements
 
-*PreviewCode* makes use of [HighlightSwift](https://github.com/smittytone/HighlightSwift) which provides a Swift wrapper for [Highlight.js](https://github.com/highlightjs/highlight.js) and is derived from [Highlightr](https://github.com/raspu/Highlightr).
+*PreviewCode* makes use of [HighlighterSwift](https://github.com/smittytone/HighlighterSwift) which provides a Swift wrapper for [Highlight.js](https://github.com/highlightjs/highlight.js) and is derived from [Highlightr](https://github.com/raspu/Highlightr).
 
 ## Release Notes ##
 
