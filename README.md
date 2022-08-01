@@ -1,6 +1,6 @@
-# PreviewCode 1.2.0
+# PreviewCode 1.2.1
 
-*PreviewCode- provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
+*PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
 It is not exhaustive, nor is it intended to be. It is, however, intended to support [the most popular languages](#languages) used by Mac-based developers, whether for use on a Mac or on other platforms.
 
@@ -18,7 +18,7 @@ Open the main app and click on **Show Preview Preferences**, or select **Prefere
 
 You can select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — and pick which theme you would like previews to use. One hundred themes are included, and you can view all of them, or just dark or light ones.
 
-*PreviewCode- will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we may add support for this in a future release.
+*PreviewCode* will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we may add support for this in a future release.
 
 ## Languages
 
@@ -89,19 +89,21 @@ You can select from a range of text sizes, choose a monospace font, select the f
 ## Known Issues ##
 
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
-- *PreviewCode- will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product. We are investigating possible workarounds.
-- *PreviewCode- will not render TypeScript `.ts` files. This is because the `.ts` file extension is a standard for transport stream video files. Workaround: use `.tsx` for TypeScript files.
+- *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product. We are investigating possible workarounds.
+- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is a standard for transport stream video files. Workaround: use `.tsx` for TypeScript files.
 
 ## Source Code ##
 
-This repository contains the primary source code for *PreviewCode*. Certain graphical assets and data files are not included. To build *PreviewCode- from scratch, you will need to add these files yourself or remove them from your fork.
+This repository contains the primary source code for *PreviewCode*. Certain graphical assets and data files are not included. To build *PreviewCode* from scratch, you will need to add these files yourself or remove them from your fork.
 
 ## Acknowledgements
 
-*PreviewCode- makes use of [HighlighterSwift](https://github.com/smittytone/HighlighterSwift) which provides a Swift wrapper for [Highlight.js](https://github.com/highlightjs/highlight.js) and is derived from [Highlightr](https://github.com/raspu/Highlightr).
+*PreviewCode* makes use of [HighlighterSwift](https://github.com/smittytone/HighlighterSwift) which provides a Swift wrapper for [Highlight.js](https://github.com/highlightjs/highlight.js) and is derived from [Highlightr](https://github.com/raspu/Highlightr).
 
 ## Release Notes ##
 
+- 1.2.1 *Unreleased*
+    - Fix ARM assembly file display.
 - 1.2.0 *26 April 2022*
     - Update to use HighlighterSwift 1.1.0.
     - Support environment `.env` files.
