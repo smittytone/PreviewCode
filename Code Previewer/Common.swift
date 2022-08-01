@@ -208,8 +208,9 @@ final class Common: NSObject {
     */
     func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
-        let sourceFileUTI: String = getSourceFileUTI(sourceFilePath)
-        let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension
+        // FROM 1.4.2 -- make sure these are lowercase
+        let sourceFileUTI: String = getSourceFileUTI(sourceFilePath).lowercased()
+        let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension.lowercased()
 
         // Trap 'non-standard' UTIs
         if sourceFileUTI.hasPrefix("com.apple.applescript") {
@@ -270,7 +271,8 @@ final class Common: NSObject {
         case "pascal":
             if !isForTag { sourceLanguage = "delphi" }
         case "assembly":
-            if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "armasm" }
+            // FROM 1.4.2 -- Correct 'armasm' -> 'arm'
+            if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "arm" }
             if sourceFileExtension == "asm" || sourceFileExtension == "nasm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
         case "nasm-assembly":
             sourceLanguage = isForTag ? "x86-64" : "x86asm"
