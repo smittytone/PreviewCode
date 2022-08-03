@@ -57,7 +57,8 @@ struct BUFFOON_CONSTANTS {
     static let FONT_SIZE_OPTIONS: [CGFloat] = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
     
     static let DEFAULT_THEME                = "dark.agate"
-    static let DEFAULT_FONT                 = "Courier"
+    // FROM 1.2.1 -- Change default font: Courier not included with macOS now
+    static let DEFAULT_FONT                 = "Menlo-Regular"
     static let DEFAULT_LANGUAGE_UTI         = "swift-source"
     static let DEFAULT_LANGUAGE             = "swift"
     static let DEFAULT_THUMB_THEME          = "light.atom-one-light"

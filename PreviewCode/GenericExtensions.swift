@@ -267,19 +267,41 @@ extension AppDelegate {
     
     /**
      Build and enable the font style popup.
+     
+     - Parameters:
+        - postScriptName: The PostScript name of the font. Default: ""
      */
-    internal func setStylePopup() {
+    internal func setStylePopup(_ postScriptName: String = "") {
         
         if let selectedFamily: String = self.codeFontPopup.titleOfSelectedItem {
             self.codeStylePopup.removeAllItems()
+            var familyHasSelectedStyle: Bool = false
+            
             for family: PMFont in self.codeFonts {
                 if selectedFamily == family.displayName {
                     if let styles: [PMFont] = family.styles {
                         self.codeStylePopup.isEnabled = true
                         for style: PMFont in styles {
                             self.codeStylePopup.addItem(withTitle: style.styleName)
+                            // FROM 1.2.1 -- see below
+                            if style.styleName == self.codeStyleName {
+                                familyHasSelectedStyle = true
+                            }
                         }
                     }
+                    
+                    // FROM 1.2.1
+                    // If the selected font family has the currently selected style,
+                    // make sure we select that style after re-populating the popup.
+                    // Otherwise select the first style on the popup
+                    if familyHasSelectedStyle {
+                        self.codeStylePopup.selectItem(withTitle: self.codeStyleName)
+                    } else {
+                        self.codeStylePopup.selectItem(at: 0)
+                        self.codeStyleName = self.codeStylePopup.titleOfSelectedItem ?? "Regular"
+                    }
+                    
+                    return
                 }
             }
         }
@@ -300,7 +322,9 @@ extension AppDelegate {
                 for style: PMFont in styles {
                     if style.postScriptName == postScriptName {
                         self.codeFontPopup.selectItem(withTitle: family.displayName)
-                        setStylePopup()
+                        self.codeStyleName = style.styleName
+                        setStylePopup(postScriptName)
+                        return
                     }
                 }
             }

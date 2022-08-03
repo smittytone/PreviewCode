@@ -104,6 +104,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 - 1.2.1 *Unreleased*
     - Fix ARM assembly file display.
+    - Fix operation of Preferences’ font style popup.
 - 1.2.0 *26 April 2022*
     - Update to use HighlighterSwift 1.1.0.
     - Support environment `.env` files.

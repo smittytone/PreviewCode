@@ -82,6 +82,9 @@ class AppDelegate: NSObject,
     // FROM 1.1.0
     internal var codeFonts: [PMFont] = []
     
+    // FROM 1.2.1
+    internal var codeStyleName: String = "Regular"
+    
     
     // MARK:- Class Lifecycle Functions
 
@@ -439,8 +442,23 @@ class AppDelegate: NSObject,
      */
     @IBAction private func doUpdateFonts(sender: Any) {
         
-        // Update the menu of available styles
-        setStylePopup()
+        // From 1.2.1
+        // If the user re-selects the current font family,
+        // only update the style popup if a different family
+        // has been selected
+        let item = sender as? NSPopUpButton
+        if item != nil && item == self.codeFontPopup {
+            let fontName: NSString = self.codeFontName as NSString
+            let styleName: String = item!.titleOfSelectedItem ?? ""
+            if !fontName.contains(styleName) {
+                // Update the menu of available styles
+                setStylePopup(fontName as String)
+                return
+            }
+        } else {
+            // The user clicked the style popup, so record the style
+            self.codeStyleName = self.codeStylePopup.titleOfSelectedItem ?? "Regular"
+        }
     }
 
     
