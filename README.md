@@ -32,20 +32,20 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Brainfuck (`.brainfuck`, `.b`, `.bf`)
 - C (`.c`, `.h`)
 - C++ (`.cpp`, `.hpp`)
-- C# (`.csx`)
-- Clojure (`.clojure`, `.clj`, `.cljs`, `.cljc`)
-- CoffeeScript (`.coffee`)
+- C# (`.csx`, `.cs`, `.c-sharp`)
+- Clojure (`.clojure`, `.clj`, `.cljc`, `.cljs`)
+- CoffeeScript (`.coffee`, `.coffeescript`, `.litcoffee`)
 - Dart (`.dart`)
 - Elixir (`.elxir`, `.ex`, `.exs`)
 - Erlang (`.erlang`, `.erl`, `.hrl`)
 - Fortran (`.for`)
-- F# (`.f-sharp`, `.fsx`, `.fsi`, `.fsscript`)
+- F# (`.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
 - Julia (`.julia`, `.jl`)
-- Kotlin (`.kotlin`, `.kt`, `.kts`, `.ktm`)
+- Kotlin (`.kotlin`, `.kt`, `.ktm`, `.kts`)
 - Lisp (`.lisp`, `.lsp`, `.fasl`)
 - Lua (`.lua`)
 - Objective-C (`.m`)
@@ -57,7 +57,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Rust (`.rs`, `.rust`)
 - Swift (`.swift`)
 - TypeScript (`.typescript`, `.tsx`)
-- Visual Basic Script (`.vbscript`, `.vbs`)
+- Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
 
 ### Shell Scripting
 
@@ -74,16 +74,17 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ### Others
 
-- AsciiDoc (`.adoc`, `.asciidoc`, `.asc`) **New**
-- Config files (`.conf`, `.cf`, `.cfg`, `.ini`, `.rc`) **New**
+- AsciiDoc (`.asciidoc`, `.adoc`, `.asc`)
+- Config files (`.conf`, `.cf`, `.cfg`, `.ini`, `.rc`)
+- Cmake files (`.cmake`)
 - CSS (`.css`)
-- Enviroment (`.env`) **New**
+- Enviroment (`.env`)
 - LaTex (`.latex`, `.tex`)
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
 - Terraform source file (`.tf`, `.terraform`)
-- Terraform variable file (`.tfvars`) **New**
+- Terraform variable file (`.tfvars`)
 - Twig (`.twig`)
 
 ## Known Issues ##
