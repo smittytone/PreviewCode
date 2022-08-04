@@ -743,6 +743,8 @@
 					<string>cnf</string>
 					<string>cf</string>
 					<string>rc</string>
+					<string>in</string>
+					<string>out</string>
 				</array>
 			</dict>
 		</dict>

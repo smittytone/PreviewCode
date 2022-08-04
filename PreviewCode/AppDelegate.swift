@@ -446,10 +446,10 @@ class AppDelegate: NSObject,
         // If the user re-selects the current font family,
         // only update the style popup if a different family
         // has been selected
-        let item = sender as? NSPopUpButton
-        if item != nil && item == self.codeFontPopup {
+        let item: NSPopUpButton = sender as! NSPopUpButton
+        if item == self.codeFontPopup {
             let fontName: NSString = self.codeFontName as NSString
-            let styleName: String = item!.titleOfSelectedItem ?? ""
+            let styleName: String = item.titleOfSelectedItem ?? "Regular"
             if !fontName.contains(styleName) {
                 // Update the menu of available styles
                 setStylePopup(fontName as String)
