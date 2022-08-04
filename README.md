@@ -80,6 +80,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - CSS (`.css`)
 - Enviroment (`.env`)
 - LaTex (`.latex`, `.tex`)
+- Misc. files (`.in`, `.out`)
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
