@@ -105,6 +105,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 ## Release Notes ##
 
 - 1.2.1 *Unreleased*
+    - Support the `.cs` C# extension.
     - Fix ARM assembly file display.
     - Fix operation of Preferences’ font style popup.
 - 1.2.0 *26 April 2022*
