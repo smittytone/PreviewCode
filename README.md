@@ -8,13 +8,13 @@ It is not exhaustive, nor is it intended to be. It is, however, intended to supp
 
 ## Installation and Usage ##
 
-Just run the host app once to register the extensions &mdash; you can quit the app as soon as it has launched. We recommend logging out of your Mac and back in again at this point. Now you can preview source code files using QuickLook (select an icon and hit Space), and Finder’s preview pane and **Info*- panels.
+Just run the host app once to register the extensions &mdash; you can quit the app as soon as it has launched. We recommend logging out of your Mac and back in again at this point. Now you can preview source code files using QuickLook (select an icon and hit Space), and Finder’s preview pane and **Info** panels.
 
 You can disable and re-enable the Code Previewer and Code Thumbnailer extensions at any time in **System Preferences > Extensions > Quick Look**.
 
 ### Adjusting the Preview
 
-Open the main app and click on **Show Preview Preferences**, or select **Preferences...*- from the **PreviewCode*- menu.
+Open the main app and click on **Show Preview Preferences**, or select **Preferences...** from the **PreviewCode** menu.
 
 You can select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — and pick which theme you would like previews to use. One hundred themes are included, and you can view all of them, or just dark or light ones.
 
@@ -104,7 +104,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.2.1 *Unreleased*
+- 1.2.1 *7 August 2022*
     - Support the `.cs` C# extension.
     - Fix ARM assembly file display.
     - Fix operation of Preferences’ font style popup.
@@ -128,7 +128,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 - 1.1.0 *28 July 2021*
     - Improved font selection code.
     - Separate font style selection.
-    - Accelerate loading of the **Preferences*- panel, especially on Intel Macs.
+    - Accelerate loading of the **Preferences** panel, especially on Intel Macs.
     - Code streamlining.
     - Fixed a rare bug in the previewer error reporting code.
     - Apple wants links to other apps to be App Store links. So be it. What Apple wants, Apple gets.
