@@ -106,6 +106,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 - 1.2.2 *Unreleased*
     - Add `public.lua-script` UTI.
+    - Initial support for non-utf8 source code file encodings.
 - 1.2.1 *7 August 2022*
     - Support the `.cs` C# extension.
     - Fix ARM assembly file display.

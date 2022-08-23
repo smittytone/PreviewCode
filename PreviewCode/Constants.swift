@@ -27,7 +27,7 @@ struct BUFFOON_CONSTANTS {
             static let NO_ERROR             = "No error"
             static let FILE_INACCESSIBLE    = "Can't access file"
             static let FILE_WONT_OPEN       = "Can't open file"
-            static let BAD_MD_STRING        = "Can't get source code"
+            static let BAD_MD_STRING        = "Source code uses an unsupported encoding"
             static let BAD_TS_STRING        = "Can't access NSTextView's TextStorage"
             static let BAD_HIGHLIGHTER      = "Can’t set up the highlighting engine"
         }

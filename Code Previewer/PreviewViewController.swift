@@ -52,7 +52,12 @@ class PreviewViewController: NSViewController,
             do {
                 // Get the file contents as a string
                 let data: Data = try Data.init(contentsOf: url, options: [.uncached])
-                if let codeFileString: String = String.init(data: data, encoding: .utf8) {
+                
+                // FROM 1.2.2
+                // Get the string's encoding, or fail back to .utf8
+                let encoding: String.Encoding = data.stringEncoding ?? .utf8
+                
+                if let codeFileString: String = String.init(data: data, encoding: encoding) {
                     // Instantiate the common code within the closure
                     let common: Common = Common.init(false)
                     if common.initError {
@@ -97,8 +102,12 @@ class PreviewViewController: NSViewController,
                     // We couldn't access the preview NSTextView's NSTextStorage
                     reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
                 } else {
-                    // We couldn't get the markdwn string so set an appropriate error to report back
-                    reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING)
+                    // FROM 1.2.2
+                    // We couldn't convert to data to a valid encoding
+                    let errDesc: String = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
+                    reportError = NSError(domain: "com.bps.PreviewCode.Code-Previewer",
+                                          code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
+                                          userInfo: [NSLocalizedDescriptionKey: errDesc])
                 }
             } catch {
                 // We couldn't read the file so set an appropriate error to report back
