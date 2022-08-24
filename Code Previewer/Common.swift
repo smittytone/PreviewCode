@@ -216,6 +216,10 @@ final class Common: NSObject {
         if sourceFileUTI.hasPrefix("com.apple.applescript") {
             return "applescript"
         }
+        
+        if sourceFileUTI == "com.apple.property-list" {
+            return "xml"
+        }
 
         if sourceFileUTI == "public.script" {
             return "bash"
