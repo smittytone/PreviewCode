@@ -81,6 +81,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Enviroment (`.env`)
 - LaTex (`.latex`, `.tex`)
 - Misc. files (`.in`, `.out`)
+- Apple Property list files (`.plist`)
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
@@ -106,6 +107,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 - 1.2.2 *Unreleased*
     - Add `public.lua-script` UTI.
+    - Support XML `.plist` files.
     - Initial support for non-utf8 source code file encodings.
 - 1.2.1 *7 August 2022*
     - Support the `.cs` C# extension.
