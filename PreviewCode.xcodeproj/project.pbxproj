@@ -17,6 +17,7 @@
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
+		3BAE671B28D4D3AD001532BD /* GenericFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */; };
 		3BDE3EF6267CE9890037351C /* GenericExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE3EF5267CE9890037351C /* GenericExtensions.swift */; };
 		3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */; };
 		3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
@@ -96,6 +97,7 @@
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
+		3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericFontExtensions.swift; sourceTree = "<group>"; };
 		3BDE3EF5267CE9890037351C /* GenericExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericExtensions.swift; sourceTree = "<group>"; };
 		3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Code Thumbnailer.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
@@ -216,6 +218,7 @@
 				3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */,
 				3B6ABACB2669703800A436AA /* PreviewTextView.swift */,
 				3BDE3EF5267CE9890037351C /* GenericExtensions.swift */,
+				3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */,
 				3BA5D03A269081BF00AF4EF2 /* PMFont.swift */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
 				3BFD781E2663E16E002AD588 /* Info.plist */,
@@ -487,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */,
+				3BAE671B28D4D3AD001532BD /* GenericFontExtensions.swift in Sources */,
 				3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */,
 				3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */,
 				3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */,
