@@ -11,7 +11,7 @@ import Cocoa
 
 
 /**
-    A very basic subclass so we can adjust the cursor hovering over theme previews.
+ A very basic subclass so we can adjust the cursor hovering over theme previews.
 */
 class PreviewTextView: NSTextView {
 

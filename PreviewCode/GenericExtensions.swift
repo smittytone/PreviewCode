@@ -12,11 +12,12 @@
 import Foundation
 import Cocoa
 import WebKit
+import UniformTypeIdentifiers
 
 
 extension AppDelegate {
 
-    // MARK:- Process Handling Functions
+    // MARK: - Process Handling Functions
 
     /**
      Generic macOS process creation and run function.
@@ -25,10 +26,10 @@ extension AppDelegate {
      the sheet is not displayed next time the app is run (unless the version changes)
 
      - Parameters:
-        - app: The location of the app.
-        - with: Array of arguments to pass to the app
+        - app:  The location of the app.
+        - with: Array of arguments to pass to the app.
 
-     - Returns: `true` if the operation was successful, otherwise `false`
+     - Returns: `true` if the operation was successful, otherwise `false`.
      */
     internal func runProcess(app path: String, with args: [String]) -> Bool {
 
@@ -78,7 +79,7 @@ extension AppDelegate {
      Present an error message specific to sending feedback.
 
      This is called from multiple locations: if the initial request can't be created,
-     there was a send failure, or a server error
+     there was a send failure, or a server error.
      */
     internal func sendFeedbackError() {
 
@@ -97,7 +98,7 @@ extension AppDelegate {
         - head:    The alert's title.
         - message: The alert's message.
 
-     - Returns: The NSAlert
+     - Returns:     The NSAlert.
      */
     internal func showAlert(_ head: String, _ message: String) -> NSAlert {
 
@@ -112,7 +113,7 @@ extension AppDelegate {
     /**
      Build a basic 'major.manor' version string for prefs usage.
 
-     - Returns: The version string
+     - Returns: The version string.
      */
     internal func getVersion() -> String {
 
@@ -125,7 +126,7 @@ extension AppDelegate {
     /**
      Build a date string string for feedback usage.
 
-     - Returns: The date string
+     - Returns: The date string.
      */
     internal func getDateForFeedback() -> String {
 
@@ -141,7 +142,7 @@ extension AppDelegate {
     /**
      Build a user-agent string string for feedback usage.
 
-     - Returns: The user-agent string
+     - Returns: The user-agent string.
      */
     internal func getUserAgentForFeedback() -> String {
 
@@ -152,10 +153,51 @@ extension AppDelegate {
         let app: String = bundle.object(forInfoDictionaryKey: "CFBundleExecutable") as! String
         let version: String = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let build: String = bundle.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-        return "\(app)/\(version)-\(build) (Mac macOS \(sysVer.majorVersion).\(sysVer.minorVersion).\(sysVer.patchVersion))"
+        return "\(app)/\(version)-\(build) (macOS/\(sysVer.majorVersion).\(sysVer.minorVersion).\(sysVer.patchVersion))"
     }
 
 
+    /**
+     Read back the host system's registered UTI for the specified file.
+     
+     This is not PII. It used solely for debugging purposes
+     
+     - Parameters:
+        - filename: The file we'll use to get the UTI.
+     
+     - Returns: The file's UTI.
+     */
+    internal func getLocalFileUTI(_ filename: String) -> String {
+        
+        var localUTI: String = "NONE"
+        let samplePath = Bundle.main.resourcePath! + "/" + filename
+        
+        if FileManager.default.fileExists(atPath: samplePath) {
+            // Create a URL reference to the sample file
+            let sampleURL = URL.init(fileURLWithPath: samplePath)
+            
+            do {
+                // Read back the UTI from the URL
+                // Use Big Sur's UTType API
+                if #available(macOS 11, *) {
+                    if let uti: UTType = try sampleURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
+                        localUTI = uti.identifier
+                    }
+                } else {
+                    // NOTE '.typeIdentifier' yields an optional
+                    if let uti: String = try sampleURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
+                        localUTI = uti
+                    }
+                }
+            } catch {
+                // NOP
+            }
+        }
+        
+        return localUTI
+    }
+    
+    
     // MARK: - URLSession Delegate Functions
 
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
@@ -187,14 +229,12 @@ extension AppDelegate {
     }
 
 
-    // MARK: - WKWebViewNavigation Delegate Functions
+    // MARK: - WKWebNavigation Delegate Functions
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 
-        /*
-         * Asynchronously show the sheet once the HTML has loaded
-         * (triggered by delegate method)
-         */
+        // Asynchronously show the sheet once the HTML has loaded
+        // (triggered by delegate method)
 
         if let nav = self.whatsNewNav {
             if nav == navigation {
@@ -267,41 +307,26 @@ extension AppDelegate {
     
     /**
      Build and enable the font style popup.
-     
+
      - Parameters:
-        - postScriptName: The PostScript name of the font. Default: ""
+        - styleName: The name of currently selected style, or nil to select the first one.
      */
-    internal func setStylePopup(_ postScriptName: String = "") {
+    internal func setStylePopup(_ styleName: String? = nil) {
         
         if let selectedFamily: String = self.codeFontPopup.titleOfSelectedItem {
             self.codeStylePopup.removeAllItems()
-            var familyHasSelectedStyle: Bool = false
-            
             for family: PMFont in self.codeFonts {
                 if selectedFamily == family.displayName {
                     if let styles: [PMFont] = family.styles {
                         self.codeStylePopup.isEnabled = true
                         for style: PMFont in styles {
                             self.codeStylePopup.addItem(withTitle: style.styleName)
-                            // FROM 1.2.1 -- see below
-                            if style.styleName == self.codeStyleName {
-                                familyHasSelectedStyle = true
-                            }
+                        }
+
+                        if styleName != nil {
+                            self.codeStylePopup.selectItem(withTitle: styleName!)
                         }
                     }
-                    
-                    // FROM 1.2.1
-                    // If the selected font family has the currently selected style,
-                    // make sure we select that style after re-populating the popup.
-                    // Otherwise select the first style on the popup
-                    if familyHasSelectedStyle {
-                        self.codeStylePopup.selectItem(withTitle: self.codeStyleName)
-                    } else {
-                        self.codeStylePopup.selectItem(at: 0)
-                        self.codeStyleName = self.codeStylePopup.titleOfSelectedItem ?? "Regular"
-                    }
-                    
-                    return
                 }
             }
         }
@@ -322,9 +347,7 @@ extension AppDelegate {
                 for style: PMFont in styles {
                     if style.postScriptName == postScriptName {
                         self.codeFontPopup.selectItem(withTitle: family.displayName)
-                        self.codeStyleName = style.styleName
-                        setStylePopup(postScriptName)
-                        return
+                        setStylePopup(style.styleName)
                     }
                 }
             }
@@ -353,5 +376,4 @@ extension AppDelegate {
 
         return nil
     }
-
 }

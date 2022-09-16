@@ -11,7 +11,7 @@ import Cocoa
 
 
 /**
-    A very basic subclass so we can store useful info within the cell.
+ A very basic subclass so we can store useful info within the cell.
 */
 
 class ThemeTableCellView: NSTableCellView {
