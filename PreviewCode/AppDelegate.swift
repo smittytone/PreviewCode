@@ -34,6 +34,7 @@ class AppDelegate: NSObject,
     @IBOutlet var helpMenuHighlighterSwift: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
+    @IBOutlet var helpMenuOthersPreviewJson: NSMenuItem!
     @IBOutlet var helpMenuRenderThemes: NSMenuItem!
     
     // Panel Items
@@ -70,7 +71,7 @@ class AppDelegate: NSObject,
     private  var codeFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
     private  var doShowLightBackground: Bool = false
     private  var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
-    private  var feedbackPath: String = MNU_SECRETS.ADDRESS.A
+    private  var feedbackPath: String = MNU_SECRETS.ADDRESS.B
     private  var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private  var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
     private  var selectedThemeIndex: Int = 37
@@ -182,16 +183,18 @@ class AppDelegate: NSObject,
             path += "#acknowledgements"
         } else if item == self.helpAppStoreRating {
             path = BUFFOON_CONSTANTS.APP_STORE
-        } else if item == self.helpMenuOthersPreviewMarkdown {
-            path = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
-        } else if item == self.helpMenuOthersPreviewYaml {
-            path = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
         } else if item == self.helpMenuHighlightr {
             path = "https://github.com/raspu/Highlightr"
         } else if item == self.helpMenuHighlightjs {
             path = "https://github.com/highlightjs/highlight.js"
         } else if item == self.helpMenuHighlighterSwift {
             path = "https://github.com/smittytone/HighlighterSwift"
+        } else if item == self.helpMenuOthersPreviewMarkdown {
+            path = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
+        } else if item == self.helpMenuOthersPreviewYaml {
+            path = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
+        } else if item == self.helpMenuOthersPreviewJson {
+            path = "https://apps.apple.com/us/app/previewjson/id6443584377?ls=1"
         }
         
         // Open the selected website
@@ -291,7 +294,7 @@ class AppDelegate: NSObject,
 
         // First get the data we need to build the user agent string
         let userAgent: String = getUserAgentForFeedback()
-        let endPoint: String = MNU_SECRETS.ADDRESS.B
+        let endPoint: String = MNU_SECRETS.ADDRESS.A
 
         // Get the date as a string
         let dateString: String = getDateForFeedback()

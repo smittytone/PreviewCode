@@ -1,4 +1,4 @@
-# PreviewCode 1.2.2
+# PreviewCode 1.2.3
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -105,6 +105,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.2.3 *Unreleased*
+    - All link to PreviewJson.
 - 1.2.2 *26 August 2022*
     - Add `public.lua-script` UTI.
     - Support XML `.plist` files.
