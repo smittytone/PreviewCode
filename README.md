@@ -106,7 +106,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 ## Release Notes ##
 
 - 1.2.3 *2 October 2022*
-    - Add link to PreviewJson.
+    - Add link to [PreviewJson](https://smittytone.net/previewjson/index.html).
 - 1.2.2 *26 August 2022*
     - Add `public.lua-script` UTI.
     - Support XML `.plist` files.
