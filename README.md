@@ -1,4 +1,4 @@
-# PreviewCode 1.2.3
+# PreviewCode 1.2.4
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -105,6 +105,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.2.4 *Unreleased*
+    - Add `com.microsoft.c-sharp` UTI.
 - 1.2.3 *2 October 2022*
     - Add link to [PreviewJson](https://smittytone.net/previewjson/index.html).
 - 1.2.2 *26 August 2022*
