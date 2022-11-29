@@ -22,7 +22,7 @@
 		3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */; };
 		3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
 		3BE0EBA1266A845B00C9924E /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0EBA0266A845B00C9924E /* ThumbnailProvider.swift */; };
-		3BE0EBA6266A845B00C9924E /* Code Thumbnailer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3BE0EBA6266A845B00C9924E /* Code Thumbnailer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3BE0EBAC266A848400C9924E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 		3BF52B11266A883F002EC860 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
 		3BF52B12266A8842002EC860 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
@@ -36,7 +36,7 @@
 		3BFD78482663E27D002AD588 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
 		3BFD784B2663E27D002AD588 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD784A2663E27D002AD588 /* PreviewViewController.swift */; };
 		3BFD784E2663E27D002AD588 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD784C2663E27D002AD588 /* PreviewViewController.xib */; };
-		3BFD78532663E27D002AD588 /* Code Previewer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3BFD78452663E27D002AD588 /* Code Previewer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3BFD78532663E27D002AD588 /* Code Previewer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BFD78452663E27D002AD588 /* Code Previewer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3BFD78592663E2C9002AD588 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
 		3BFD785A2663E2C9002AD588 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
 		3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
@@ -76,16 +76,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3BFD78572663E27D002AD588 /* Embed App Extensions */ = {
+		3BFD78572663E27D002AD588 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				3BE0EBA6266A845B00C9924E /* Code Thumbnailer.appex in Embed App Extensions */,
-				3BFD78532663E27D002AD588 /* Code Previewer.appex in Embed App Extensions */,
+				3BE0EBA6266A845B00C9924E /* Code Thumbnailer.appex in Embed Foundation Extensions */,
+				3BFD78532663E27D002AD588 /* Code Previewer.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -98,6 +98,7 @@
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
 		3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericFontExtensions.swift; sourceTree = "<group>"; };
+		3BB8E9102935FF7E00C6D452 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3BDE3EF5267CE9890037351C /* GenericExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericExtensions.swift; sourceTree = "<group>"; };
 		3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Code Thumbnailer.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
@@ -174,6 +175,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BB8E90F2935FF6C00C6D452 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				3BB8E9102935FF7E00C6D452 /* README.md */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 		3BE0EB9F266A845B00C9924E /* Code Thumbnailer */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +202,7 @@
 				3BFD78272663E16E002AD588 /* PreviewCodeTests */,
 				3BFD78322663E16E002AD588 /* PreviewCodeUITests */,
 				3BFD78462663E27D002AD588 /* Frameworks */,
+				3BB8E90F2935FF6C00C6D452 /* Misc */,
 				3BFD78152663E16D002AD588 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -302,7 +312,7 @@
 				3BFD78102663E16D002AD588 /* Sources */,
 				3BFD78112663E16D002AD588 /* Frameworks */,
 				3BFD78122663E16D002AD588 /* Resources */,
-				3BFD78572663E27D002AD588 /* Embed App Extensions */,
+				3BFD78572663E27D002AD588 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -381,7 +391,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					3BE0EB9A266A845B00C9924E = {
 						CreatedOnToolsVersion = 12.5;
@@ -580,6 +590,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
@@ -605,6 +616,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
@@ -657,6 +669,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -718,6 +731,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -749,6 +763,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PreviewCode/Info.plist;
@@ -780,6 +795,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PreviewCode/Info.plist;
@@ -808,6 +824,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -830,6 +847,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -851,6 +869,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -871,6 +890,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -892,6 +912,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
@@ -923,6 +944,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
