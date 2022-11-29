@@ -88,6 +88,7 @@
 				<string>com.bps.asciidoc-source</string>
 				<string>com.bps.conf</string>
 				<string>public.lua-script</string>
+				<string>com.microsoft.c-sharp</string>
 				<string>com.apple.property-list</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
