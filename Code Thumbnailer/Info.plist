@@ -89,6 +89,7 @@
 				<string>com.bps.conf</string>
 				<string>public.lua-script</string>
 				<string>com.apple.property-list</string>
+				<string>public.make-source</string>
 				<string>com.microsoft.c-sharp</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>

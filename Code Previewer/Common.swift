@@ -213,34 +213,16 @@ final class Common: NSObject {
         let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension.lowercased()
 
         // Trap 'non-standard' UTIs
-        if sourceFileUTI.hasPrefix("com.apple.applescript") {
-            return "applescript"
-        }
-        
-        if sourceFileUTI == "com.apple.property-list" {
-            return "xml"
-        }
-
-        if sourceFileUTI == "public.script" {
-            return "bash"
-        }
-
-        if sourceFileUTI == "public.css" {
-            return "css"
-        }
-        
+        if sourceFileUTI.hasPrefix("com.apple.applescript") { return "applescript" }
+        if sourceFileUTI == "com.apple.property-list" { return "xml" }
+        if sourceFileUTI == "public.script" { return "bash" }
+        if sourceFileUTI == "public.css" { return "css" }
         // FROM 1.2.0 -- Present .env files using the bash renderer
-        if sourceFileUTI == "com.bps.env" {
-            return "bash"
-        }
-        
-        if sourceFileUTI == "com.bps.conf" {
-            return "makefile"
-        }
-        
-        if sourceFileUTI.hasSuffix(".terraform-vars") {
-            return "toml"
-        }
+        if sourceFileUTI == "com.bps.env" { return "bash" }
+        if sourceFileUTI == "com.bps.conf" { return "makefile" }
+        if sourceFileUTI.hasSuffix(".terraform-vars") { return "toml" }
+        // FROM 1.2.4
+        if sourceFileUTI.hasSuffix(".c-sharp") { return "c#" }
         
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
@@ -288,6 +270,8 @@ final class Common: NSObject {
             if isForTag { sourceLanguage = "brainf**k" }
         case "terraform":
             if !isForTag { sourceLanguage = "go" }
+        case "make":
+            sourceLanguage = "makefile"
         default:
             // NOP
             break

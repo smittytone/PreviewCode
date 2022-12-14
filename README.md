@@ -80,6 +80,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - CSS (`.css`)
 - Enviroment (`.env`)
 - LaTex (`.latex`, `.tex`)
+- Makefiles (`makefile`)
 - Misc. files (`.in`, `.out`)
 - Apple Property list files (`.plist`)
 - Protobuf (`.proto`)
@@ -105,8 +106,9 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.2.4 *Unreleased*
+- 1.2.4 *14 December 2022*
     - Add `com.microsoft.c-sharp` UTI.
+    - Support makefiles.
 - 1.2.3 *2 October 2022*
     - Add link to [PreviewJson](https://smittytone.net/previewjson/index.html).
 - 1.2.2 *26 August 2022*
