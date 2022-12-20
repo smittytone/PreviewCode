@@ -26,9 +26,9 @@ class AppDelegate: NSObject,
     // MARK:- Class UI Properies
     
     // Menu Items
-    @IBOutlet var helpMenuPreviewCode: NSMenuItem!
+    @IBOutlet var helpMenuOnlineHelp: NSMenuItem!
     @IBOutlet var helpMenuAcknowledgments: NSMenuItem!
-    @IBOutlet var helpAppStoreRating: NSMenuItem!
+    @IBOutlet var helpMenuAppStoreRating: NSMenuItem!
     @IBOutlet var helpMenuHighlightr: NSMenuItem!
     @IBOutlet var helpMenuHighlightjs: NSMenuItem!
     @IBOutlet var helpMenuHighlighterSwift: NSMenuItem!
@@ -36,6 +36,11 @@ class AppDelegate: NSObject,
     @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewJson: NSMenuItem!
     @IBOutlet var helpMenuRenderThemes: NSMenuItem!
+    // FROM 1.2.5
+    @IBOutlet var helpMenuWhatsNew: NSMenuItem!
+    @IBOutlet var helpMenuReportBug: NSMenuItem!
+    @IBOutlet var helpMenuOthersPreviewText: NSMenuItem!
+    @IBOutlet var mainMenuSettings: NSMenuItem!
     
     // Panel Items
     @IBOutlet var versionLabel: NSTextField!
@@ -227,12 +232,12 @@ class AppDelegate: NSObject,
         var path: String = BUFFOON_CONSTANTS.MAIN_URL
         
         // Depending on the menu selected, set the load path
-        if item == self.helpMenuPreviewCode {
+        if item == self.helpMenuOnlineHelp {
             path += "#how-to-use-previewcode"
         } else if item == self.helpMenuAcknowledgments {
             path += "#acknowledgements"
-        } else if item == self.helpAppStoreRating {
-            path = BUFFOON_CONSTANTS.APP_STORE
+        } else if item == self.helpMenuAppStoreRating {
+            path = BUFFOON_CONSTANTS.APP_STORE + "?action=write-review"
         } else if item == self.helpMenuHighlightr {
             path = "https://github.com/raspu/Highlightr"
         } else if item == self.helpMenuHighlightjs {
@@ -240,11 +245,13 @@ class AppDelegate: NSObject,
         } else if item == self.helpMenuHighlighterSwift {
             path = "https://github.com/smittytone/HighlighterSwift"
         } else if item == self.helpMenuOthersPreviewMarkdown {
-            path = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
+            path = BUFFOON_CONSTANTS.APP_URLS.PM
         } else if item == self.helpMenuOthersPreviewYaml {
-            path = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
+            path = BUFFOON_CONSTANTS.APP_URLS.PY
         } else if item == self.helpMenuOthersPreviewJson {
-            path = "https://apps.apple.com/us/app/previewjson/id6443584377?ls=1"
+            path = BUFFOON_CONSTANTS.APP_URLS.PJ
+        } else if item == self.helpMenuOthersPreviewText {
+            path = BUFFOON_CONSTANTS.APP_URLS.PT
         }
         
         // Open the selected website
@@ -264,7 +271,7 @@ class AppDelegate: NSObject,
     }
 
 
-    // MARK: Report Functions
+    // MARK: - Report Functions
     
     /**
      Display a window in which the user can submit feedback, or report a bug.
@@ -273,7 +280,11 @@ class AppDelegate: NSObject,
         - sender: The source of the action.
      */
     @IBAction @objc private func doShowReportWindow(sender: Any) {
-
+        
+        // FROM 1.2.5
+        // Hide menus we don't want used while the panel is open
+        hidePanelGenerators()
+        
         // Reset the UI
         self.connectionProgress.stopAnimation(self)
         self.feedbackText.stringValue = ""
@@ -293,6 +304,10 @@ class AppDelegate: NSObject,
 
         self.connectionProgress.stopAnimation(self)
         self.window.endSheet(self.reportWindow)
+        
+        // FROM 1.2.5
+        // Restore menus
+        showPanelGenerators()
     }
 
 
@@ -326,6 +341,10 @@ class AppDelegate: NSObject,
         
         // No feedback, so close the sheet
         self.window.endSheet(self.reportWindow)
+        
+        // FROM 1.2.5
+        // Restore menus
+        showPanelGenerators()
         
         // NOTE sheet closes asynchronously unless there was no feedback to send,
         //      or an error occured with setting up the feedback session
@@ -390,7 +409,7 @@ class AppDelegate: NSObject,
     }
 
     
-    // MARK: Preferences Functions
+    // MARK: - Preferences Functions
     
     /**
      Initialise and display the 'Preferences' sheet.
@@ -399,6 +418,10 @@ class AppDelegate: NSObject,
         - sender: The source of the action.
      */
     @IBAction private func doShowPreferences(sender: Any) {
+        
+        // FROM 1.2.5
+        // Hide menus we don't want used while the panel is open
+        hidePanelGenerators()
         
         // FROM 1.2.5
         // Reset changed prefs flag
@@ -532,6 +555,10 @@ class AppDelegate: NSObject,
     @IBAction private func doClosePreferences(sender: Any) {
 
         self.window.endSheet(self.preferencesWindow)
+        
+        // FROM 1.2.5
+        // Restore menus
+        showPanelGenerators()
     }
 
     
@@ -574,10 +601,14 @@ class AppDelegate: NSObject,
         
         // Remove the sheet now we have the data
         self.window.endSheet(self.preferencesWindow)
+        
+        // FROM 1.2.5
+        // Restore menus
+        showPanelGenerators()
     }
     
     
-    // MARK: What's New Functions
+    // MARK: - What's New Functions
     
     /**
         Show the 'What's New' sheet.
@@ -591,7 +622,11 @@ class AppDelegate: NSObject,
             - sender: The source of the action.
      */
     @IBAction private func doShowWhatsNew(_ sender: Any) {
-
+        
+        // FROM 1.2.5
+        // Hide menus we don't want used while the panel is open
+        hidePanelGenerators()
+        
         // Check how we got here
         var doShowSheet: Bool = type(of: self) != type(of: sender)
         
@@ -635,26 +670,30 @@ class AppDelegate: NSObject,
      */
      @IBAction private func doCloseWhatsNew(_ sender: Any) {
 
-        // Close the sheet
-        self.window.endSheet(self.whatsNewWindow)
+         // Close the sheet
+         self.window.endSheet(self.whatsNewWindow)
         
-        // Scroll the web view back to the top
-        self.whatsNewWebView.evaluateJavaScript("window.scrollTo(0,0)", completionHandler: nil)
+         // Scroll the web view back to the top
+         self.whatsNewWebView.evaluateJavaScript("window.scrollTo(0,0)", completionHandler: nil)
 
-        // Set this version's preference
-        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-            let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
-            defaults.setValue(false, forKey: key)
+         // Set this version's preference
+         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
+             let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
+             defaults.setValue(false, forKey: key)
 
-            #if DEBUG
-            print("\(key) reset back to true")
-            defaults.setValue(true, forKey: key)
-            #endif
-        }
+             #if DEBUG
+             print("\(key) reset back to true")
+             defaults.setValue(true, forKey: key)
+             #endif
+         }
+         
+         // FROM 1.2.5
+         // Restore menus
+         showPanelGenerators()
     }
 
     
-    // MARK:- Table Data Functions
+    // MARK: - Table Data Functions
     
     /**
      Set up the themes table.
@@ -748,7 +787,7 @@ class AppDelegate: NSObject,
     }
    
     
-    // MARK:- Theme Loading Functions
+    // MARK: - Theme Loading Functions
     
     /**
      Read the list of themes from the file in the bundle into an array property.
@@ -827,7 +866,60 @@ class AppDelegate: NSObject,
     }
     
     
-    // MARK:- Misc Functions
+    /**
+     Render all the themes as 512 x 268 PNG files.
+
+     Run this from the **Help** menu in debug sessions.
+
+     - Parameters:
+        - sender: The object that triggered the action
+     */
+    @IBAction private func doRenderThemes(_ sender: Any) {
+
+        let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
+        let fm: FileManager = FileManager.init()
+        let homeFolder: String = fm.homeDirectoryForCurrentUser.path
+        let common: Common = Common.init(false)
+
+        // Load in the code sample we'll preview the themes with
+        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
+
+        if self.themes.count == 0 {
+            loadThemeList()
+        }
+
+        for i: Int in 0..<self.themes.count {
+            let name: String = codedName(i)
+            common.updateTheme(name)
+            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
+            let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
+            ptv.isSelectable = false
+
+            if let renderTextStorage: NSTextStorage = ptv.textStorage {
+                renderTextStorage.beginEditing()
+                renderTextStorage.setAttributedString(pas)
+                renderTextStorage.endEditing()
+                ptv.backgroundColor = common.themeBackgroundColour
+            }
+
+            if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
+                ptv.cacheDisplay(in: renderFrame, to: imageRep)
+                if let data: Data = imageRep.representation(using: .png, properties: [:]) {
+                    do {
+                        let theme: [String: Any] = self.themes[i] as! [String: Any]
+                        let filename: String = theme["css"] as! String
+                        let path: String = homeFolder + "/" + filename + ".png"
+                        try data.write(to: URL.init(fileURLWithPath: path))
+                    } catch {
+                        // NOP
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: - Misc Functions
 
     /**
      Called by the app at launch to register its initial defaults.
@@ -905,59 +997,6 @@ class AppDelegate: NSObject,
         let isDark: Bool = theme["dark"] as! Bool
         let cssName: String = theme["css"] as! String
         return (isDark ? "dark." : "light.") + cssName
-    }
-    
-
-    /**
-     Render all the themes as 512 x 268 PNG files.
-
-     Run this from the **Help** menu in debug sessions.
-
-     - Parameters:
-        - sender: The object that triggered the action
-     */
-    @IBAction private func doRenderThemes(_ sender: Any) {
-
-        let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
-        let fm: FileManager = FileManager.init()
-        let homeFolder: String = fm.homeDirectoryForCurrentUser.path
-        let common: Common = Common.init(false)
-
-        // Load in the code sample we'll preview the themes with
-        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
-
-        if self.themes.count == 0 {
-            loadThemeList()
-        }
-
-        for i: Int in 0..<self.themes.count {
-            let name: String = codedName(i)
-            common.updateTheme(name)
-            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
-            let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
-            ptv.isSelectable = false
-
-            if let renderTextStorage: NSTextStorage = ptv.textStorage {
-                renderTextStorage.beginEditing()
-                renderTextStorage.setAttributedString(pas)
-                renderTextStorage.endEditing()
-                ptv.backgroundColor = common.themeBackgroundColour
-            }
-
-            if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
-                ptv.cacheDisplay(in: renderFrame, to: imageRep)
-                if let data: Data = imageRep.representation(using: .png, properties: [:]) {
-                    do {
-                        let theme: [String: Any] = self.themes[i] as! [String: Any]
-                        let filename: String = theme["css"] as! String
-                        let path: String = homeFolder + "/" + filename + ".png"
-                        try data.write(to: URL.init(fileURLWithPath: path))
-                    } catch {
-                        // NOP
-                    }
-                }
-            }
-        }
     }
 
 

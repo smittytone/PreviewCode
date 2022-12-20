@@ -75,4 +75,14 @@ struct BUFFOON_CONSTANTS {
 
     // FROM 1.1.1
     static let THUMBNAIL_LINE_COUNT         = 38
+    
+    // FROM 1.2.5
+    struct APP_URLS {
+        
+        static let PM                           = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
+        static let PC                           = "https://apps.apple.com/us/app/previewcode/id1571797683?ls=1"
+        static let PY                           = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
+        static let PJ                           = "https://apps.apple.com/us/app/previewjson/id6443584377?ls=1"
+        static let PT                           = "https://apps.apple.com/us/app/previewtext/id1660037028?ls=1"
+    }
 }
