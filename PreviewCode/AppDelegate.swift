@@ -79,12 +79,13 @@ class AppDelegate: NSObject,
     private  var themes: [Any] = []
     private  var darkThemes: [Int] = []
     private  var lightThemes: [Int] = []
-
     // FROM 1.1.0
     internal var codeFonts: [PMFont] = []
-    
     // FROM 1.2.1
     internal var codeStyleName: String = "Regular"
+    // FROM 1.2.5
+    private  var havePrefsChanged: Bool = false
+    private  var isFirstTableLoad: Bool = true
     
     
     // MARK:- Class Lifecycle Functions
@@ -158,6 +159,55 @@ class AppDelegate: NSObject,
         
         // Reset the QL thumbnail cache... just in case it helps
         _ = runProcess(app: "/usr/bin/qlmanage", with: ["-r", "cache"])
+        
+        // FROM 1.2.5
+        // Check for open panels
+        if self.preferencesWindow.isVisible {
+            if self.havePrefsChanged {
+                let alert: NSAlert = showAlert("You have unsaved settings",
+                                               "Do you wish to cancel and save them, or quit the app anyway?",
+                                               false)
+                alert.addButton(withTitle: "Quit")
+                alert.addButton(withTitle: "Cancel")
+                alert.beginSheetModal(for: self.preferencesWindow) { (response: NSApplication.ModalResponse) in
+                    if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                        // The user clicked 'Quit'
+                        self.preferencesWindow.close()
+                        self.window.close()
+                    }
+                }
+                
+                return
+            }
+            
+            self.preferencesWindow.close()
+        }
+        
+        if self.whatsNewWindow.isVisible {
+            self.whatsNewWindow.close()
+        }
+        
+        if self.reportWindow.isVisible {
+            if self.feedbackText.stringValue.count > 0 {
+                let alert: NSAlert = showAlert("You have unsent feedback",
+                                               "Do you wish to cancel and send it, or quit the app anyway?",
+                                               false)
+                alert.addButton(withTitle: "Quit")
+                alert.addButton(withTitle: "Cancel")
+                alert.beginSheetModal(for: self.reportWindow) { (response: NSApplication.ModalResponse) in
+                    if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                        // The user clicked 'Quit'
+                        self.reportWindow.close()
+                        self.window.close()
+                    }
+                }
+                
+                return
+            }
+            
+            self.reportWindow.close()
+        }
+
         
         // Close the window... which will trigger an app closure
         self.window.close()
@@ -349,7 +399,12 @@ class AppDelegate: NSObject,
         - sender: The source of the action.
      */
     @IBAction private func doShowPreferences(sender: Any) {
-
+        
+        // FROM 1.2.5
+        // Reset changed prefs flag
+        self.havePrefsChanged = false
+        self.isFirstTableLoad = true
+        
         // The suite name is the app group name, set in each the entitlements file of
         // the host app and of each extension
         if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName) {
@@ -409,6 +464,7 @@ class AppDelegate: NSObject,
         
         let index: Int = Int(self.fontSizeSlider.floatValue)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
+        self.havePrefsChanged = true
     }
 
 
@@ -431,6 +487,7 @@ class AppDelegate: NSObject,
         }
         
         // Reload the table and its selection
+        self.isFirstTableLoad = true
         loadTable()
     }
     
@@ -449,6 +506,7 @@ class AppDelegate: NSObject,
         // If the user re-selects the current font family,
         // only update the style popup if a different family
         // has been selected
+        self.havePrefsChanged = true
         let item: NSPopUpButton = sender as! NSPopUpButton
         if item == self.codeFontPopup {
             let fontName: NSString = self.codeFontName as NSString
@@ -963,6 +1021,11 @@ class AppDelegate: NSObject,
         if self.themeTable.selectedRow != -1 {
             self.preferencesWindow.makeFirstResponder(self.themeTable)
         }
+        
+        // FROM 1.2.5
+        // Set flags
+        if !self.isFirstTableLoad { self.havePrefsChanged = true }
+        if self.isFirstTableLoad { self.isFirstTableLoad = false }
     }
     
     
