@@ -31,6 +31,7 @@
                 <outlet property="helpMenuOnlineHelp" destination="Tys-ee-tfE" id="CHm-jd-POo"/>
                 <outlet property="helpMenuOthersPreviewJson" destination="dEj-z3-Sk4" id="9Pj-dz-pOP"/>
                 <outlet property="helpMenuOthersPreviewMarkdown" destination="a5a-JN-xae" id="efo-wb-Yel"/>
+                <outlet property="helpMenuOthersPreviewText" destination="pQ8-sT-8bQ" id="gfe-BL-5K9"/>
                 <outlet property="helpMenuOthersPreviewYaml" destination="xJX-CD-e0x" id="amy-a4-mCi"/>
                 <outlet property="helpMenuRenderThemes" destination="l5z-pu-n53" id="7Zw-Hx-3B4"/>
                 <outlet property="helpMenuReportBug" destination="9jb-nj-WtE" id="Vpg-vY-TAy"/>
@@ -168,6 +169,12 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="jo8-eR-kza"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="PreviewText" id="pQ8-sT-8bQ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="lfJ-cv-9Ds"/>
                                             </connections>
                                         </menuItem>
                                     </items>
