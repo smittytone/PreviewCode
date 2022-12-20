@@ -1,4 +1,4 @@
-# PreviewCode 1.2.4
+# PreviewCode 1.2.5
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -106,6 +106,10 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.2.5 *Unreleased*
+    - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
+    - Better menu handling when panels are visible.
+    - Better app exit management.
 - 1.2.4 *14 December 2022*
     - Add `com.microsoft.c-sharp` UTI.
     - Support makefiles.
@@ -148,6 +152,6 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Copyright and Credits ##
 
-Primary app code and UI design &copy; 2022, Tony Smith.
+Primary app code and UI design &copy; 2023, Tony Smith.
 
 Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-22 Ivan Sagalaev.

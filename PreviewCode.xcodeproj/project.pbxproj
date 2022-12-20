@@ -768,7 +768,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PreviewCode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PreviewCode;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Tony Smith. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Tony Smith. All rights reserved.";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -800,7 +800,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PreviewCode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PreviewCode;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Tony Smith. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Tony Smith. All rights reserved.";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
