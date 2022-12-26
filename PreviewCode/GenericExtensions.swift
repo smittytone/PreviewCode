@@ -221,6 +221,29 @@ extension AppDelegate {
     }
     
     
+    /**
+     Get system and state information and record it for use during run.
+     */
+    func recordSystemState() {
+        
+        // First ensure we are running on Mojave or above - Dark Mode is not supported by earlier versons
+        let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
+        self.isMontereyPlus = (sysVer.majorVersion >= 12)
+    }
+    
+    
+    /**
+     Determine whether the host Mac is in light mode.
+     
+     - Returns: `true` if the Mac is in light mode, otherwise `false`.
+     */
+    func isMacInLightMode() -> Bool {
+        
+        let appearNameString: String = NSApp.effectiveAppearance.name.rawValue
+        return (appearNameString == "NSAppearanceNameAqua")
+    }
+    
+    
     // MARK: - URLSession Delegate Functions
 
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {

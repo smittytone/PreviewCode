@@ -91,9 +91,10 @@ class AppDelegate: NSObject,
     // FROM 1.2.5
     private  var havePrefsChanged: Bool = false
     private  var isFirstTableLoad: Bool = true
+    internal var isMontereyPlus: Bool = false
     
     
-    // MARK:- Class Lifecycle Functions
+    // MARK: - Class Lifecycle Functions
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         
@@ -623,10 +624,6 @@ class AppDelegate: NSObject,
      */
     @IBAction private func doShowWhatsNew(_ sender: Any) {
         
-        // FROM 1.2.5
-        // Hide menus we don't want used while the panel is open
-        hidePanelGenerators()
-        
         // Check how we got here
         var doShowSheet: Bool = type(of: self) != type(of: sender)
         
@@ -635,13 +632,18 @@ class AppDelegate: NSObject,
             // if we need to show the sheet by the checking the prefs
             if let defaults = UserDefaults(suiteName: self.appSuiteName) {
                 // Get the version-specific preference key
-                let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
+                let key: String = BUFFOON_CONSTANTS.WHATS_NEW_PREF + getVersion()
                 doShowSheet = defaults.bool(forKey: key)
             }
         }
       
-        // Configure and show the sheet: first, get the folder path
+        // Configure and show the sheet
         if doShowSheet {
+            // FROM 1.2.5
+            // Hide menus we don't want used while the panel is open
+            hidePanelGenerators()
+            
+            // First, get the folder path
             let htmlFolderPath = Bundle.main.resourcePath! + "/new"
 
             //Set up the WKWebBiew: no elasticity, horizontal scroller

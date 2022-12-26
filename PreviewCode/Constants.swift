@@ -85,4 +85,6 @@ struct BUFFOON_CONSTANTS {
         static let PJ                           = "https://apps.apple.com/us/app/previewjson/id6443584377?ls=1"
         static let PT                           = "https://apps.apple.com/us/app/previewtext/id1660037028?ls=1"
     }
+    
+    static let WHATS_NEW_PREF                   = "com-bps-previewcode-do-show-whats-new-"
 }
