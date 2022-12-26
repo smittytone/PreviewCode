@@ -352,65 +352,7 @@ class AppDelegate: NSObject,
     }
 
 
-    /**
-     Send the feedback string etc.
-
-     - Parameters:
-        - feedback: The text of the user's comment.
-
-     - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
-     */
-    private func submitFeedback(_ feedback: String) -> URLSessionTask? {
-
-        // First get the data we need to build the user agent string
-        let userAgent: String = getUserAgentForFeedback()
-        let endPoint: String = MNU_SECRETS.ADDRESS.A
-
-        // Get the date as a string
-        let dateString: String = getDateForFeedback()
-
-        // Assemble the message string
-        let dataString: String = """
-         *FEEDBACK REPORT*
-         *Date:* \(dateString)
-         *User Agent:* \(userAgent)
-         *FEEDBACK:*
-         \(feedback)
-         """
-
-        // Build the data we will POST:
-        let dict: NSMutableDictionary = NSMutableDictionary()
-        dict.setObject(dataString,
-                        forKey: NSString.init(string: "text"))
-        dict.setObject(true, forKey: NSString.init(string: "mrkdwn"))
-
-        // Make and return the HTTPS request for sending
-        if let url: URL = URL.init(string: self.feedbackPath + endPoint) {
-            var request: URLRequest = URLRequest.init(url: url)
-            request.httpMethod = "POST"
-
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: dict,
-                                                              options:JSONSerialization.WritingOptions.init(rawValue: 0))
-
-                request.addValue(userAgent, forHTTPHeaderField: "User-Agent")
-                request.addValue("application/json", forHTTPHeaderField: "Content-type")
-
-                let config: URLSessionConfiguration = URLSessionConfiguration.ephemeral
-                let session: URLSession = URLSession.init(configuration: config,
-                                                          delegate: self,
-                                                          delegateQueue: OperationQueue.main)
-                return session.dataTask(with: request)
-            } catch {
-                // NOP
-            }
-        }
-
-        return nil
-    }
-
-    
-    // MARK: - Preferences Functions
+// MARK: - Preferences Functions
     
     /**
      Initialise and display the 'Preferences' sheet.
@@ -983,6 +925,64 @@ class AppDelegate: NSObject,
         }
     }
     
+    
+    /**
+     Send the feedback string etc.
+
+     - Parameters:
+        - feedback: The text of the user's comment.
+
+     - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
+     */
+    private func submitFeedback(_ feedback: String) -> URLSessionTask? {
+
+        // First get the data we need to build the user agent string
+        let userAgent: String = getUserAgentForFeedback()
+        let endPoint: String = MNU_SECRETS.ADDRESS.A
+
+        // Get the date as a string
+        let dateString: String = getDateForFeedback()
+
+        // Assemble the message string
+        let dataString: String = """
+         *FEEDBACK REPORT*
+         *Date:* \(dateString)
+         *User Agent:* \(userAgent)
+         *FEEDBACK:*
+         \(feedback)
+         """
+
+        // Build the data we will POST:
+        let dict: NSMutableDictionary = NSMutableDictionary()
+        dict.setObject(dataString,
+                        forKey: NSString.init(string: "text"))
+        dict.setObject(true, forKey: NSString.init(string: "mrkdwn"))
+
+        // Make and return the HTTPS request for sending
+        if let url: URL = URL.init(string: self.feedbackPath + endPoint) {
+            var request: URLRequest = URLRequest.init(url: url)
+            request.httpMethod = "POST"
+
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: dict,
+                                                              options:JSONSerialization.WritingOptions.init(rawValue: 0))
+
+                request.addValue(userAgent, forHTTPHeaderField: "User-Agent")
+                request.addValue("application/json", forHTTPHeaderField: "Content-type")
+
+                let config: URLSessionConfiguration = URLSessionConfiguration.ephemeral
+                let session: URLSession = URLSession.init(configuration: config,
+                                                          delegate: self,
+                                                          delegateQueue: OperationQueue.main)
+                return session.dataTask(with: request)
+            } catch {
+                // NOP
+            }
+        }
+
+        return nil
+    }
+
     
     /**
      Get the 'coded' name of a theme, eg. 'agate-dark' -> 'dark.agate-dark'.
