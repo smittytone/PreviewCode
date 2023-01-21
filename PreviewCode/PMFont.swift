@@ -15,9 +15,9 @@ import Foundation
 
 struct PMFont {
 
-    var postScriptName: String = ""
-    var displayName: String = ""
-    var styleName: String = ""
+    var postScriptName: String = ""         // Individual font PostScript name - font records only
+    var displayName: String = ""            // Font family menu display name - family records only
+    var styleName: String = ""              // Individual font style name - font records only
     var traits: UInt = 0
     var styles: [PMFont]? = nil
 }

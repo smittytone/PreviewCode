@@ -83,7 +83,7 @@ extension AppDelegate {
      - Parameters:
         - styleName: The name of currently selected style, or nil to select the first one.
      */
-    internal func setStylePopup(_ styleName: String? = nil) {
+    internal func setStylePopup(_ styleToSelect: String? = nil) {
         
         if let selectedFamily: String = self.codeFontPopup.titleOfSelectedItem {
             self.codeStylePopup.removeAllItems()
@@ -95,12 +95,31 @@ extension AppDelegate {
                             self.codeStylePopup.addItem(withTitle: style.styleName)
                         }
 
-                        if styleName != nil {
-                            self.codeStylePopup.selectItem(withTitle: styleName!)
+                        if styleToSelect != nil {
+                            // Select an existing style, if we can
+                            // NOTE This will deselect the menu if the selected font lacks the
+                            //      currently selected file, eg. we go from Roboto Mono ExtraLight
+                            //      to Andale (Regular only). So check and select the first style
+                            //      on the list if that happens.
+                            self.codeStylePopup.selectItem(withTitle: styleToSelect!)
+                            if self.codeStylePopup.indexOfSelectedItem == -1 {
+                                self.codeStylePopup.selectItem(at: 0)
+                            }
+                        } else {
+                            // No style passed? Pick the first on the list (usually Regular)
+                            self.codeStylePopup.selectItem(at: 0)
                         }
+                        
+                        return
                     }
                 }
             }
+        }
+        
+        // FROM 1.2.5
+        // No style selected? Choose the default
+        if self.codeStylePopup.indexOfSelectedItem == -1 {
+            self.codeStylePopup.selectItem(at: 0)
         }
     }
 

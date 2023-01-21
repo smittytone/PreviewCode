@@ -475,11 +475,12 @@ class AppDelegate: NSObject,
         self.havePrefsChanged = true
         let item: NSPopUpButton = sender as! NSPopUpButton
         if item == self.codeFontPopup {
-            let fontName: NSString = self.codeFontName as NSString
-            let styleName: String = item.titleOfSelectedItem ?? "Regular"
-            if !fontName.contains(styleName) {
+            let currentFontPSName: NSString = self.codeFontName as NSString
+            let selectedFontName: String = item.titleOfSelectedItem ?? BUFFOON_CONSTANTS.DEFAULT_FONT_NAME
+            if !(currentFontPSName.contains(selectedFontName)) {
                 // Update the menu of available styles
-                setStylePopup(fontName as String)
+                // because a different font has been selected
+                setStylePopup(self.codeStylePopup.titleOfSelectedItem ?? "Regular")
                 return
             }
         } else {
