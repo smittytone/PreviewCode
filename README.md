@@ -106,7 +106,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.2.5 *Unreleased*
+- 1.2.5 *21 January 2023*
     - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
     - Better menu handling when panels are visible.
     - Better app exit management.
