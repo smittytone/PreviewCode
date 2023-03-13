@@ -272,6 +272,8 @@ final class Common: NSObject {
             if !isForTag { sourceLanguage = "go" }
         case "make":
             sourceLanguage = "makefile"
+        case "vuejs":
+            sourceLanguage = "javascript"
         default:
             // NOP
             break

@@ -91,6 +91,8 @@
 				<string>com.apple.property-list</string>
 				<string>public.make-source</string>
 				<string>com.microsoft.c-sharp</string>
+				<string>com.bps.gml-source</string>
+				<string>com.bps.vuejs-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>
