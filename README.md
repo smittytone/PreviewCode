@@ -1,4 +1,4 @@
-# PreviewCode 1.2.5
+# PreviewCode 1.2.6
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -41,6 +41,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Fortran (`.for`)
 - F# (`.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
+- GameMaker Language (`.gml`) **New**
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
@@ -56,7 +57,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Ruby (`.rb`)
 - Rust (`.rs`, `.rust`)
 - Swift (`.swift`)
-- TypeScript (`.typescript`, `.tsx`)
+- TypeScript (`.typescript`, `.tsx`, `.ts`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
 
 ### Shell Scripting
@@ -106,6 +107,11 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.2.6 *Unreleased*
+    - Allow text to be selected in previews.
+    - Support `.gml` GML (GameMaker Language) files.
+    - Support Go `.mod`, `.sum` and `.work` files.
+    - Add preliminary support for `.vue` Vue.js files.
 - 1.2.5 *21 January 2023*
     - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
     - Better menu handling when panels are visible.
