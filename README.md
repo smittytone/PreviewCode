@@ -95,7 +95,8 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
 - *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product. We are investigating possible workarounds.
-- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is a standard for transport stream video files. Workaround: use `.tsx` for TypeScript files.
+- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. Workaround: use `.tsx` or `.typescript` for TypeScript files.
+- *PreviewCode* will not render Elixir `.exs` files. This is because the `.exs` file extension is pre-set on macOS to EXS24 instrument files. Workaround: use `.ex` for Elixir files.
 
 ## Source Code ##
 
