@@ -36,7 +36,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Clojure (`.clojure`, `.clj`, `.cljc`, `.cljs`)
 - CoffeeScript (`.coffee`, `.coffeescript`, `.litcoffee`)
 - Dart (`.dart`)
-- Elixir (`.elxir`, `.ex`, `.exs`)
+- Elixir (`.elxir`, `.ex`)
 - Erlang (`.erlang`, `.erl`, `.hrl`)
 - Fortran (`.for`)
 - F# (`.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
@@ -57,8 +57,9 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Ruby (`.rb`)
 - Rust (`.rs`, `.rust`)
 - Swift (`.swift`)
-- TypeScript (`.typescript`, `.tsx`, `.ts`)
+- TypeScript (`.typescript`, `.tsx`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
+- Vue.js (`.vue`) **New**
 
 ### Shell Scripting
 
@@ -93,10 +94,10 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ## Known Issues ##
 
+- *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
+- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files.
+- *PreviewCode* will not render Elixir `.exs` files. This is because the `.exs` file extension is pre-set on macOS to EXS24 instrument files.
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
-- *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product. We are investigating possible workarounds.
-- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. Workaround: use `.tsx` or `.typescript` for TypeScript files.
-- *PreviewCode* will not render Elixir `.exs` files. This is because the `.exs` file extension is pre-set on macOS to EXS24 instrument files. Workaround: use `.ex` for Elixir files.
 
 ## Source Code ##
 
@@ -113,6 +114,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     - Support `.gml` GML (GameMaker Language) files.
     - Support Go `.mod`, `.sum` and `.work` files.
     - Add preliminary support for `.vue` Vue.js files.
+    - Update to use HighlighterSwift 1.1.1.
 - 1.2.5 *21 January 2023*
     - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
     - Better menu handling when panels are visible.
