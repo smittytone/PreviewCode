@@ -48,6 +48,9 @@ struct BUFFOON_CONSTANTS {
         static let ALL                      = 0
         static let DARK                     = 1
         static let LIGHT                    = 2
+        // FROM 1.2.6
+        static let AUTO                     = 3
+        
     }
 
     static let BASE_PREVIEW_FONT_SIZE       = 16.0
@@ -80,12 +83,16 @@ struct BUFFOON_CONSTANTS {
     // FROM 1.2.5
     struct APP_URLS {
         
-        static let PM                           = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
-        static let PC                           = "https://apps.apple.com/us/app/previewcode/id1571797683?ls=1"
-        static let PY                           = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
-        static let PJ                           = "https://apps.apple.com/us/app/previewjson/id6443584377?ls=1"
-        static let PT                           = "https://apps.apple.com/us/app/previewtext/id1660037028?ls=1"
+        static let PM                       = "https://apps.apple.com/us/app/previewmarkdown/id1492280469?ls=1"
+        static let PC                       = "https://apps.apple.com/us/app/previewcode/id1571797683?ls=1"
+        static let PY                       = "https://apps.apple.com/us/app/previewyaml/id1564574724?ls=1"
+        static let PJ                       = "https://apps.apple.com/us/app/previewjson/id6443584377?ls=1"
+        static let PT                       = "https://apps.apple.com/us/app/previewtext/id1660037028?ls=1"
     }
     
-    static let WHATS_NEW_PREF                   = "com-bps-previewcode-do-show-whats-new-"
+    static let WHATS_NEW_PREF               = "com-bps-previewcode-do-show-whats-new-"
+    
+    // FROM 1.2.6
+    static let DEFAULT_THEME_DARK           = "dark.xcode-dusk"
+    static let DEFAULT_THEME_LIGHT          = "light.xcode"
 }
