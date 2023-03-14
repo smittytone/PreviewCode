@@ -100,9 +100,9 @@ class AppDelegate: NSObject,
         
         // FROM 1.1.0
         // Use for rendering theme selection graphics
-        #if DEBUG
+#if DEBUG
         self.helpMenuRenderThemes.isHidden = false
-        #endif
+#endif
 
         // FROM 1.1.0
         // Asynchronously get the list of code fonts
@@ -779,6 +779,10 @@ class AppDelegate: NSObject,
             } else {
                 self.lightThemes.append(i)
             }
+            
+#if DEBUG
+            print("\(i + 1) \(theme["name"] as! String) " + (isDark ? "[D]" : "[L]"))
+#endif
         }
     }
     
