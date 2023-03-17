@@ -74,9 +74,6 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>go</string>
-					<string>mod</string>
-					<string>sum</string>
-					<string>work</string>
 				</array>
 			</dict>
 		</dict>

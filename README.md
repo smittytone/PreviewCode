@@ -96,7 +96,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 - *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
 - *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files.
-- *PreviewCode* will not render Elixir `.exs` files. This is because the `.exs` file extension is pre-set on macOS to EXS24 instrument files.
+- *PreviewCode* will not render Elixir `.exs` files if GarageBand and/or Logic Pro is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
 
 ## Source Code ##
@@ -112,8 +112,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 - 1.2.6 *Unreleased*
     - Allow text to be selected in previews.
     - Support `.gml` GML (GameMaker Language) files.
-    - Support Go `.mod`, `.sum` and `.work` files.
-    - Add preliminary support for `.vue` Vue.js files.
+    - Support for `.vue` Vue.js files.
     - Update to use HighlighterSwift 1.1.1.
 - 1.2.5 *21 January 2023*
     - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
