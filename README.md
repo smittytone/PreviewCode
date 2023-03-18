@@ -41,7 +41,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Fortran (`.for`)
 - F# (`.fsharp`, `.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
-- GameMaker Language (`.gml`) **New**
+- GameMaker Language (`.gml`) **NEW**
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
@@ -59,7 +59,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Swift (`.swift`)
 - TypeScript (`.typescript`, `.tsx`, `.ts`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
-- Vue.js (`.vue`) **New**
+- Vue.js (`.vue`) **NEW**
 
 ### Shell Scripting
 
@@ -84,6 +84,8 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
 - Apple Property list files (`.plist`)
+- Apple Entitlements files (`.entitlements`) **NEW**
+- Apple Xcode NIB files (`.xib`) **NEW**
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)

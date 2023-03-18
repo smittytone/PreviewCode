@@ -1313,25 +1313,6 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>PLIST</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>com.apple.property-list</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>plist</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
 				<string>public.script</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1344,6 +1325,8 @@
 			<dict/>
 		</dict>
 		<dict>
+			<key>UTTypeIconFile</key>
+			<string></string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
@@ -1359,6 +1342,23 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>entitlements</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data, public.content</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.apple.interfacebuilder.document.cocoa</string>
+			<key>UTTypeDescription</key>
+			<string>NIB</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xib</string>
 				</array>
 			</dict>
 		</dict>
