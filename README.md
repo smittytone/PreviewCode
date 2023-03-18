@@ -86,6 +86,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Apple Property list files (`.plist`)
 - Apple Entitlements files (`.entitlements`) **NEW**
 - Apple Xcode NIB files (`.xib`) **NEW**
+- Apple Xcode storyboard files (`.storyboard`) **NEW**
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
@@ -113,7 +114,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 - 1.2.6 *Unreleased*
     - Allow text to be selected in previews.
     - Support `.gml` GML (GameMaker Language) files.
-    - Support for `.vue` Vue.js files.
+    - Support `.vue` Vue.js files.
+    - Support `.entitlements`, `.xib`, `.storyboard` Xcode files.
     - Update to use HighlighterSwift 1.1.1.
 - 1.2.5 *21 January 2023*
     - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).

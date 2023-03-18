@@ -1362,6 +1362,23 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string></string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.apple.dt.interfacebuilder.document.storyboard</string>
+			<key>UTTypeDescription</key>
+			<string>Storyboard</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>storyboard</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

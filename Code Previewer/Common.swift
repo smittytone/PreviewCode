@@ -223,9 +223,10 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".terraform-vars") { return "toml" }
         // FROM 1.2.4
         if sourceFileUTI.hasSuffix(".c-sharp") { return "c#" }
-        // FROM 1.2.6
+        // FROM 1.2.6 -- Assorted Xcode files
         if sourceFileUTI.hasSuffix(".entitlements-property-list") { return "xml" }
         if sourceFileUTI.hasSuffix(".interfacebuilder.document.cocoa") { return "xml" }
+        if sourceFileUTI.hasSuffix("interfacebuilder.document.storyboard") { return "xml" }
         
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
