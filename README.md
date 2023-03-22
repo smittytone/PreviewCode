@@ -111,7 +111,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.2.6 *Unreleased*
+- 1.2.6 *22 March 2023*
     - Allow text to be selected in previews.
     - Support `.gml` GML (GameMaker Language) files.
     - Support `.vue` Vue.js files.
