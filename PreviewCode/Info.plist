@@ -793,6 +793,25 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Elm Source</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.elm-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>elm</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
@@ -1325,14 +1344,14 @@
 			<dict/>
 		</dict>
 		<dict>
-			<key>UTTypeIconFile</key>
-			<string></string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Entitlements</string>
+			<key>UTTypeIconFile</key>
+			<string></string>
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
@@ -1350,10 +1369,10 @@
 			<array>
 				<string>public.data, public.content</string>
 			</array>
-			<key>UTTypeIdentifier</key>
-			<string>com.apple.interfacebuilder.document.cocoa</string>
 			<key>UTTypeDescription</key>
 			<string>NIB</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.apple.interfacebuilder.document.cocoa</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1367,10 +1386,10 @@
 			<array>
 				<string></string>
 			</array>
-			<key>UTTypeIdentifier</key>
-			<string>com.apple.dt.interfacebuilder.document.storyboard</string>
 			<key>UTTypeDescription</key>
 			<string>Storyboard</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.apple.dt.interfacebuilder.document.storyboard</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

@@ -96,6 +96,7 @@
 				<string>com.apple.xcode.entitlements-property-list</string>
 				<string>com.apple.interfacebuilder.document.cocoa</string>
 				<string>com.apple.dt.interfacebuilder.document.storyboard</string>
+				<string>com.bps.elm-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>

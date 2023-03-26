@@ -1,4 +1,4 @@
-# PreviewCode 1.2.6
+# PreviewCode 1.2.7
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -37,11 +37,12 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - CoffeeScript (`.coffee`, `.coffeescript`, `.litcoffee`)
 - Dart (`.dart`)
 - Elixir (`.elxir`, `.ex`, `.exs`)
+- Elm (`.elm`) **NEW**
 - Erlang (`.erlang`, `.erl`, `.hrl`)
 - Fortran (`.for`)
 - F# (`.fsharp`, `.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
-- GameMaker Language (`.gml`) **NEW**
+- GameMaker Language (`.gml`) 
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
@@ -59,7 +60,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Swift (`.swift`)
 - TypeScript (`.typescript`, `.tsx`, `.ts`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
-- Vue.js (`.vue`) **NEW**
+- Vue.js (`.vue`) 
 
 ### Shell Scripting
 
@@ -84,9 +85,9 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
 - Apple Property list files (`.plist`)
-- Apple Entitlements files (`.entitlements`) **NEW**
-- Apple Xcode NIB files (`.xib`) **NEW**
-- Apple Xcode storyboard files (`.storyboard`) **NEW**
+- Apple Entitlements files (`.entitlements`) 
+- Apple Xcode NIB files (`.xib`) 
+- Apple Xcode storyboard files (`.storyboard`) 
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
@@ -111,6 +112,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.2.7 *Unreleased*
+    - Support `.elm` Elm files.
 - 1.2.6 *22 March 2023*
     - Allow text to be selected in previews.
     - Support `.gml` GML (GameMaker Language) files.
