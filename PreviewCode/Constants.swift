@@ -6,10 +6,12 @@
  *  Copyright © 2023 Tony Smith. All rights reserved.
  */
 
-// Combine the app's various constants into a struct
 import Foundation
 
 
+/*
+ * Combine the app's various constants into a struct
+ */
 struct BUFFOON_CONSTANTS {
 
     struct ERRORS {
