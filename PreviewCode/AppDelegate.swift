@@ -374,9 +374,9 @@ class AppDelegate: NSObject,
         // The suite name is the app group name, set in each the entitlements file of
         // the host app and of each extension
         if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName) {
-            self.codeFontSize = CGFloat(defaults.float(forKey: "com-bps-previewcode-base-font-size"))
-            self.codeFontName = defaults.string(forKey: "com-bps-previewcode-base-font-name") ?? BUFFOON_CONSTANTS.DEFAULT_FONT
-            self.themeName = defaults.string(forKey: "com-bps-previewcode-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME
+            self.codeFontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
+            self.codeFontName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_FONT
+            self.themeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME
         }
 
         // Set the font size slider
@@ -521,7 +521,7 @@ class AppDelegate: NSObject,
             let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
             if newValue != self.codeFontSize {
                 defaults.setValue(newValue,
-                                  forKey: "com-bps-previewcode-base-font-size")
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
             }
             
             // FROM 1.1.0
@@ -531,7 +531,7 @@ class AppDelegate: NSObject,
                 if fontName != self.codeFontName {
                     self.codeFontName = fontName
                     defaults.setValue(fontName,
-                                      forKey: "com-bps-previewcode-base-font-name")
+                                      forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
                 }
             }
 
@@ -539,7 +539,7 @@ class AppDelegate: NSObject,
             if self.newThemeIndex != self.selectedThemeIndex {
                 self.selectedThemeIndex = self.newThemeIndex
                 let selectedThemeName: String = codedName(self.newThemeIndex)
-                defaults.setValue(selectedThemeName, forKey: "com-bps-previewcode-theme-name")
+                defaults.setValue(selectedThemeName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
             }
         }
         
@@ -575,7 +575,7 @@ class AppDelegate: NSObject,
             // if we need to show the sheet by the checking the prefs
             if let defaults = UserDefaults(suiteName: self.appSuiteName) {
                 // Get the version-specific preference key
-                let key: String = BUFFOON_CONSTANTS.WHATS_NEW_PREF + getVersion()
+                let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
                 doShowSheet = defaults.bool(forKey: key)
             }
         }
@@ -623,13 +623,13 @@ class AppDelegate: NSObject,
 
          // Set this version's preference
          if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-             let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
+             let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
              defaults.setValue(false, forKey: key)
 
-             #if DEBUG
+#if DEBUG
              print("\(key) reset back to true")
              defaults.setValue(true, forKey: key)
-             #endif
+#endif
          }
          
          // FROM 1.2.5
@@ -879,41 +879,41 @@ class AppDelegate: NSObject,
             // Check if each preference value exists -- set if it doesn't
             // Preview body font size, stored as a CGFloat
             // Default: 16.0
-            let codeFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-base-font-size")
+            let codeFontSizeDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
             if codeFontSizeDefault == nil {
                 defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE),
-                                  forKey: "com-bps-previewcode-base-font-size")
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
             }
 
             // Thumbnail view base font size, stored as a CGFloat, not currently used
             // Default: 32.0
-            let thumbFontSizeDefault: Any? = defaults.object(forKey: "com-bps-previewcode-thumb-font-size")
+            let thumbFontSizeDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_FONT_SIZE)
             if thumbFontSizeDefault == nil {
                 defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE),
-                                  forKey: "com-bps-previewcode-thumb-font-size")
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_FONT_SIZE)
             }
 
             // Font for previews and thumbnails
-            // Default: Courier
-            let codeFontName: Any? = defaults.object(forKey: "com-bps-previewcode-base-font-name")
+            let codeFontName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
             if codeFontName == nil {
                 defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_FONT,
-                                  forKey: "com-bps-previewcode-base-font-name")
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
             }
             
             // Theme for previews
-            let themeName: Any? = defaults.object(forKey: "com-bps-previewcode-theme-name")
+            let themeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
             if themeName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME, forKey: "com-bps-previewcode-theme-name")
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
             }
 
             // Use light background even in dark mode, stored as a bool
             // Default: false
             // NOTE Currently unused
-            let useLightDefault: Any? = defaults.object(forKey: "com-bps-previewcode-do-use-light")
+            let useLightDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
             if useLightDefault == nil {
                 defaults.setValue(false,
-                                  forKey: "com-bps-previewcode-do-use-light")
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
             }
 
             // Show the What's New sheet
@@ -922,7 +922,7 @@ class AppDelegate: NSObject,
             // this will persist, but with each new major and/or minor version, we make a
             // new preference that will be read by 'doShowWhatsNew()' to see if the sheet
             // should be shown this run
-            let key: String = "com-bps-previewcode-do-show-whats-new-" + getVersion()
+            let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
             let showNewDefault: Any? = defaults.object(forKey: key)
             if showNewDefault == nil {
                 defaults.setValue(true, forKey: key)

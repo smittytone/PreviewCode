@@ -87,5 +87,18 @@ struct BUFFOON_CONSTANTS {
         static let PT                           = "https://apps.apple.com/us/app/previewtext/id1660037028?ls=1"
     }
     
-    static let WHATS_NEW_PREF                   = "com-bps-previewcode-do-show-whats-new-"
+    // FROM 1.2.7
+    struct PREFS_IDS {
+        
+        static let MAIN_WHATS_NEW               = "com-bps-previewcode-do-show-whats-new-"
+        static let PREVIEW_FONT_SIZE            = "com-bps-previewcode-base-font-size"
+        static let PREVIEW_FONT_NAME            = "com-bps-previewcode-base-font-name"
+        static let PREVIEW_THEME_NAME           = "com-bps-previewcode-theme-name"
+        static let PREVIEW_USE_LIGHT            = "com-bps-previewcode-do-use-light"
+        
+        static let THUMB_FONT_SIZE              = "com-bps-previewcode-thumb-font-size"
+        
+    }
+    
+    static let PREVIEW_ERR_DOMAIN               = "com.bps.PreviewCode.Code-Previewer"
 }

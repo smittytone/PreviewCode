@@ -105,7 +105,7 @@ class PreviewViewController: NSViewController,
                     // FROM 1.2.2
                     // We couldn't convert to data to a valid encoding
                     let errDesc: String = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
-                    reportError = NSError(domain: "com.bps.PreviewCode.Code-Previewer",
+                    reportError = NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
                                           code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
                                           userInfo: [NSLocalizedDescriptionKey: errDesc])
                 }
@@ -186,7 +186,7 @@ class PreviewViewController: NSViewController,
             errDesc = "UNKNOWN ERROR"
         }
 
-        return NSError(domain: "com.bps.PreviewCode.Code-Previewer",
+        return NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
                     code: code,
                     userInfo: [NSLocalizedDescriptionKey: errDesc])
     }
