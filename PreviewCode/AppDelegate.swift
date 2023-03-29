@@ -14,7 +14,7 @@ import Highlighter
 
 
 @main
-class AppDelegate: NSObject,
+class AppDelegate: NSResponder,
                    NSApplicationDelegate,
                    URLSessionDelegate,
                    URLSessionDataDelegate,
@@ -62,13 +62,14 @@ class AppDelegate: NSObject,
     @IBOutlet var displayModeSegmentedControl: NSSegmentedControl!
     // FROM 1.1.0
     @IBOutlet weak var codeStylePopup: NSPopUpButton!
-    // FROM 1.2.6
+    // FROM 1.3.0
     @IBOutlet var darkRadioButton: NSButton!
     @IBOutlet var lightRadioButton: NSButton!
     @IBOutlet var autoRadioButton: NSButton!
     @IBOutlet var darkThemeLabel: NSTextField!
     @IBOutlet var lightThemeLabel: NSTextField!
     @IBOutlet var themeHelpLabel: NSTextField!
+    @IBOutlet var themeScrollView: NSScrollView!
     
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
@@ -85,7 +86,7 @@ class AppDelegate: NSObject,
     private  var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
     private  var feedbackPath: String = MNU_SECRETS.ADDRESS.B
     private  var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
-    private  var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
+    private  var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
     private  var selectedThemeIndex: Int = 37
     private  var newThemeIndex: Int = 37
     private  var themes: [Any] = []
@@ -97,12 +98,11 @@ class AppDelegate: NSObject,
     internal var codeStyleName: String = "Regular"
     // FROM 1.2.5
     private  var havePrefsChanged: Bool = false
-    private  var isFirstTableLoad: Bool = true
     internal var isMontereyPlus: Bool = false
-    // FROM 1.2.6
-    private  var newThemeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
+    // FROM 1.3.0
     private  var lightThemeIndex: Int = 0
     private  var darkThemeIndex: Int = 0
+    private  var newThemeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
     private  var newLightThemeIndex: Int = 0
     private  var newDarkThemeIndex: Int = 0
     
@@ -146,7 +146,7 @@ class AppDelegate: NSObject,
         
         // FROM 1.2.0
         // Output language list for debuggung
-        #if DEBUG
+#if DEBUG
         if let hr: Highlighter = Highlighter.init() {
             let list: [String] = hr.supportedLanguages()
             print("***** Languages  *****")
@@ -155,7 +155,7 @@ class AppDelegate: NSObject,
             }
             print("**********************")
         }
-        #endif
+#endif
     }
 
 
@@ -382,7 +382,6 @@ class AppDelegate: NSObject,
         // FROM 1.2.5
         // Reset changed prefs flag
         self.havePrefsChanged = false
-        self.isFirstTableLoad = true
         
         // Set the themes table's contents store, once per runtime
         if self.themes.count == 0 {
@@ -398,11 +397,11 @@ class AppDelegate: NSObject,
             self.themeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME
             
             // FROM 1.3.0
-            self.themeDisplayMode      = defaults.integer(forKey: "com-bps-previewcode-theme-mode")
+            self.themeDisplayMode = defaults.integer(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             self.newThemeDisplayMode = self.themeDisplayMode
             
-            let lightThemeName: String = defaults.string(forKey: "com-bps-previewcode-light-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
-            let darkThemeName: String  = defaults.string(forKey: "com-bps-previewcode-dark-theme-name") ?? BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
+            let lightThemeName: String = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
+            let darkThemeName: String  = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
             
             // Use the loaded theme names to find and set the human-reabable name in the UI
             for i in 0..<self.themes.count {
@@ -421,8 +420,6 @@ class AppDelegate: NSObject,
                     self.newDarkThemeIndex = i
                 }
             }
-            
-            
         }
 
         // Set the font size slider
@@ -443,17 +440,10 @@ class AppDelegate: NSObject,
         selectFontByPostScriptName(self.codeFontName)
 
         // Load the table with themes
-        // 'newThemeIndex' starts as the current selection, but may change
-        // NOTE These should always indicted an index in the full list of themes
-        //self.newThemeIndex = self.selectedThemeIndex
         loadTable()
         
+        // FROM 1.3.0
         // Set the mode control
-        //var selectedMode: Int = 0
-        //if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK { selectedMode = 1 }
-        //if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT { selectedMode = 2 }
-        //self.displayModeSegmentedControl.selectedSegment = selectedMode
-        
         switch(self.themeDisplayMode) {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
                 self.lightRadioButton.state = .on
@@ -469,9 +459,13 @@ class AppDelegate: NSObject,
                 self.autoRadioButton.state = .on
                 self.lightThemeLabel.textColor = NSColor.labelColor
                 self.darkThemeLabel.textColor = NSColor.labelColor
-                self.themeHelpLabel.stringValue = "Use the selected light or dark theme based on the host Mac's mode"
+                self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
         }
         
+        // FROM 1.3.0
+        // Set the responder chain for keyed selection
+        self.themeTable.nextResponder = self
+
         // Display the sheet
         self.preferencesWindow.makeFirstResponder(self.themeTable)
         self.window.beginSheet(self.preferencesWindow, completionHandler: nil)
@@ -493,13 +487,16 @@ class AppDelegate: NSObject,
 
 
     /**
-        When the NSSegmentedContro is clicked, change the theme mode.
+        When a radio button is clicked, change the theme mode.
      
         - Parameters:
             - sender: The source of the action.
      */
     @IBAction private func doSwitchMode(sender: Any) {
-
+        
+        // FROM 1.3.0
+        // Support radio buttons for mode control:
+        // Light only, dark only, or mixed mode.
         if self.lightRadioButton.state == .on {
             self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
             self.lightThemeLabel.textColor = NSColor.labelColor
@@ -510,27 +507,14 @@ class AppDelegate: NSObject,
             self.lightThemeLabel.textColor = NSColor.gray
             self.darkThemeLabel.textColor = NSColor.labelColor
             self.themeHelpLabel.stringValue = "Always use the selected dark theme"
-        } else {
+        } else if self.autoRadioButton.state == .on {
             self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
             self.lightThemeLabel.textColor = NSColor.labelColor
             self.darkThemeLabel.textColor = NSColor.labelColor
-            self.themeHelpLabel.stringValue = "Use the selected light or dark theme based on the host Mac's mode"
+            self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
         }
-        
-        /*
-        let mode: Int = self.displayModeSegmentedControl.selectedSegment
-        switch (mode) {
-        case 1:
-            self.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
-        case 2:
-            self.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
-        default:
-            self.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.ALL
-        }
-        */
         
         // Reload the table and its selection
-        self.isFirstTableLoad = true
         loadTable()
     }
     
@@ -612,35 +596,24 @@ class AppDelegate: NSObject,
                 }
             }
             
-            /*
-            // Update the theme selection if it has changed
-            if self.newThemeIndex != self.selectedThemeIndex {
-                self.selectedThemeIndex = self.newThemeIndex
-                let selectedThemeName: String = codedName(self.newThemeIndex)
-                defaults.setValue(selectedThemeName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
-            }
-             */
-            
-            // FROM 1.2.6
+            // FROM 1.3.0
             // Update the theme selections if they have changed
             if self.newLightThemeIndex != self.lightThemeIndex {
                 self.lightThemeIndex = self.newLightThemeIndex
-                let selectedThemeName: String = codedName(self.lightThemeIndex)
-                defaults.setValue(selectedThemeName,
-                                  forKey: "com-bps-previewcode-light-theme-name")
+                defaults.setValue(codedName(self.lightThemeIndex),
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
             }
             
             if self.newDarkThemeIndex != self.darkThemeIndex {
                 self.darkThemeIndex = self.newDarkThemeIndex
-                let selectedThemeName: String = codedName(self.darkThemeIndex)
-                defaults.setValue(selectedThemeName,
-                                  forKey: "com-bps-previewcode-dark-theme-name")
+                defaults.setValue(codedName(self.darkThemeIndex),
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
             }
             
             if self.newThemeDisplayMode != self.themeDisplayMode {
                 self.themeDisplayMode = self.newThemeDisplayMode
                 defaults.setValue(self.themeDisplayMode,
-                                  forKey: "com-bps-previewcode-theme-mode")
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             }
         }
         
@@ -751,32 +724,22 @@ class AppDelegate: NSObject,
         self.themeTable.deselectAll(self)
         
         // Select the chosen theme
-        // 'getSelectionIndex()' returns nil if nothing is selected
-        // on the table, ie. a dark theme has been chosen but we're
-        // viewing the light table
-        
         var index: Int = self.newLightThemeIndex
         if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
             index = self.newDarkThemeIndex
         }
         
+        // 'getSelectionIndex()' returns nil if nothing is selected
+        // on the table, ie. a dark theme has been chosen but we're
+        // viewing the light table
         if let idx: IndexSet = getSelectionIndex(index) {
             // We can use '.min()' because 'idx' should contain only one value
             let row: Int = idx.min()!
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
             self.themeTable.scrollRowToVisible(row)
             
-            // If we're viewing a subset of the themes, converted
-            // the selected row value to the row that would be selected
-            // if all the data was being shown.
-            
             /*
-            self.newThemeIndex = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO)
-                ? self.themeTable.selectedRow
-                : getBaseIndex(row)
-            */
-            
-            // FROM 1.2.6
+            // FROM 1.3.0
             // Make the changes according to the currently selected mode
             switch(self.newThemeDisplayMode) {
                 case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
@@ -786,13 +749,19 @@ class AppDelegate: NSObject,
                 default:
                     // Get the referenced theme (all are listed) and use it to make the correct
                     // theme selection: light or dark
+                    self.newThemeIndex = self.themeTable.selectedRow
+                    
+                    /*
                     let theme: [String: Any] = self.themes[self.themeTable.selectedRow] as! [String: Any]
                     if theme["dark"] as! Bool {
                         self.newDarkThemeIndex = self.themeTable.selectedRow
                     } else {
                         self.newLightThemeIndex = self.themeTable.selectedRow
                     }
-            }
+                     */
+                
+             }
+             */
         } else {
             self.themeTable.scrollRowToVisible(0)
         }
@@ -808,7 +777,7 @@ class AppDelegate: NSObject,
      - Parameters:
         - indexInFullThemeList: the selected row's reference to an entry in the main list of themes.
      
-     - Returns: the row to select
+     - Returns: The row to select
      */
     private func getSelectionIndex(_ indexInFullThemeList: Int) -> IndexSet? {
         
@@ -837,9 +806,48 @@ class AppDelegate: NSObject,
         return idx
     }
     
+    /**
+     Generate a row index for the displayed table.
+     
+     Bases the selection on whether the full data set is being displayed
+     or only a subset.
+     
+     - Parameters:
+        - indexInFullThemeList: the selected row's reference to an entry in the main list of themes.
+     
+     - Returns: The row to select
+     */
+    private func getRowIndex(_ indexInFullThemeList: Int) -> Int {
+        
+        // Assume we're showing all themes as the default
+        var idx: Int = indexInFullThemeList
+        
+        // But check if we're actually viewing a subset
+        if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            idx = 0
+            for i: Int in 0..<self.darkThemes.count {
+                if self.darkThemes[i] == indexInFullThemeList {
+                    idx = i
+                    break
+                }
+            }
+        } else if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            idx = 0
+            for i: Int in 0..<self.lightThemes.count {
+                if self.lightThemes[i] == indexInFullThemeList {
+                    idx = i
+                    break
+                }
+            }
+        }
+        
+        return idx
+    }
+    
     
     /**
      Calculate a main theme list index from a sub-list index.
+     If the mode is AUTO, just return the passed value.
      
      - Parameters:
         - subListIndex: The sub-list row index.
@@ -848,7 +856,7 @@ class AppDelegate: NSObject,
      */
     func getBaseIndex(_ subListIndex: Int) -> Int {
         
-        var fullListIndex: Int = -1
+        var fullListIndex: Int = subListIndex
         
         if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
             fullListIndex = self.darkThemes[subListIndex]
@@ -1022,6 +1030,7 @@ class AppDelegate: NSObject,
             }
 
             // Font for previews and thumbnails
+            // Default: Menlo
             let codeFontName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
             if codeFontName == nil {
                 defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_FONT,
@@ -1029,10 +1038,12 @@ class AppDelegate: NSObject,
             }
             
             // Theme for previews
-            let themeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
+            // NOTE Unused from 1.3.0
+            var themeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
             if themeName == nil {
                 defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME,
                                   forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
+                themeName = BUFFOON_CONSTANTS.DEFAULT_THEME
             }
 
             // Use light background even in dark mode, stored as a bool
@@ -1044,22 +1055,42 @@ class AppDelegate: NSObject,
                                   forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
             }
             
-            let darkThemeName: Any? = defaults.object(forKey: "com-bps-previewcode-dark-theme-name")
-            if darkThemeName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME_DARK,
-                                  forKey: "com-bps-previewcode-dark-theme-name")
+            // FROM 1.3.0
+            // Establish new defaults to store light and dark theme names.
+            // But check for an existing one so the user's choice is at least
+            // partially maintained, ie. if they selected a dark theme before, that
+            // will become the chosen dark them now
+            var darkThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
+            var lightThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
+            let previousVersionKey: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + "-1-2"
+            let previousVersionDefault: Any? = defaults.object(forKey: previousVersionKey)
+            if previousVersionDefault != nil {
+                // A previous version's defaults exist,
+                // so use the theme setting
+                let aThemeName = themeName as! String
+                if aThemeName.starts(with: "dark.") {
+                    darkThemeName = aThemeName
+                } else {
+                    lightThemeName = aThemeName
+                }
             }
             
-            let lightThemeName: Any? = defaults.object(forKey: "com-bps-previewcode-light-theme-name")
-            if lightThemeName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT,
-                                  forKey: "com-bps-previewcode-light-theme-name")
+            let newDarkThemeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
+            if newDarkThemeName == nil {
+                defaults.setValue(darkThemeName,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
             }
             
-            let defaultDisplayMode: Any? = defaults.object(forKey: "com-bps-previewcode-theme-mode")
+            let newLightThemeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
+            if newLightThemeName == nil {
+                defaults.setValue(lightThemeName,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
+            }
+            
+            let defaultDisplayMode: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             if defaultDisplayMode == nil {
-                defaults.setValue(self.themeDisplayMode,
-                                  forKey: "com-bps-previewcode-theme-mode")
+                defaults.setValue(BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             }
 
             // Show the What's New sheet
@@ -1158,7 +1189,7 @@ class AppDelegate: NSObject,
     func numberOfRows(in tableView: NSTableView) -> Int {
 
         // Just return the number of themes available
-        switch (self.themeDisplayMode) {
+        switch (self.newThemeDisplayMode) {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
                 return self.darkThemes.count
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
@@ -1176,11 +1207,15 @@ class AppDelegate: NSObject,
         
         if cell != nil {
             // Configure the cell's title and its theme preview
-            let index: Int = (self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO) ? row : getBaseIndex(row)
+            
+            // Get the index in the the main theme list,
+            // and thus the theme from that list
+            let index: Int = getBaseIndex(row)
             let theme: [String: Any] = self.themes[index] as! [String: Any]
             let themeName: String = theme["name"] as! String
             let themeCSS: String = theme["css"] as! String
             
+            // Populate cell
             cell!.themePreviewTitle.stringValue = themeName
             cell!.themeIndex = index
             
@@ -1189,7 +1224,7 @@ class AppDelegate: NSObject,
             // images rather then JIT-rendered NSTextViews (too slow)
             if let themePreview: NSImage = NSImage.init(named: themeCSS) {
                 let imv: NSImageView = NSImageView.init(image: themePreview)
-                imv.frame = NSMakeRect(3, 4, 256, 134)
+                imv.frame = NSMakeRect(2, 1, 128, 78)
                 cell!.addSubview(imv)
             }
         }
@@ -1204,19 +1239,13 @@ class AppDelegate: NSObject,
          * that we need to select
          */
         
-        /*
-        self.newThemeIndex = (self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO)
-            ? self.themeTable.selectedRow
-            : getBaseIndex(self.themeTable.selectedRow)
-        */
-        
         // Make sure the table becomes first responder so that the selection
         // is highlighted correctly
         if self.themeTable.selectedRow != -1 {
             self.preferencesWindow.makeFirstResponder(self.themeTable)
         }
         
-        // FROM 1.2.6
+        // FROM 1.3.0
         // Make the changes according to the currently selected mode
         switch(self.newThemeDisplayMode) {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
@@ -1230,6 +1259,7 @@ class AppDelegate: NSObject,
             default:
                 // Get the referenced theme (all are listed) and use it to make the correct
                 // theme selection: light or dark
+                self.newThemeIndex = self.themeTable.selectedRow
                 let theme: [String: Any] = self.themes[self.themeTable.selectedRow] as! [String: Any]
                 if theme["dark"] as! Bool {
                     self.newDarkThemeIndex = self.themeTable.selectedRow
@@ -1239,11 +1269,6 @@ class AppDelegate: NSObject,
                     self.lightThemeLabel.stringValue = theme["name"] as! String
                 }
         }
-        
-        // FROM 1.2.5
-        // Set flags
-        //if !self.isFirstTableLoad { self.havePrefsChanged = true }
-        //if self.isFirstTableLoad { self.isFirstTableLoad = false }
     }
     
     
@@ -1258,11 +1283,74 @@ class AppDelegate: NSObject,
         
         let clickedView: PreviewTextView = notification.object as! PreviewTextView
         let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
+        
+        // parentView.themeIndex -> index in self.themes
         if let idx: IndexSet = getSelectionIndex(parentView.themeIndex) {
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
-            self.newThemeIndex = parentView.themeIndex
             self.preferencesWindow.makeFirstResponder(self.themeTable)
+            
+            // FROM 1.3.0
+            // Update the indices for each type
+            if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+                self.newDarkThemeIndex = parentView.themeIndex
+            } else if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+                self.newLightThemeIndex = parentView.themeIndex
+            } else {
+                self.newThemeIndex = parentView.themeIndex
+            }
         }
+    }
+    
+    
+    // MARK: - NSResponder Functions
+    
+    override func keyUp(with event: NSEvent) {
+        
+        if let chars: String = event.charactersIgnoringModifiers {
+            // Get the tapped character -- should be only one
+            var char: String = String(chars.first!)
+            if char.isEmpty || char.range(of: "[a-z]", options: .regularExpression) == nil {
+                return
+            }
+            
+            // Find a the first theme with that character
+            while true {
+                for i in 0..<self.themes.count {
+                    let theme: [String: Any] = self.themes[i] as! [String: Any]
+                    let cssName: String = theme["css"] as! String
+                    
+                    if cssName.starts(with: char) {
+                        // Matched key to theme name initial:
+                        // Select the row, scroll to it and exit
+                        self.themeTable.scrollRowToVisible(getRowIndex(i))
+                        self.preferencesWindow.makeFirstResponder(self.themeTable)
+                        return
+                    }
+                }
+                
+                // Reached the end without a selection?
+                // Select the last item on the list and exit
+                if char == "z" {
+                    if let idx: IndexSet = getSelectionIndex(self.themes.count - 1) {
+                        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+                        self.themeTable.scrollRowToVisible(getRowIndex(self.themes.count - 1))
+                        self.preferencesWindow.makeFirstResponder(self.themeTable)
+                        return
+                    }
+                }
+                
+                // Move to the next character in the alphabet and try it
+                let scalars = char.unicodeScalars
+                let val = scalars[scalars.startIndex].value
+                char = String(Character(UnicodeScalar(val + 1) ?? "z"))
+            }
+        }
+    }
+    
+    
+    override func scrollWheel(with event: NSEvent) {
+        
+        self.themeScrollView.scrollWheel(with: event)
     }
     
 }

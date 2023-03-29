@@ -29,8 +29,7 @@ final class Common: NSObject {
 
     private var font: NSFont? = nil
     private var highlighter: Highlighter? = nil
-
-
+    
     // MARK:- Lifecycle Functions
 
     init(_ isThumbnail: Bool) {
@@ -38,8 +37,10 @@ final class Common: NSObject {
         super.init()
 
         // Set local values with default properties
-        var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
-        var themeString: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+        var highlightJsThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
+        var lightThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
+        var darkThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
+        var themeMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
         var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
         var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
 
@@ -47,7 +48,12 @@ final class Common: NSObject {
         if let defaults: UserDefaults = UserDefaults(suiteName: MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME) {
             if !isThumbnail {
                 fontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
-                themeString = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME
+                
+                // FROM 1.3.0
+                // Get set theme names for UI mode
+                lightThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
+                darkThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
+                themeMode = defaults.integer(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             }
 
             fontName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_FONT
@@ -56,11 +62,23 @@ final class Common: NSObject {
         // Set instance theme-related properties
         if isThumbnail {
             // Thumbnails use fixed, light-on-dark values
-            themeName = setTheme(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
+            highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
             fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
         } else {
             // Set preview theme details
-            themeName = setTheme(themeString)
+            // FROM 1.3.0 -- adjust by current state or user setting
+            switch(themeMode) {
+                case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
+                    highlightJsThemeName = setTheme(lightThemeName)
+                    self.isThemeDark = false
+                case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
+                    highlightJsThemeName = setTheme(darkThemeName)
+                    self.isThemeDark = true
+                default:
+                    let isLight: Bool = isMacInLightMode()
+                    highlightJsThemeName = isLight ? setTheme(lightThemeName) : setTheme(darkThemeName)
+                    self.isThemeDark = !isLight
+            }
 
             // Just in case the above block reads in zero value for the preview font size
             if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
@@ -78,7 +96,7 @@ final class Common: NSObject {
 
         // Instantiate the instance's highlighter
         if let hr: Highlighter = Highlighter.init() {
-            hr.setTheme(themeName)
+            hr.setTheme(highlightJsThemeName)
             hr.theme.setCodeFont(self.font!)
             self.themeBackgroundColour = hr.theme.themeBackgroundColour
             self.highlighter = hr
@@ -297,7 +315,7 @@ final class Common: NSObject {
 
     - Returns: The source code's UTI.
     */
-    func getSourceFileUTI(_ sourceFilePath: String) -> String {
+    private func getSourceFileUTI(_ sourceFilePath: String) -> String {
 
         // Create a URL reference to the sample file
         var sourceFileUTI: String = ""
@@ -322,12 +340,24 @@ final class Common: NSObject {
 
         return sourceFileUTI
     }
-
+    
+    
+    /**
+     Determine whether the host Mac is in light mode.
+     FROM 1.3.0
+     
+     - Returns: `true` if the Mac is in light mode, otherwise `false`.
+     */
+    private func isMacInLightMode() -> Bool {
+        
+        let appearNameString: String = NSApp.effectiveAppearance.name.rawValue
+        return (appearNameString == "NSAppearanceNameAqua")
+    }
 }
 
 
 /**
-Get the encoding of the string formed from data.
+ Get the encoding of the string formed from data.
 
 - Returns: The string's encoding or nil.
 */

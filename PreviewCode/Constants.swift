@@ -50,7 +50,7 @@ struct BUFFOON_CONSTANTS {
         static let ALL                      = 0
         static let DARK                     = 1
         static let LIGHT                    = 2
-        // FROM 1.2.6
+        // FROM 1.3.0
         static let AUTO                     = 3
         
     }
@@ -96,10 +96,15 @@ struct BUFFOON_CONSTANTS {
     struct PREFS_IDS {
         
         static let MAIN_WHATS_NEW               = "com-bps-previewcode-do-show-whats-new-"
+        
         static let PREVIEW_FONT_SIZE            = "com-bps-previewcode-base-font-size"
         static let PREVIEW_FONT_NAME            = "com-bps-previewcode-base-font-name"
         static let PREVIEW_THEME_NAME           = "com-bps-previewcode-theme-name"
         static let PREVIEW_USE_LIGHT            = "com-bps-previewcode-do-use-light"
+        // FROM 1.3.0
+        static let PREVIEW_LIGHT_NAME           = "com-bps-previewcode-light-theme-name"
+        static let PREVIEW_DARK_NAME            = "com-bps-previewcode-dark-theme-name"
+        static let PREVIEW_THEME_MODE           = "com-bps-previewcode-theme-mode"
         
         static let THUMB_FONT_SIZE              = "com-bps-previewcode-thumb-font-size"
         
@@ -110,4 +115,5 @@ struct BUFFOON_CONSTANTS {
     // FROM 1.3.0
     static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
     static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
+        
 }

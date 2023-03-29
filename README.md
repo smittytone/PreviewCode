@@ -1,4 +1,4 @@
-# PreviewCode 1.2.7
+# PreviewCode 1.3.0
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -37,7 +37,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - CoffeeScript (`.coffee`, `.coffeescript`, `.litcoffee`)
 - Dart (`.dart`)
 - Elixir (`.elxir`, `.ex`, `.exs`)
-- Elm (`.elm`) **NEW**
+- Elm (`.elm`)
 - Erlang (`.erlang`, `.erl`, `.hrl`)
 - Fortran (`.for`)
 - F# (`.fsharp`, `.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
@@ -112,6 +112,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.3.0 *Unreleased*
+    - Support automatic dark/light theme application by macOS UI mode.
 - 1.2.7 *Unreleased*
     - Support `.elm` Elm files.
     - Under-the-hood improvements
