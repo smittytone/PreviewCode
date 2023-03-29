@@ -114,6 +114,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 - 1.2.7 *Unreleased*
     - Support `.elm` Elm files.
+    - Stop *PreviewCode* attempting to preview `.scpt` binary applescript files.
     - Under-the-hood improvements
 - 1.2.6 *18 March 2023*
     - Allow text to be selected in previews.
