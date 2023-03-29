@@ -6,10 +6,12 @@
  *  Copyright © 2023 Tony Smith. All rights reserved.
  */
 
-// Combine the app's various constants into a struct
 import Foundation
 
 
+/*
+ * Combine the app's various constants into a struct
+ */
 struct BUFFOON_CONSTANTS {
 
     struct ERRORS {
@@ -90,9 +92,22 @@ struct BUFFOON_CONSTANTS {
         static let PT                       = "https://apps.apple.com/us/app/previewtext/id1660037028?ls=1"
     }
     
-    static let WHATS_NEW_PREF               = "com-bps-previewcode-do-show-whats-new-"
+    // FROM 1.2.7
+    struct PREFS_IDS {
+        
+        static let MAIN_WHATS_NEW               = "com-bps-previewcode-do-show-whats-new-"
+        static let PREVIEW_FONT_SIZE            = "com-bps-previewcode-base-font-size"
+        static let PREVIEW_FONT_NAME            = "com-bps-previewcode-base-font-name"
+        static let PREVIEW_THEME_NAME           = "com-bps-previewcode-theme-name"
+        static let PREVIEW_USE_LIGHT            = "com-bps-previewcode-do-use-light"
+        
+        static let THUMB_FONT_SIZE              = "com-bps-previewcode-thumb-font-size"
+        
+    }
     
-    // FROM 1.2.6
-    static let DEFAULT_THEME_DARK           = "dark.xcode-dusk"
-    static let DEFAULT_THEME_LIGHT          = "light.xcode"
+    static let PREVIEW_ERR_DOMAIN               = "com.bps.PreviewCode.Code-Previewer"
+    
+    // FROM 1.3.0
+    static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
+    static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
 }

@@ -1,4 +1,4 @@
-# PreviewCode 1.2.6
+# PreviewCode 1.2.7
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -32,16 +32,17 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Brainfuck (`.brainfuck`, `.b`, `.bf`)
 - C (`.c`, `.h`)
 - C++ (`.cpp`, `.hpp`)
-- C# (`.csx`, `.cs`, `.c-sharp`)
+- C# (`.csx`, `.cs`, `.c-sharp`, `.csharp`)
 - Clojure (`.clojure`, `.clj`, `.cljc`, `.cljs`)
 - CoffeeScript (`.coffee`, `.coffeescript`, `.litcoffee`)
 - Dart (`.dart`)
 - Elixir (`.elxir`, `.ex`, `.exs`)
+- Elm (`.elm`) **NEW**
 - Erlang (`.erlang`, `.erl`, `.hrl`)
 - Fortran (`.for`)
-- F# (`.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
+- F# (`.fsharp`, `.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
-- GameMaker Language (`.gml`) **New**
+- GameMaker Language (`.gml`) 
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
@@ -59,6 +60,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Swift (`.swift`)
 - TypeScript (`.typescript`, `.tsx`, `.ts`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
+- Vue.js (`.vue`) 
 
 ### Shell Scripting
 
@@ -82,8 +84,10 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Enviroment (`.env`)
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
-- Misc. files (`.in`, `.out`)
 - Apple Property list files (`.plist`)
+- Apple Entitlements files (`.entitlements`) 
+- Apple Xcode NIB files (`.xib`) 
+- Apple Xcode storyboard files (`.storyboard`) 
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
@@ -93,10 +97,10 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ## Known Issues ##
 
+- *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
+- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files.
+- *PreviewCode* will not render Elixir `.exs` files if GarageBand and/or Logic Pro is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
-- *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product. We are investigating possible workarounds.
-- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. Workaround: use `.tsx` or `.typescript` for TypeScript files.
-- *PreviewCode* will not render Elixir `.exs` files. This is because the `.exs` file extension is pre-set on macOS to EXS24 instrument files. Workaround: use `.ex` for Elixir files.
 
 ## Source Code ##
 
@@ -108,11 +112,15 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.2.6 *Unreleased*
+- 1.2.7 *Unreleased*
+    - Support `.elm` Elm files.
+    - Under-the-hood improvements
+- 1.2.6 *18 March 2023*
     - Allow text to be selected in previews.
     - Support `.gml` GML (GameMaker Language) files.
-    - Support Go `.mod`, `.sum` and `.work` files.
-    - Add preliminary support for `.vue` Vue.js files.
+    - Support `.vue` Vue.js files.
+    - Support `.entitlements`, `.xib`, `.storyboard` Xcode files.
+    - Update to use HighlighterSwift 1.1.1.
 - 1.2.5 *21 January 2023*
     - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
     - Better menu handling when panels are visible.

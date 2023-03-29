@@ -237,7 +237,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="610" height="432"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="610" height="432"/>
             <value key="maxSize" type="size" width="610" height="432"/>
             <value key="minFullScreenContentSize" type="size" width="610" height="432"/>
@@ -275,7 +275,7 @@
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" id="sLV-0q-11K">
                             <font key="font" metaFont="system"/>
-                            <string key="title">Run this app once to register its Code Previewer and Code Thumbnailer application  extensions, which you can then manage in System Preferences &gt; Extensions &gt; Quick Look.</string>
+                            <string key="title">Run this app once to register its Code Previewer and Code Thumbnailer application extensions, which you can then manage in System Preferences &gt; Extensions &gt; Quick Look.</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -287,7 +287,7 @@
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" id="cvf-Zm-70D">
                             <font key="font" metaFont="system"/>
-                            <string key="title">Cases where previews cannot be rendered can usually be resolved by logging out of your Mac account, logging in and re-running this app.</string>
+                            <string key="title">Cases where previews cannot be rendered can usually be resolved bylogging out of your Mac account, logging in and re-running this app.</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -366,7 +366,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" id="g12-Ft-65u">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">PreviewCode and HighlighterSwift © 2023, Tony Smith. Contains Highlight.js © 2006-2023, Ivan Sagalaev and Highlightr © 2016, Juan Pablo Illanes</string>
+                            <string key="title">PreviewCode and HighlighterSwift © 2023, Tony Smith.Contains Highlight.js © 2006-2023, Ivan Sagalaev and Highlightr © 2016, Juan Pablo Illanes</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -527,15 +527,12 @@ DQ
                                                     <rect key="frame" x="0.0" y="0.0" width="486" height="144"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <userGuides>
-                                                        <userLayoutGuide location="72" affinity="minY"/>
+                                                        <userLayoutGuide location="71" affinity="minY"/>
                                                     </userGuides>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="223" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iz-Ro-waZ">
-                                                            <rect key="frame" x="267" y="3" width="227" height="78"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="223" id="mP6-hR-IEz"/>
-                                                                <constraint firstAttribute="height" constant="78" id="s2H-AL-s82"/>
-                                                            </constraints>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="223" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iz-Ro-waZ">
+                                                            <rect key="frame" x="284" y="3" width="210" height="78"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="vcJ-OR-hx8">
                                                                 <font key="font" metaFont="system" size="16"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -543,11 +540,6 @@ DQ
                                                             </textFieldCell>
                                                         </textField>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="7iz-Ro-waZ" firstAttribute="leading" secondItem="9VX-DW-m69" secondAttribute="leading" constant="269" id="RgH-N9-v2T"/>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7iz-Ro-waZ" secondAttribute="trailing" constant="-6" id="f5O-gk-o2h"/>
-                                                        <constraint firstAttribute="bottom" secondItem="7iz-Ro-waZ" secondAttribute="bottom" constant="3" id="q6q-BR-ubB"/>
-                                                    </constraints>
                                                     <connections>
                                                         <outlet property="themePreviewTitle" destination="7iz-Ro-waZ" id="7Ab-S2-bmQ"/>
                                                     </connections>
@@ -789,7 +781,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="560" height="410"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="560" height="410"/>
             <value key="maxSize" type="size" width="560" height="410"/>
             <value key="minFullScreenContentSize" type="size" width="560" height="410"/>
@@ -842,7 +834,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="560" height="356"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="560" height="356"/>
             <value key="maxSize" type="size" width="560" height="356"/>
             <value key="minFullScreenContentSize" type="size" width="560" height="356"/>
