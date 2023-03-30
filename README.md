@@ -16,9 +16,9 @@ You can disable and re-enable the Code Previewer and Code Thumbnailer extensions
 
 Open the main app and click on **Show Preview Preferences**, or select **Preferences...** from the **PreviewCode** menu.
 
-You can select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — and pick which theme you would like previews to use. One hundred themes are included, and you can view all of them, or just dark or light ones.
+You can select from a range of text sizes, choose a monospace font, select the font’s style — regular, bold, italic, etc. — choose your preferred line spacing, and pick which theme you would like previews to use. One hundred themes are included, and you can view all of them, or just dark or light ones.
 
-*PreviewCode* will use your selected theme whether your Mac is set to light or dark mode. It will not adapt according to your system setting, but we may add support for this in a future release.
+*PreviewCode* will allow you to select a dark theme or a light one. These will be applied whatever UI mode your Mac is set to. If you select auto mode, you choose two themes, one light, the other dark. These will be applied automatically based on the current UI mode.
 
 ## Languages
 
@@ -42,7 +42,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Fortran (`.for`)
 - F# (`.fsharp`, `.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
-- GameMaker Language (`.gml`) 
+- GameMaker Language (`.gml`)
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
@@ -60,7 +60,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Swift (`.swift`)
 - TypeScript (`.typescript`, `.tsx`, `.ts`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
-- Vue.js (`.vue`) 
+- Vue.js (`.vue`)
 
 ### Shell Scripting
 
@@ -85,9 +85,9 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
 - Apple Property list files (`.plist`)
-- Apple Entitlements files (`.entitlements`) 
-- Apple Xcode NIB files (`.xib`) 
-- Apple Xcode storyboard files (`.storyboard`) 
+- Apple Entitlements files (`.entitlements`)
+- Apple Xcode NIB files (`.xib`)
+- Apple Xcode storyboard files (`.storyboard`)
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
