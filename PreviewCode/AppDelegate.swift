@@ -23,7 +23,7 @@ class AppDelegate: NSResponder,
                    NSTableViewDataSource,
                    NSTextViewDelegate {
 
-    // MARK:- Class UI Properies
+    // MARK: - Class UI Properies
     
     // Menu Items
     @IBOutlet var helpMenuOnlineHelp: NSMenuItem!
@@ -72,13 +72,15 @@ class AppDelegate: NSResponder,
     @IBOutlet var lightThemeIcon: PCImageView!
     @IBOutlet var themeHelpLabel: NSTextField!
     @IBOutlet var themeScrollView: NSScrollView!
+    @IBOutlet var lineSpacingPopup: NSPopUpButton!
+    @IBOutlet var helpButton: NSButton!
     
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
     @IBOutlet var whatsNewWebView: WKWebView!
 
     
-    // MARK:- Private Properies
+    // MARK: - Private Properies
 
     internal var whatsNewNav: WKNavigation? = nil
     private  var feedbackTask: URLSessionTask? = nil
@@ -107,6 +109,7 @@ class AppDelegate: NSResponder,
     private  var newThemeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
     private  var newLightThemeIndex: Int = 0
     private  var newDarkThemeIndex: Int = 0
+    private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
     
     
     // MARK: - Class Lifecycle Functions
@@ -168,7 +171,7 @@ class AppDelegate: NSResponder,
     }
 
 
-    // MARK:- Action Functions
+    // MARK: - Action Functions
 
     /**
      Called from the File menu's Close item and the various Quit controls.
@@ -284,6 +287,21 @@ class AppDelegate: NSResponder,
     @IBAction private func doOpenSysPrefs(sender: Any) {
 
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
+    }
+    
+    
+    /**
+     Alternative route to help, from the **Preferences** panel.
+     FROM 1.3.0
+     
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction private func doShowPrefsHelp(sender: Any) {
+        
+        let path: String = BUFFOON_CONSTANTS.MAIN_URL + "#customise-the-preview"
+        NSWorkspace.shared.open(URL.init(string:path)!)
+
     }
 
 
@@ -422,6 +440,9 @@ class AppDelegate: NSResponder,
                     self.newDarkThemeIndex = i
                 }
             }
+            
+            // FROM 1.3.0
+            self.lineSpacing = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING))
         }
 
         // Set the font size slider
@@ -473,6 +494,19 @@ class AppDelegate: NSResponder,
         // FROM 1.3.0
         // Set the responder chain for keyed selection
         self.themeTable.nextResponder = self
+        
+        // FROM 1.3.0
+        // Set the line spacing selector
+        switch(round(self.lineSpacing * 100) / 100.0) {
+            case 1.25:
+                self.lineSpacingPopup.selectItem(at: 1)
+            case 1.5:
+                self.lineSpacingPopup.selectItem(at: 2)
+            case 2.0:
+                self.lineSpacingPopup.selectItem(at: 3)
+            default:
+                self.lineSpacingPopup.selectItem(at: 0)
+        }
 
         // Display the sheet
         self.preferencesWindow.makeFirstResponder(self.themeTable)
@@ -481,10 +515,10 @@ class AppDelegate: NSResponder,
 
 
     /**
-        When the font size slider is moved and released, this function updates the font size readout.
+     When the font size slider is moved and released, this function updates the font size readout.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doMoveSlider(sender: Any) {
         
@@ -495,10 +529,10 @@ class AppDelegate: NSResponder,
 
 
     /**
-        When a radio button is clicked, change the theme mode.
+     When a radio button is clicked, change the theme mode.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doSwitchMode(sender: Any) {
         
@@ -566,10 +600,10 @@ class AppDelegate: NSResponder,
 
     
     /**
-        Close the **Preferences** sheet without saving.
+     Close the **Preferences** sheet without saving.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doClosePreferences(sender: Any) {
 
@@ -582,10 +616,10 @@ class AppDelegate: NSResponder,
 
     
     /**
-        Close the **Preferences** sheet and save any settings that have changed.
+     Close the **Preferences** sheet and save any settings that have changed.
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doSavePreferences(sender: Any) {
 
@@ -629,6 +663,27 @@ class AppDelegate: NSResponder,
                 defaults.setValue(self.themeDisplayMode,
                                   forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             }
+            
+            // FROM 1.3.0
+            // Save the selected line spacing
+            let lineIndex: Int = self.lineSpacingPopup.indexOfSelectedItem
+            var lineSpacing: CGFloat = 1.0
+            switch(lineIndex) {
+                case 1:
+                    lineSpacing = 1.25
+                case 2:
+                    lineSpacing = 1.5
+                case 3:
+                    lineSpacing = 2.0
+                default:
+                    lineSpacing = 1.0
+            }
+            
+            if (self.lineSpacing != lineSpacing) {
+                self.lineSpacing = lineSpacing
+                defaults.setValue(lineSpacing,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            }
         }
         
         // Remove the sheet now we have the data
@@ -643,15 +698,15 @@ class AppDelegate: NSResponder,
     // MARK: - What's New Functions
     
     /**
-        Show the 'What's New' sheet.
-     
-        If we're on a new, non-patch version, of the user has explicitly
-        asked to see it with a menu click See if we're coming from a menu click
-        (`sender != self`) or directly in code from *appDidFinishLoading()*
-        (`sender == self`)
-     
-        - Parameters:
-            - sender: The source of the action.
+     Show the 'What's New' sheet.
+ 
+     If we're on a new, non-patch version, of the user has explicitly
+     asked to see it with a menu click See if we're coming from a menu click
+     (`sender != self`) or directly in code from *appDidFinishLoading()*
+     (`sender == self`)
+ 
+     - Parameters:
+        - sender: The source of the action.
      */
     @IBAction private func doShowWhatsNew(_ sender: Any) {
         
@@ -693,13 +748,13 @@ class AppDelegate: NSResponder,
 
 
     /**
-        Close the 'What's New' sheet.
+     Close the 'What's New' sheet.
      
-        Make sure we clear the preference flag for this minor version, so that
-        the sheet is not displayed next time the app is run (unless the version changes)
+     Make sure we clear the preference flag for this minor version, so that
+     the sheet is not displayed next time the app is run (unless the version changes)
      
-        - Parameters:
-            - sender: The source of the action.
+     - Parameters:
+        - sender: The source of the action.
      */
      @IBAction private func doCloseWhatsNew(_ sender: Any) {
 
@@ -751,31 +806,6 @@ class AppDelegate: NSResponder,
             let row: Int = idx.min()!
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
             self.themeTable.scrollRowToVisible(row)
-            
-            /*
-            // FROM 1.3.0
-            // Make the changes according to the currently selected mode
-            switch(self.newThemeDisplayMode) {
-                case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
-                    self.newLightThemeIndex = getBaseIndex(self.themeTable.selectedRow)
-                case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
-                    self.newDarkThemeIndex = getBaseIndex(self.themeTable.selectedRow)
-                default:
-                    // Get the referenced theme (all are listed) and use it to make the correct
-                    // theme selection: light or dark
-                    self.newThemeIndex = self.themeTable.selectedRow
-                    
-                    /*
-                    let theme: [String: Any] = self.themes[self.themeTable.selectedRow] as! [String: Any]
-                    if theme["dark"] as! Bool {
-                        self.newDarkThemeIndex = self.themeTable.selectedRow
-                    } else {
-                        self.newLightThemeIndex = self.themeTable.selectedRow
-                    }
-                     */
-                
-             }
-             */
         } else {
             self.themeTable.scrollRowToVisible(0)
         }
@@ -1188,7 +1218,7 @@ class AppDelegate: NSResponder,
         return nil
     }
 
-    
+
     /**
      Get the 'coded' name of a theme, eg. 'agate-dark' -> 'dark.agate-dark'.
      
@@ -1259,7 +1289,7 @@ class AppDelegate: NSResponder,
     func tableViewSelectionDidChange(_ notification: Notification) {
         
         /* Get the clicked NSTableCellView and use it to get the table row
-         * that we need to select
+         * that we need to select.
          */
         
         // Make sure the table becomes first responder so that the selection
@@ -1301,7 +1331,7 @@ class AppDelegate: NSResponder,
         
         /* Get the clicked NSTextView and use it to determine the parent
          * ThemeTableCellView, from which we get the table row that
-         * we need to select
+         * we need to select.
          */
         
         let clickedView: PreviewTextView = notification.object as! PreviewTextView
@@ -1328,6 +1358,13 @@ class AppDelegate: NSResponder,
     // MARK: - NSResponder Functions
     
     override func keyUp(with event: NSEvent) {
+        
+        /* Check for alpha key presses so the Preferences theme table
+         * can jump to the theme with the closest initial. Go on to the next
+         * character if the is no theme with that initial, ie. if the user
+         * hits `q` and there is no theme beginning with `q`, try `r` and
+         * so on.
+         */
         
         if let chars: String = event.charactersIgnoringModifiers {
             // Get the tapped character -- should be only one
@@ -1372,6 +1409,8 @@ class AppDelegate: NSResponder,
     
     
     override func scrollWheel(with event: NSEvent) {
+        
+        // Relay scroll events to the NSScrollView
         
         self.themeScrollView.scrollWheel(with: event)
     }

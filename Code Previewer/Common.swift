@@ -18,14 +18,14 @@ import Highlighter
 // Implement as a class
 final class Common: NSObject {
 
-    // MARK:- Public Properties
+    // MARK: - Public Properties
 
     var themeBackgroundColour: NSColor = NSColor.white
     var isThemeDark: Bool              = false
     var initError: Bool                = false
 
 
-    // MARK:- Private Properties
+    // MARK: - Private Properties
 
     private var font: NSFont? = nil
     private var highlighter: Highlighter? = nil
@@ -33,7 +33,8 @@ final class Common: NSObject {
     private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
     private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
     
-    // MARK:- Lifecycle Functions
+    
+    // MARK: - Lifecycle Functions
 
     init(_ isThumbnail: Bool) {
 
@@ -106,7 +107,9 @@ final class Common: NSObject {
             hr.theme.setCodeFont(self.font!)
             
             // Requires HighligherSwift 1.1.3
-            hr.theme.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
+            if !isThumbnail {
+                hr.theme.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
+            }
             
             self.themeBackgroundColour = hr.theme.themeBackgroundColour
             self.highlighter = hr
@@ -118,7 +121,7 @@ final class Common: NSObject {
     }
 
     
-    // MARK:- The Primary Function
+    // MARK: - The Primary Function
 
     /**
     Use HightlightSwift to style the source code string.

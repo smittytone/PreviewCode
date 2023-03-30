@@ -10,11 +10,16 @@
 import Cocoa
 
 
+/**
+ A very basic subclass so we can dfraw a line around theme mode icons in Preferences.
+*/
+
 class PCImageView: NSImageView {
     
     // MARK: - Private Properties
     
     private var outline: Bool = false
+    
     
     // MARK: - Public Properties
     

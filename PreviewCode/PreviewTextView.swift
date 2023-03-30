@@ -13,6 +13,7 @@ import Cocoa
 /**
  A very basic subclass so we can adjust the cursor hovering over theme previews.
 */
+
 class PreviewTextView: NSTextView {
 
     override func mouseMoved(with event: NSEvent) {

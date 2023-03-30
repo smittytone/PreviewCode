@@ -13,7 +13,7 @@ import Cocoa
 
 class ThumbnailProvider: QLThumbnailProvider {
 
-    // MARK:- Private Properties
+    // MARK: - Private Properties
     
     private enum ThumbnailerError: Error {
         case badFileLoad(String)
