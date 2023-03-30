@@ -68,6 +68,8 @@ class AppDelegate: NSResponder,
     @IBOutlet var autoRadioButton: NSButton!
     @IBOutlet var darkThemeLabel: NSTextField!
     @IBOutlet var lightThemeLabel: NSTextField!
+    @IBOutlet var darkThemeIcon: PCImageView!
+    @IBOutlet var lightThemeIcon: PCImageView!
     @IBOutlet var themeHelpLabel: NSTextField!
     @IBOutlet var themeScrollView: NSScrollView!
     
@@ -449,16 +451,22 @@ class AppDelegate: NSResponder,
                 self.lightRadioButton.state = .on
                 self.lightThemeLabel.textColor = NSColor.labelColor
                 self.darkThemeLabel.textColor = NSColor.gray
+                self.darkThemeIcon.isOutlined = false
+                self.lightThemeIcon.isOutlined = true
                 self.themeHelpLabel.stringValue = "Always use the selected light theme"
             case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
                 self.darkRadioButton.state = .on
                 self.lightThemeLabel.textColor = NSColor.gray
                 self.darkThemeLabel.textColor = NSColor.labelColor
+                self.darkThemeIcon.isOutlined = true
+                self.lightThemeIcon.isOutlined = false
                 self.themeHelpLabel.stringValue = "Always use the selected dark theme"
             default:
                 self.autoRadioButton.state = .on
                 self.lightThemeLabel.textColor = NSColor.labelColor
                 self.darkThemeLabel.textColor = NSColor.labelColor
+                self.darkThemeIcon.isOutlined = true
+                self.lightThemeIcon.isOutlined = true
                 self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
         }
         
@@ -501,16 +509,22 @@ class AppDelegate: NSResponder,
             self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
             self.lightThemeLabel.textColor = NSColor.labelColor
             self.darkThemeLabel.textColor = NSColor.gray
+            self.darkThemeIcon.isOutlined = false
+            self.lightThemeIcon.isOutlined = true
             self.themeHelpLabel.stringValue = "Always use the selected light theme"
         } else if self.darkRadioButton.state == .on {
             self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
             self.lightThemeLabel.textColor = NSColor.gray
             self.darkThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeIcon.isOutlined = true
+            self.lightThemeIcon.isOutlined = false
             self.themeHelpLabel.stringValue = "Always use the selected dark theme"
         } else if self.autoRadioButton.state == .on {
             self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
             self.lightThemeLabel.textColor = NSColor.labelColor
             self.darkThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeIcon.isOutlined = true
+            self.lightThemeIcon.isOutlined = true
             self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
         }
         

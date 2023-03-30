@@ -21,6 +21,7 @@
                 <outlet property="codeStylePopup" destination="sIn-aM-jcn" id="g9D-XR-Tum"/>
                 <outlet property="connectionProgress" destination="tAy-4n-Mlm" id="JrN-W5-JML"/>
                 <outlet property="darkRadioButton" destination="whU-r2-FEi" id="knH-3Q-JK4"/>
+                <outlet property="darkThemeIcon" destination="bgS-wL-nXh" id="zus-w9-tm5"/>
                 <outlet property="darkThemeLabel" destination="Ycv-Vv-m6D" id="g9E-HF-oD7"/>
                 <outlet property="feedbackText" destination="rME-5J-5yH" id="yEn-3B-e4A"/>
                 <outlet property="fontSizeLabel" destination="2HA-Yj-cyf" id="psJ-3Z-WQI"/>
@@ -39,6 +40,7 @@
                 <outlet property="helpMenuReportBug" destination="9jb-nj-WtE" id="Vpg-vY-TAy"/>
                 <outlet property="helpMenuWhatsNew" destination="8ow-rc-CzH" id="4HX-fK-xLa"/>
                 <outlet property="lightRadioButton" destination="ExI-Lh-gsR" id="Nma-Se-w2w"/>
+                <outlet property="lightThemeIcon" destination="OOY-7B-uHd" id="b54-AT-XjF"/>
                 <outlet property="lightThemeLabel" destination="wJZ-PH-Qeu" id="HI5-Ub-QVs"/>
                 <outlet property="mainMenuSettings" destination="BOF-NM-1cW" id="eFP-SJ-yB1"/>
                 <outlet property="preferencesWindow" destination="jjd-uj-Puq" id="1ud-bv-mbH"/>
@@ -685,7 +687,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJZ-PH-Qeu">
-                        <rect key="frame" x="346" y="129" width="196" height="16"/>
+                        <rect key="frame" x="318" y="129" width="224" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" title="Label" id="XYw-rd-JGx">
                             <font key="font" metaFont="system"/>
@@ -694,7 +696,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ycv-Vv-m6D">
-                        <rect key="frame" x="346" y="107" width="195" height="16"/>
+                        <rect key="frame" x="318" y="107" width="223" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Label" id="eYO-U3-SmB">
                             <font key="font" metaFont="system"/>
@@ -711,24 +713,6 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FCt-g4-m6h">
-                        <rect key="frame" x="278" y="129" width="64" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="right" title="Light:" id="6m5-Kj-3TF">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wdk-Qi-440">
-                        <rect key="frame" x="278" y="107" width="64" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="right" title="Dark:" id="na5-i1-V5B">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ExI-Lh-gsR">
                         <rect key="frame" x="200" y="150" width="57" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -740,6 +724,16 @@ DQ
                             <action selector="doSwitchModeWithSender:" target="Voe-Tx-rLC" id="ud8-KW-2Pa"/>
                         </connections>
                     </button>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOY-7B-uHd" customClass="PCImageView" customModule="PreviewCode" customModuleProvider="target">
+                        <rect key="frame" x="280" y="129" width="32" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folder-icon-light" id="APP-RT-MDg"/>
+                    </imageView>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bgS-wL-nXh" customClass="PCImageView" customModule="PreviewCode" customModuleProvider="target">
+                        <rect key="frame" x="280" y="107" width="32" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folder-icon-dark" id="VBl-Jj-74Y"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="PYb-qG-NEg" firstAttribute="leading" secondItem="sR8-0k-h5k" secondAttribute="leading" constant="20" symbolic="YES" id="0xd-mG-ZVQ"/>
@@ -942,5 +936,7 @@ Gw
     </objects>
     <resources>
         <image name="app_logo" width="64" height="64"/>
+        <image name="folder-icon-dark" width="32" height="16"/>
+        <image name="folder-icon-light" width="32" height="16"/>
     </resources>
 </document>

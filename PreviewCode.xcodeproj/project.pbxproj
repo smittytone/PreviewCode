@@ -11,6 +11,7 @@
 		3B1108BA26714AE700A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B926714AE700A36A48 /* Highlighter */; };
 		3B1108BC26714AED00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108BB26714AED00A36A48 /* Highlighter */; };
 		3B271DCA268B0A9B00EFC72C /* themes-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B271DC9268B0A9B00EFC72C /* themes-list.json */; };
+		3B3F580D29D5892900E227C7 /* PCImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F580C29D5892900E227C7 /* PCImageView.swift */; };
 		3B6ABAC52669649500A436AA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 		3B6ABACA266966DA00A436AA /* code-sample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B6ABAC62669664300A436AA /* code-sample.txt */; };
 		3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PreviewTextView.swift */; };
@@ -92,6 +93,7 @@
 
 /* Begin PBXFileReference section */
 		3B271DC9268B0A9B00EFC72C /* themes-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "themes-list.json"; sourceTree = "<group>"; };
+		3B3F580C29D5892900E227C7 /* PCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCImageView.swift; sourceTree = "<group>"; };
 		3B6ABAC62669664300A436AA /* code-sample.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "code-sample.txt"; sourceTree = "<group>"; };
 		3B6ABACB2669703800A436AA /* PreviewTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTextView.swift; sourceTree = "<group>"; };
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				3B6ABACB2669703800A436AA /* PreviewTextView.swift */,
 				3BDE3EF5267CE9890037351C /* GenericExtensions.swift */,
 				3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */,
+				3B3F580C29D5892900E227C7 /* PCImageView.swift */,
 				3BA5D03A269081BF00AF4EF2 /* PMFont.swift */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
 				3BFD781E2663E16E002AD588 /* Info.plist */,
@@ -506,6 +509,7 @@
 				3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */,
 				3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */,
 				3BDE3EF6267CE9890037351C /* GenericExtensions.swift in Sources */,
+				3B3F580D29D5892900E227C7 /* PCImageView.swift in Sources */,
 				3B6ABAC52669649500A436AA /* Common.swift in Sources */,
 				3BFD78592663E2C9002AD588 /* Constants.swift in Sources */,
 			);
