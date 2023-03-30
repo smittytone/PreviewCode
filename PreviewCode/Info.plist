@@ -723,7 +723,6 @@
 				<array>
 					<string>asciidoc</string>
 					<string>adoc</string>
-					<string>asc</string>
 				</array>
 			</dict>
 		</dict>
