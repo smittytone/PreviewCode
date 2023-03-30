@@ -77,7 +77,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ### Others
 
-- AsciiDoc (`.asciidoc`, `.adoc`, `.asc`)
+- AsciiDoc (`.asciidoc`, `.adoc`)
 - Config files (`.conf`, `.cf`, `.cfg`, `.ini`, `.rc`)
 - Cmake files (`.cmake`)
 - CSS (`.css`)
@@ -114,6 +114,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 - 1.3.0 *Unreleased*
     - Support automatic dark/light theme application by macOS UI mode.
+    - Add line spacing control.
+    - No longer support `.asc` for AsciiDoc.
 - 1.2.7 *Unreleased*
     - Support `.elm` Elm files.
     - Stop *PreviewCode* attempting to preview `.scpt` binary applescript files.
