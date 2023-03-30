@@ -30,7 +30,7 @@ final class Common: NSObject {
     private var font: NSFont? = nil
     private var highlighter: Highlighter? = nil
     // FROM 1.3.0
-    private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.BASE_LINE_SPACING
+    private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
     private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
     
     // MARK:- Lifecycle Functions
@@ -56,6 +56,10 @@ final class Common: NSObject {
                 lightThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
                 darkThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
                 themeMode = defaults.integer(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
+                
+                // FROM 1.3.0
+                // Get line spacing (not yet exposed in UI)
+                self.lineSpacing = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING))
             }
 
             fontName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_FONT
@@ -100,6 +104,10 @@ final class Common: NSObject {
         if let hr: Highlighter = Highlighter.init() {
             hr.setTheme(highlightJsThemeName)
             hr.theme.setCodeFont(self.font!)
+            
+            // Requires HighligherSwift 1.1.3
+            hr.theme.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
+            
             self.themeBackgroundColour = hr.theme.themeBackgroundColour
             self.highlighter = hr
         } else {
@@ -127,8 +135,8 @@ final class Common: NSObject {
         var renderedString: NSAttributedString? = nil
         
         // FROM 1.3.0
-        let spacedParaStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-        spacedParaStyle.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
+        //let spacedParaStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+        //spacedParaStyle.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
         
         if let hr: Highlighter = self.highlighter {
             renderedString = hr.highlight(codeFileString, as: language)
@@ -148,12 +156,10 @@ final class Common: NSObject {
 
                 let hs: NSMutableAttributedString = NSMutableAttributedString.init(string: "Language: \(language)\n", attributes: debugAtts)
                 hs.append(ras)
-                hs.addParaStyle(with: spacedParaStyle)
+                //hs.addParaStyle(with: spacedParaStyle)
                 return hs as NSAttributedString
 #else
-                let hs: NSMutableAttributedString = NSMutableAttributedString.init(attributedString: ras)
-                hs.addParaStyle(with: spacedParaStyle)
-                return hs as NSAttributedString
+                return ras
 #endif
             }
         }
@@ -380,26 +386,5 @@ extension Data {
                                                           convertedString: &nss,
                                                           usedLossyConversion: nil), rawValue != 0 else { return nil }
         return .init(rawValue: rawValue)
-    }
-}
-
-
-/**
- Swap the paragraph style in all of the attributes of
- an NSMutableAttributedString.
-
-- Parameters:
- - paraStyle: The injected NSParagraphStyle.
-*/
-extension NSMutableAttributedString {
-    
-    func addParaStyle(with paraStyle: NSParagraphStyle) {
-        beginEditing()
-        self.enumerateAttribute(.paragraphStyle, in: NSRange(location: 0, length: self.length)) { (value, range, stop) in
-            if let _ = value as? NSParagraphStyle {
-                addAttribute(.paragraphStyle, value: paraStyle, range: range)
-            }
-        }
-        endEditing()
     }
 }

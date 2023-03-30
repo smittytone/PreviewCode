@@ -1106,6 +1106,15 @@ class AppDelegate: NSResponder,
                 defaults.setValue(BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO,
                                   forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
             }
+            
+            // FROM 1.3.0
+            // Line spacing
+            // Default: 1.0
+            let lineSpacing:Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            if lineSpacing == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            }
 
             // Show the What's New sheet
             // Default: true

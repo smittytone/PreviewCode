@@ -101,6 +101,7 @@ struct BUFFOON_CONSTANTS {
         static let PREVIEW_FONT_NAME            = "com-bps-previewcode-base-font-name"
         static let PREVIEW_THEME_NAME           = "com-bps-previewcode-theme-name"
         static let PREVIEW_USE_LIGHT            = "com-bps-previewcode-do-use-light"
+        static let PREVIEW_LINE_SPACING         = "com-bps-previewcode-line-spacing"
         // FROM 1.3.0
         static let PREVIEW_LIGHT_NAME           = "com-bps-previewcode-light-theme-name"
         static let PREVIEW_DARK_NAME            = "com-bps-previewcode-dark-theme-name"
@@ -115,6 +116,6 @@ struct BUFFOON_CONSTANTS {
     // FROM 1.3.0
     static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
     static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
-    static let BASE_LINE_SPACING                = 1.15
+    static let DEFAULT_LINE_SPACING             = 1.25
         
 }

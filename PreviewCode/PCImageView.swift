@@ -1,15 +1,22 @@
-//
-//  PCImageView.swift
-//  PreviewCode
-//
-//  Created by Tony Smith on 30/03/2023.
-//
+/*
+ *  PCImageView.swift
+ *  PreviewCode
+ *
+ *  Created by Tony Smith on 18/06/2021.
+ *  Copyright © 2023 Tony Smith. All rights reserved.
+ */
+
 
 import Cocoa
 
+
 class PCImageView: NSImageView {
     
+    // MARK: - Private Properties
+    
     private var outline: Bool = false
+    
+    // MARK: - Public Properties
     
     var isOutlined: Bool {
         get {
@@ -21,6 +28,8 @@ class PCImageView: NSImageView {
         }
     }
     
+    
+    // MARK: - Public Functions
     
     override func draw(_ dirtyRect: NSRect) {
         
