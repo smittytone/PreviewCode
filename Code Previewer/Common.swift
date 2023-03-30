@@ -29,6 +29,9 @@ final class Common: NSObject {
 
     private var font: NSFont? = nil
     private var highlighter: Highlighter? = nil
+    // FROM 1.3.0
+    private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.BASE_LINE_SPACING
+    private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
     
     // MARK:- Lifecycle Functions
 
@@ -42,12 +45,11 @@ final class Common: NSObject {
         var darkThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
         var themeMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
         var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-        var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
 
         // Read in the user preferences to update the above values
         if let defaults: UserDefaults = UserDefaults(suiteName: MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME) {
             if !isThumbnail {
-                fontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
+                self.fontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
                 
                 // FROM 1.3.0
                 // Get set theme names for UI mode
@@ -63,7 +65,7 @@ final class Common: NSObject {
         if isThumbnail {
             // Thumbnails use fixed, light-on-dark values
             highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
-            fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
+            self.fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
         } else {
             // Set preview theme details
             // FROM 1.3.0 -- adjust by current state or user setting
@@ -81,17 +83,17 @@ final class Common: NSObject {
             }
 
             // Just in case the above block reads in zero value for the preview font size
-            if fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
-                fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
-                fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+            if self.fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
+                self.fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
+                self.fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
             }
         }
 
         // Generate the font we'll use, at the required size
-        if let chosenFont: NSFont = NSFont.init(name: fontName, size: fontSize) {
+        if let chosenFont: NSFont = NSFont.init(name: fontName, size: self.fontSize) {
             self.font = chosenFont
         } else {
-            self.font = NSFont.systemFont(ofSize: fontSize)
+            self.font = NSFont.systemFont(ofSize: self.fontSize)
         }
 
         // Instantiate the instance's highlighter
@@ -123,7 +125,11 @@ final class Common: NSObject {
 
         // Run the specified code string through Highlightr/Highlight.js
         var renderedString: NSAttributedString? = nil
-
+        
+        // FROM 1.3.0
+        let spacedParaStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+        spacedParaStyle.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
+        
         if let hr: Highlighter = self.highlighter {
             renderedString = hr.highlight(codeFileString, as: language)
         }
@@ -134,7 +140,7 @@ final class Common: NSObject {
             if (ras.string != "undefined") {
                 // FROM 1.2.0
                 // During debugging, add language name to preview
-                #if DEBUG
+#if DEBUG
                 let debugAtts: [NSAttributedString.Key : Any] = [
                     .foregroundColor: NSColor.red,
                     .font: self.font!
@@ -142,10 +148,13 @@ final class Common: NSObject {
 
                 let hs: NSMutableAttributedString = NSMutableAttributedString.init(string: "Language: \(language)\n", attributes: debugAtts)
                 hs.append(ras)
-                return NSAttributedString.init(attributedString: hs)
-                #else
-                return ras
-                #endif
+                hs.addParaStyle(with: spacedParaStyle)
+                return hs as NSAttributedString
+#else
+                let hs: NSMutableAttributedString = NSMutableAttributedString.init(attributedString: ras)
+                hs.addParaStyle(with: spacedParaStyle)
+                return hs as NSAttributedString
+#endif
             }
         }
 
@@ -371,5 +380,26 @@ extension Data {
                                                           convertedString: &nss,
                                                           usedLossyConversion: nil), rawValue != 0 else { return nil }
         return .init(rawValue: rawValue)
+    }
+}
+
+
+/**
+ Swap the paragraph style in all of the attributes of
+ an NSMutableAttributedString.
+
+- Parameters:
+ - paraStyle: The injected NSParagraphStyle.
+*/
+extension NSMutableAttributedString {
+    
+    func addParaStyle(with paraStyle: NSParagraphStyle) {
+        beginEditing()
+        self.enumerateAttribute(.paragraphStyle, in: NSRange(location: 0, length: self.length)) { (value, range, stop) in
+            if let _ = value as? NSParagraphStyle {
+                addAttribute(.paragraphStyle, value: paraStyle, range: range)
+            }
+        }
+        endEditing()
     }
 }
