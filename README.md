@@ -116,7 +116,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
     - Support automatic dark/light theme application by macOS UI mode.
     - Add line spacing control.
     - No longer support `.asc` for AsciiDoc.
-- 1.2.7 *Unreleased*
+- 1.2.7 *31 March 2023*
     - Support `.elm` Elm files.
     - Stop *PreviewCode* attempting to preview `.scpt` binary applescript files.
     - Under-the-hood improvements
