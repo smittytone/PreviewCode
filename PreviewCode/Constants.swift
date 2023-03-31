@@ -116,6 +116,6 @@ struct BUFFOON_CONSTANTS {
     // FROM 1.3.0
     static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
     static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
-    static let DEFAULT_LINE_SPACING             = 1.25
+    static let DEFAULT_LINE_SPACING             = 1.0
         
 }
