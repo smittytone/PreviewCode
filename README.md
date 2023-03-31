@@ -42,7 +42,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Fortran (`.for`)
 - F# (`.fsharp`, `.f-sharp`, `.fsi`, `.fsx`, `.fsscript`)
 - Go (`.go`)
-- GameMaker Language (`.gml`) 
+- GameMaker Language (`.gml`)
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
 - JavaScript (`.js`)
@@ -60,7 +60,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Swift (`.swift`)
 - TypeScript (`.typescript`, `.tsx`, `.ts`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
-- Vue.js (`.vue`) 
+- Vue.js (`.vue`)
 
 ### Shell Scripting
 
@@ -85,9 +85,9 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
 - Apple Property list files (`.plist`)
-- Apple Entitlements files (`.entitlements`) 
-- Apple Xcode NIB files (`.xib`) 
-- Apple Xcode storyboard files (`.storyboard`) 
+- Apple Entitlements files (`.entitlements`)
+- Apple Xcode NIB files (`.xib`)
+- Apple Xcode storyboard files (`.storyboard`)
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
@@ -112,7 +112,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.2.7 *Unreleased*
+- 1.2.7 *31 March 2023*
     - Support `.elm` Elm files.
     - Stop *PreviewCode* attempting to preview `.scpt` binary applescript files.
     - Under-the-hood improvements
