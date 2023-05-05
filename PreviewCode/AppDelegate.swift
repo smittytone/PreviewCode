@@ -141,16 +141,8 @@ class AppDelegate: NSResponder,
         let theApp = NSApplication.shared
         theApp.helpMenu = dummyHelpMenu
         
-        // Centre the main window and display
-        self.window.center()
-        self.window.makeKeyAndOrderFront(self)
-
-        // Show the 'What's New' panel if we need to
-        // NOTE Has to take place at the end of the function
-        doShowWhatsNew(self)
-        
         // FROM 1.2.0
-        // Output language list for debuggung
+        // Output language list for debugging
 #if DEBUG
         if let hr: Highlighter = Highlighter.init() {
             let list: [String] = hr.supportedLanguages()
@@ -161,6 +153,14 @@ class AppDelegate: NSResponder,
             print("**********************")
         }
 #endif
+        
+        // Centre the main window and display
+        self.window.center()
+        self.window.makeKeyAndOrderFront(self)
+
+        // Show the 'What's New' panel if we need to
+        // NOTE Has to take place at the end of the function
+        doShowWhatsNew(self)
     }
 
 
