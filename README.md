@@ -58,7 +58,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Ruby (`.rb`)
 - Rust (`.rs`, `.rust`)
 - Swift (`.swift`)
-- TypeScript (`.typescript`, `.tsx`, `.ts`)
+- TypeScript (`.typescript`, `.tsx`)
 - Visual Basic Script (`.vbscript`, `.vbe`, `.vbs`, `.wsc`, `.wsf`)
 - Vue.js (`.vue`)
 
@@ -112,7 +112,7 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
-- 1.3.0 *Unreleased*
+- 1.3.0 *31 May 2023*
     - Support automatic dark/light theme application by macOS UI mode.
     - Add line spacing control.
 - 1.2.7 *31 March 2023*
