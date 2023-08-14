@@ -87,8 +87,6 @@ class AppDelegate: NSResponder,
     private  var codeFontSize: CGFloat = 16.0
     private  var codeFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
     private  var doShowLightBackground: Bool = false
-    private  var appSuiteName: String = MNU_SECRETS.PID + ".suite.preview-code"
-    private  var feedbackPath: String = MNU_SECRETS.ADDRESS.B
     private  var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
     private  var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
     private  var selectedThemeIndex: Int = 37
@@ -110,6 +108,13 @@ class AppDelegate: NSResponder,
     private  var newLightThemeIndex: Int = 0
     private  var newDarkThemeIndex: Int = 0
     private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
+
+    /*
+     Replace the following string with your own team ID. This is used to
+     identify the app suite and so share preferences set by the main app with
+     the previewer and thumbnailer extensions.
+     */
+    private  var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
     
     
     // MARK: - Class Lifecycle Functions
@@ -360,17 +365,21 @@ class AppDelegate: NSResponder,
         if feedback.count > 0 {
             // Start the connection indicator if it's not already visible
             self.connectionProgress.startAnimation(self)
-            
-            self.feedbackTask = submitFeedback(feedback)
+
+            /*
+             Add your own `func sendFeedback(_ feedback: String) -> URLSessionTask?` function
+             */
+            self.feedbackTask = sendFeedback(feedback)
             
             if self.feedbackTask != nil {
                 // We have a valid URL Session Task, so start it to send
                 self.feedbackTask!.resume()
-                return
             } else {
                 // Report the error
                 sendFeedbackError()
             }
+
+            return
         }
         
         // No feedback, so close the sheet
@@ -1161,64 +1170,6 @@ class AppDelegate: NSResponder,
     }
     
     
-    /**
-     Send the feedback string etc.
-
-     - Parameters:
-        - feedback: The text of the user's comment.
-
-     - Returns: A URLSessionTask primed to send the comment, or `nil` on error.
-     */
-    private func submitFeedback(_ feedback: String) -> URLSessionTask? {
-
-        // First get the data we need to build the user agent string
-        let userAgent: String = getUserAgentForFeedback()
-        let endPoint: String = MNU_SECRETS.ADDRESS.A
-
-        // Get the date as a string
-        let dateString: String = getDateForFeedback()
-
-        // Assemble the message string
-        let dataString: String = """
-         *FEEDBACK REPORT*
-         *Date:* \(dateString)
-         *User Agent:* \(userAgent)
-         *FEEDBACK:*
-         \(feedback)
-         """
-
-        // Build the data we will POST:
-        let dict: NSMutableDictionary = NSMutableDictionary()
-        dict.setObject(dataString,
-                        forKey: NSString.init(string: "text"))
-        dict.setObject(true, forKey: NSString.init(string: "mrkdwn"))
-
-        // Make and return the HTTPS request for sending
-        if let url: URL = URL.init(string: self.feedbackPath + endPoint) {
-            var request: URLRequest = URLRequest.init(url: url)
-            request.httpMethod = "POST"
-
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: dict,
-                                                              options:JSONSerialization.WritingOptions.init(rawValue: 0))
-
-                request.addValue(userAgent, forHTTPHeaderField: "User-Agent")
-                request.addValue("application/json", forHTTPHeaderField: "Content-type")
-
-                let config: URLSessionConfiguration = URLSessionConfiguration.ephemeral
-                let session: URLSession = URLSession.init(configuration: config,
-                                                          delegate: self,
-                                                          delegateQueue: OperationQueue.main)
-                return session.dataTask(with: request)
-            } catch {
-                // NOP
-            }
-        }
-
-        return nil
-    }
-
-
     /**
      Get the 'coded' name of a theme, eg. 'agate-dark' -> 'dark.agate-dark'.
      

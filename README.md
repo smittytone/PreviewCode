@@ -1,4 +1,4 @@
-# PreviewCode 1.3.0
+# PreviewCode 1.3.1
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -102,9 +102,16 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - *PreviewCode* will not render Elixir `.exs` files if GarageBand and/or Logic Pro is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
 
-## Source Code ##
+## Source Code
 
-This repository contains the primary source code for *PreviewCode*. Certain graphical assets and data files are not included. To build *PreviewCode* from scratch, you will need to add these files yourself or remove them from your fork.
+This repository contains the primary source code for *PreviewCode*. Certain graphical assets, code components and data files are not included. To build *PreviewCode* from scratch, you will need to add these files yourself or remove them from your fork.
+
+The files `REPLACE_WITH_YOUR_FUNCTIONS` and `REPLACE_WITH_YOUR_CODES` must be replaced with your own files. The former will contain your `sendFeedback(_ feedback: String) -> URLSessionTask?` function. The latter your Developer Team ID, used as the App Suite identifier prefix.
+
+You will need to generate your own `Assets.xcassets` file containing the app icon, `app_logo.png` and theme screenshots.
+
+You will need to create your own `new` directory containing your own `new.html` file.
+
 
 ## Acknowledgements
 
@@ -112,6 +119,8 @@ This repository contains the primary source code for *PreviewCode*. Certain grap
 
 ## Release Notes ##
 
+- 1.3.1 *14 August 2023*
+    - Non-shipping release: repo/code reorganisation
 - 1.3.0 *31 May 2023*
     - Support automatic dark/light theme application by macOS UI mode.
     - Add line spacing control.

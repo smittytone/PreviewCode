@@ -32,7 +32,14 @@ final class Common: NSObject {
     // FROM 1.3.0
     private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
     private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
-    
+
+    /*
+     Replace the following string with your own team ID. This is used to
+     identify the app suite and so share preferences set by the main app with
+     the previewer and thumbnailer extensions.
+     */
+    private var appSuiteName: String = MNU_SECRETS.PID
+
     
     // MARK: - Lifecycle Functions
 
@@ -48,7 +55,7 @@ final class Common: NSObject {
         var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
 
         // Read in the user preferences to update the above values
-        if let defaults: UserDefaults = UserDefaults(suiteName: MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME) {
+        if let defaults: UserDefaults = UserDefaults(suiteName: appSuiteName + BUFFOON_CONSTANTS.SUITE_NAME) {
             if !isThumbnail {
                 self.fontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
                 

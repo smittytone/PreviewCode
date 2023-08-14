@@ -86,7 +86,7 @@ extension AppDelegate {
         let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
                                        "Unfortunately, your comments could not be send at this time. Please try again later.")
         alert.beginSheetModal(for: self.reportWindow) { (resp) in
-            // Restore menus
+            self.window.endSheet(self.reportWindow)
             self.showPanelGenerators()
         }
     }

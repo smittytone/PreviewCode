@@ -19,6 +19,10 @@
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
 		3BAE671B28D4D3AD001532BD /* GenericFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */; };
+		3BC6EE8E2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6EE8C2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift */; };
+		3BC6EE8F2A8A0C200043CFAE /* REPLACE_WITH_YOUR_FUNCTIONS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6EE8D2A8A0C200043CFAE /* REPLACE_WITH_YOUR_FUNCTIONS.swift */; };
+		3BC6EE902A8A0C390043CFAE /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6EE8C2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift */; };
+		3BC6EE912A8A0C390043CFAE /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6EE8C2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift */; };
 		3BDE3EF6267CE9890037351C /* GenericExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE3EF5267CE9890037351C /* GenericExtensions.swift */; };
 		3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */; };
 		3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
@@ -26,7 +30,6 @@
 		3BE0EBA6266A845B00C9924E /* Code Thumbnailer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3BE0EBAC266A848400C9924E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 		3BF52B11266A883F002EC860 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
-		3BF52B12266A8842002EC860 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
 		3BFBEC382663FDD400B4E70C /* new in Resources */ = {isa = PBXBuildFile; fileRef = 3BFBEC372663FDD400B4E70C /* new */; };
 		3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */; };
 		3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78172663E16D002AD588 /* AppDelegate.swift */; };
@@ -40,8 +43,6 @@
 		3BFD78532663E27D002AD588 /* Code Previewer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BFD78452663E27D002AD588 /* Code Previewer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3BFD78592663E2C9002AD588 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
 		3BFD785A2663E2C9002AD588 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78582663E2C9002AD588 /* Constants.swift */; };
-		3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
-		3BFD785D2663E38F002AD588 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785B2663E38F002AD588 /* Secrets.swift */; };
 		3BFD78602663E4C9002AD588 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,8 @@
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
 		3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericFontExtensions.swift; sourceTree = "<group>"; };
 		3BB8E9102935FF7E00C6D452 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3BC6EE8C2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_CODES.swift; path = "../../../Library/CloudStorage/OneDrive-Personal/Programming/PreviewApps/REPLACE_WITH_YOUR_CODES.swift"; sourceTree = "<group>"; };
+		3BC6EE8D2A8A0C200043CFAE /* REPLACE_WITH_YOUR_FUNCTIONS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_FUNCTIONS.swift; path = "../../../Library/CloudStorage/OneDrive-Personal/Programming/PreviewApps/REPLACE_WITH_YOUR_FUNCTIONS.swift"; sourceTree = "<group>"; };
 		3BDE3EF5267CE9890037351C /* GenericExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericExtensions.swift; sourceTree = "<group>"; };
 		3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Code Thumbnailer.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
@@ -128,7 +131,6 @@
 		3BFD784F2663E27D002AD588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFD78502663E27D002AD588 /* Code_Previewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Code_Previewer.entitlements; sourceTree = "<group>"; };
 		3BFD78582663E2C9002AD588 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		3BFD785B2663E38F002AD588 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = "../../../Library/CloudStorage/OneDrive-Personal/Programming/mnu/Secrets.swift"; sourceTree = "<group>"; };
 		3BFD785E2663E4C9002AD588 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,7 +226,6 @@
 		3BFD78162663E16D002AD588 /* PreviewCode */ = {
 			isa = PBXGroup;
 			children = (
-				3BFD785B2663E38F002AD588 /* Secrets.swift */,
 				3BFD78582663E2C9002AD588 /* Constants.swift */,
 				3BFD78172663E16D002AD588 /* AppDelegate.swift */,
 				3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */,
@@ -233,6 +234,8 @@
 				3BA5D03A269081BF00AF4EF2 /* PMFont.swift */,
 				3BDE3EF5267CE9890037351C /* GenericExtensions.swift */,
 				3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */,
+				3BC6EE8D2A8A0C200043CFAE /* REPLACE_WITH_YOUR_FUNCTIONS.swift */,
+				3BC6EE8C2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
 				3BFD781E2663E16E002AD588 /* Info.plist */,
 				3BFD781B2663E16E002AD588 /* MainMenu.xib */,
@@ -492,8 +495,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BE0EBAC266A848400C9924E /* Common.swift in Sources */,
-				3BF52B12266A8842002EC860 /* Secrets.swift in Sources */,
 				3BE0EBA1266A845B00C9924E /* ThumbnailProvider.swift in Sources */,
+				3BC6EE912A8A0C390043CFAE /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BF52B11266A883F002EC860 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,9 +506,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */,
+				3BC6EE8E2A8A0C200043CFAE /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BAE671B28D4D3AD001532BD /* GenericFontExtensions.swift in Sources */,
+				3BC6EE8F2A8A0C200043CFAE /* REPLACE_WITH_YOUR_FUNCTIONS.swift in Sources */,
 				3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */,
-				3BFD785C2663E38F002AD588 /* Secrets.swift in Sources */,
 				3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */,
 				3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */,
 				3BDE3EF6267CE9890037351C /* GenericExtensions.swift in Sources */,
@@ -537,7 +541,7 @@
 			files = (
 				3BFD78602663E4C9002AD588 /* Common.swift in Sources */,
 				3BFD784B2663E27D002AD588 /* PreviewViewController.swift in Sources */,
-				3BFD785D2663E38F002AD588 /* Secrets.swift in Sources */,
+				3BC6EE902A8A0C390043CFAE /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BFD785A2663E2C9002AD588 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,10 +597,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -604,7 +612,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -619,10 +628,11 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -630,7 +640,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -766,10 +777,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"TARGET_IS_PC=1",
+				);
 				INFOPLIST_FILE = PreviewCode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PreviewCode;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Tony Smith. All rights reserved.";
@@ -779,8 +795,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = "";
+				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -798,10 +815,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_IS_PC=1";
 				INFOPLIST_FILE = PreviewCode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PreviewCode;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Tony Smith. All rights reserved.";
@@ -811,9 +829,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
+				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -915,7 +934,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -927,7 +946,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -947,7 +966,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -959,7 +978,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
