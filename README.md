@@ -119,7 +119,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 ## Release Notes ##
 
 - 1.3.1 *14 August 2023*
-    - Non-shipping release: repo/code reorganisation
+    - Non-shipping release: repo/code reorganisation.
 - 1.3.0 *31 May 2023*
     - Support automatic dark/light theme application by macOS UI mode.
     - Add line spacing control.
