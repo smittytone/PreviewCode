@@ -287,7 +287,11 @@ extension AppDelegate {
         if let nav = self.whatsNewNav {
             if nav == navigation {
                 // Display the sheet
-                self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
+                // FROM 1.3.2 -- add timer to prevent 'white flash'
+                Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { timer in
+                    timer.invalidate()
+                    self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
+                }
             }
         }
     }

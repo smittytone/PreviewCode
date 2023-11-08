@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		3B1108BC26714AED00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108BB26714AED00A36A48 /* Highlighter */; };
 		3B271DCA268B0A9B00EFC72C /* themes-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B271DC9268B0A9B00EFC72C /* themes-list.json */; };
 		3B3F580D29D5892900E227C7 /* PCImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F580C29D5892900E227C7 /* PCImageView.swift */; };
+		3B669A6C2AFBBFAC005AAFA3 /* new in Resources */ = {isa = PBXBuildFile; fileRef = 3B669A6B2AFBBFAC005AAFA3 /* new */; };
 		3B6ABAC52669649500A436AA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
 		3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PreviewTextView.swift */; };
 		3B7D83D12A8A2FEE008A4B2E /* code-sample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83D02A8A2FEE008A4B2E /* code-sample.txt */; };
@@ -20,19 +21,6 @@
 		3B7D83D82A8A3069008A4B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83D72A8A3069008A4B2E /* Assets.xcassets */; };
 		3B7D83D92A8A306C008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */; };
 		3B7D83DA2A8A306D008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */; };
-		3B7D83E92A8A308A008A4B2E /* pc-prefs-l.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83DC2A8A308A008A4B2E /* pc-prefs-l.webp */; };
-		3B7D83EA2A8A308A008A4B2E /* pc-appearance-d@2x.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83DD2A8A308A008A4B2E /* pc-appearance-d@2x.webp */; };
-		3B7D83EB2A8A308A008A4B2E /* pc-appearance-d.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83DE2A8A308A008A4B2E /* pc-appearance-d.webp */; };
-		3B7D83EC2A8A308A008A4B2E /* pc-prefs-lines-d.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83DF2A8A308A008A4B2E /* pc-prefs-lines-d.webp */; };
-		3B7D83ED2A8A308A008A4B2E /* pc-appearance-l@2x.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E02A8A308A008A4B2E /* pc-appearance-l@2x.webp */; };
-		3B7D83EE2A8A308A008A4B2E /* pc-prefs-lines-d@2x.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E12A8A308A008A4B2E /* pc-prefs-lines-d@2x.webp */; };
-		3B7D83EF2A8A308A008A4B2E /* pc-prefs-d.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E22A8A308A008A4B2E /* pc-prefs-d.webp */; };
-		3B7D83F02A8A308A008A4B2E /* pc-prefs-lines-l@2x.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E32A8A308A008A4B2E /* pc-prefs-lines-l@2x.webp */; };
-		3B7D83F12A8A308A008A4B2E /* pc-prefs-l@2x.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E42A8A308A008A4B2E /* pc-prefs-l@2x.webp */; };
-		3B7D83F22A8A308A008A4B2E /* pc-appearance-l.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E52A8A308A008A4B2E /* pc-appearance-l.webp */; };
-		3B7D83F32A8A308A008A4B2E /* pc-prefs-lines-l.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E62A8A308A008A4B2E /* pc-prefs-lines-l.webp */; };
-		3B7D83F42A8A308A008A4B2E /* new.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E72A8A308A008A4B2E /* new.html */; };
-		3B7D83F52A8A308A008A4B2E /* pc-prefs-d@2x.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83E82A8A308A008A4B2E /* pc-prefs-d@2x.webp */; };
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
@@ -107,24 +95,12 @@
 /* Begin PBXFileReference section */
 		3B271DC9268B0A9B00EFC72C /* themes-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "themes-list.json"; sourceTree = "<group>"; };
 		3B3F580C29D5892900E227C7 /* PCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCImageView.swift; sourceTree = "<group>"; };
+		3B669A6B2AFBBFAC005AAFA3 /* new */ = {isa = PBXFileReference; lastKnownFileType = folder; name = new; path = "../../../Library/CloudStorage/OneDrive-Personal/Programming/PreviewCode/new"; sourceTree = "<group>"; };
 		3B6ABACB2669703800A436AA /* PreviewTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTextView.swift; sourceTree = "<group>"; };
 		3B7D83D02A8A2FEE008A4B2E /* code-sample.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "code-sample.txt"; sourceTree = "<group>"; };
 		3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_CODES.swift; path = "/Users/smitty/Library/CloudStorage/OneDrive-Personal/Programming/PreviewApps/REPLACE_WITH_YOUR_CODES.swift"; sourceTree = "<absolute>"; };
 		3B7D83D42A8A3034008A4B2E /* REPLACE_WITH_YOUR_FUNCTIONS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_FUNCTIONS.swift; path = "/Users/smitty/Library/CloudStorage/OneDrive-Personal/Programming/PreviewApps/REPLACE_WITH_YOUR_FUNCTIONS.swift"; sourceTree = "<absolute>"; };
 		3B7D83D72A8A3069008A4B2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/smitty/Library/CloudStorage/OneDrive-Personal/Programming/PreviewCode/Assets.xcassets"; sourceTree = "<absolute>"; };
-		3B7D83DC2A8A308A008A4B2E /* pc-prefs-l.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-l.webp"; sourceTree = "<group>"; };
-		3B7D83DD2A8A308A008A4B2E /* pc-appearance-d@2x.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-appearance-d@2x.webp"; sourceTree = "<group>"; };
-		3B7D83DE2A8A308A008A4B2E /* pc-appearance-d.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-appearance-d.webp"; sourceTree = "<group>"; };
-		3B7D83DF2A8A308A008A4B2E /* pc-prefs-lines-d.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-lines-d.webp"; sourceTree = "<group>"; };
-		3B7D83E02A8A308A008A4B2E /* pc-appearance-l@2x.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-appearance-l@2x.webp"; sourceTree = "<group>"; };
-		3B7D83E12A8A308A008A4B2E /* pc-prefs-lines-d@2x.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-lines-d@2x.webp"; sourceTree = "<group>"; };
-		3B7D83E22A8A308A008A4B2E /* pc-prefs-d.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-d.webp"; sourceTree = "<group>"; };
-		3B7D83E32A8A308A008A4B2E /* pc-prefs-lines-l@2x.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-lines-l@2x.webp"; sourceTree = "<group>"; };
-		3B7D83E42A8A308A008A4B2E /* pc-prefs-l@2x.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-l@2x.webp"; sourceTree = "<group>"; };
-		3B7D83E52A8A308A008A4B2E /* pc-appearance-l.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-appearance-l.webp"; sourceTree = "<group>"; };
-		3B7D83E62A8A308A008A4B2E /* pc-prefs-lines-l.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-lines-l.webp"; sourceTree = "<group>"; };
-		3B7D83E72A8A308A008A4B2E /* new.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = new.html; sourceTree = "<group>"; };
-		3B7D83E82A8A308A008A4B2E /* pc-prefs-d@2x.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pc-prefs-d@2x.webp"; sourceTree = "<group>"; };
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
@@ -209,31 +185,10 @@
 				3B7D83D42A8A3034008A4B2E /* REPLACE_WITH_YOUR_FUNCTIONS.swift */,
 				3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */,
 				3B7D83D72A8A3069008A4B2E /* Assets.xcassets */,
-				3B7D83DB2A8A308A008A4B2E /* new */,
+				3B669A6B2AFBBFAC005AAFA3 /* new */,
 			);
 			name = "YOU MIUST SUPPLY";
 			sourceTree = "<group>";
-		};
-		3B7D83DB2A8A308A008A4B2E /* new */ = {
-			isa = PBXGroup;
-			children = (
-				3B7D83E72A8A308A008A4B2E /* new.html */,
-				3B7D83DC2A8A308A008A4B2E /* pc-prefs-l.webp */,
-				3B7D83DD2A8A308A008A4B2E /* pc-appearance-d@2x.webp */,
-				3B7D83DE2A8A308A008A4B2E /* pc-appearance-d.webp */,
-				3B7D83DF2A8A308A008A4B2E /* pc-prefs-lines-d.webp */,
-				3B7D83E02A8A308A008A4B2E /* pc-appearance-l@2x.webp */,
-				3B7D83E12A8A308A008A4B2E /* pc-prefs-lines-d@2x.webp */,
-				3B7D83E22A8A308A008A4B2E /* pc-prefs-d.webp */,
-				3B7D83E32A8A308A008A4B2E /* pc-prefs-lines-l@2x.webp */,
-				3B7D83E42A8A308A008A4B2E /* pc-prefs-l@2x.webp */,
-				3B7D83E52A8A308A008A4B2E /* pc-appearance-l.webp */,
-				3B7D83E62A8A308A008A4B2E /* pc-prefs-lines-l.webp */,
-				3B7D83E82A8A308A008A4B2E /* pc-prefs-d@2x.webp */,
-			);
-			name = new;
-			path = "/Users/smitty/Library/CloudStorage/OneDrive-Personal/Programming/PreviewCode/new";
-			sourceTree = "<absolute>";
 		};
 		3BB8E90F2935FF6C00C6D452 /* Misc */ = {
 			isa = PBXGroup;
@@ -508,22 +463,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B7D83EC2A8A308A008A4B2E /* pc-prefs-lines-d.webp in Resources */,
+				3B669A6C2AFBBFAC005AAFA3 /* new in Resources */,
 				3B271DCA268B0A9B00EFC72C /* themes-list.json in Resources */,
-				3B7D83F32A8A308A008A4B2E /* pc-prefs-lines-l.webp in Resources */,
-				3B7D83F52A8A308A008A4B2E /* pc-prefs-d@2x.webp in Resources */,
-				3B7D83EB2A8A308A008A4B2E /* pc-appearance-d.webp in Resources */,
-				3B7D83F22A8A308A008A4B2E /* pc-appearance-l.webp in Resources */,
-				3B7D83EF2A8A308A008A4B2E /* pc-prefs-d.webp in Resources */,
 				3B7D83D12A8A2FEE008A4B2E /* code-sample.txt in Resources */,
-				3B7D83EE2A8A308A008A4B2E /* pc-prefs-lines-d@2x.webp in Resources */,
-				3B7D83F42A8A308A008A4B2E /* new.html in Resources */,
-				3B7D83F02A8A308A008A4B2E /* pc-prefs-lines-l@2x.webp in Resources */,
-				3B7D83EA2A8A308A008A4B2E /* pc-appearance-d@2x.webp in Resources */,
-				3B7D83ED2A8A308A008A4B2E /* pc-appearance-l@2x.webp in Resources */,
 				3B7D83D82A8A3069008A4B2E /* Assets.xcassets in Resources */,
-				3B7D83F12A8A308A008A4B2E /* pc-prefs-l@2x.webp in Resources */,
-				3B7D83E92A8A308A008A4B2E /* pc-prefs-l.webp in Resources */,
 				3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -662,7 +605,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -693,7 +636,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -842,7 +785,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -860,7 +803,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
@@ -880,7 +823,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -894,7 +837,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
@@ -999,7 +942,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1031,7 +974,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1120,7 +1063,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/smittytone/HighlighterSwift.git";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
