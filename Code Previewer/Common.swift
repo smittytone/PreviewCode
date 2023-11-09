@@ -251,7 +251,7 @@ final class Common: NSObject {
     */
     func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
 
-        // FROM 1.4.2 -- make sure these are lowercase
+        // FROM 1.2.2 -- make sure these are lowercase
         let sourceFileUTI: String = getSourceFileUTI(sourceFilePath).lowercased()
         let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension.lowercased()
 
@@ -270,7 +270,9 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".entitlements-property-list") { return "xml" }
         if sourceFileUTI.hasSuffix(".interfacebuilder.document.cocoa") { return "xml" }
         if sourceFileUTI.hasSuffix("interfacebuilder.document.storyboard") { return "xml" }
-        
+        // FROM 1.3.2 -- Microsoft TypeScript UTI
+        if sourceFileUTI.hasSuffix(".typescript") { return "typescript" }
+
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
         if parts.count > 0 {

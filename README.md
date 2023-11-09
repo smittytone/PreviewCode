@@ -119,7 +119,9 @@ You will need to create your own `new` directory containing your own `new.html` 
 ## Release Notes ##
 
 - 1.3.2 *Unreleased*
+    - Add the `com.microsoft.typescript` UTI.
     - Fix missing **What’s New** dialog.
+    - Fix **What’s New** dialog ‘white flash’ in dark mode.
 - 1.3.1 *14 August 2023*
     - Non-shipping release: repo/code reorganisation.
 - 1.3.0 *31 May 2023*
