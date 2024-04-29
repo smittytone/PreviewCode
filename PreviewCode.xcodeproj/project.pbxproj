@@ -94,6 +94,7 @@
 
 /* Begin PBXFileReference section */
 		3B271DC9268B0A9B00EFC72C /* themes-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "themes-list.json"; sourceTree = "<group>"; };
+		3B34F5022BE0380200CB8679 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		3B3F580C29D5892900E227C7 /* PCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCImageView.swift; sourceTree = "<group>"; };
 		3B669A6B2AFBBFAC005AAFA3 /* new */ = {isa = PBXFileReference; lastKnownFileType = folder; name = new; path = "../../../Library/CloudStorage/OneDrive-Personal/Programming/PreviewCode/new"; sourceTree = "<group>"; };
 		3B6ABACB2669703800A436AA /* PreviewTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTextView.swift; sourceTree = "<group>"; };
@@ -194,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				3BB8E9102935FF7E00C6D452 /* README.md */,
+				3B34F5022BE0380200CB8679 /* LICENSE.md */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -606,7 +608,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 78;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -621,7 +623,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -637,7 +639,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 78;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -649,7 +651,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -788,7 +790,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 78;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -806,7 +808,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
@@ -826,7 +828,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 78;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -840,7 +842,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
@@ -945,7 +947,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 78;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -957,7 +959,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -977,7 +979,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 78;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -989,7 +991,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1066,7 +1068,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/smittytone/HighlighterSwift.git";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};

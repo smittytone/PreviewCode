@@ -119,6 +119,8 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
+- 1.3.3 *Unreleased*
+    - Revise thumbnailer to improve memory utilization and efficiency.
 - 1.3.2 *15 November 2023*
     - Add the `com.microsoft.typescript` UTI.
     - Fix missing **What’s New** dialog.
@@ -184,6 +186,6 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Copyright and Credits ##
 
-Primary app code and UI design &copy; 2023, Tony Smith.
+Primary app code and UI design &copy; 2024, Tony Smith.
 
 Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-22 Ivan Sagalaev.
