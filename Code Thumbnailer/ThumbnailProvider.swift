@@ -34,12 +34,6 @@ class ThumbnailProvider: QLThumbnailProvider {
          * This is the main entry point for macOS' thumbnailing system
          */
         
-        let iconScale: CGFloat = request.scale
-        let thumbnailFrame: CGRect = NSMakeRect(0.0,
-                                                0.0,
-                                                CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
-                                                request.maximumSize.height)
-        
         // Load the source file using a co-ordinator as we don't know what thread this function
         // will be executed in when it's called by macOS' QuickLook code
         if FileManager.default.isReadableFile(atPath: request.fileURL.path) {
@@ -72,12 +66,12 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                 // FROM 1.1.1
                 // Only render the lines likely to appear in the thumbnail
-                let lines: [String] = (codeFileString as NSString).components(separatedBy: "\n")
-                var shortString: String = ""
+                let lines: [Substring] = codeFileString.split(separator: "\n", maxSplits: BUFFOON_CONSTANTS.THUMBNAIL_LINE_COUNT + 1, omittingEmptySubsequences: false)
+                var displayString: String = ""
                 for i in 0..<lines.count {
                     // Break at line THUMBNAIL_LINE_COUNT
                     if i >= BUFFOON_CONSTANTS.THUMBNAIL_LINE_COUNT { break }
-                    shortString += (lines[i] + "\n")
+                    displayString += (String(lines[i]) + "\n")
                 }
 
                 // Set the primary drawing frame and a base font size
@@ -88,7 +82,7 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                 // Instantiate an NSTextField to display the NSAttributedString render of the code
                 let codeTextField: NSTextField = NSTextField.init(frame: codeFrame)
-                codeTextField.attributedStringValue = common.getAttributedString(shortString, language)
+                codeTextField.attributedStringValue = common.getAttributedString(displayString, language)
 
                 // Generate the bitmap from the rendered code text view
                 guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
@@ -107,7 +101,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                                 CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
                                                                 request.maximumSize.height)
 
-                        var scaleFrame: CGRect = NSMakeRect(0.0,
+                        let scaleFrame: CGRect = NSMakeRect(0.0,
                                                             0.0,
                                                             thumbnailFrame.width * request.scale,
                                                             thumbnailFrame.height * request.scale)
@@ -115,7 +109,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Pass a QLThumbnailReply and no error to the supplied handler
                         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size, drawing: { context in
                             // `scaleFrame` and `cgImage` are immutable
-                            context.draw(image, in: scaleFrame, byTiling: false)
+                            context.draw(cgImage, in: scaleFrame, byTiling: false)
                             return true
                         }), nil)
 
