@@ -7,14 +7,15 @@
  */
 
 
+import Foundation
+import AppKit
 import QuickLookThumbnailing
-import Cocoa
 
 
 class ThumbnailProvider: QLThumbnailProvider {
 
-    // MARK: - Private Properties
-    
+    // MARK:- Private Properties
+
     private enum ThumbnailerError: Error {
         case badFileLoad(String)
         case badFileUnreadable(String)
@@ -33,7 +34,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         /*
          * This is the main entry point for macOS' thumbnailing system
          */
-        
+
         // Load the source file using a co-ordinator as we don't know what thread this function
         // will be executed in when it's called by macOS' QuickLook code
         if FileManager.default.isReadableFile(atPath: request.fileURL.path) {
@@ -43,7 +44,6 @@ class ThumbnailProvider: QLThumbnailProvider {
                 // as we're not going to read it again any time soon
                 let data: Data = try Data.init(contentsOf: request.fileURL, options: [.uncached])
 
-                // FROM 1.2.2
                 // Get the string's encoding, or fail back to .utf8
                 let encoding: String.Encoding = data.stringEncoding ?? .utf8
 
@@ -61,10 +61,6 @@ class ThumbnailProvider: QLThumbnailProvider {
                     return
                 }
 
-                // Set the language
-                let language: String = common.getLanguage(request.fileURL.path, false)
-
-                // FROM 1.1.1
                 // Only render the lines likely to appear in the thumbnail
                 let lines: [Substring] = codeFileString.split(separator: "\n", maxSplits: BUFFOON_CONSTANTS.THUMBNAIL_LINE_COUNT + 1, omittingEmptySubsequences: false)
                 var displayString: String = ""
@@ -81,6 +77,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                    CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.HEIGHT))
 
                 // Instantiate an NSTextField to display the NSAttributedString render of the code
+                let language: String = common.getLanguage(request.fileURL.path, false)
                 let codeTextField: NSTextField = NSTextField.init(frame: codeFrame)
                 codeTextField.attributedStringValue = common.getAttributedString(displayString, language)
 
@@ -94,25 +91,25 @@ class ThumbnailProvider: QLThumbnailProvider {
                 codeTextField.cacheDisplay(in: codeFrame, to: bodyImageRep)
 
                 if let image: CGImage = bodyImageRep.cgImage {
+                    // Just in case, make a copy of the cgImage, in case
+                    // `bodyImageReg` is freed
                     if let cgImage: CGImage = image.copy() {
                         // Calculate image scaling, frame size, etc.
                         let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                                 0.0,
                                                                 CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
                                                                 request.maximumSize.height)
-
                         let scaleFrame: CGRect = NSMakeRect(0.0,
                                                             0.0,
                                                             thumbnailFrame.width * request.scale,
                                                             thumbnailFrame.height * request.scale)
 
                         // Pass a QLThumbnailReply and no error to the supplied handler
-                        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size, drawing: { context in
+                        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { (context) -> Bool in
                             // `scaleFrame` and `cgImage` are immutable
                             context.draw(cgImage, in: scaleFrame, byTiling: false)
                             return true
-                        }), nil)
-
+                        }, nil)
                         return
                     }
                 }
@@ -127,5 +124,4 @@ class ThumbnailProvider: QLThumbnailProvider {
         // We didn't draw anything because of 'can't find file' error
         handler(nil, ThumbnailerError.badFileUnreadable(request.fileURL.path))
     }
-
 }
