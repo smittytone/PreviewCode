@@ -81,7 +81,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Config files (`.conf`, `.cf`, `.cfg`, `.ini`, `.rc`)
 - Cmake files (`.cmake`)
 - CSS (`.css`)
-- Enviroment (`.env`)
+- Environment (`.env`)
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
 - Apple Property list files (`.plist`)
@@ -98,7 +98,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 ## Known Issues ##
 
 - *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
-- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files.
+- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported.
 - *PreviewCode* will not render Elixir `.exs` files if GarageBand and/or Logic Pro is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
 - Deselecting code in the preview is not immediate: the highlight clears after ~1s. We are investigating fixes.
@@ -119,7 +119,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
-- 1.3.3 *Unreleased*
+- 1.3.3 *13 May 2024*
     - Revise thumbnailer to improve memory utilization and efficiency.
 - 1.3.2 *15 November 2023*
     - Add the `com.microsoft.typescript` UTI.
