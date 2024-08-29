@@ -1,4 +1,4 @@
-# PreviewCode 1.3.3
+# PreviewCode 1.3.4
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -119,6 +119,9 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
+- 1.3.4 *Unreleased*
+    - Improve preference change handling.
+    - Update highlighting code.
 - 1.3.3 *13 May 2024*
     - Revise thumbnailer to improve memory utilization and efficiency.
 - 1.3.2 *15 November 2023*

@@ -99,7 +99,7 @@ class AppDelegate: NSResponder,
     // FROM 1.2.1
     internal var codeStyleName: String = "Regular"
     // FROM 1.2.5
-    private  var havePrefsChanged: Bool = false
+    //private  var havePrefsChanged: Bool = false
     internal var isMontereyPlus: Bool = false
     // FROM 1.3.0
     private  var lightThemeIndex: Int = 0
@@ -192,7 +192,7 @@ class AppDelegate: NSResponder,
         // FROM 1.2.5
         // Check for open panels
         if self.preferencesWindow.isVisible {
-            if self.havePrefsChanged {
+            if checkPrefs() {
                 let alert: NSAlert = showAlert("You have unsaved settings",
                                                "Do you wish to cancel and save them, or quit the app anyway?",
                                                false)
@@ -410,7 +410,7 @@ class AppDelegate: NSResponder,
         
         // FROM 1.2.5
         // Reset changed prefs flag
-        self.havePrefsChanged = false
+        // self.havePrefsChanged = false
         
         // Set the themes table's contents store, once per runtime
         if self.themes.count == 0 {
@@ -524,107 +524,6 @@ class AppDelegate: NSResponder,
 
 
     /**
-     When the font size slider is moved and released, this function updates the font size readout.
-     
-     - Parameters:
-        - sender: The source of the action.
-     */
-    @IBAction private func doMoveSlider(sender: Any) {
-        
-        let index: Int = Int(self.fontSizeSlider.floatValue)
-        self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
-        self.havePrefsChanged = true
-    }
-
-
-    /**
-     When a radio button is clicked, change the theme mode.
-     
-     - Parameters:
-        - sender: The source of the action.
-     */
-    @IBAction private func doSwitchMode(sender: Any) {
-        
-        // FROM 1.3.0
-        // Support radio buttons for mode control:
-        // Light only, dark only, or mixed mode.
-        if self.lightRadioButton.state == .on {
-            self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
-            self.lightThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeLabel.textColor = NSColor.gray
-            self.darkThemeIcon.isOutlined = false
-            self.lightThemeIcon.isOutlined = true
-            self.themeHelpLabel.stringValue = "Always use the selected light theme"
-        } else if self.darkRadioButton.state == .on {
-            self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
-            self.lightThemeLabel.textColor = NSColor.gray
-            self.darkThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeIcon.isOutlined = true
-            self.lightThemeIcon.isOutlined = false
-            self.themeHelpLabel.stringValue = "Always use the selected dark theme"
-        } else if self.autoRadioButton.state == .on {
-            self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-            self.lightThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeIcon.isOutlined = true
-            self.lightThemeIcon.isOutlined = true
-            self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
-        }
-        
-        // Reload the table and its selection
-        loadTable()
-    }
-    
-    
-    /**
-     Called when the user selects a font from either list.
-
-     FROM 1.1.0
-
-     - Parameters:
-        - sender: The source of the action.
-     */
-    @IBAction private func doUpdateFonts(sender: Any) {
-        
-        // From 1.2.1
-        // If the user re-selects the current font family,
-        // only update the style popup if a different family
-        // has been selected
-        self.havePrefsChanged = true
-        let item: NSPopUpButton = sender as! NSPopUpButton
-        if item == self.codeFontPopup {
-            let currentFontPSName: NSString = self.codeFontName as NSString
-            let selectedFontName: String = item.titleOfSelectedItem ?? BUFFOON_CONSTANTS.DEFAULT_FONT_NAME
-            if !(currentFontPSName.contains(selectedFontName)) {
-                // Update the menu of available styles
-                // because a different font has been selected
-                setStylePopup(self.codeStylePopup.titleOfSelectedItem ?? "Regular")
-                return
-            }
-        } else {
-            // The user clicked the style popup, so record the style
-            self.codeStyleName = self.codeStylePopup.titleOfSelectedItem ?? "Regular"
-        }
-    }
-
-    
-    /**
-     Close the **Preferences** sheet without saving.
-     
-     - Parameters:
-        - sender: The source of the action.
-     */
-    @IBAction private func doClosePreferences(sender: Any) {
-
-        self.window.endSheet(self.preferencesWindow)
-        
-        // FROM 1.2.5
-        // Restore menus
-        showPanelGenerators()
-    }
-
-    
-    /**
      Close the **Preferences** sheet and save any settings that have changed.
      
      - Parameters:
@@ -701,6 +600,176 @@ class AppDelegate: NSResponder,
         // FROM 1.2.5
         // Restore menus
         showPanelGenerators()
+    }
+    
+    
+    /**
+     Close the **Preferences** sheet without saving.
+     
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction private func doClosePreferences(sender: Any) {
+        
+        if checkPrefs() {
+            let alert: NSAlert = showAlert("You have made changes",
+                                           "Do you wish to go back and save them, or ignore them? ",
+                                           false)
+            alert.addButton(withTitle: "Go Back")
+            alert.addButton(withTitle: "Ignore Changes")
+            alert.beginSheetModal(for: self.preferencesWindow) { (response: NSApplication.ModalResponse) in
+                if response != NSApplication.ModalResponse.alertFirstButtonReturn {
+                    // The user clicked 'Cancel'
+                    self.closePrefsWindow()
+                }
+            }
+        } else {
+            closePrefsWindow()
+        }
+    }
+    
+    
+    private func closePrefsWindow() {
+        
+        // Close the **Preferences** sheet
+        self.window.endSheet(self.preferencesWindow)
+        
+        // Restore menus
+        showPanelGenerators()
+    }
+    
+    
+    private func checkPrefs() -> Bool {
+        
+        var haveChanged: Bool = false
+        
+        // Check the chosen text size
+        let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
+        haveChanged = (newValue != self.codeFontSize)
+        
+        // Check the chosen font
+        if let fontName: String = getPostScriptName() {
+            if !haveChanged && fontName != self.codeFontName {
+                haveChanged = true
+            }
+        }
+        
+        // Check the theme selections
+        if !haveChanged {
+            haveChanged = (self.newLightThemeIndex != self.lightThemeIndex)
+        }
+        
+        if !haveChanged {
+            haveChanged = (self.newDarkThemeIndex != self.darkThemeIndex)
+        }
+        
+        if !haveChanged {
+            haveChanged = (self.newThemeDisplayMode != self.themeDisplayMode)
+        }
+        
+        // Check the selected line spacing
+        let lineIndex: Int = self.lineSpacingPopup.indexOfSelectedItem
+        var lineSpacing: CGFloat = 1.0
+        switch(lineIndex) {
+            case 1:
+                lineSpacing = 1.25
+            case 2:
+                lineSpacing = 1.5
+            case 3:
+                lineSpacing = 2.0
+            default:
+                lineSpacing = 1.0
+        }
+        
+        if !haveChanged {
+            haveChanged = (round(self.lineSpacing * 100) / 100.0 != lineSpacing)
+        }
+        
+        return haveChanged
+    }
+    
+    /**
+     When the font size slider is moved and released, this function updates the font size readout.
+     
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction private func doMoveSlider(sender: Any) {
+        
+        let index: Int = Int(self.fontSizeSlider.floatValue)
+        self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
+        //self.havePrefsChanged = true
+    }
+
+
+    /**
+     When a radio button is clicked, change the theme mode.
+     
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction private func doSwitchMode(sender: Any) {
+        
+        // FROM 1.3.0
+        // Support radio buttons for mode control:
+        // Light only, dark only, or mixed mode.
+        if self.lightRadioButton.state == .on {
+            self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
+            self.lightThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeLabel.textColor = NSColor.gray
+            self.darkThemeIcon.isOutlined = false
+            self.lightThemeIcon.isOutlined = true
+            self.themeHelpLabel.stringValue = "Always use the selected light theme"
+        } else if self.darkRadioButton.state == .on {
+            self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
+            self.lightThemeLabel.textColor = NSColor.gray
+            self.darkThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeIcon.isOutlined = true
+            self.lightThemeIcon.isOutlined = false
+            self.themeHelpLabel.stringValue = "Always use the selected dark theme"
+        } else if self.autoRadioButton.state == .on {
+            self.newThemeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
+            self.lightThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeIcon.isOutlined = true
+            self.lightThemeIcon.isOutlined = true
+            self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
+        }
+        
+        // Reload the table and its selection
+        loadTable()
+    }
+    
+    
+    /**
+     Called when the user selects a font from either list.
+
+     FROM 1.1.0
+
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction private func doUpdateFonts(sender: Any) {
+        
+        // From 1.2.1
+        // If the user re-selects the current font family,
+        // only update the style popup if a different family
+        // has been selected
+        //self.havePrefsChanged = true
+        let item: NSPopUpButton = sender as! NSPopUpButton
+        if item == self.codeFontPopup {
+            let currentFontPSName: NSString = self.codeFontName as NSString
+            let selectedFontName: String = item.titleOfSelectedItem ?? BUFFOON_CONSTANTS.DEFAULT_FONT_NAME
+            if !(currentFontPSName.contains(selectedFontName)) {
+                // Update the menu of available styles
+                // because a different font has been selected
+                setStylePopup(self.codeStylePopup.titleOfSelectedItem ?? "Regular")
+                return
+            }
+        } else {
+            // The user clicked the style popup, so record the style
+            self.codeStyleName = self.codeStylePopup.titleOfSelectedItem ?? "Regular"
+        }
     }
     
     

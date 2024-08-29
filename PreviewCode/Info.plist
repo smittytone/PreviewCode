@@ -108,29 +108,6 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>TypeScript Source</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>com.bps.typescript-source</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>tsx</string>
-					<string>ts</string>
-					<string>typescript</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
 			<string>Lua Source</string>
 			<key>UTTypeIcons</key>
 			<dict/>
@@ -1376,6 +1353,28 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>storyboard</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.script</string>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>MSTypeScript</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>com.microsoft.typescript</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ts</string>
+					<string>tsx</string>
+					<string>typescript</string>
 				</array>
 			</dict>
 		</dict>
