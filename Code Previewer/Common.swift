@@ -55,7 +55,7 @@ final class Common: NSObject {
         var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
 
         // Read in the user preferences to update the above values
-        if let defaults: UserDefaults = UserDefaults(suiteName: appSuiteName + BUFFOON_CONSTANTS.SUITE_NAME) {
+        if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName + BUFFOON_CONSTANTS.SUITE_NAME) {
             if !isThumbnail {
                 self.fontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
                 

@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "#cd &quot;${PROJECT_DIR}&quot; ; agvtool bump ; xcodebuild -resolvePackageDependencies&#10;">
+               scriptText = "#cd &quot;${PROJECT_DIR}&quot; &amp;&amp; xcrun agvtool bump -all &amp;&amp; xcodebuild -resolvePackageDependencies&#10;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
