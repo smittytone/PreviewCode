@@ -99,10 +99,12 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                                 0.0,
                                                                 CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
                                                                 request.maximumSize.height)
+                        
+                        // NOTE The `+2.0` is a hack to avoid a line above the image
                         let scaleFrame: CGRect = NSMakeRect(0.0,
                                                             0.0,
                                                             thumbnailFrame.width * request.scale,
-                                                            thumbnailFrame.height * request.scale)
+                                                            (thumbnailFrame.height * request.scale) + 2.0)
 
                         // Pass a QLThumbnailReply and no error to the supplied handler
                         handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { (context) -> Bool in
