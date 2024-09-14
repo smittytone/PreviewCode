@@ -119,7 +119,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
-- 1.3.4 *Unreleased*
+- 1.3.4 *14 September 2024*
     - Improve preference change handling.
     - Update highlighting code.
 - 1.3.3 *13 May 2024*
