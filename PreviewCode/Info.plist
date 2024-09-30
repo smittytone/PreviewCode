@@ -108,27 +108,6 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Lua Source</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>com.bps.lua-source</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>lua</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
 			<string>C# Source</string>
 			<key>UTTypeIcons</key>
 			<dict/>
@@ -232,30 +211,6 @@
 				<array>
 					<string>arduino</string>
 					<string>ino</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Clojure Source</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>com.bps.clojure-source</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>clojure</string>
-					<string>clj</string>
-					<string>cljs</string>
-					<string>cljc</string>
 				</array>
 			</dict>
 		</dict>
@@ -689,29 +644,6 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>AsciiDoc Markup</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>com.bps.asciidoc-source</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>asciidoc</string>
-					<string>adoc</string>
-					<string>asc</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
 			<string>Configuration File</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.conf</string>
@@ -738,7 +670,10 @@
 			<key>UTTypeDescription</key>
 			<string>GML</string>
 			<key>UTTypeIcons</key>
-			<dict/>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>GML</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.gml-source</string>
 			<key>UTTypeTagSpecification</key>
@@ -759,7 +694,10 @@
 			<key>UTTypeDescription</key>
 			<string>VueJS</string>
 			<key>UTTypeIcons</key>
-			<dict/>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>VueJS</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.vuejs-source</string>
 			<key>UTTypeTagSpecification</key>
@@ -778,7 +716,10 @@
 			<key>UTTypeDescription</key>
 			<string>Elm Source</string>
 			<key>UTTypeIcons</key>
-			<dict/>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>Elm</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.elm-source</string>
 			<key>UTTypeTagSpecification</key>
@@ -792,14 +733,15 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-				<string>public.content</string>
 				<string>public.source-code</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Typescript</string>
 			<key>UTTypeIcons</key>
-			<dict/>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>Typescript</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.typescript-source</string>
 			<key>UTTypeTagSpecification</key>
@@ -807,6 +749,50 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>typescript</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>JavaScript XML</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>JavaScriptX</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.javascript-xml</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>jsx</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Asciidoc ASC</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>Asciidoc</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.bps.asciidoc-asc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>asc</string>
 				</array>
 			</dict>
 		</dict>
@@ -987,7 +973,6 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.executable</string>
 				<string>public.source-code</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1399,6 +1384,86 @@
 					<string>ts</string>
 					<string>tsx</string>
 					<string>typescript</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.script</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Lua</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.lua</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>lua</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Asciidoc</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.asciidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>adoc</string>
+					<string>asciidoc</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.script</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Clojure</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.clojure</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>clj</string>
+					<string>cljc</string>
+					<string>cljs</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Latex</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.tug</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>latex</string>
+					<string>tex</string>
 				</array>
 			</dict>
 		</dict>

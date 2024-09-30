@@ -258,6 +258,7 @@ final class Common: NSObject {
         // Trap 'non-standard' UTIs
         if sourceFileUTI.hasPrefix("com.apple.applescript") { return "applescript" }
         if sourceFileUTI == "com.apple.property-list" { return "xml" }
+        // Standard UTIs which contain strings we need to remove on other cases
         if sourceFileUTI == "public.script" { return "bash" }
         if sourceFileUTI == "public.css" { return "css" }
         // FROM 1.2.0 -- Present .env files using the bash renderer
@@ -272,7 +273,16 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix("interfacebuilder.document.storyboard") { return "xml" }
         // FROM 1.3.2 -- Microsoft TypeScript UTI
         if sourceFileUTI.hasSuffix(".typescript") { return "typescript" }
-
+        // FROM 1.3.5
+        if sourceFileUTI.contains("asciidoc") { return "makefile" }
+        if sourceFileUTI.hasSuffix(".tug") { return "tex" }
+        if sourceFileUTI.hasSuffix(".lua") { return "lua" }
+        if sourceFileUTI.hasSuffix(".clojure") { return "clojure" }
+        if sourceFileUTI.hasSuffix(".javascript-xml") { return "javascript" }
+        
+        // Remaining UTIs follow a standard structure:
+        // eg. `public.objective-c-source`
+        // So split by `.`, ignore the first item, and remove the `-xxx-yyy`
         var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
         if parts.count > 0 {

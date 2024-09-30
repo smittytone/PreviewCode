@@ -40,6 +40,7 @@
 				<string>public.pascal-source</string>
 				<string>public.protobuf-source</string>
 				<string>com.netscape.javascript-source</string>
+				<string>com.bps.javascript-xml</string>
 				<string>public.ruby-script</string>
 				<string>public.perl-script</string>
 				<string>public.php-script</string>
@@ -56,15 +57,16 @@
 				<string>com.bps.rust-source</string>
 				<string>com.bps.go-source</string>
 				<string>com.bps.coffee-source</string>
-				<string>com.bps.lua-source</string>
+				<string>org.lua</string>
 				<string>com.bps.csharp-source</string>
 				<string>com.bps.vbscript-source</string>
 				<string>com.bps.scss-source</string>
 				<string>com.bps.sql-source</string>
 				<string>com.bps.arduino-source</string>
-				<string>com.bps.clojure-source</string>
+				<string>org.clojure</string>
 				<string>com.bps.erlang-source</string>
 				<string>com.bps.latex-source</string>
+				<string>org.tug</string>
 				<string>com.bps.elixir-source</string>
 				<string>com.bps.haskell-source</string>
 				<string>com.bps.brainfuck-source</string>
@@ -83,7 +85,8 @@
 				<string>com.bps.terraform-vars</string>
 				<string>public.nasm-assembly-source</string>
 				<string>com.bps.cmake-source</string>
-				<string>com.bps.asciidoc-source</string>
+				<string>org.asciidoc</string>
+				<string>com.bps.asciidoc-asc</string>
 				<string>com.bps.conf</string>
 				<string>public.lua-script</string>
 				<string>com.microsoft.c-sharp</string>

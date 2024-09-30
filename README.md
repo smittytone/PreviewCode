@@ -1,4 +1,4 @@
-# PreviewCode 1.3.4
+# PreviewCode 1.3.5
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -119,6 +119,10 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
+- 1.3.5 *Unreleased*
+    - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
+    - Support the `.jsx` JavaScript XML extension.
+    - Get `.conf` back from <b>PreviewText</b>
 - 1.3.4 *14 September 2024*
     - Improve preference change handling.
     - Update highlighting code.
