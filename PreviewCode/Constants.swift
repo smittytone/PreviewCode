@@ -3,7 +3,7 @@
  *  PreviewCode
  *
  *  Created by Tony Smith on 30/05/2021.
- *  Copyright © 2024 Tony Smith. All rights reserved.
+ *  Copyright © 2025 Tony Smith. All rights reserved.
  */
 
 import Foundation
@@ -117,5 +117,4 @@ struct BUFFOON_CONSTANTS {
     static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
     static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
     static let DEFAULT_LINE_SPACING             = 1.0
-        
 }

@@ -3,7 +3,7 @@
  *  PreviewCode
  *
  *  Created by Tony Smith on 30/05/2021.
- *  Copyright © 2024 Tony Smith. All rights reserved.
+ *  Copyright © 2025 Tony Smith. All rights reserved.
  */
 
 
@@ -33,13 +33,13 @@ class AppDelegate: NSResponder,
     @IBOutlet var helpMenuHighlightjs: NSMenuItem!
     @IBOutlet var helpMenuHighlighterSwift: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
-    @IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
+    //@IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewJson: NSMenuItem!
     @IBOutlet var helpMenuRenderThemes: NSMenuItem!
     // FROM 1.2.5
     @IBOutlet var helpMenuWhatsNew: NSMenuItem!
     @IBOutlet var helpMenuReportBug: NSMenuItem!
-    @IBOutlet var helpMenuOthersPreviewText: NSMenuItem!
+    //@IBOutlet var helpMenuOthersPreviewText: NSMenuItem!
     @IBOutlet var mainMenuSettings: NSMenuItem!
     
     // Panel Items
@@ -270,13 +270,13 @@ class AppDelegate: NSResponder,
             path = "https://github.com/smittytone/HighlighterSwift"
         } else if item == self.helpMenuOthersPreviewMarkdown {
             path = BUFFOON_CONSTANTS.APP_URLS.PM
-        } else if item == self.helpMenuOthersPreviewYaml {
-            path = BUFFOON_CONSTANTS.APP_URLS.PY
+        //} else if item == self.helpMenuOthersPreviewYaml {
+        //    path = BUFFOON_CONSTANTS.APP_URLS.PY
         } else if item == self.helpMenuOthersPreviewJson {
             path = BUFFOON_CONSTANTS.APP_URLS.PJ
-        } else if item == self.helpMenuOthersPreviewText {
-            path = BUFFOON_CONSTANTS.APP_URLS.PT
-        }
+        } //else if item == self.helpMenuOthersPreviewText {
+        //    path = BUFFOON_CONSTANTS.APP_URLS.PT
+        //}
         
         // Open the selected website
         NSWorkspace.shared.open(URL.init(string:path)!)

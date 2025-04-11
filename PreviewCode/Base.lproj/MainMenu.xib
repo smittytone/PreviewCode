@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,8 +35,6 @@
                 <outlet property="helpMenuOnlineHelp" destination="Tys-ee-tfE" id="CHm-jd-POo"/>
                 <outlet property="helpMenuOthersPreviewJson" destination="dEj-z3-Sk4" id="9Pj-dz-pOP"/>
                 <outlet property="helpMenuOthersPreviewMarkdown" destination="a5a-JN-xae" id="efo-wb-Yel"/>
-                <outlet property="helpMenuOthersPreviewText" destination="pQ8-sT-8bQ" id="gfe-BL-5K9"/>
-                <outlet property="helpMenuOthersPreviewYaml" destination="xJX-CD-e0x" id="amy-a4-mCi"/>
                 <outlet property="helpMenuRenderThemes" destination="l5z-pu-n53" id="7Zw-Hx-3B4"/>
                 <outlet property="helpMenuReportBug" destination="9jb-nj-WtE" id="Vpg-vY-TAy"/>
                 <outlet property="helpMenuWhatsNew" destination="8ow-rc-CzH" id="4HX-fK-xLa"/>
@@ -173,18 +171,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="HZi-Y3-T0i"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="PreviewYaml" id="xJX-CD-e0x">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="jo8-eR-kza"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="PreviewText" id="pQ8-sT-8bQ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="lfJ-cv-9Ds"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -357,7 +343,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" id="g12-Ft-65u">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">PreviewCode and HighlighterSwift © 2024, Tony Smith. Contains Highlight.js © 2006-2024, Ivan Sagalaev and Highlightr © 2016, Juan Pablo Illanes</string>
+                            <string key="title">PreviewCode and HighlighterSwift © 2025, Tony Smith. Contains Highlight.js © 2006-2024, Ivan Sagalaev and Highlightr © 2016, Juan Pablo Illanes</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -735,7 +721,7 @@ DQ
                         <rect key="frame" x="277" y="16" width="92" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Single" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="IyZ-QV-9AY" id="cAL-Hw-Vqu">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" id="pTy-l8-c0C">
                                 <items>
                                     <menuItem title="Single" state="on" id="IyZ-QV-9AY"/>

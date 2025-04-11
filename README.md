@@ -45,7 +45,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - GameMaker Language (`.gml`)
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
-- JavaScript (`.js`)
+- JavaScript (`.js`, `.jsx`)
 - Julia (`.julia`, `.jl`)
 - Kotlin (`.kotlin`, `.kt`, `.ktm`, `.kts`)
 - Lisp (`.lisp`, `.lsp`, `.fasl`)
@@ -97,8 +97,8 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ## Known Issues ##
 
+- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported. We are actively investigating solutions to this problem.
 - *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
-- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported.
 - *PreviewCode* will not render Elixir `.exs` files if GarageBand and/or Logic Pro is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
 - Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
 - Deselecting code in the preview is not immediate: the highlight clears after ~1s. We are investigating fixes.
@@ -122,7 +122,8 @@ You will need to create your own `new` directory containing your own `new.html` 
 - 1.3.5 *Unreleased*
     - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
     - Support the `.jsx` JavaScript XML extension.
-    - Get `.conf` back from <b>PreviewText</b>
+    - Get `.conf` back from <b>PreviewText</b>.
+    - Remove links to deprecated PreviewText and PreviewYaml.
 - 1.3.4 *14 September 2024*
     - Improve preference change handling.
     - Update highlighting code.
@@ -193,6 +194,6 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Copyright and Credits ##
 
-Primary app code and UI design &copy; 2024, Tony Smith.
+Primary app code and UI design &copy; 2025, Tony Smith.
 
 Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-22 Ivan Sagalaev.

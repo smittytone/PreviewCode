@@ -27,7 +27,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2024 Tony Smith. All rights reserved.</string>
+	<string>Copyright © 2025 Tony Smith. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -38,8 +38,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Rust Source</string>
@@ -60,8 +58,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Go Source</string>
@@ -81,8 +77,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>CoffeeScript Source</string>
@@ -104,8 +98,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>C# Source</string>
@@ -128,8 +120,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>VBScript Source</string>
@@ -153,8 +143,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>SQL Source</string>
@@ -174,8 +162,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>SCSS Source</string>
@@ -196,8 +182,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Arduino Source</string>
@@ -218,8 +202,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Erlang Source</string>
@@ -241,8 +223,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTEX Markup</string>
@@ -263,8 +243,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Elixir Source</string>
@@ -286,8 +264,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Haskell Source</string>
@@ -309,8 +285,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Brainfuck Source</string>
@@ -332,8 +306,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ActionScript Source</string>
@@ -357,8 +329,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Twig File</string>
@@ -378,8 +348,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Dart Source</string>
@@ -399,8 +367,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>F# Source</string>
@@ -424,8 +390,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Julia Source</string>
@@ -446,8 +410,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Lisp Source</string>
@@ -469,8 +431,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Kotlin Source</string>
@@ -493,8 +453,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BASIC Source</string>
@@ -515,8 +473,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Terraform Variables File</string>
@@ -536,8 +492,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Terraform Source</string>
@@ -557,9 +511,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
+				<string>public.assembly-source</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Assembly</string>
@@ -579,11 +531,11 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>CMake File</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.cmake-source</string>
 			<key>UTTypeTagSpecification</key>
@@ -597,9 +549,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
+				<string>public.assembly-source</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>6809 Assembly</string>
@@ -619,8 +569,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Environment File</string>
@@ -640,11 +588,11 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Configuration File</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>com.bps.conf</string>
 			<key>UTTypeTagSpecification</key>
@@ -664,8 +612,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>GML</string>
@@ -688,8 +634,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.source-code</string>
-				<string>public.content</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>VueJS</string>
@@ -871,7 +815,11 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>cp</string>
 					<string>cpp</string>
+					<string>c++</string>
+					<string>cc</string>
+					<string>cxx</string>
 				</array>
 			</dict>
 		</dict>
@@ -890,7 +838,12 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>hh</string>
+					<string>hp</string>
 					<string>hpp</string>
+					<string>hxx</string>
+					<string>h++</string>
+					<string>ipp</string>
 				</array>
 			</dict>
 		</dict>
@@ -947,6 +900,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>f</string>
 					<string>for</string>
 				</array>
 			</dict>
@@ -966,14 +920,14 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>.applescript</string>
+					<string>applescript</string>
 				</array>
 			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.source-code</string>
+				<string>public.script</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>JavaScript</string>
@@ -986,6 +940,13 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>js</string>
+					<string>jscript</string>
+					<string>javascript</string>
+					<string>mjs</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/javascript</string>
 				</array>
 			</dict>
 		</dict>
@@ -1006,6 +967,10 @@
 				<array>
 					<string>py</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-python-script</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -1024,6 +989,17 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>php</string>
+					<string>php3</string>
+					<string>php4</string>
+					<string>ph3</string>
+					<string>ph4</string>
+					<string>phtml</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/php</string>
+					<string>text/x-php-script</string>
+					<string>application/php</string>
 				</array>
 			</dict>
 		</dict>
@@ -1043,6 +1019,12 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>perl</string>
+					<string>pl</string>
+					<string>pm</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-perl-script</string>
 				</array>
 			</dict>
 		</dict>
@@ -1062,10 +1044,19 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>rb</string>
+					<string>rbw</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-ruby-script</string>
 				</array>
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.script</string>
+			</array>
 			<key>UTTypeDescription</key>
 			<string>Bash Shell</string>
 			<key>UTTypeIcons</key>
@@ -1096,6 +1087,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>java</string>
+					<string>jav</string>
 				</array>
 			</dict>
 		</dict>
@@ -1114,6 +1106,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>ada</string>
 					<string>ads</string>
 					<string>adb</string>
 				</array>
@@ -1198,8 +1191,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-				<string>public.contet</string>
+				<string>public.text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>CSS</string>
@@ -1212,6 +1204,10 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>css</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/css</string>
 				</array>
 			</dict>
 		</dict>
@@ -1305,12 +1301,20 @@
 			<key>UTTypeIdentifier</key>
 			<string>public.make-source</string>
 			<key>UTTypeTagSpecification</key>
-			<dict/>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ake</string>
+					<string>mak</string>
+					<string>gmk</string>
+					<string>mk</string>
+				</array>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
+				<string>com.apple.xml-property-list</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Entitlements</string>
@@ -1331,10 +1335,12 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data, public.content</string>
+				<string>public.xml</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>NIB</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>com.apple.interfacebuilder.document.cocoa</string>
 			<key>UTTypeTagSpecification</key>
@@ -1348,10 +1354,12 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string></string>
+				<string>public.xml</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Storyboard</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>com.apple.dt.interfacebuilder.document.storyboard</string>
 			<key>UTTypeTagSpecification</key>
@@ -1365,11 +1373,8 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
-				<string>public.content</string>
-				<string>public.text</string>
-				<string>public.source-code</string>
 				<string>public.script</string>
+				<string>public.source-code</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MSTypeScript</string>
@@ -1390,7 +1395,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.script</string>
+				<string>public.source-code</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Lua</string>
@@ -1409,7 +1414,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.text</string>
+				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Asciidoc</string>
@@ -1429,7 +1434,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.script</string>
+				<string>public.source-code</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Clojure</string>
@@ -1443,6 +1448,7 @@
 				<array>
 					<string>clj</string>
 					<string>cljc</string>
+					<string>cljr</string>
 					<string>cljs</string>
 				</array>
 			</dict>
@@ -1450,7 +1456,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.text</string>
+				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Latex</string>
@@ -1464,6 +1470,10 @@
 				<array>
 					<string>latex</string>
 					<string>tex</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-tex</string>
 				</array>
 			</dict>
 		</dict>
