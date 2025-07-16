@@ -82,6 +82,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Cmake files (`.cmake`)
 - CSS (`.css`)
 - Environment (`.env`)
+- Extensible Markup Platform (`.xmp`)
 - LaTex (`.latex`, `.tex`)
 - Makefiles (`makefile`)
 - Apple Property list files (`.plist`)
@@ -120,7 +121,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 ## Release Notes ##
 
 - 1.3.6 *Unreleased*
-    - 
+    - Add `.xmp` (Extensible Metadata Platform) file support.
 - 1.3.5 *20 April 2025*
     - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
     - Get `.conf` back from <b>PreviewText</b>.

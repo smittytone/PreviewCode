@@ -100,6 +100,7 @@
 				<string>com.bps.elm-source</string>
 				<string>com.microsoft.typescript</string>
 				<string>com.bps.typescript-source</string>
+				<string>com.seriflabs.xmp</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

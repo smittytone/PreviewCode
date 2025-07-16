@@ -279,6 +279,8 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".lua") { return "lua" }
         if sourceFileUTI.hasSuffix(".clojure") { return "clojure" }
         if sourceFileUTI.hasSuffix(".javascript-xml") { return "javascript" }
+        // FROM 1.3.6
+        if sourceFileUTI.hasSuffix(".xmp") { return "xml" }
         
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
