@@ -45,7 +45,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - GameMaker Language (`.gml`)
 - Haskell (`.haskell`, `.hs`, `.lhs`)
 - Java (`.java`)
-- JavaScript (`.js`, `.jsx`)
+- JavaScript (`.js`)
 - Julia (`.julia`, `.jl`)
 - Kotlin (`.kotlin`, `.kt`, `.ktm`, `.kts`)
 - Lisp (`.lisp`, `.lsp`, `.fasl`)
@@ -119,9 +119,8 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
-- 1.3.5 *Unreleased*
+- 1.3.5 *20 April 2025*
     - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
-    - Support the `.jsx` JavaScript XML extension.
     - Get `.conf` back from <b>PreviewText</b>.
     - Remove links to deprecated PreviewText and PreviewYaml.
 - 1.3.4 *14 September 2024*
