@@ -122,6 +122,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 - 1.3.6 *Unreleased*
     - Add `.xmp` (Extensible Metadata Platform) file support.
+    - Add `.dop` (DxO PhotoLab sidecar) file support.
 - 1.3.5 *20 April 2025*
     - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
     - Get `.conf` back from <b>PreviewText</b>.

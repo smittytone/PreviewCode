@@ -740,6 +740,28 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DxO PhotoLab</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>DOP</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.dxo.dop</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>dop</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
@@ -1478,25 +1500,25 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>UTTypeDescription</key>
-			<string>XMP</string>
-			<key>UTTypeIconName</key>
-			<string>XMP</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.xml</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>XMP</string>
+			<key>UTTypeIconName</key>
+			<string>XMP</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.seriflabs.xmp</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>public.mime-type</key>
-				<array>
-					<string>application/rdf+xml</string>
-				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>xmp</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/rdf+xml</string>
 				</array>
 			</dict>
 		</dict>

@@ -281,6 +281,7 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".javascript-xml") { return "javascript" }
         // FROM 1.3.6
         if sourceFileUTI.hasSuffix(".xmp") { return "xml" }
+        if sourceFileUTI.hasSuffix(".dop") { return "plaintext" }
         
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`

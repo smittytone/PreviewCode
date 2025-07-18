@@ -101,6 +101,7 @@
 				<string>com.microsoft.typescript</string>
 				<string>com.bps.typescript-source</string>
 				<string>com.seriflabs.xmp</string>
+				<string>com.dxo.dop</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>
