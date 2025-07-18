@@ -298,6 +298,8 @@ extension AppDelegate {
 }
 
 
+// MARK: -
+
 extension NSApplication {
     
     func isMacInLightMode() -> Bool {
@@ -305,3 +307,4 @@ extension NSApplication {
         return (self.effectiveAppearance.name.rawValue == "NSAppearanceNameAqua")
     }
 }
+

@@ -117,4 +117,7 @@ struct BUFFOON_CONSTANTS {
     static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
     static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
     static let DEFAULT_LINE_SPACING             = 1.0
+    
+    // FROM 1.3.6
+    static let MAX_FEEDBACK_SIZE                = 512
 }
