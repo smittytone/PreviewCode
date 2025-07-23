@@ -127,6 +127,7 @@ You will need to create your own `new` directory containing your own `new.html` 
     - Add `.dop` (DxO PhotoLab sidecar) file support.
     - Add `.strings` (Apple Xcode strings) file suppport.
     - Make feedback size more clear with oversize screen flash and character count.
+    - Update code highlighter.
     - Codebase re-org phase I.
 - 1.3.5 *20 April 2025*
     - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
@@ -204,4 +205,4 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 Primary app code and UI design &copy; 2025, Tony Smith.
 
-Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-22 Ivan Sagalaev.
+Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-25, Josh Goebel and Other Contributors
