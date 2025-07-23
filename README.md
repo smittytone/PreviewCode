@@ -90,6 +90,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Apple Entitlements files (`.entitlements`)
 - Apple Xcode NIB files (`.xib`)
 - Apple Xcode storyboard files (`.storyboard`)
+- Apple Xcode strings files (`.strings`)
 - Protobuf (`.proto`)
 - SASS/SCSS (`.scss`, `.sass`)
 - SQL script (`.sql`)
@@ -124,6 +125,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 - 1.3.6 *Unreleased*
     - Add `.xmp` (Extensible Metadata Platform) file support.
     - Add `.dop` (DxO PhotoLab sidecar) file support.
+    - Add `.strings` (Apple Xcode strings) file suppport.
     - Make feedback size more clear with oversize screen flash and character count.
     - Codebase re-org phase I.
 - 1.3.5 *20 April 2025*

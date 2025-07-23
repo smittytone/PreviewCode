@@ -102,6 +102,8 @@
 				<string>com.bps.typescript-source</string>
 				<string>com.seriflabs.xmp</string>
 				<string>com.dxo.dop</string>
+				<string>com.apple.xcode.strings-text</string>
+				<string>com.apple.xml-property-list</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>

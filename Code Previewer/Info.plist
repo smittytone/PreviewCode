@@ -89,9 +89,9 @@
 				<string>com.bps.asciidoc-asc</string>
 				<string>com.bps.conf</string>
 				<string>public.lua-script</string>
-				<string>com.microsoft.c-sharp</string>
 				<string>com.apple.property-list</string>
 				<string>public.make-source</string>
+				<string>com.microsoft.c-sharp</string>
 				<string>com.bps.gml-source</string>
 				<string>com.bps.vuejs-source</string>
 				<string>com.apple.xcode.entitlements-property-list</string>
@@ -102,6 +102,8 @@
 				<string>com.bps.typescript-source</string>
 				<string>com.seriflabs.xmp</string>
 				<string>com.dxo.dop</string>
+				<string>com.apple.xcode.strings-text</string>
+				<string>com.apple.xml-property-list</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

@@ -257,7 +257,7 @@ final class Common: NSObject {
 
         // Trap 'non-standard' UTIs
         if sourceFileUTI.hasPrefix("com.apple.applescript") { return "applescript" }
-        if sourceFileUTI == "com.apple.property-list" { return "xml" }
+        if sourceFileUTI.hasSuffix("property-list") { return "xml" }
         // Standard UTIs which contain strings we need to remove on other cases
         if sourceFileUTI == "public.script" { return "bash" }
         if sourceFileUTI == "public.css" { return "css" }
@@ -268,7 +268,7 @@ final class Common: NSObject {
         // FROM 1.2.4
         if sourceFileUTI.hasSuffix(".c-sharp") { return "c#" }
         // FROM 1.2.6 -- Assorted Xcode files
-        if sourceFileUTI.hasSuffix(".entitlements-property-list") { return "xml" }
+        //if sourceFileUTI.hasSuffix(".entitlements-property-list") { return "xml" }
         if sourceFileUTI.hasSuffix(".interfacebuilder.document.cocoa") { return "xml" }
         if sourceFileUTI.hasSuffix("interfacebuilder.document.storyboard") { return "xml" }
         // FROM 1.3.2 -- Microsoft TypeScript UTI
@@ -281,7 +281,8 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".javascript-xml") { return "javascript" }
         // FROM 1.3.6
         if sourceFileUTI.hasSuffix(".xmp") { return "xml" }
-        if sourceFileUTI.hasSuffix(".dop") { return "plaintext" }
+        if sourceFileUTI.hasSuffix(".dop") { return "awk" }
+        if sourceFileUTI.hasSuffix("xcode.strings-text") { return "awk" }
         
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
