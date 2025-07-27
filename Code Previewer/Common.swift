@@ -283,6 +283,8 @@ final class Common: NSObject {
         if sourceFileUTI.hasSuffix(".xmp") { return "xml" }
         if sourceFileUTI.hasSuffix(".dop") { return "awk" }
         if sourceFileUTI.hasSuffix("xcode.strings-text") { return "awk" }
+        // FROM 1.3.7
+        if sourceFileUTI == "org.oasis-open.xliff" { return "xml" }
         
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`

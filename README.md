@@ -1,4 +1,4 @@
-# PreviewCode 1.3.6
+# PreviewCode 1.3.7
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -97,7 +97,8 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Terraform source file (`.tf`, `.terraform`)
 - Terraform variable file (`.tfvars`)
 - Twig (`.twig`)
-
+- XML Localization Interchange File Format (`.xlf`, `.xliff`
+)
 ## Known Issues ##
 
 - *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported. We are actively investigating solutions to this problem.
@@ -122,6 +123,8 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
+- 1.3.7 *Unreleased*
+    - Add `.xlf` (XML Localization Interchange File Format) file support.
 - 1.3.6 *25 July 2025*
     - Add `.xmp` (Extensible Metadata Platform) file support.
     - Add `.dop` (DxO PhotoLab sidecar) file support.

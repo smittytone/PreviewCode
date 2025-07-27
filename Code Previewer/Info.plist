@@ -104,6 +104,7 @@
 				<string>com.dxo.dop</string>
 				<string>com.apple.xcode.strings-text</string>
 				<string>com.apple.xml-property-list</string>
+				<string>org.oasis-open.xliff</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>
