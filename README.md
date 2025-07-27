@@ -4,7 +4,7 @@
 
 It is not exhaustive, nor is it intended to be. It is, however, intended to support [the most popular languages](#languages) used by Mac-based developers, whether for use on a Mac or on other platforms.
 
-![PreviewCode App Store QR code](qr-code.jpg)
+[![PreviewCode App Store QR code](qr-code.jpg)](https://apps.apple.com/gb/app/previewcode/id1571797683?mt=12)
 
 ## Installation and Usage ##
 
@@ -96,9 +96,10 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - SQL script (`.sql`)
 - Terraform source file (`.tf`, `.terraform`)
 - Terraform variable file (`.tfvars`)
+- Translation Memory eXchange (`.tmx`)
 - Twig (`.twig`)
-- XML Localization Interchange File Format (`.xlf`, `.xliff`
-)
+- XML Localization Interchange File Format (`.xlf`, `.xliff`)
+
 ## Known Issues ##
 
 - *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported. We are actively investigating solutions to this problem.
@@ -125,6 +126,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 - 1.3.7 *Unreleased*
     - Add `.xlf` (XML Localization Interchange File Format) file support.
+    - Add `.tmx` (Translation Memory eXchange) file support.
 - 1.3.6 *25 July 2025*
     - Add `.xmp` (Extensible Metadata Platform) file support.
     - Add `.dop` (DxO PhotoLab sidecar) file support.

@@ -105,6 +105,7 @@
 				<string>com.apple.xcode.strings-text</string>
 				<string>com.apple.xml-property-list</string>
 				<string>org.oasis-open.xliff</string>
+				<string>com.bps.tmx</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>
