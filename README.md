@@ -122,7 +122,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
-- 1.3.6 *Unreleased*
+- 1.3.6 *25 July 2025*
     - Add `.xmp` (Extensible Metadata Platform) file support.
     - Add `.dop` (DxO PhotoLab sidecar) file support.
     - Add `.strings` (Apple Xcode strings) file suppport.
