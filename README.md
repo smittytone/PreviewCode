@@ -102,11 +102,11 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ## Known Issues ##
 
-- *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported. We are actively investigating solutions to this problem.
-- *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
-- *PreviewCode* will not render Elixir `.exs` files if *GarageBand* and/or *Logic Pro* is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
-- Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
-- Deselecting code in the preview is not immediate: the highlight clears after ~1s. We are investigating fixes.
+1. *PreviewCode* will not render TypeScript `.ts` files. This is because the `.ts` file extension is pre-set on macOS to MPEG-2 transport stream video files. The `.tsx` and `.typescript` extensions are supported. We are actively investigating solutions to this problem.
+1. *PreviewCode* will not render Clojure `.edn` files. This is because the `.edn` file extension is pre-set on macOS to an Adobe digital rights management product.
+1. *PreviewCode* will not render Elixir `.exs` files if *GarageBand* and/or *Logic Pro* is installed on your Mac. This is because these apps use this file extension for EXS24 instrument files.
+1. Previews displayed on external displays, or on Macs with connected to multiple monitors, may intermittently not be scrollable if you’re using a third-party mouse. Workaround: a MacBook’s built-in trackpad will be able to scroll.
+1. Deselecting code in the preview is not immediate: the highlight clears after ~1s. We are investigating fixes.
 
 ## Source Code
 
@@ -124,87 +124,7 @@ You will need to create your own `new` directory containing your own `new.html` 
 
 ## Release Notes ##
 
-- 1.3.7 *Unreleased*
-    - Add `.xlf` (XML Localization Interchange File Format) file support.
-    - Add `.tmx` (Translation Memory eXchange) file support.
-- 1.3.6 *25 July 2025*
-    - Add `.xmp` (Extensible Metadata Platform) file support.
-    - Add `.dop` (DxO PhotoLab sidecar) file support.
-    - Add `.strings` (Apple Xcode strings) file suppport.
-    - Make feedback size more clear with oversize screen flash and character count.
-    - Update code highlighter.
-    - Codebase re-org phase I.
-- 1.3.5 *20 April 2025*
-    - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
-    - Get `.conf` back from <b>PreviewText</b>.
-    - Remove links to deprecated PreviewText and PreviewYaml.
-- 1.3.4 *14 September 2024*
-    - Improve preference change handling.
-    - Update highlighting code.
-- 1.3.3 *13 May 2024*
-    - Revise thumbnailer to improve memory utilization and efficiency.
-- 1.3.2 *15 November 2023*
-    - Add the `com.microsoft.typescript` UTI.
-    - Fix missing **What’s New** dialog.
-    - Fix **What’s New** dialog ‘white flash’ in dark mode.
-- 1.3.1 *14 August 2023*
-    - Non-shipping release: repo/code reorganisation.
-- 1.3.0 *31 May 2023*
-    - Support automatic dark/light theme application by macOS UI mode.
-    - Add line spacing control.
-- 1.2.7 *31 March 2023*
-    - Support `.elm` Elm files.
-    - Stop *PreviewCode* attempting to preview `.scpt` binary applescript files.
-    - Under-the-hood improvements
-- 1.2.6 *18 March 2023*
-    - Allow text to be selected in previews.
-    - Support `.gml` GML (GameMaker Language) files.
-    - Support `.vue` Vue.js files.
-    - Support `.entitlements`, `.xib`, `.storyboard` Xcode files.
-    - Update to use HighlighterSwift 1.1.1.
-- 1.2.5 *21 January 2023*
-    - Add link to [PreviewText](https://smittytone.net/previewtext/index.html).
-    - Better menu handling when panels are visible.
-    - Better app exit management.
-- 1.2.4 *14 December 2022*
-    - Add `com.microsoft.c-sharp` UTI.
-    - Support makefiles.
-- 1.2.3 *2 October 2022*
-    - Add link to [PreviewJson](https://smittytone.net/previewjson/index.html).
-- 1.2.2 *26 August 2022*
-    - Add `public.lua-script` UTI.
-    - Support XML `.plist` files.
-    - Initial support for non-utf8 source code file encodings.
-- 1.2.1 *7 August 2022*
-    - Support the `.cs` C# extension.
-    - Fix ARM assembly file display.
-    - Fix operation of Preferences’ font style popup.
-- 1.2.0 *26 April 2022*
-    - Update to use HighlighterSwift 1.1.0.
-    - Support environment `.env` files.
-    - Support CMake `.cmake` files.
-    - Support Terraform variable `.tfvars` files.
-    - Support AsciiDoc `.adoc`, `.asciidoc` and `.asc` files.
-    - Support `.conf`, `.cf`, `.cfg`, `.ini` and `.rc` config files
-    - Fix Haskell `.hsl` extension.
-    - Fix x86 `.nasm` preview.
-    - Change ActionScript supported extension to `.actionscript` to avoid clash with AppleSingle `.as`.
-    - Remove Lisp `.cl` — clash with OpenCL source.
-    - Remove Lisp `.l` — clash with Lex source.
-    - Remove F# `.fs` — clash with OpenGL Fragment Shader source.
-    - Remove Dylan `.dylan` and `.lid` extensions.
-- 1.1.1 *19 November 2021*
-    - Support HashiCorp Terraform `.tf` files.
-    - Disable file-type thumbnail tags under macOS 12 Monterey to avoid clash with system-added tags.
-- 1.1.0 *28 July 2021*
-    - Improved font selection code.
-    - Separate font style selection.
-    - Accelerate loading of the **Preferences** panel, especially on Intel Macs.
-    - Code streamlining.
-    - Fixed a rare bug in the previewer error reporting code.
-    - Apple wants links to other apps to be App Store links. So be it. What Apple wants, Apple gets.
-- 1.0.0 *16 June 2021*
-    - Initial public release.
+Please see the [CHANGELOG](./CHANGELOG.md)
 
 ## Copyright and Credits ##
 
