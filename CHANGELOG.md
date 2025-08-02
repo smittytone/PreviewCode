@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 1.3.7 *Unreleased*
+- 1.3.7 *1 August 2025*
     - Add `.xlf` (XML Localization Interchange File Format) file support.
     - Add `.tmx` (Translation Memory eXchange) file support.
 - 1.3.6 *25 July 2025*
