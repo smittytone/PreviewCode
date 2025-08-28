@@ -1,17 +1,17 @@
 /*
- *  WhatsNewExtensions.swift
+ *  AppDelegateWhatsNew.swift
  *  PreviewCode
+ *  Extension for AppDelegate providing What's New sheet functionality.
  *
  *  Created by Tony Smith on 18/07/2025.
  *  Copyright © 2025 Tony Smith. All rights reserved.
  */
 
 import AppKit
+import WebKit
 
 
 extension AppDelegate {
-
-    // MARK: - What's New Window Functions
 
     /**
      Show the 'What's New' sheet.
@@ -74,7 +74,7 @@ extension AppDelegate {
      - Parameters:
         - sender: The source of the action.
      */
-     @IBAction
+    @IBAction
     private func doCloseWhatsNew(_ sender: Any) {
 
          // Close the sheet
@@ -97,5 +97,25 @@ extension AppDelegate {
          // FROM 1.2.5
          // Restore menus
          showPanelGenerators()
+    }
+
+
+    // MARK: - WKWebNavigation Delegate Functions
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+
+        // Asynchronously show the sheet once the HTML has loaded
+        // (triggered by delegate method)
+
+        if let nav = self.whatsNewNav {
+            if nav == navigation {
+                // Display the sheet
+                // FROM 1.3.2 -- add timer to prevent 'white flash'
+                Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { timer in
+                    timer.invalidate()
+                    self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
+                }
+            }
+        }
     }
 }

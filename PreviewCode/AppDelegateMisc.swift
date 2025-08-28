@@ -1,6 +1,7 @@
 /*
- *  GenericExtensions.swift
+ *  AppDelegateMisc.swift
  *  PreviewApps
+ *  Extension for AppDelegate providing functionality used across PreviewApps.
  *
  *  These functions can be used by all PreviewApps
  *
@@ -9,8 +10,7 @@
  */
 
 
-import Foundation
-import Cocoa
+import AppKit
 import WebKit
 import UniformTypeIdentifiers
 
@@ -73,24 +73,7 @@ extension AppDelegate {
     }
 
 
-    // MARK: - Misc Functions
-
-    /**
-     Present an error message specific to sending feedback.
-
-     This is called from multiple locations: if the initial request can't be created,
-     there was a send failure, or a server error.
-     */
-    internal func sendFeedbackError() {
-
-        let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
-                                       "Unfortunately, your comments could not be send at this time. Please try again later.")
-        alert.beginSheetModal(for: self.reportWindow) { (resp) in
-            self.window.endSheet(self.reportWindow)
-            self.showPanelGenerators()
-        }
-    }
-
+    // MARK: - Alert Handler Functions
 
     /**
      Generic alert generator.
@@ -102,15 +85,18 @@ extension AppDelegate {
 
      - Returns:     The NSAlert.
      */
-    internal func showAlert(_ head: String, _ message: String, _ addOkButton: Bool = true) -> NSAlert {
+    internal func showAlert(_ head: String, _ message: String, _ addOkButton: Bool = true, _ isCritical: Bool = false) -> NSAlert {
 
         let alert: NSAlert = NSAlert()
         alert.messageText = head
         alert.informativeText = message
         if addOkButton { alert.addButton(withTitle: "OK") }
+        if isCritical { alert.alertStyle = .critical }
         return alert
     }
 
+
+    // MARK: - Data Generator Functions
 
     /**
      Build a basic 'major.manor' version string for prefs usage.
@@ -205,7 +191,7 @@ extension AppDelegate {
      */
     internal func hidePanelGenerators() {
         
-        self.helpMenuReportBug.isEnabled = false
+        //self.helpMenuReportBug.isEnabled = false
         self.helpMenuWhatsNew.isEnabled = false
         self.mainMenuSettings.isEnabled = false
     }
@@ -216,7 +202,7 @@ extension AppDelegate {
      */
     internal func showPanelGenerators() {
         
-        self.helpMenuReportBug.isEnabled = true
+        //self.helpMenuReportBug.isEnabled = true
         self.helpMenuWhatsNew.isEnabled = true
         self.mainMenuSettings.isEnabled = true
     }
@@ -244,67 +230,10 @@ extension AppDelegate {
         return (appearNameString == "NSAppearanceNameAqua")
     }
     
-    
-    // MARK: - URLSession Delegate Functions
 
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+    func applicationSupportsSecureRestorableState() -> Bool {
 
-        // Some sort of connection error - report it
-        self.connectionProgress.stopAnimation(self)
-        sendFeedbackError()
+        return true
     }
 
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-
-        // The operation to send the comment completed
-        self.connectionProgress.stopAnimation(self)
-        if let _ = error {
-            // An error took place - report it
-            sendFeedbackError()
-        } else {
-            // The comment was submitted successfully
-            let alert: NSAlert = showAlert("Thanks For Your Feedback!",
-                                           "Your comments have been received and we’ll take a look at them shortly.")
-            alert.beginSheetModal(for: self.reportWindow) { (resp) in
-                // Close the feedback window when the modal alert returns
-                let _: Timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { timer in
-                    self.window.endSheet(self.reportWindow)
-                    self.showPanelGenerators()
-                }
-            }
-        }
-    }
-
-
-    // MARK: - WKWebNavigation Delegate Functions
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-
-        // Asynchronously show the sheet once the HTML has loaded
-        // (triggered by delegate method)
-
-        if let nav = self.whatsNewNav {
-            if nav == navigation {
-                // Display the sheet
-                // FROM 1.3.2 -- add timer to prevent 'white flash'
-                Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { timer in
-                    timer.invalidate()
-                    self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
-                }
-            }
-        }
-    }
 }
-
-
-// MARK: -
-
-extension NSApplication {
-    
-    func isMacInLightMode() -> Bool {
-        
-        return (self.effectiveAppearance.name.rawValue == "NSAppearanceNameAqua")
-    }
-}
-

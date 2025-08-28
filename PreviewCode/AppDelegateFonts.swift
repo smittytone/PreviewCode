@@ -9,8 +9,7 @@
  */
 
 
-import Foundation
-import Cocoa
+import AppKit
 import WebKit
 import UniformTypeIdentifiers
 
@@ -23,7 +22,7 @@ extension AppDelegate {
      Build a list of available fonts.
 
      Should be called asynchronously. Two sets created: monospace fonts and regular fonts.
-     Requires 'bodyFonts' and 'codeFonts' to be set as instance properties.
+     Requires `bodyFonts` and `codeFonts` to be set as instance properties.
      Comment out either of these, as required.
 
      The final font lists each comprise pairs of strings: the font's PostScript name
@@ -71,8 +70,12 @@ extension AppDelegate {
             }
         }
 
+        // All done, update the main stores and begin to load
+        // settings (which immediately updates the UI, via `displaySettings()`,
+        // which itself requires the font store to be populated
         DispatchQueue.main.async {
-            self.codeFonts = cf
+            self.fonts = cf
+            self.loadSettings()
         }
     }
     
@@ -85,14 +88,14 @@ extension AppDelegate {
      */
     internal func setStylePopup(_ styleToSelect: String? = nil) {
         
-        if let selectedFamily: String = self.codeFontPopup.titleOfSelectedItem {
-            self.codeStylePopup.removeAllItems()
-            for family: PMFont in self.codeFonts {
+        if let selectedFamily: String = self.fontNamePopup.titleOfSelectedItem {
+            self.fontFacePopup.removeAllItems()
+            for family: PMFont in self.fonts {
                 if selectedFamily == family.displayName {
                     if let styles: [PMFont] = family.styles {
-                        self.codeStylePopup.isEnabled = true
+                        self.fontFacePopup.isEnabled = true
                         for style: PMFont in styles {
-                            self.codeStylePopup.addItem(withTitle: style.styleName)
+                            self.fontFacePopup.addItem(withTitle: style.styleName)
                         }
 
                         if styleToSelect != nil {
@@ -101,13 +104,13 @@ extension AppDelegate {
                             //      currently selected file, eg. we go from Roboto Mono ExtraLight
                             //      to Andale (Regular only). So check and select the first style
                             //      on the list if that happens.
-                            self.codeStylePopup.selectItem(withTitle: styleToSelect!)
-                            if self.codeStylePopup.indexOfSelectedItem == -1 {
-                                self.codeStylePopup.selectItem(at: 0)
+                            self.fontFacePopup.selectItem(withTitle: styleToSelect!)
+                            if self.fontFacePopup.indexOfSelectedItem == -1 {
+                                self.fontFacePopup.selectItem(at: 0)
                             }
                         } else {
                             // No style passed? Pick the first on the list (usually Regular)
-                            self.codeStylePopup.selectItem(at: 0)
+                            self.fontFacePopup.selectItem(at: 0)
                         }
                         
                         return
@@ -118,8 +121,8 @@ extension AppDelegate {
         
         // FROM 1.2.5
         // No style selected? Choose the default
-        if self.codeStylePopup.indexOfSelectedItem == -1 {
-            self.codeStylePopup.selectItem(at: 0)
+        if self.fontFacePopup.indexOfSelectedItem == -1 {
+            self.fontFacePopup.selectItem(at: 0)
         }
     }
 
@@ -133,11 +136,11 @@ extension AppDelegate {
      */
     internal func selectFontByPostScriptName(_ postScriptName: String) {
 
-        for family: PMFont in self.codeFonts {
+        for family: PMFont in self.fonts {
             if let styles: [PMFont] = family.styles {
                 for style: PMFont in styles {
                     if style.postScriptName == postScriptName {
-                        self.codeFontPopup.selectItem(withTitle: family.displayName)
+                        self.fontNamePopup.selectItem(withTitle: family.displayName)
                         setStylePopup(style.styleName)
                     }
                 }
@@ -153,9 +156,9 @@ extension AppDelegate {
      */
     internal func getPostScriptName() -> String? {
 
-        if let selectedFont: String = self.codeFontPopup.titleOfSelectedItem {
-            let selectedStyle: Int = codeStylePopup.indexOfSelectedItem
-            for family: PMFont in self.codeFonts {
+        if let selectedFont: String = self.fontNamePopup.titleOfSelectedItem {
+            let selectedStyle: Int = fontFacePopup.indexOfSelectedItem
+            for family: PMFont in self.fonts {
                 if family.displayName == selectedFont {
                     if let styles: [PMFont] = family.styles {
                         let font: PMFont = styles[selectedStyle]

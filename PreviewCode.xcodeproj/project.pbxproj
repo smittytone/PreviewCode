@@ -10,10 +10,15 @@
 		3B1108B826714ADA00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B726714ADA00A36A48 /* Highlighter */; };
 		3B1108BA26714AE700A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B926714AE700A36A48 /* Highlighter */; };
 		3B1108BC26714AED00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108BB26714AED00A36A48 /* Highlighter */; };
+		3B1A5B792E6097AA002AECE4 /* PMTabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B782E6097AA002AECE4 /* PMTabManager.swift */; };
+		3B1A5B7B2E60A447002AECE4 /* PCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7A2E60A447002AECE4 /* PCSettings.swift */; };
+		3B1A5B7F2E60BD8A002AECE4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */; };
+		3B1A5B802E60BDD6002AECE4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */; };
+		3B1A5B812E60BDD6002AECE4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */; };
 		3B271DCA268B0A9B00EFC72C /* themes-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B271DC9268B0A9B00EFC72C /* themes-list.json */; };
-		3B2D12E42E2A810500046D72 /* FeedbackAppDelegateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E32E2A810500046D72 /* FeedbackAppDelegateExtensions.swift */; };
-		3B2D12E62E2A82ED00046D72 /* WhatsNewAppDelegateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E52E2A82ED00046D72 /* WhatsNewAppDelegateExtensions.swift */; };
-		3B2D12E82E2A85C100046D72 /* SettingsAppDelegateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E72E2A85C100046D72 /* SettingsAppDelegateExtensions.swift */; };
+		3B2D12E42E2A810500046D72 /* AppDelegateFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E32E2A810500046D72 /* AppDelegateFeedback.swift */; };
+		3B2D12E62E2A82ED00046D72 /* AppDelegateWhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E52E2A82ED00046D72 /* AppDelegateWhatsNew.swift */; };
+		3B2D12E82E2A85C100046D72 /* AppDelegateSettiings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E72E2A85C100046D72 /* AppDelegateSettiings.swift */; };
 		3B3F580D29D5892900E227C7 /* PCImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F580C29D5892900E227C7 /* PCImageView.swift */; };
 		3B669A6C2AFBBFAC005AAFA3 /* new in Resources */ = {isa = PBXBuildFile; fileRef = 3B669A6B2AFBBFAC005AAFA3 /* new */; };
 		3B6ABAC52669649500A436AA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD785E2663E4C9002AD588 /* Common.swift */; };
@@ -27,8 +32,8 @@
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
-		3BAE671B28D4D3AD001532BD /* GenericFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */; };
-		3BDE3EF6267CE9890037351C /* GenericAppDelegateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE3EF5267CE9890037351C /* GenericAppDelegateExtensions.swift */; };
+		3BAE671B28D4D3AD001532BD /* AppDelegateFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */; };
+		3BDE3EF6267CE9890037351C /* AppDelegateMisc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE3EF5267CE9890037351C /* AppDelegateMisc.swift */; };
 		3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */; };
 		3BE0EB9E266A845B00C9924E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
 		3BE0EBA1266A845B00C9924E /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0EBA0266A845B00C9924E /* ThumbnailProvider.swift */; };
@@ -96,10 +101,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B1A5B782E6097AA002AECE4 /* PMTabManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMTabManager.swift; sourceTree = "<group>"; };
+		3B1A5B7A2E60A447002AECE4 /* PCSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCSettings.swift; sourceTree = "<group>"; };
+		3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3B271DC9268B0A9B00EFC72C /* themes-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "themes-list.json"; sourceTree = "<group>"; };
-		3B2D12E32E2A810500046D72 /* FeedbackAppDelegateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAppDelegateExtensions.swift; sourceTree = "<group>"; };
-		3B2D12E52E2A82ED00046D72 /* WhatsNewAppDelegateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewAppDelegateExtensions.swift; sourceTree = "<group>"; };
-		3B2D12E72E2A85C100046D72 /* SettingsAppDelegateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppDelegateExtensions.swift; sourceTree = "<group>"; };
+		3B2D12E32E2A810500046D72 /* AppDelegateFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateFeedback.swift; sourceTree = "<group>"; };
+		3B2D12E52E2A82ED00046D72 /* AppDelegateWhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateWhatsNew.swift; sourceTree = "<group>"; };
+		3B2D12E72E2A85C100046D72 /* AppDelegateSettiings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateSettiings.swift; sourceTree = "<group>"; };
 		3B34F5022BE0380200CB8679 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		3B3F580C29D5892900E227C7 /* PCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCImageView.swift; sourceTree = "<group>"; };
 		3B60F44F2E3B9EED009A7975 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -112,9 +120,9 @@
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
-		3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericFontExtensions.swift; sourceTree = "<group>"; };
+		3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateFonts.swift; sourceTree = "<group>"; };
 		3BB8E9102935FF7E00C6D452 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3BDE3EF5267CE9890037351C /* GenericAppDelegateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericAppDelegateExtensions.swift; sourceTree = "<group>"; };
+		3BDE3EF5267CE9890037351C /* AppDelegateMisc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateMisc.swift; sourceTree = "<group>"; };
 		3BE0EB9B266A845B00C9924E /* Code Thumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Code Thumbnailer.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
 		3BE0EBA0266A845B00C9924E /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
@@ -249,15 +257,18 @@
 			children = (
 				3BFD78582663E2C9002AD588 /* Constants.swift */,
 				3BFD78172663E16D002AD588 /* AppDelegate.swift */,
-				3B2D12E72E2A85C100046D72 /* SettingsAppDelegateExtensions.swift */,
-				3B2D12E32E2A810500046D72 /* FeedbackAppDelegateExtensions.swift */,
-				3B2D12E52E2A82ED00046D72 /* WhatsNewAppDelegateExtensions.swift */,
-				3BDE3EF5267CE9890037351C /* GenericAppDelegateExtensions.swift */,
-				3BAE671A28D4D3AD001532BD /* GenericFontExtensions.swift */,
+				3B2D12E72E2A85C100046D72 /* AppDelegateSettiings.swift */,
+				3B2D12E32E2A810500046D72 /* AppDelegateFeedback.swift */,
+				3B2D12E52E2A82ED00046D72 /* AppDelegateWhatsNew.swift */,
+				3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */,
+				3BDE3EF5267CE9890037351C /* AppDelegateMisc.swift */,
 				3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */,
+				3B1A5B782E6097AA002AECE4 /* PMTabManager.swift */,
 				3B6ABACB2669703800A436AA /* PreviewTextView.swift */,
 				3B3F580C29D5892900E227C7 /* PCImageView.swift */,
+				3B1A5B7A2E60A447002AECE4 /* PCSettings.swift */,
 				3BA5D03A269081BF00AF4EF2 /* PMFont.swift */,
+				3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */,
 				3BFD781B2663E16E002AD588 /* MainMenu.xib */,
 				3BFD781E2663E16E002AD588 /* Info.plist */,
 				3B271DC9268B0A9B00EFC72C /* themes-list.json */,
@@ -419,7 +430,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					3BE0EB9A266A845B00C9924E = {
 						CreatedOnToolsVersion = 12.5;
@@ -516,6 +527,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1A5B812E60BDD6002AECE4 /* Extensions.swift in Sources */,
 				3BE0EBAC266A848400C9924E /* Common.swift in Sources */,
 				3BE0EBA1266A845B00C9924E /* ThumbnailProvider.swift in Sources */,
 				3B7D83D92A8A306C008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
@@ -527,20 +539,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B2D12E82E2A85C100046D72 /* SettingsAppDelegateExtensions.swift in Sources */,
+				3B2D12E82E2A85C100046D72 /* AppDelegateSettiings.swift in Sources */,
 				3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */,
-				3BAE671B28D4D3AD001532BD /* GenericFontExtensions.swift in Sources */,
+				3BAE671B28D4D3AD001532BD /* AppDelegateFonts.swift in Sources */,
 				3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */,
 				3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */,
 				3B6ABACC2669703800A436AA /* PreviewTextView.swift in Sources */,
-				3BDE3EF6267CE9890037351C /* GenericAppDelegateExtensions.swift in Sources */,
+				3BDE3EF6267CE9890037351C /* AppDelegateMisc.swift in Sources */,
 				3B3F580D29D5892900E227C7 /* PCImageView.swift in Sources */,
 				3B6ABAC52669649500A436AA /* Common.swift in Sources */,
-				3B2D12E42E2A810500046D72 /* FeedbackAppDelegateExtensions.swift in Sources */,
+				3B2D12E42E2A810500046D72 /* AppDelegateFeedback.swift in Sources */,
 				3B7D83D52A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BFD78592663E2C9002AD588 /* Constants.swift in Sources */,
 				3B7D83D62A8A3034008A4B2E /* REPLACE_WITH_YOUR_FUNCTIONS.swift in Sources */,
-				3B2D12E62E2A82ED00046D72 /* WhatsNewAppDelegateExtensions.swift in Sources */,
+				3B2D12E62E2A82ED00046D72 /* AppDelegateWhatsNew.swift in Sources */,
+				3B1A5B7F2E60BD8A002AECE4 /* Extensions.swift in Sources */,
+				3B1A5B792E6097AA002AECE4 /* PMTabManager.swift in Sources */,
+				3B1A5B7B2E60A447002AECE4 /* PCSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +579,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1A5B802E60BDD6002AECE4 /* Extensions.swift in Sources */,
 				3BFD78602663E4C9002AD588 /* Common.swift in Sources */,
 				3BFD784B2663E27D002AD588 /* PreviewViewController.swift in Sources */,
 				3B7D83DA2A8A306D008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
@@ -622,9 +638,8 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -637,11 +652,12 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -653,9 +669,8 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "Code Thumbnailer/Info.plist";
@@ -665,11 +680,12 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -713,6 +729,7 @@
 				CURRENT_PROJECT_VERSION = 94;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -780,6 +797,7 @@
 				CURRENT_PROJECT_VERSION = 94;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -811,9 +829,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -829,12 +846,13 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -848,9 +866,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_IS_PC=1";
 				INFOPLIST_FILE = PreviewCode/Info.plist;
@@ -862,13 +879,14 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 2.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -880,7 +898,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -902,7 +919,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -923,13 +939,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCodeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -943,13 +959,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = PreviewCodeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCodeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -963,9 +979,8 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -975,7 +990,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -984,6 +999,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Previewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -995,9 +1011,8 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1007,7 +1022,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1015,6 +1030,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Previewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
