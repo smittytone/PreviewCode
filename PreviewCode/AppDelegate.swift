@@ -35,54 +35,19 @@ class AppDelegate: NSResponder,
     @IBOutlet var helpMenuHighlightjs: NSMenuItem!
     @IBOutlet var helpMenuHighlighterSwift: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewMarkdown: NSMenuItem!
-    //@IBOutlet var helpMenuOthersPreviewYaml: NSMenuItem!
     @IBOutlet var helpMenuOthersPreviewJson: NSMenuItem!
     @IBOutlet var helpMenuRenderThemes: NSMenuItem!
     // FROM 1.2.5
     @IBOutlet var helpMenuWhatsNew: NSMenuItem!
     @IBOutlet var helpMenuReportBug: NSMenuItem!
-    //@IBOutlet var helpMenuOthersPreviewText: NSMenuItem!
     @IBOutlet var mainMenuSettings: NSMenuItem!
     
-    // Panel Items
-    //@IBOutlet var versionLabel: NSTextField!
-
     // Main Widnow
     @IBOutlet var window: NSWindow!
     @IBOutlet weak var infoButton: NSButton!
     @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var feedbackButton: NSButton!
     @IBOutlet weak var mainTabView: NSTabView!
-
-    // Report Sheet
-    //@IBOutlet var reportWindow: NSWindow!
-    //@IBOutlet var feedbackText: NSTextField!
-    //@IBOutlet var connectionProgress: NSProgressIndicator!
-    // FROM 1.3.6
-    //@IBOutlet var messageSizeLabel: NSTextField!
-    //@IBOutlet var messageSendButton: NSButton!
-
-    // Preferences Sheet
-    //@IBOutlet var preferencesWindow: NSWindow!
-    //@IBOutlet var fontSizeSlider: NSSlider!
-    //@IBOutlet var fontSizeLabel: NSTextField!
-    //@IBOutlet var fontNamePopup: NSPopUpButton!
-    //@IBOutlet var displayModeSegmentedControl: NSSegmentedControl!
-    // FROM 1.1.0
-    //@IBOutlet weak var fontFacePopup: NSPopUpButton!
-    // FROM 1.3.0
-    @IBOutlet var darkRadioButton: NSButton!
-    @IBOutlet var lightRadioButton: NSButton!
-    @IBOutlet var autoRadioButton: NSButton!
-    @IBOutlet var darkThemeLabel: NSTextField!
-    @IBOutlet var lightThemeLabel: NSTextField!
-    @IBOutlet var darkThemeIcon: PCImageView!
-    @IBOutlet var lightThemeIcon: PCImageView!
-    @IBOutlet var themeHelpLabel: NSTextField!
-    @IBOutlet var themeScrollView: NSScrollView!
-    @IBOutlet var themeTable: NSTableView!
-    //@IBOutlet var lineSpacingPopup: NSPopUpButton!
-    @IBOutlet var helpButton: NSButton!
 
     // Window > Info Tab Items
     @IBOutlet var versionLabel: NSTextField!
@@ -91,18 +56,22 @@ class AppDelegate: NSResponder,
     // Window > Settings Tab Items
     @IBOutlet weak var fontSizeSlider: NSSlider!
     @IBOutlet weak var fontSizeLabel: NSTextField!
-    //@IBOutlet weak var useLightCheckbox: NSButton!
-    @IBOutlet weak var showFrontMatterCheckbox: NSButton!
-    @IBOutlet weak var headColourWell: NSColorWell!
-    @IBOutlet weak var bodyFontPopup: NSPopUpButton!
-    @IBOutlet weak var bodyStylePopup: NSPopUpButton!
     @IBOutlet weak var fontNamePopup: NSPopUpButton!
     @IBOutlet weak var fontFacePopup: NSPopUpButton!
+    @IBOutlet weak var darkRadioButton: NSButton!
+    @IBOutlet weak var lightRadioButton: NSButton!
+    @IBOutlet weak var autoRadioButton: NSButton!
+    @IBOutlet weak var darkThemeLabel: NSTextField!
+    @IBOutlet weak var lightThemeLabel: NSTextField!
+    @IBOutlet weak var darkThemeIcon: PCImageView!
+    @IBOutlet weak var lightThemeIcon: PCImageView!
+    @IBOutlet weak var themeHelpLabel: NSTextField!
     @IBOutlet weak var lineSpacingPopup: NSPopUpButton!
-    @IBOutlet weak var colourSelectionPopup: NSPopUpButton!
+    @IBOutlet weak var themeScrollView: NSScrollView!
+    @IBOutlet weak var themeTable: NSTableView!
     @IBOutlet weak var applyButton: NSButton!
     // FROM 2.1.0
-    @IBOutlet weak var showMarginCheckbox: NSButton!
+    @IBOutlet weak var showMarginCheckbox: NSButton!    // NOTE May become showLineNumbersCheckbox
 
     // Window > Feedback Tab Items
     @IBOutlet weak var feedbackText: NSTextField!
@@ -114,39 +83,19 @@ class AppDelegate: NSResponder,
     @IBOutlet var whatsNewWindow: NSWindow!
     @IBOutlet var whatsNewWebView: WKWebView!
 
-    
+
     // MARK: - Private Properies
 
-    internal var currentSettings: PCSettings = PCSettings()
-    internal var whatsNewNav: WKNavigation? = nil
-    internal var feedbackTask: URLSessionTask? = nil
-
-
-
-    //internal var codeFontSize: CGFloat = 16.0
-    //internal var codeFontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
-    //private  var doShowLightBackground: Bool = false
-    //internal var themeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
-    //internal var themeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-    internal var selectedThemeIndex: Int = 37
-    internal var newThemeIndex: Int = 37
-    internal var themes: [Any] = []
-    internal var darkThemes: [Int] = []
-    internal var lightThemes: [Int] = []
+    internal var currentSettings: PCSettings    = PCSettings()
+    internal var whatsNewNav: WKNavigation?     = nil
+    internal var feedbackTask: URLSessionTask?  = nil
+    internal var themes: [Any]                  = []
+    internal var darkThemes: [Int]              = []
+    internal var lightThemes: [Int]             = []
     // FROM 1.1.0
-    internal var fonts: [PMFont] = []
-    // FROM 1.2.1
-    internal var codeStyleName: String = "Regular"
-    // FROM 1.2.5
-    //private  var havePrefsChanged: Bool = false
-    internal var isMontereyPlus: Bool = false
+    internal var fonts: [PMFont]                = []
     // FROM 1.3.0
-    internal var newThemeDisplayMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-    //internal var lightThemeIndex: Int = 0
-    //internal var darkThemeIndex: Int = 0
-    //internal var newLightThemeIndex: Int = 0
-    //internal var newDarkThemeIndex: Int = 0
-    //internal var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
+    internal var newThemeDisplayMode: Int       = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -156,9 +105,8 @@ class AppDelegate: NSResponder,
     internal var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
     
     // FROM 2.0.0
-    private  var tabManager: PMTabManager = PMTabManager()
-    internal var hasSentFeedback: Bool = false
-    internal var initialLoadDone: Bool = false
+    private  var tabManager: PMTabManager       = PMTabManager()
+    internal var hasSentFeedback: Bool          = false
 
     
     // MARK: - Class Lifecycle Functions
@@ -173,7 +121,7 @@ class AppDelegate: NSResponder,
 
         // FROM 1.1.0
         // Asynchronously get the list of code fonts
-        DispatchQueue.init(label: "com.bps.previecode.async-queue").async {
+        DispatchQueue(label: "com.bps.previecode.async-queue").async {
             self.asyncGetFonts()
         }
         
@@ -186,14 +134,14 @@ class AppDelegate: NSResponder,
         versionLabel.stringValue = "Version \(version) (\(build))"
 
         // Disable the Help menu Spotlight features
-        let dummyHelpMenu: NSMenu = NSMenu.init(title: "Dummy")
+        let dummyHelpMenu: NSMenu = NSMenu(title: "Dummy")
         let theApp = NSApplication.shared
         theApp.helpMenu = dummyHelpMenu
         
         // FROM 1.2.0
         // Output language list for debugging
 #if DEBUG
-        if let hr: Highlighter = Highlighter.init() {
+        if let hr: Highlighter = Highlighter() {
             let list: [String] = hr.supportedLanguages()
             print("***** Languages  *****")
             for language in list {
@@ -380,7 +328,7 @@ class AppDelegate: NSResponder,
         }
         
         // Open the selected website
-        NSWorkspace.shared.open(URL.init(string:path)!)
+        NSWorkspace.shared.open(URL(string:path)!)
     }
 
 
@@ -396,13 +344,15 @@ class AppDelegate: NSResponder,
     private func doShowPrefsHelp(sender: Any) {
         
         let path: String = BUFFOON_CONSTANTS.MAIN_URL + "#customise-the-preview"
-        NSWorkspace.shared.open(URL.init(string:path)!)
+        NSWorkspace.shared.open(URL(string:path)!)
 
     }
 
 
     /**
      Open the System Preferences app at the Extensions pane.
+
+     UNUSED 2.0.0
 
      - Parameters:
         - sender: The source of the action.

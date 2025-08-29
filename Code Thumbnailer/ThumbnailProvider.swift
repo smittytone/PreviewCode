@@ -42,18 +42,18 @@ class ThumbnailProvider: QLThumbnailProvider {
             do {
                 // Get the file contents as a string, making sure it's not cached
                 // as we're not going to read it again any time soon
-                let data: Data = try Data.init(contentsOf: request.fileURL, options: [.uncached])
+                let data: Data = try Data(contentsOf: request.fileURL, options: [.uncached])
 
                 // Get the string's encoding, or fail back to .utf8
                 let encoding: String.Encoding = data.stringEncoding ?? .utf8
 
-                guard let codeFileString: String = String.init(data: data, encoding: encoding) else {
+                guard let codeFileString: String = String(data: data, encoding: encoding) else {
                     handler(nil, ThumbnailerError.badFileLoad(request.fileURL.path))
                     return
                 }
 
                 // Instantiate the common code within the closure
-                let common: Common = Common.init(true)
+                let common: Common = Common(true)
                 if common.initError {
                     // A key component of Common, eg. 'hightlight.js' is missing,
                     // so we cannot continue
@@ -78,7 +78,7 @@ class ThumbnailProvider: QLThumbnailProvider {
 
                 // Instantiate an NSTextField to display the NSAttributedString render of the code
                 let language: String = common.getLanguage(request.fileURL.path, false)
-                let codeTextField: NSTextField = NSTextField.init(frame: codeFrame)
+                let codeTextField: NSTextField = NSTextField(frame: codeFrame)
                 codeTextField.attributedStringValue = common.getAttributedString(displayString, language)
 
                 // Generate the bitmap from the rendered code text view
@@ -107,7 +107,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                                                             (thumbnailFrame.height * request.scale) + 2.0)
 
                         // Pass a QLThumbnailReply and no error to the supplied handler
-                        handler(QLThumbnailReply.init(contextSize: thumbnailFrame.size) { (context) -> Bool in
+                        handler(QLThumbnailReply(contextSize: thumbnailFrame.size) { (context) -> Bool in
                             // `scaleFrame` and `cgImage` are immutable
                             context.draw(cgImage, in: scaleFrame, byTiling: false)
                             return true

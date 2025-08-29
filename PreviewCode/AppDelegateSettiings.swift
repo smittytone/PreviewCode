@@ -12,20 +12,19 @@ import AppKit
 
 extension AppDelegate {
 
-
-
     /**
-     Update UI when we are about to switch to it
+     Update UI when we are about to switch to it.
+
+     FROM 2.0.0
      */
     internal func willShowSettingsPage() {
 
         // Set the themes table's contents store, once per runtime
-        if self.themes.count == 0 {
-            // Load and prepare the list of themes
-            loadThemeList()
-        }
+        // NOTE We do this on all tab entry points, but will likely
+        //      not be necessary here
+        loadThemeList()
 
-        // Load the table with themes
+        // Load the table with the current themes
         loadTable()
 
         // Enable the Apply button if something has changed
@@ -41,11 +40,11 @@ extension AppDelegate {
      - Parameters:
         - sender: The source of the action.
      */
-    @IBAction private func doMoveSlider(sender: Any) {
+    @IBAction
+    private func doMoveSlider(sender: Any) {
 
         let index: Int = Int(self.fontSizeSlider.floatValue)
         self.fontSizeLabel.stringValue = "\(Int(BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[index]))pt"
-        //self.havePrefsChanged = true
     }
 
 
@@ -64,7 +63,6 @@ extension AppDelegate {
         // If the user re-selects the current font family,
         // only update the style popup if a different family
         // has been selected
-        //self.havePrefsChanged = true
         let item: NSPopUpButton = sender as! NSPopUpButton
         if item == self.fontNamePopup {
             let currentFontPSName: NSString = self.currentSettings.fontName as NSString
@@ -75,9 +73,6 @@ extension AppDelegate {
                 setStylePopup(self.fontFacePopup.titleOfSelectedItem ?? "Regular")
                 return
             }
-        } else {
-            // The user clicked the style popup, so record the style
-            self.codeStyleName = self.fontFacePopup.titleOfSelectedItem ?? "Regular"
         }
     }
 
@@ -93,12 +88,55 @@ extension AppDelegate {
     @IBAction
     internal func doChangeValue(sender: Any) {
 
+        // NOTE This just causes the theme table to refresh and
+        //      checks for settings changes, updating the `Apply`
+        //      button as needed.
         willShowSettingsPage()
     }
 
 
     /**
-     The user has clicked on the Settings > Apply button.
+     When a radio button is clicked, change the theme mode.
+
+     - Parameters:
+        - sender: The source of the action.
+     */
+    @IBAction
+    private func doSwitchMode(sender: Any) {
+
+        // FROM 1.3.0
+        // Support radio buttons for mode control:
+        // Light only, dark only, or mixed mode.
+        if self.lightRadioButton.state == .on {
+            self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
+            self.lightThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeLabel.textColor = NSColor.gray
+            self.darkThemeIcon.isOutlined = false
+            self.lightThemeIcon.isOutlined = true
+            self.themeHelpLabel.stringValue = "Always use the selected light theme"
+        } else if self.darkRadioButton.state == .on {
+            self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
+            self.lightThemeLabel.textColor = NSColor.gray
+            self.darkThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeIcon.isOutlined = true
+            self.lightThemeIcon.isOutlined = false
+            self.themeHelpLabel.stringValue = "Always use the selected dark theme"
+        } else {
+            self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
+            self.lightThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeLabel.textColor = NSColor.labelColor
+            self.darkThemeIcon.isOutlined = true
+            self.lightThemeIcon.isOutlined = true
+            self.themeHelpLabel.stringValue = "Use the selected themes based on macOS’ mode"
+        }
+
+        // Reload the table and its selection
+        loadTable()
+    }
+
+
+    /**
+     The user has clicked on the `Apply` button.
 
      FROM 2.0.0
 
@@ -119,7 +157,7 @@ extension AppDelegate {
 
 
     /**
-     The user has clicked on the Settings > Defaults button.
+     The user has clicked on the `Defaults` button.
 
      NOTE This does not save the settings, it only updates Settings tab UI state.
 
@@ -157,8 +195,7 @@ extension AppDelegate {
         // Set the font name popup
         // List the current system's monospace fonts
         self.fontNamePopup.removeAllItems()
-        for i: Int in 0..<self.fonts.count {
-            let font: PMFont = self.fonts[i]
+        for font: PMFont in self.fonts {
             self.fontNamePopup.addItem(withTitle: font.displayName)
         }
 
@@ -168,26 +205,19 @@ extension AppDelegate {
 
         // Set the themes table's contents store, once per runtime
         // (needed for the section below, but should have been done)
-        if self.themes.count == 0 {
-            // Load and prepare the list of themes
-            loadThemeList()
-        }
+        loadThemeList()
 
         // Use the loaded theme names to find and set the human-reabable name in the UI
         for i in 0..<self.themes.count {
             let theme: [String: Any] = self.themes[i] as! [String: Any]
-            let cName: String = codedName(i)
+            let codedName: String = codedName(i)
 
-            if settings.lightThemeName == cName {
+            if settings.lightThemeName == codedName {
                 self.lightThemeLabel.stringValue = theme["name"] as! String
-                //self.lightThemeIndex = i
-                //self.newLightThemeIndex = i
             }
 
-            if settings.darkThemeName == cName {
+            if settings.darkThemeName == codedName {
                 self.darkThemeLabel.stringValue = theme["name"] as! String
-                //self.darkThemeIndex = i
-                //self.newDarkThemeIndex = i
             }
         }
 
@@ -335,7 +365,7 @@ extension AppDelegate {
             // will become the chosen dark them now
             var darkThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
             var lightThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
-            let previousVersionKey: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + "-1-2"
+            let previousVersionKey: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + "-2-0"
             let previousVersionDefault: Any? = defaults.object(forKey: previousVersionKey)
             if previousVersionDefault != nil {
                 // A previous version's defaults exist,
@@ -394,12 +424,15 @@ extension AppDelegate {
 
     /**
      Populate the current settings value with those read from disk.
+
+     FROM 2.0.0
      */
     internal func loadSettings() {
 
         // Get the settings off the disk
         self.currentSettings.loadSettings(self.appSuiteName)
 
+        // Set subsidiary (unrecorded) values
         if let index = getIndex(of: self.currentSettings.darkThemeName) {
             self.currentSettings.darkThemeIndex = index
         }
@@ -410,12 +443,6 @@ extension AppDelegate {
 
         // Use the loaded settings to update the Settings UI
         displaySettings(self.currentSettings)
-
-        if !self.initialLoadDone {
-            // Settings page elements have been set to reflect the current settings,
-            // either default values at the start, or custom values subsequently.
-            self.initialLoadDone = true
-        }
     }
 
 
@@ -437,19 +464,17 @@ extension AppDelegate {
     public func getIndex(of themename: String) -> Int? {
 
         // Set the themes table's contents store, once per runtime
-        if self.themes.count == 0 {
-            // Load and prepare the list of themes
-            loadThemeList()
-        }
+        loadThemeList()
 
-        var outer = -1
+        //var outer = -1
         for i in 0..<self.themes.count {
             if themename == codedName(i) {
-                outer = i
-                break
+                return i
+                //break
             }
         }
 
+        /*
         for i in 0..<self.darkThemes.count {
             if self.darkThemes[i] == outer {
                 return i
@@ -461,6 +486,7 @@ extension AppDelegate {
                 return i
             }
         }
+         */
 
         // ERROR: Theme not found
         return nil
@@ -513,218 +539,15 @@ extension AppDelegate {
 
 
 
-    /**
-     Close the **Preferences** sheet and save any settings that have changed.
-     
-     - Parameters:
-        - sender: The source of the action.
-
-    @IBAction
-    private func doSavePreferences(sender: Any) {
-
-        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-            // Decode the font menu index value into a font list index
-            
-            // Set the chosen text size if it has changed
-            let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
-            if newValue != self.codeFontSize {
-                defaults.setValue(newValue,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
-            }
-            
-            // FROM 1.1.0
-            // Set the chosen font if it has changed
-            // NOTE This covers both the font name and the style
-            if let fontName: String = getPostScriptName() {
-                if fontName != self.codeFontName {
-                    self.codeFontName = fontName
-                    defaults.setValue(fontName,
-                                      forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
-                }
-            }
-            
-            // FROM 1.3.0
-            // Update the theme selections if they have changed
-            if self.newLightThemeIndex != self.lightThemeIndex {
-                self.lightThemeIndex = self.newLightThemeIndex
-                defaults.setValue(codedName(self.lightThemeIndex),
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
-            }
-            
-            if self.newDarkThemeIndex != self.darkThemeIndex {
-                self.darkThemeIndex = self.newDarkThemeIndex
-                defaults.setValue(codedName(self.darkThemeIndex),
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
-            }
-            
-            if self.newThemeDisplayMode != self.themeDisplayMode {
-                self.themeDisplayMode = self.newThemeDisplayMode
-                defaults.setValue(self.themeDisplayMode,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
-            }
-            
-            // FROM 1.3.0
-            // Save the selected line spacing
-            let lineIndex: Int = self.lineSpacingPopup.indexOfSelectedItem
-            var lineSpacing: CGFloat = 1.0
-            switch(lineIndex) {
-                case 1:
-                    lineSpacing = 1.25
-                case 2:
-                    lineSpacing = 1.5
-                case 3:
-                    lineSpacing = 2.0
-                default:
-                    lineSpacing = 1.0
-            }
-            
-            if (self.lineSpacing != lineSpacing) {
-                self.lineSpacing = lineSpacing
-                defaults.setValue(lineSpacing,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
-            }
-        }
-        
-        // Remove the sheet now we have the data
-        //self.window.endSheet(self.preferencesWindow)
-
-        // FROM 1.2.5
-        // Restore menus
-        showPanelGenerators()
-    }
-     */
-
-    /**
-     Close the **Preferences** sheet without saving.
-     
-     - Parameters:
-        - sender: The source of the action.
-
-    @IBAction
-    private func doClosePreferences(sender: Any) {
-        
-        if checkPrefs() {
-            let alert: NSAlert = showAlert("You have made changes",
-                                           "Do you wish to go back and save them, or ignore them? ",
-                                           false)
-            alert.addButton(withTitle: "Go Back")
-            alert.addButton(withTitle: "Ignore Changes")
-            alert.beginSheetModal(for: self.window) { (response: NSApplication.ModalResponse) in
-                if response != NSApplication.ModalResponse.alertFirstButtonReturn {
-                    // The user clicked 'Cancel'
-                    //self.closePrefsWindow()
-                }
-            }
-        } else {
-            //closePrefsWindow()
-        }
-    }
-    */
-
-    /*
-    private func closePrefsWindow() {
-        
-        // Close the **Preferences** sheet
-        self.window.endSheet(self.preferencesWindow)
-        
-        // Restore menus
-        showPanelGenerators()
-    }
-
-    internal func checkPrefs() -> Bool {
-        
-        var haveChanged: Bool = false
-        
-        // Check the chosen text size
-        let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
-        haveChanged = (newValue != self.codeFontSize)
-        
-        // Check the chosen font
-        if let fontName: String = getPostScriptName() {
-            if !haveChanged && fontName != self.codeFontName {
-                haveChanged = true
-            }
-        }
-        
-        // Check the theme selections
-        if !haveChanged {
-            haveChanged = (self.newLightThemeIndex != self.lightThemeIndex)
-        }
-        
-        if !haveChanged {
-            haveChanged = (self.newDarkThemeIndex != self.darkThemeIndex)
-        }
-        
-        if !haveChanged {
-            haveChanged = (self.newThemeDisplayMode != self.themeDisplayMode)
-        }
-        
-        // Check the selected line spacing
-        let lineIndex: Int = self.lineSpacingPopup.indexOfSelectedItem
-        var lineSpacing: CGFloat = 1.0
-        switch(lineIndex) {
-            case 1:
-                lineSpacing = 1.25
-            case 2:
-                lineSpacing = 1.5
-            case 3:
-                lineSpacing = 2.0
-            default:
-                lineSpacing = 1.0
-        }
-        
-        if !haveChanged {
-            haveChanged = (round(self.lineSpacing * 100) / 100.0 != lineSpacing)
-        }
-        
-        return haveChanged
-    }
-     */
-
-    /**
-     When a radio button is clicked, change the theme mode.
-     
-     - Parameters:
-        - sender: The source of the action.
-     */
-    @IBAction
-    private func doSwitchMode(sender: Any) {
-        
-        // FROM 1.3.0
-        // Support radio buttons for mode control:
-        // Light only, dark only, or mixed mode.
-        if self.lightRadioButton.state == .on {
-            self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
-            self.lightThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeLabel.textColor = NSColor.gray
-            self.darkThemeIcon.isOutlined = false
-            self.lightThemeIcon.isOutlined = true
-            self.themeHelpLabel.stringValue = "Always use the selected light theme"
-        } else if self.darkRadioButton.state == .on {
-            self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
-            self.lightThemeLabel.textColor = NSColor.gray
-            self.darkThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeIcon.isOutlined = true
-            self.lightThemeIcon.isOutlined = false
-            self.themeHelpLabel.stringValue = "Always use the selected dark theme"
-        } else if self.autoRadioButton.state == .on {
-            self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-            self.lightThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeIcon.isOutlined = true
-            self.lightThemeIcon.isOutlined = true
-            self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
-        }
-        
-        // Reload the table and its selection
-        loadTable()
-    }
-
-
     // MARK: - Table Data Functions
     
     /**
      Set up the themes table.
+
+     FROM 2.0.0 Optionally pass in a settings object to use.
+
+     - Parameters:
+        - settings: A settings object, or `nil`.
      */
     private func loadTable(_ settings: PCSettings? = nil) {
 
@@ -747,6 +570,7 @@ extension AppDelegate {
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
             self.themeTable.scrollRowToVisible(row)
         } else {
+            // Scroll to the top
             self.themeTable.scrollRowToVisible(0)
         }
 
@@ -768,14 +592,14 @@ extension AppDelegate {
     private func getSelectionIndex(_ indexInFullThemeList: Int) -> IndexSet? {
         
         // Assume we're showing all themes as the default
-        var idx: IndexSet? = IndexSet.init(integer: indexInFullThemeList)
+        var idx: IndexSet? = IndexSet(integer: indexInFullThemeList)
         
         // But check if we're actually viewing a subset
         if self.currentSettings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
             idx = nil
             for i: Int in 0..<self.darkThemes.count {
                 if self.darkThemes[i] == indexInFullThemeList {
-                    idx = IndexSet.init(integer: i)
+                    idx = IndexSet(integer: i)
                     break
                 }
             }
@@ -783,7 +607,7 @@ extension AppDelegate {
             idx = nil
             for i: Int in 0..<self.lightThemes.count {
                 if self.lightThemes[i] == indexInFullThemeList {
-                    idx = IndexSet.init(integer: i)
+                    idx = IndexSet(integer: i)
                     break
                 }
             }
@@ -810,7 +634,7 @@ extension AppDelegate {
         var idx: Int = indexInFullThemeList
         
         // But check if we're actually viewing a subset
-        if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+        if self.currentSettings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
             idx = 0
             for i: Int in 0..<self.darkThemes.count {
                 if self.darkThemes[i] == indexInFullThemeList {
@@ -818,7 +642,7 @@ extension AppDelegate {
                     break
                 }
             }
-        } else if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+        } else if self.currentSettings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
             idx = 0
             for i: Int in 0..<self.lightThemes.count {
                 if self.lightThemes[i] == indexInFullThemeList {
@@ -841,13 +665,13 @@ extension AppDelegate {
      
      - Returns: The full theme list index.
      */
-    func getBaseIndex(_ subListIndex: Int) -> Int {
-        
+    private func getBaseIndex(_ subListIndex: Int) -> Int {
+
         var fullListIndex: Int = subListIndex
         
-        if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+        if self.currentSettings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
             fullListIndex = self.darkThemes[subListIndex]
-        } else if self.newThemeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+        } else if self.currentSettings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
             fullListIndex = self.lightThemes[subListIndex]
         }
         
@@ -855,8 +679,43 @@ extension AppDelegate {
     }
 
 
+    /**
+     Get the theme name for a given main list index.
+
+     FROM 2.0.0
+
+     - Parameters:
+        - for The index in the main array.
+
+     - Returns The theme name as a string.
+     */
+    private func themeName(for: Int) -> String {
+
+        let theme: [String: Any] = self.themes[`for`] as! [String: Any]
+        return theme["name"] as! String
+    }
+
+
+    /**
+     Get the 'coded' name of a theme, eg. 'agate-dark' -> 'dark.agate-dark'.
+
+     - Parameters:
+        - index: The theme's index in the array.
+
+     - Returns: The coded name as a string.
+     */
+
+    private func codedName(_ index: Int) -> String {
+
+        let theme: [String: Any] = self.themes[index] as! [String: Any]
+        let isDark: Bool = theme["dark"] as! Bool
+        let cssName: String = theme["css"] as! String
+        return (isDark ? "dark." : "light.") + cssName
+    }
+
+
     // MARK: - Theme Loading Functions
-    
+
     /**
      Read the list of themes from the file in the bundle into an array property.
      
@@ -865,10 +724,15 @@ extension AppDelegate {
      Should only be called once per run.
      */
     internal func loadThemeList() {
-        
+
+        // FROM 2.0.0
+        // Ensure we're not already done; bail if we are
+        guard self.themes.count == 0 else {
+            return
+        }
+
         // Load in the current theme list
-        guard let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST)
-        else {
+        guard let themesString: String = loadBundleFile(BUFFOON_CONSTANTS.FILE_THEME_LIST) else {
             // Error already posted by 'loadBundleFile()'
             return
         }
@@ -885,15 +749,7 @@ extension AppDelegate {
         // Remember this called only one per run
         self.themes = dict["themes"] as! [Any]
         for i: Int in 0..<self.themes.count {
-            // FROM 1.1.0
-            // Get the coded name, eg. 'dark.atom-one-dark', as this is what's
-            // stored in prefs and used by Code Previewer and Code Thumbnailer
-            //let codedThemeName: String = codedName(i)
-            //if codedThemeName == self.themeName {
-            //    self.selectedThemeIndex = i
-            //}
-
-            // Also record themes by type: these arrays
+            // Record themes by type: these arrays
             // record indices from from the main array
             let theme: [String: Any] = self.themes[i] as! [String: Any]
             let isDark: Bool = theme["dark"] as! Bool
@@ -928,7 +784,7 @@ extension AppDelegate {
         }
         
         do {
-            let fileContents: String = try String.init(contentsOf: URL.init(fileURLWithPath: filePath))
+            let fileContents: String = try String(contentsOf: URL(fileURLWithPath: filePath))
             return fileContents
         } catch {
             // TODO Post error
@@ -943,6 +799,8 @@ extension AppDelegate {
 
      Run this from the **Help** menu in debug sessions.
 
+     DEBUG ONLY
+
      - Parameters:
         - sender: The object that triggered the action
      */
@@ -950,22 +808,20 @@ extension AppDelegate {
     private func doRenderThemes(_ sender: Any) {
 
         let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
-        let fm: FileManager = FileManager.init()
+        let fm: FileManager = FileManager()
         let homeFolder: String = fm.homeDirectoryForCurrentUser.path
-        let common: Common = Common.init(false)
+        let common: Common = Common(false)
 
         // Load in the code sample we'll preview the themes with
         guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
 
-        if self.themes.count == 0 {
-            loadThemeList()
-        }
+        loadThemeList()
 
         for i: Int in 0..<self.themes.count {
             let name: String = codedName(i)
             common.updateTheme(name)
             let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
-            let ptv: PreviewTextView = PreviewTextView.init(frame: renderFrame)
+            let ptv: PCTextView = PCTextView(frame: renderFrame)
             ptv.isSelectable = false
 
             if let renderTextStorage: NSTextStorage = ptv.textStorage {
@@ -982,31 +838,13 @@ extension AppDelegate {
                         let theme: [String: Any] = self.themes[i] as! [String: Any]
                         let filename: String = theme["css"] as! String
                         let path: String = homeFolder + "/" + filename + ".png"
-                        try data.write(to: URL.init(fileURLWithPath: path))
+                        try data.write(to: URL(fileURLWithPath: path))
                     } catch {
                         // NOP
                     }
                 }
             }
         }
-    }
-
-
-    /**
-     Get the 'coded' name of a theme, eg. 'agate-dark' -> 'dark.agate-dark'.
-     
-     - Parameters:
-        - themeIndex: The theme's index in the array.
-     
-     - Returns: The coded name as a string.
-     */
-    
-    private func codedName(_ themeIndex: Int) -> String {
-        
-        let theme: [String: Any] = self.themes[themeIndex] as! [String: Any]
-        let isDark: Bool = theme["dark"] as! Bool
-        let cssName: String = theme["css"] as! String
-        return (isDark ? "dark." : "light.") + cssName
     }
 
 
@@ -1040,18 +878,17 @@ extension AppDelegate {
             // and thus the theme from that list
             let index: Int = getBaseIndex(row)
             let theme: [String: Any] = self.themes[index] as! [String: Any]
-            let themeName: String = theme["name"] as! String
             let themeCSS: String = theme["css"] as! String
             
             // Populate cell
-            cell!.themePreviewTitle.stringValue = themeName
+            cell!.themePreviewTitle.stringValue = theme["name"] as! String
             cell!.themeIndex = index
             
             // FROM 1.1.0
             // Generate the theme preview view programmatically, and use
             // images rather then JIT-rendered NSTextViews (too slow)
-            if let themePreview: NSImage = NSImage.init(named: themeCSS) {
-                let imv: NSImageView = NSImageView.init(image: themePreview)
+            if let themePreview: NSImage = NSImage(named: themeCSS) {
+                let imv: NSImageView = NSImageView(image: themePreview)
                 imv.frame = NSMakeRect(2, 1, 128, 78)
                 cell!.addSubview(imv)
             }
@@ -1069,25 +906,23 @@ extension AppDelegate {
         
         // Make sure the table becomes first responder so that the selection
         // is highlighted correctly
-        //if self.themeTable.selectedRow != -1 {
-            //self.preferencesWindow.makeFirstResponder(self.themeTable)
-        //}
+        if self.themeTable.selectedRow != -1 {
+            //self.window.makeFirstResponder(self.themeTable)
+        }
 
         // FROM 1.3.0
         // Make the changes according to the currently selected mode
         switch(self.currentSettings.themeDisplayMode) {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
                 self.currentSettings.lightThemeIndex = getBaseIndex(self.themeTable.selectedRow)
-                let theme: [String: Any] = self.themes[self.currentSettings.lightThemeIndex] as! [String: Any]
-                self.lightThemeLabel.stringValue = theme["name"] as! String
+                self.lightThemeLabel.stringValue = themeName(for: self.currentSettings.lightThemeIndex)
             case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
                 self.currentSettings.darkThemeIndex = getBaseIndex(self.themeTable.selectedRow)
-                let theme: [String: Any] = self.themes[self.currentSettings.darkThemeIndex] as! [String: Any]
-                self.darkThemeLabel.stringValue = theme["name"] as! String
+                self.darkThemeLabel.stringValue = themeName(for: self.currentSettings.darkThemeIndex)
             default:
                 // Get the referenced theme (all are listed) and use it to make the correct
                 // theme selection: light or dark
-                self.newThemeIndex = self.themeTable.selectedRow
+                //self.allThemesIndex = self.themeTable.selectedRow
                 let theme: [String: Any] = self.themes[self.themeTable.selectedRow] as! [String: Any]
                 if theme["dark"] as! Bool {
                     self.currentSettings.darkThemeIndex = self.themeTable.selectedRow
@@ -1109,7 +944,7 @@ extension AppDelegate {
          * we need to select.
          */
         
-        let clickedView: PreviewTextView = notification.object as! PreviewTextView
+        let clickedView: PCTextView = notification.object as! PCTextView
         let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
         
         // parentView.themeIndex -> index in self.themes
@@ -1123,15 +958,15 @@ extension AppDelegate {
                 self.currentSettings.darkThemeIndex = parentView.themeIndex
             } else if self.currentSettings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
                 self.currentSettings.lightThemeIndex = parentView.themeIndex
-            } else {
-                self.newThemeIndex = parentView.themeIndex
-            }
+            } //else {
+            //    self.allThemesIndex = parentView.themeIndex
+            //}
         }
     }
 
 
     // MARK: - NSResponder Functions
-    
+
     override func keyUp(with event: NSEvent) {
         
         /* Check for alpha key presses so the Preferences theme table
@@ -1192,7 +1027,173 @@ extension AppDelegate {
 
 
 
+    /**
+     Close the **Preferences** sheet and save any settings that have changed.
 
+     - Parameters:
+        - sender: The source of the action.
+
+    @IBAction
+    private func doSavePreferences(sender: Any) {
+
+        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
+            // Decode the font menu index value into a font list index
+
+            // Set the chosen text size if it has changed
+            let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
+            if newValue != self.codeFontSize {
+                defaults.setValue(newValue,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
+            }
+
+            // FROM 1.1.0
+            // Set the chosen font if it has changed
+            // NOTE This covers both the font name and the style
+            if let fontName: String = getPostScriptName() {
+                if fontName != self.codeFontName {
+                    self.codeFontName = fontName
+                    defaults.setValue(fontName,
+                                      forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
+                }
+            }
+
+            // FROM 1.3.0
+            // Update the theme selections if they have changed
+            if self.newLightThemeIndex != self.lightThemeIndex {
+                self.lightThemeIndex = self.newLightThemeIndex
+                defaults.setValue(codedName(self.lightThemeIndex),
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
+            }
+
+            if self.newDarkThemeIndex != self.darkThemeIndex {
+                self.darkThemeIndex = self.newDarkThemeIndex
+                defaults.setValue(codedName(self.darkThemeIndex),
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
+            }
+
+            if self.newThemeDisplayMode != self.themeDisplayMode {
+                self.themeDisplayMode = self.newThemeDisplayMode
+                defaults.setValue(self.themeDisplayMode,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
+            }
+
+            // FROM 1.3.0
+            // Save the selected line spacing
+            let lineIndex: Int = self.lineSpacingPopup.indexOfSelectedItem
+            var lineSpacing: CGFloat = 1.0
+            switch(lineIndex) {
+                case 1:
+                    lineSpacing = 1.25
+                case 2:
+                    lineSpacing = 1.5
+                case 3:
+                    lineSpacing = 2.0
+                default:
+                    lineSpacing = 1.0
+            }
+
+            if (self.lineSpacing != lineSpacing) {
+                self.lineSpacing = lineSpacing
+                defaults.setValue(lineSpacing,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            }
+        }
+
+        // Remove the sheet now we have the data
+        //self.window.endSheet(self.preferencesWindow)
+
+        // FROM 1.2.5
+        // Restore menus
+        showPanelGenerators()
+    }
+     */
+
+    /**
+     Close the **Preferences** sheet without saving.
+
+     - Parameters:
+        - sender: The source of the action.
+
+    @IBAction
+    private func doClosePreferences(sender: Any) {
+
+        if checkPrefs() {
+            let alert: NSAlert = showAlert("You have made changes",
+                                           "Do you wish to go back and save them, or ignore them? ",
+                                           false)
+            alert.addButton(withTitle: "Go Back")
+            alert.addButton(withTitle: "Ignore Changes")
+            alert.beginSheetModal(for: self.window) { (response: NSApplication.ModalResponse) in
+                if response != NSApplication.ModalResponse.alertFirstButtonReturn {
+                    // The user clicked 'Cancel'
+                    //self.closePrefsWindow()
+                }
+            }
+        } else {
+            //closePrefsWindow()
+        }
+    }
+    */
+
+    /*
+    private func closePrefsWindow() {
+
+        // Close the **Preferences** sheet
+        self.window.endSheet(self.preferencesWindow)
+
+        // Restore menus
+        showPanelGenerators()
+    }
+
+    internal func checkPrefs() -> Bool {
+
+        var haveChanged: Bool = false
+
+        // Check the chosen text size
+        let newValue: CGFloat = BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[Int(self.fontSizeSlider.floatValue)]
+        haveChanged = (newValue != self.codeFontSize)
+
+        // Check the chosen font
+        if let fontName: String = getPostScriptName() {
+            if !haveChanged && fontName != self.codeFontName {
+                haveChanged = true
+            }
+        }
+
+        // Check the theme selections
+        if !haveChanged {
+            haveChanged = (self.newLightThemeIndex != self.lightThemeIndex)
+        }
+
+        if !haveChanged {
+            haveChanged = (self.newDarkThemeIndex != self.darkThemeIndex)
+        }
+
+        if !haveChanged {
+            haveChanged = (self.newThemeDisplayMode != self.themeDisplayMode)
+        }
+
+        // Check the selected line spacing
+        let lineIndex: Int = self.lineSpacingPopup.indexOfSelectedItem
+        var lineSpacing: CGFloat = 1.0
+        switch(lineIndex) {
+            case 1:
+                lineSpacing = 1.25
+            case 2:
+                lineSpacing = 1.5
+            case 3:
+                lineSpacing = 2.0
+            default:
+                lineSpacing = 1.0
+        }
+
+        if !haveChanged {
+            haveChanged = (round(self.lineSpacing * 100) / 100.0 != lineSpacing)
+        }
+
+        return haveChanged
+    }
+     */
 
     
 }

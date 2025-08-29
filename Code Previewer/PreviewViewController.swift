@@ -51,15 +51,15 @@ class PreviewViewController: NSViewController,
             // Only proceed if the file is accessible from here
             do {
                 // Get the file contents as a string
-                let data: Data = try Data.init(contentsOf: url, options: [.uncached])
+                let data: Data = try Data(contentsOf: url, options: [.uncached])
                 
                 // FROM 1.2.2
                 // Get the string's encoding, or fail back to .utf8
                 let encoding: String.Encoding = data.stringEncoding ?? .utf8
                 
-                if let codeFileString: String = String.init(data: data, encoding: encoding) {
+                if let codeFileString: String = String(data: data, encoding: encoding) {
                     // Instantiate the common code within the closure
-                    let common: Common = Common.init(false)
+                    let common: Common = Common(false)
                     if common.initError {
                         // A key component of Common, eg. 'hightlight.js' is missing,
                         // so we cannot continue

@@ -45,12 +45,11 @@ extension AppDelegate {
 
      FROM 2.0.0
 
-     - Returns:
-        `true` if there is feedback to warn the user about, otherwise `false`.
+     - Returns: `true` if there is feedback to warn the user about, otherwise `false`.
      */
     internal func checkFeedbackOnQuit() -> Bool {
 
-        // If the user has never access the page
+        // If the user has never accessed the page
         if self.feedbackText.stringValue.isEmpty || self.hasSentFeedback {
             return false
         }
@@ -60,54 +59,12 @@ extension AppDelegate {
 
 
     /**
-     Display a window in which the user can submit feedback, or report a bug.
-     
-     - Parameters:
-     - sender: The source of the action.
+     User has clicked the `Send` button.
 
-    @IBAction
-    @objc
-    private func doShowReportWindow(sender: Any) {
-        
-        // Hide menus we don't want used while the panel is open
-        hidePanelGenerators()
-        
-        // Reset the UI
-        self.connectionProgress.stopAnimation(self)
-        self.feedbackText.stringValue = ""
-        self.messageSizeLabel.stringValue = "\(self.feedbackText.stringValue.count)/\(BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE)"
-        
-        // Present the window
-        self.window.beginSheet(self.reportWindow, completionHandler: nil)
-    }
-    */
-
-    /**
-     User has clicked the Report window's 'Cancel' button, so just close the sheet.
-     
-     - Parameters:
-     - sender: The source of the action.
-
-    @IBAction
-    @objc
-    private func doCancelReportWindow(sender: Any) {
-        
-        self.connectionProgress.stopAnimation(self)
-        self.window.endSheet(self.reportWindow)
-        
-        // FROM 1.2.5
-        // Restore menus
-        showPanelGenerators()
-    }
-     */
-
-    /**
-     User has clicked the Report window's 'Send' button.
-     
      Get the message (if there is one) from the text field and submit it.
      
      - Parameters:
-     - sender: The source of the action.
+        - sender: The source of the action.
      */
     @IBAction
     @objc
@@ -237,6 +194,4 @@ extension AppDelegate {
         }
     }
 
-
-    
 }

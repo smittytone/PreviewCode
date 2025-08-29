@@ -34,7 +34,7 @@ extension AppDelegate {
     internal func runProcess(app path: String, with args: [String]) -> Bool {
 
         let task: Process = Process()
-        task.executableURL = URL.init(fileURLWithPath: path)
+        task.executableURL = URL(fileURLWithPath: path)
         task.arguments = args
 
         // Pipe out the output to avoid putting it in the log
@@ -162,7 +162,7 @@ extension AppDelegate {
         
         if FileManager.default.fileExists(atPath: samplePath) {
             // Create a URL reference to the sample file
-            let sampleURL = URL.init(fileURLWithPath: samplePath)
+            let sampleURL = URL(fileURLWithPath: samplePath)
             
             do {
                 // Read back the UTI from the URL
@@ -191,7 +191,7 @@ extension AppDelegate {
      */
     internal func hidePanelGenerators() {
         
-        //self.helpMenuReportBug.isEnabled = false
+        self.helpMenuReportBug.isEnabled = false
         self.helpMenuWhatsNew.isEnabled = false
         self.mainMenuSettings.isEnabled = false
     }
@@ -202,7 +202,7 @@ extension AppDelegate {
      */
     internal func showPanelGenerators() {
         
-        //self.helpMenuReportBug.isEnabled = true
+        self.helpMenuReportBug.isEnabled = true
         self.helpMenuWhatsNew.isEnabled = true
         self.mainMenuSettings.isEnabled = true
     }
@@ -210,14 +210,16 @@ extension AppDelegate {
     
     /**
      Get system and state information and record it for use during run.
-     */
+
+     UNUSED 2.0.0
+
     internal func recordSystemState() {
         
         // First ensure we are running on Mojave or above - Dark Mode is not supported by earlier versons
         let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
         self.isMontereyPlus = (sysVer.majorVersion >= 12)
     }
-    
+     */
     
     /**
      Determine whether the host Mac is in light mode.

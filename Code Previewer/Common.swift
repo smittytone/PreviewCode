@@ -102,14 +102,14 @@ final class Common: NSObject {
         }
 
         // Generate the font we'll use, at the required size
-        if let chosenFont: NSFont = NSFont.init(name: fontName, size: self.fontSize) {
+        if let chosenFont: NSFont = NSFont(name: fontName, size: self.fontSize) {
             self.font = chosenFont
         } else {
             self.font = NSFont.systemFont(ofSize: self.fontSize)
         }
 
         // Instantiate the instance's highlighter
-        if let hr: Highlighter = Highlighter.init() {
+        if let hr: Highlighter = Highlighter() {
             hr.setTheme(highlightJsThemeName)
             hr.theme.setCodeFont(self.font!)
             
@@ -164,7 +164,7 @@ final class Common: NSObject {
                     .font: self.font!
                 ]
 
-                let hs: NSMutableAttributedString = NSMutableAttributedString.init(string: "Language: \(language)\n", attributes: debugAtts)
+                let hs: NSMutableAttributedString = NSMutableAttributedString(string: "Language: \(language)\n", attributes: debugAtts)
                 hs.append(ras)
                 //hs.addParaStyle(with: spacedParaStyle)
                 return hs as NSAttributedString
@@ -180,8 +180,8 @@ final class Common: NSObject {
             .font: self.font!
         ]
 
-        return NSAttributedString.init(string: "Could not render source code in (\(language))",
-                                       attributes: errorAtts)
+        return NSAttributedString(string: "Could not render source code in (\(language))",
+                                  attributes: errorAtts)
     }
 
 
@@ -363,7 +363,7 @@ final class Common: NSObject {
 
         // Create a URL reference to the sample file
         var sourceFileUTI: String = ""
-        let sourceFileURL = URL.init(fileURLWithPath: sourceFilePath)
+        let sourceFileURL = URL(fileURLWithPath: sourceFilePath)
 
         do {
             // Read back the UTI from the URL

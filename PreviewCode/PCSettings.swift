@@ -16,7 +16,7 @@ import Foundation
 
 class PCSettings {
 
-    // Savable Settings
+    // Saved Settings
     var fontName: String                    = BUFFOON_CONSTANTS.DEFAULT_FONT
     var fontSize: CGFloat                   = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
     var lineSpacing: CGFloat                = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
@@ -25,18 +25,11 @@ class PCSettings {
     var themeDisplayMode: Int               = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
     // FROM 2.0.0
     var doShowMargin: Bool                  = false
+    var doShowLineNumbers: Bool             = false
 
-    // Non-saved Settings
+    // Unsaved Settings
     var lightThemeIndex: Int                = 0
-    var newLightThemeIndex: Int             = 0
     var darkThemeIndex: Int                 = 0
-    var newDarkThemeIndex: Int              = 0
-
-    // UNUSED
-    var thumbFontSize: CGFloat              = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
-    var themeName: String                   = BUFFOON_CONSTANTS.DEFAULT_THEME
-    var useLight: Bool                      = false
-
 
     /**
      Populate the current settings value with those read from disk.
@@ -51,7 +44,6 @@ class PCSettings {
             self.darkThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
             self.lightThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
             self.themeDisplayMode = defaults.integer(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
-            //self.useLight = defaults.bool(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
             //self.doShowMargin = defaults.bool(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_SHOW_MARGIN)
         }
     }
@@ -71,7 +63,6 @@ class PCSettings {
             defaults.setValue(self.darkThemeName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
             defaults.setValue(self.lightThemeName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
             defaults.setValue(self.themeDisplayMode, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
-            //defaults.setValue(self.useLight, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
             //defaults.setValue(self.doShowMargin, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_SHOW_MARGIN)
         }
     }
