@@ -1,4 +1,4 @@
-# PreviewCode 1.3.7
+# PreviewCode 2.0.0
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 

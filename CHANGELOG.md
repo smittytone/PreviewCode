@@ -1,5 +1,9 @@
 ## Release Notes
 
+- 2.0.0 *Unreleased*
+    - Implement new PreviewApps UI.
+    - Update the design of the What’s New panel. 
+    - Remove unused legacy code.
 - 1.3.7 *1 August 2025*
     - Add `.xlf` (XML Localization Interchange File Format) file support.
     - Add `.tmx` (Translation Memory eXchange) file support.
