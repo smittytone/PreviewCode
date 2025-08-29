@@ -37,6 +37,9 @@ extension AppDelegate {
         // Disable the Feedback > Send button if we have sent a message.
         // It will be re-enabled by typing something
         self.messageSendButton.isEnabled = (!self.feedbackText.stringValue.isEmpty && !self.hasSentFeedback)
+        self.themeTable.resignFirstResponder()
+        self.window.makeFirstResponder(self.feedbackText)
+        self.feedbackText.currentEditor()?.beginDocument()
     }
 
 
