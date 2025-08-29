@@ -17,13 +17,13 @@ import Cocoa
 class ThemeTableCellView: NSTableCellView {
 
     // MARK: - Class UI Properies
-    
+
     @IBOutlet var themePreviewTitle: NSTextField!
-    
-    
+
+
     // MARK: - Public Properties
     
     // Record the table row the cell view is placed at
     var themeIndex: Int = -1
-    
+
 }

@@ -29,6 +29,8 @@ extension AppDelegate {
 
         // Enable the Apply button if something has changed
         self.applyButton.isEnabled = checkSettingsOnQuit()
+
+        print(self.window.makeFirstResponder(self.themeTable))
     }
 
 
@@ -104,34 +106,55 @@ extension AppDelegate {
     @IBAction
     private func doSwitchMode(sender: Any) {
 
-        // FROM 1.3.0
-        // Support radio buttons for mode control:
-        // Light only, dark only, or mixed mode.
+        // Set the radio buttons, labels etc.
         if self.lightRadioButton.state == .on {
             self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT
-            self.lightThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeLabel.textColor = NSColor.gray
-            self.darkThemeIcon.isOutlined = false
-            self.lightThemeIcon.isOutlined = true
-            self.themeHelpLabel.stringValue = "Always use the selected light theme"
         } else if self.darkRadioButton.state == .on {
             self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
-            self.lightThemeLabel.textColor = NSColor.gray
-            self.darkThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeIcon.isOutlined = true
-            self.lightThemeIcon.isOutlined = false
-            self.themeHelpLabel.stringValue = "Always use the selected dark theme"
         } else {
             self.currentSettings.themeDisplayMode = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-            self.lightThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeLabel.textColor = NSColor.labelColor
-            self.darkThemeIcon.isOutlined = true
-            self.lightThemeIcon.isOutlined = true
-            self.themeHelpLabel.stringValue = "Use the selected themes based on macOS’ mode"
         }
+
+        setThemeControls(self.currentSettings)
 
         // Reload the table and its selection
         loadTable()
+    }
+
+
+    /**
+     Set the theme controls: radio buttons, labels, graphics, etc.
+
+     FROM 2.0.0
+
+     - Parameters:
+        - settings A PCSettings instance.
+     */
+    private func setThemeControls(_ settings: PCSettings) {
+
+        switch(settings.themeDisplayMode) {
+            case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
+                self.lightRadioButton.state = .on
+                self.lightThemeLabel.textColor = NSColor.labelColor
+                self.darkThemeLabel.textColor = NSColor.gray
+                self.lightThemeIcon.isOutlined = true
+                self.darkThemeIcon.isOutlined = false
+                self.themeHelpLabel.stringValue = "Always use the chosen light theme"
+            case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
+                self.darkRadioButton.state = .on
+                self.lightThemeLabel.textColor = NSColor.gray
+                self.darkThemeLabel.textColor = NSColor.labelColor
+                self.lightThemeIcon.isOutlined = false
+                self.darkThemeIcon.isOutlined = true
+                self.themeHelpLabel.stringValue = "Always use the chosen dark theme"
+            default:
+                self.autoRadioButton.state = .on
+                self.lightThemeLabel.textColor = NSColor.labelColor
+                self.darkThemeLabel.textColor = NSColor.labelColor
+                self.darkThemeIcon.isOutlined = true
+                self.lightThemeIcon.isOutlined = true
+                self.themeHelpLabel.stringValue = "Use the chosen theme for macOS’ mode"
+        }
     }
 
 
@@ -226,29 +249,7 @@ extension AppDelegate {
 
         // FROM 1.3.0
         // Set the mode control
-        switch(settings.themeDisplayMode) {
-            case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
-                self.lightRadioButton.state = .on
-                self.lightThemeLabel.textColor = NSColor.labelColor
-                self.lightThemeIcon.isOutlined = true
-                self.darkThemeLabel.textColor = NSColor.gray
-                self.darkThemeIcon.isOutlined = false
-                self.themeHelpLabel.stringValue = "Always use the selected light theme"
-            case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
-                self.darkRadioButton.state = .on
-                self.lightThemeLabel.textColor = NSColor.gray
-                self.lightThemeIcon.isOutlined = false
-                self.darkThemeLabel.textColor = NSColor.labelColor
-                self.darkThemeIcon.isOutlined = true
-                self.themeHelpLabel.stringValue = "Always use the selected dark theme"
-            default:
-                self.autoRadioButton.state = .on
-                self.lightThemeLabel.textColor = NSColor.labelColor
-                self.darkThemeLabel.textColor = NSColor.labelColor
-                self.darkThemeIcon.isOutlined = true
-                self.lightThemeIcon.isOutlined = true
-                self.themeHelpLabel.stringValue = "Use the selected theme based on the host Mac’s mode"
-        }
+        setThemeControls(settings)
 
         // FROM 1.3.0
         // Set the responder chain for keyed selection
@@ -899,16 +900,18 @@ extension AppDelegate {
 
 
     func tableViewSelectionDidChange(_ notification: Notification) {
-        
+
         /* Get the clicked NSTableCellView and use it to get the table row
          * that we need to select.
          */
-        
+
         // Make sure the table becomes first responder so that the selection
         // is highlighted correctly
-        if self.themeTable.selectedRow != -1 {
-            //self.window.makeFirstResponder(self.themeTable)
-        }
+        //let tv = notification.object as! NSTableView
+        //if tv.selectedRow != -1 {
+        //    let w = tv.window
+        //    self.window.makeFirstResponder(tv)
+        //}
 
         // FROM 1.3.0
         // Make the changes according to the currently selected mode

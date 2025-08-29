@@ -74,7 +74,7 @@ class AppDelegate: NSResponder,
     @IBOutlet weak var showMarginCheckbox: NSButton!    // NOTE May become showLineNumbersCheckbox
 
     // Window > Feedback Tab Items
-    @IBOutlet weak var feedbackText: NSTextField!
+    @IBOutlet weak var feedbackText: PCTextField!
     @IBOutlet weak var connectionProgress: NSProgressIndicator!
     @IBOutlet weak var messageSizeLabel: NSTextField!
     @IBOutlet weak var messageSendButton: NSButton!
@@ -184,6 +184,7 @@ class AppDelegate: NSResponder,
 
         // Centre the main window and display
         setInfoText()
+        self.window.initialFirstResponder = self.themeTable
         self.window.delegate = self
         self.window.center()
         self.window.makeKeyAndOrderFront(self)
