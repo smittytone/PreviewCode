@@ -176,7 +176,7 @@ Gw
                 <outlet property="versionLabel" destination="TIH-wq-nlU" id="VCq-ki-Hag"/>
                 <outlet property="whatsNewWebView" destination="JhS-5O-6sp" id="hrq-0G-CPr"/>
                 <outlet property="whatsNewWindow" destination="tKr-h4-TOq" id="iur-bh-TiO"/>
-                <outlet property="window" destination="hiI-0R-QAN" id="qQc-Me-wPu"/>
+                <outlet property="window" destination="hiI-0R-QAN" id="3Go-CD-4TK"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -507,9 +507,6 @@ DQ
                     <constraint firstItem="YVT-Hp-N8B" firstAttribute="top" secondItem="oFK-cW-IUJ" secondAttribute="bottom" constant="33" id="v1H-Kj-Xrc"/>
                 </constraints>
             </view>
-            <connections>
-                <outlet property="delegate" destination="Voe-Tx-rLC" id="a1q-ca-5vW"/>
-            </connections>
             <point key="canvasLocation" x="-1477" y="-1260"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jjd-uj-Puq" userLabel="LEGACY Preferences">
@@ -1154,7 +1151,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Th-Nd-g8O">
-                                            <rect key="frame" x="119" y="139" width="277" height="25"/>
+                                            <rect key="frame" x="111" y="139" width="285" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Andale Mono" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingMiddle" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8St-Og-TSF" id="0eM-Yy-ldu">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1175,7 +1172,7 @@ running this app once more.</string>
                                             </connections>
                                         </popUpButton>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gyl-9d-bWn">
-                                            <rect key="frame" x="18" y="146" width="98" height="16"/>
+                                            <rect key="frame" x="18" y="146" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Code font:" id="eyt-D5-TkO">
                                                 <font key="font" metaFont="system"/>
@@ -1184,7 +1181,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1QL-pO-lcW">
-                                            <rect key="frame" x="18" y="116" width="98" height="16"/>
+                                            <rect key="frame" x="18" y="116" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Style:" id="bGV-HM-N7U">
                                                 <font key="font" metaFont="system"/>
@@ -1193,7 +1190,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TlV-ro-nDd">
-                                            <rect key="frame" x="119" y="109" width="157" height="25"/>
+                                            <rect key="frame" x="111" y="109" width="165" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Regular" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingMiddle" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="LN8-mw-C8w" id="ERz-cX-9pb">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1211,7 +1208,7 @@ running this app once more.</string>
                                             </connections>
                                         </popUpButton>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xjY-jq-ibu">
-                                            <rect key="frame" x="119" y="79" width="129" height="25"/>
+                                            <rect key="frame" x="111" y="79" width="137" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Single" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="TDz-eZ-NjY" id="vel-Zd-ZZf">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1232,7 +1229,7 @@ running this app once more.</string>
                                             </connections>
                                         </popUpButton>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OBC-bR-hl0">
-                                            <rect key="frame" x="18" y="86" width="98" height="16"/>
+                                            <rect key="frame" x="18" y="86" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Line spacing:" id="47T-bJ-Dn2">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -1241,14 +1238,14 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <scrollView fixedFrame="YES" borderType="line" autohidesScrollers="YES" horizontalLineScroll="80" horizontalPageScroll="10" verticalLineScroll="80" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdD-Na-zIg">
-                                            <rect key="frame" x="400" y="52" width="387" height="204"/>
+                                            <rect key="frame" x="400" y="52" width="380" height="204"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="Vp2-Uo-nQg">
-                                                <rect key="frame" x="1" y="1" width="385" height="202"/>
+                                                <rect key="frame" x="1" y="1" width="378" height="202"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="80" viewBased="YES" floatsGroupRows="NO" id="NhT-Em-x8n">
-                                                        <rect key="frame" x="0.0" y="0.0" width="385" height="202"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="202"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -1290,6 +1287,10 @@ running this app once more.</string>
                                                                             <outlet property="themePreviewTitle" destination="PiH-EH-EPn" id="vgM-zU-ekf"/>
                                                                         </connections>
                                                                     </tableCellView>
+                                                                    <customView identifier="NSTableViewRowViewKey" id="h8h-cb-jhV" customClass="PCTableRowView" customModule="PreviewCode" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="80" width="348" height="96"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    </customView>
                                                                 </prototypeCellViews>
                                                             </tableColumn>
                                                         </tableColumns>
@@ -1320,7 +1321,7 @@ running this app once more.</string>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="folder-icon-dark" id="OhM-j0-sR8"/>
                                         </imageView>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kIF-hf-mlL">
-                                            <rect key="frame" x="112" y="174" width="282" height="14"/>
+                                            <rect key="frame" x="112" y="174" width="290" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" refusesFirstResponder="YES" title="Label" id="wdA-Kx-agb">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -1360,7 +1361,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WyN-Ae-9uG">
-                                            <rect key="frame" x="237" y="218" width="157" height="16"/>
+                                            <rect key="frame" x="237" y="218" width="165" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" title="Label" id="YMl-4y-DcY">
                                                 <font key="font" metaFont="system"/>
@@ -1369,7 +1370,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Au0-Eq-psM">
-                                            <rect key="frame" x="197" y="240" width="197" height="16"/>
+                                            <rect key="frame" x="197" y="240" width="205" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Selected Theme:" id="TnI-bU-bpi">
                                                 <font key="font" metaFont="system"/>
@@ -1389,7 +1390,7 @@ running this app once more.</string>
                                             </connections>
                                         </button>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1I-UZ-hsf">
-                                            <rect key="frame" x="237" y="196" width="157" height="16"/>
+                                            <rect key="frame" x="237" y="196" width="165" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Label" id="UUA-Rx-6df">
                                                 <font key="font" metaFont="system"/>
@@ -1398,7 +1399,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8dh-uP-44R">
-                                            <rect key="frame" x="120" y="51" width="272" height="18"/>
+                                            <rect key="frame" x="112" y="51" width="288" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Display code line numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rg5-GJ-ppE">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1444,7 +1445,7 @@ running this app once more.</string>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bg1-og-rL9">
+                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bg1-og-rL9" customClass="PCTextField" customModule="PreviewCode" customModuleProvider="target">
                                             <rect key="frame" x="20" y="63" width="760" height="235"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="235" id="VhX-LR-3Uf"/>
@@ -1614,7 +1615,7 @@ running this app once more.</string>
                 </constraints>
             </view>
             <connections>
-                <outlet property="initialFirstResponder" destination="Efa-Tr-CoS" id="vQb-BV-aw8"/>
+                <outlet property="initialFirstResponder" destination="NhT-Em-x8n" id="0GT-0y-MfD"/>
             </connections>
             <point key="canvasLocation" x="605" y="-196"/>
         </window>
@@ -1627,6 +1628,6 @@ running this app once more.</string>
         <image name="folder-icon-light" width="32" height="16"/>
         <image name="gearshape.fill" catalog="system" width="16" height="16"/>
         <image name="info.circle.fill" catalog="system" width="15" height="15"/>
-        <image name="logotype" width="510.5" height="52"/>
+        <image name="logotype" width="502" height="52"/>
     </resources>
 </document>
