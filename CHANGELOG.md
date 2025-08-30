@@ -2,6 +2,7 @@
 
 - 2.0.0 *Unreleased*
     - Implement new PreviewApps UI.
+    - Add optional line numbers to the output.
     - Update the design of the What’s New panel. 
     - Remove unused legacy code.
 - 1.3.7 *1 August 2025*
