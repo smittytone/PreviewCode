@@ -20,25 +20,25 @@ final class Common: NSObject {
 
     // MARK: - Public Properties
 
-    var themeBackgroundColour: NSColor = NSColor.white
-    var isThemeDark: Bool              = false
-    var initError: Bool                = false
+    var themeBackgroundColour: NSColor      = NSColor.white
+    var isThemeDark: Bool                   = false
+    var initError: Bool                     = false
 
 
     // MARK: - Private Properties
 
-    private var font: NSFont? = nil
-    private var highlighter: Highlighter? = nil
-    // FROM 1.3.0
-    private var lineSpacing: CGFloat = BUFFOON_CONSTANTS.DEFAULT_LINE_SPACING
-    private var fontSize: CGFloat = CGFloat(BUFFOON_CONSTANTS.THEME_PREVIEW_FONT_SIZE)
+    private var font: NSFont?               = nil
+    private var highlighter: Highlighter?   = nil
+    // FROM 2.0.0
+    private var isThumnbnail: Bool          = false
+    private var settings: PCSettings        = PCSettings()
 
     /*
      Replace the following string with your own team ID. This is used to
      identify the app suite and so share preferences set by the main app with
      the previewer and thumbnailer extensions.
      */
-    private var appSuiteName: String = MNU_SECRETS.PID
+    private var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 
     
     // MARK: - Lifecycle Functions
@@ -48,64 +48,43 @@ final class Common: NSObject {
         super.init()
 
         // Set local values with default properties
-        var highlightJsThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME
-        var lightThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
-        var darkThemeName: String = BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
-        var themeMode: Int = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-        var fontName: String = BUFFOON_CONSTANTS.DEFAULT_FONT
+        var highlightJsThemeName: String
 
         // Read in the user preferences to update the above values
-        if let defaults: UserDefaults = UserDefaults(suiteName: self.appSuiteName + BUFFOON_CONSTANTS.SUITE_NAME) {
-            if !isThumbnail {
-                self.fontSize = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE))
-                
-                // FROM 1.3.0
-                // Get set theme names for UI mode
-                lightThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_LIGHT
-                darkThemeName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_THEME_DARK
-                themeMode = defaults.integer(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
-                
-                // FROM 1.3.0
-                // Get line spacing (not yet exposed in UI)
-                self.lineSpacing = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING))
-            }
+        self.settings.loadSettings(self.appSuiteName)
 
-            fontName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME) ?? BUFFOON_CONSTANTS.DEFAULT_FONT
-        }
-
-        // Set instance theme-related properties
         if isThumbnail {
             // Thumbnails use fixed, light-on-dark values
-            highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.DEFAULT_THUMB_THEME)
-            self.fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE)
+            highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.DEFAULTS.THUMB_THEME)
+            self.settings.fontSize = CGFloat(BUFFOON_CONSTANTS.DEFAULTS.THUMB_FONT_SIZE)
+            self.isThumnbnail = true
         } else {
             // Set preview theme details
             // FROM 1.3.0 -- adjust by current state or user setting
-            switch(themeMode) {
+            switch self.settings.themeDisplayMode {
                 case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
-                    highlightJsThemeName = setTheme(lightThemeName)
-                    self.isThemeDark = false
+                    highlightJsThemeName = setTheme(self.settings.lightThemeName)
                 case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
-                    highlightJsThemeName = setTheme(darkThemeName)
+                    highlightJsThemeName = setTheme(self.settings.darkThemeName)
                     self.isThemeDark = true
                 default:
                     let isLight: Bool = isMacInLightMode()
-                    highlightJsThemeName = isLight ? setTheme(lightThemeName) : setTheme(darkThemeName)
+                    highlightJsThemeName = isLight ? setTheme(self.settings.lightThemeName) : setTheme(self.settings.darkThemeName)
                     self.isThemeDark = !isLight
             }
 
             // Just in case the above block reads in zero value for the preview font size
-            if self.fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
-                self.fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
-                self.fontSize = CGFloat(BUFFOON_CONSTANTS.BASE_PREVIEW_FONT_SIZE)
+            if self.settings.fontSize < BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[0] ||
+                self.settings.fontSize > BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS[BUFFOON_CONSTANTS.FONT_SIZE_OPTIONS.count - 1] {
+                self.settings.fontSize = CGFloat(BUFFOON_CONSTANTS.DEFAULTS.FONT_SIZE)
             }
         }
 
         // Generate the font we'll use, at the required size
-        if let chosenFont: NSFont = NSFont(name: fontName, size: self.fontSize) {
+        if let chosenFont: NSFont = NSFont(name: self.settings.fontName, size: self.settings.fontSize) {
             self.font = chosenFont
         } else {
-            self.font = NSFont.systemFont(ofSize: self.fontSize)
+            self.font = NSFont.systemFont(ofSize: self.settings.fontSize)
         }
 
         // Instantiate the instance's highlighter
@@ -115,7 +94,7 @@ final class Common: NSObject {
             
             // Requires HighligherSwift 1.1.3
             if !isThumbnail {
-                hr.theme.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
+                hr.theme.lineSpacing = (self.settings.lineSpacing - 1.0) * self.settings.fontSize
             }
             
             self.themeBackgroundColour = hr.theme.themeBackgroundColour
@@ -144,12 +123,12 @@ final class Common: NSObject {
         // Run the specified code string through Highlightr/Highlight.js
         var renderedString: NSAttributedString? = nil
         
-        // FROM 1.3.0
-        //let spacedParaStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-        //spacedParaStyle.lineSpacing = (self.lineSpacing - 1.0) * self.fontSize
-        
         if let hr: Highlighter = self.highlighter {
             renderedString = hr.highlight(codeFileString, as: language)
+        }
+
+        if !self.isThumnbnail && self.settings.doShowLineNumbers {
+            renderedString = addLineNumbers(renderedString ?? NSAttributedString())
         }
 
         // If the rendered string is good, return it
@@ -166,7 +145,6 @@ final class Common: NSObject {
 
                 let hs: NSMutableAttributedString = NSMutableAttributedString(string: "Language: \(language)\n", attributes: debugAtts)
                 hs.append(ras)
-                //hs.addParaStyle(with: spacedParaStyle)
                 return hs as NSAttributedString
 #else
                 return ras
@@ -290,7 +268,7 @@ final class Common: NSObject {
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
         // So split by `.`, ignore the first item, and remove the `-xxx-yyy`
-        var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULT_LANGUAGE_UTI
+        var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULTS.LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
         if parts.count > 0 {
             let index: Int = parts.count - 1
@@ -397,5 +375,69 @@ final class Common: NSObject {
         let appearNameString: String = NSApp.effectiveAppearance.name.rawValue
         return (appearNameString == "NSAppearanceNameAqua")
     }
-}
 
+
+    /**
+     Add line numbers to each line within the specified NSAttributedString.
+
+     Numbers are zero padded to the number of digits in the highest line number.
+
+     FROM 2.0.0
+
+     EXPERIMENTAL
+
+     - Parameters:
+        - renderedCode  The already-styled NSAttributedString, ie. the code.
+        - withSeparator An extra separator string placed between number and line.
+
+     - Returns A new NSAttributedString containing the line numbers
+
+     */
+    private func addLineNumbers(_ renderedCode: NSAttributedString, withSeparator: String = "") -> NSAttributedString {
+
+        let returnText = NSMutableAttributedString()
+        let lineBreakSymbol: String = "\n"
+        let lines = renderedCode.components(separatedBy: lineBreakSymbol)
+
+        var formatCount = 2
+        var lineCount: Int = lines.count
+        while lineCount > 99 {
+            formatCount += 1
+            lineCount = lineCount / 100
+        }
+
+        var colour: NSColor = self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK ? .white : .black
+        if self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO {
+            colour = isMacInLightMode() ? .black : .white
+        }
+        let numberAtts: [NSAttributedString.Key : Any] = [.foregroundColor: colour,
+                                                          .font: NSFont.monospacedSystemFont(ofSize: self.settings.fontSize, weight: .bold)]
+        let sepAtts: [NSAttributedString.Key : Any] = [.foregroundColor: colour.withAlphaComponent(0.2),
+                                                       .font: NSFont.monospacedSystemFont(ofSize: self.settings.fontSize, weight: .ultraLight)]
+
+        let formatString = "%0\(formatCount)i"
+        var lineIndex = 1
+        for line in lines {
+            let lineNumber = NSAttributedString(string: String(format: formatString, lineIndex),
+                                                attributes: numberAtts)
+            returnText.append(lineNumber)
+
+            if withSeparator.isEmpty {
+                let separator = NSAttributedString(string: " ",
+                                                   attributes: sepAtts)
+                returnText.append(separator)
+            } else {
+                let separator = NSAttributedString(string: withSeparator,
+                                                   attributes: sepAtts)
+                returnText.append(separator)
+            }
+
+            returnText.append(line)
+            returnText.append(NSAttributedString(string: lineBreakSymbol,
+                                                 attributes: numberAtts))
+            lineIndex += 1
+        }
+
+        return returnText
+    }
+}

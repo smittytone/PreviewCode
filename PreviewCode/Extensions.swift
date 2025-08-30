@@ -156,7 +156,7 @@ extension NSColor {
         - colourValue: The colour as a hex string `RRGGBBAA`, eg `FF00AA88`.
 
      - Returns An NSColor object.
-
+     */
     static func cns(_ colourValue: String) -> NSColor {
 
         var colourString: String = colourValue.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -207,7 +207,7 @@ extension NSColor {
 
         return NSColor(red: CGFloat(r) / divisor, green: CGFloat(g) / divisor, blue: CGFloat(b) / divisor, alpha: alpha)
     }
-    */
+
 
     /**
      Property providing a colour's internal representation into an RGB+A hex string.
@@ -257,3 +257,23 @@ extension NSApplication {
     }
 }
 
+
+extension NSAttributedString {
+
+    /**
+     Split the instance as per splitting a regular string.
+     */
+    func components(separatedBy separator: String) -> [NSAttributedString] {
+        var parts: [NSAttributedString] = []
+        let subStrings = self.string.components(separatedBy: separator)
+        var range = NSRange(location: 0, length: 0)
+        for string in subStrings {
+            range.length = string.utf16.count
+            let attributedString = attributedSubstring(from: range)
+            parts.append(attributedString)
+            range.location += range.length + separator.utf16.count
+        }
+
+        return parts
+    }
+}
