@@ -70,8 +70,10 @@ class AppDelegate: NSResponder,
     @IBOutlet weak var themeScrollView: NSScrollView!
     @IBOutlet weak var themeTable: NSTableView!
     @IBOutlet weak var applyButton: NSButton!
-    // FROM 2.1.0
-    @IBOutlet weak var showMarginCheckbox: NSButton!    // NOTE May become showLineNumbersCheckbox
+    // FROM 2.0.0
+    @IBOutlet weak var showLineNumbersCheckbox: NSButton!
+    @IBOutlet weak var settingsHelpButton: NSButton!
+    @IBOutlet weak var defaultsButton: NSButton!
 
     // Window > Feedback Tab Items
     @IBOutlet weak var feedbackText: PCTextField!
@@ -89,13 +91,16 @@ class AppDelegate: NSResponder,
     internal var currentSettings: PCSettings    = PCSettings()
     internal var whatsNewNav: WKNavigation?     = nil
     internal var feedbackTask: URLSessionTask?  = nil
+    internal var fonts: [PMFont]                = []
     internal var themes: [Any]                  = []
     internal var darkThemes: [Int]              = []
     internal var lightThemes: [Int]             = []
-    // FROM 1.1.0
-    internal var fonts: [PMFont]                = []
-    // FROM 1.3.0
-    internal var newThemeDisplayMode: Int       = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
+    internal var themeDisplayMode: Int          = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
+    internal var darkThemeIndex: Int            = 30    // atom-one-dark
+    internal var lightThemeIndex: Int           = 29    // atom-one-light
+    // FROM 2.0.0
+    private  var tabManager: PMTabManager       = PMTabManager()
+    internal var hasSentFeedback: Bool          = false
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -103,10 +108,7 @@ class AppDelegate: NSResponder,
      the previewer and thumbnailer extensions.
      */
     internal var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
-    
-    // FROM 2.0.0
-    private  var tabManager: PMTabManager       = PMTabManager()
-    internal var hasSentFeedback: Bool          = false
+
 
     
     // MARK: - Class Lifecycle Functions
@@ -173,12 +175,15 @@ class AppDelegate: NSResponder,
             self.willShowFeedbackPage()         // Feedback tab
         }
 
-        // Clear the Feedback tab
+        // Clear the `Feedback` tab
         // NOTE Don't initialise the Settings tab here too:
         //      It must happen after we've got a list of fonts
         initialiseFeedback()
 
-        // Show the 'What's New' panel if we need to
+        // Set the `Settings` tab's tooltips
+        initialiseSettings()
+
+        // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
         doShowWhatsNew(self)
 
@@ -357,12 +362,13 @@ class AppDelegate: NSResponder,
 
      - Parameters:
         - sender: The source of the action.
-     */
+
     @IBAction
     private func doOpenSysPrefs(sender: Any) {
 
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
     }
+     */
 
 
     @IBAction

@@ -17,7 +17,7 @@ import AppKit
 
 class PCTextField: NSTextField {
 
-    override var acceptsFirstResponder: Bool{
+    override var acceptsFirstResponder: Bool {
         get {
             return true
         }

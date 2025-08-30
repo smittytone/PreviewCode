@@ -15,6 +15,8 @@
 		3B1A5B7F2E60BD8A002AECE4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */; };
 		3B1A5B802E60BDD6002AECE4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */; };
 		3B1A5B812E60BDD6002AECE4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */; };
+		3B2301292E6329B700B201C3 /* PCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7A2E60A447002AECE4 /* PCSettings.swift */; };
+		3B23012A2E6329B700B201C3 /* PCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A5B7A2E60A447002AECE4 /* PCSettings.swift */; };
 		3B271DCA268B0A9B00EFC72C /* themes-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B271DC9268B0A9B00EFC72C /* themes-list.json */; };
 		3B2D12E42E2A810500046D72 /* AppDelegateFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E32E2A810500046D72 /* AppDelegateFeedback.swift */; };
 		3B2D12E62E2A82ED00046D72 /* AppDelegateWhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D12E52E2A82ED00046D72 /* AppDelegateWhatsNew.swift */; };
@@ -538,6 +540,7 @@
 				3BE0EBA1266A845B00C9924E /* ThumbnailProvider.swift in Sources */,
 				3B7D83D92A8A306C008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BF52B11266A883F002EC860 /* Constants.swift in Sources */,
+				3B23012A2E6329B700B201C3 /* PCSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +595,7 @@
 				3BFD784B2663E27D002AD588 /* PreviewViewController.swift in Sources */,
 				3B7D83DA2A8A306D008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BFD785A2663E2C9002AD588 /* Constants.swift in Sources */,
+				3B2301292E6329B700B201C3 /* PCSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,7 +650,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -677,7 +681,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Thumbnailer/Code_Thumbnailer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -837,7 +841,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -874,7 +878,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_IS_PC=1";
@@ -987,7 +991,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";
@@ -1019,7 +1023,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Code Previewer/Code_Previewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Code Previewer/Info.plist";

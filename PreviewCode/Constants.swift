@@ -55,26 +55,35 @@ struct BUFFOON_CONSTANTS {
         
     }
 
-    static let BASE_PREVIEW_FONT_SIZE       = 16.0
-    static let BASE_THUMBNAIL_FONT_SIZE     = 18.0
-    static let THEME_PREVIEW_FONT_SIZE      = 7.0
+    //static let BASE_PREVIEW_FONT_SIZE       = 16.0
+    //static let BASE_THUMBNAIL_FONT_SIZE     = 18.0
+    //static let THEME_PREVIEW_FONT_SIZE      = 7.0
 
     static let FONT_SIZE_OPTIONS: [CGFloat] = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
     
-    static let DEFAULT_THEME                = "dark.agate"
+    //static let DEFAULT_THEME                = "dark.agate"
     // FROM 1.2.1 -- Change default font: Courier not included with macOS now
-    static let DEFAULT_FONT                 = "Menlo-Regular"
-    static let DEFAULT_FONT_NAME            = "Menlo"
-    static let DEFAULT_LANGUAGE_UTI         = "swift-source"
-    static let DEFAULT_LANGUAGE             = "swift"
-    static let DEFAULT_THUMB_THEME          = "light.atom-one-light"
-    
+    struct DEFAULTS {
+
+        static let FONT                 = "Menlo-Regular"
+        static let FONT_NAME            = "Menlo"
+        static let FONT_SIZE            = 16.0
+        static let LINE_SPACING         = 1.0
+        static let LANGUAGE_UTI         = "swift-source"
+        static let LANGUAGE             = "swift"
+        static let THUMB_THEME          = "light.atom-one-light"
+        static let THUMB_FONT_SIZE      = 18.0
+        // FROM 2.0.0
+        static let DARK_THEME           = "dark.atom-one-dark"
+        static let LIGHT_THEME          = "light.atom-one-light"
+    }
+
     static let FILE_CODE_SAMPLE             = "code-sample"
     static let FILE_THEME_LIST              = "themes-list"
     
-    static let TAG_TEXT_SIZE                = 180
-    static let TAG_TEXT_MIN_SIZE            = 118
-    
+    //static let TAG_TEXT_SIZE                = 180
+    //static let TAG_TEXT_MIN_SIZE            = 118
+
     static let SUITE_NAME                   = ".suite.preview-code"
     static let APP_STORE                    = "https://apps.apple.com/gb/app/previewcode/id1571797683"
     static let MAIN_URL                     = "https://smittytone.net/previewcode/index.html"
@@ -96,28 +105,28 @@ struct BUFFOON_CONSTANTS {
     struct PREFS_IDS {
         
         static let MAIN_WHATS_NEW               = "com-bps-previewcode-do-show-whats-new-"
-        
         static let PREVIEW_FONT_SIZE            = "com-bps-previewcode-base-font-size"
         static let PREVIEW_FONT_NAME            = "com-bps-previewcode-base-font-name"
-        static let PREVIEW_THEME_NAME           = "com-bps-previewcode-theme-name"
-        static let PREVIEW_USE_LIGHT            = "com-bps-previewcode-do-use-light"
         static let PREVIEW_LINE_SPACING         = "com-bps-previewcode-line-spacing"
         // FROM 1.3.0
         static let PREVIEW_LIGHT_NAME           = "com-bps-previewcode-light-theme-name"
         static let PREVIEW_DARK_NAME            = "com-bps-previewcode-dark-theme-name"
         static let PREVIEW_THEME_MODE           = "com-bps-previewcode-theme-mode"
-        
+        // FROM 2.0.0
+        static let PREVIEW_SHOW_LINE_NUMBERS    = "com-bps-previewcode-show-line-numbers"
+        // DEPRECATED
+        static let PREVIEW_USE_LIGHT            = "com-bps-previewcode-do-use-light"
         static let THUMB_FONT_SIZE              = "com-bps-previewcode-thumb-font-size"
-        
+        static let PREVIEW_THEME_NAME           = "com-bps-previewcode-theme-name"
     }
     
     static let PREVIEW_ERR_DOMAIN               = "com.bps.PreviewCode.Code-Previewer"
     
     // FROM 1.3.0
-    static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
-    static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
-    static let DEFAULT_LINE_SPACING             = 1.0
-    
+    //static let DEFAULT_THEME_LIGHT              = "light.atom-one-light"
+    //static let DEFAULT_THEME_DARK               = "dark.atom-one-dark"
+    //
+
     // FROM 1.3.6
     static let MAX_FEEDBACK_SIZE                = 512
 }
