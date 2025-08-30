@@ -55,8 +55,8 @@ final class Common: NSObject {
 
         if isThumbnail {
             // Thumbnails use fixed, light-on-dark values
-            highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.DEFAULTS.THUMB_THEME)
-            self.settings.fontSize = CGFloat(BUFFOON_CONSTANTS.DEFAULTS.THUMB_FONT_SIZE)
+            highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.THUMBNAIL.THEME)
+            self.settings.fontSize = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.FONT_SIZE)
             self.isThumnbnail = true
         } else {
             // Set preview theme details

@@ -62,19 +62,19 @@ class ThumbnailProvider: QLThumbnailProvider {
                 }
 
                 // Only render the lines likely to appear in the thumbnail
-                let lines: [Substring] = codeFileString.split(separator: "\n", maxSplits: BUFFOON_CONSTANTS.THUMBNAIL_LINE_COUNT + 1, omittingEmptySubsequences: false)
+                let lines: [Substring] = codeFileString.split(separator: "\n", maxSplits: BUFFOON_CONSTANTS.THUMBNAIL.LINE_COUNT + 1, omittingEmptySubsequences: false)
                 var displayString: String = ""
                 for i in 0..<lines.count {
                     // Break at line THUMBNAIL_LINE_COUNT
-                    if i >= BUFFOON_CONSTANTS.THUMBNAIL_LINE_COUNT { break }
+                    if i >= BUFFOON_CONSTANTS.THUMBNAIL.LINE_COUNT { break }
                     displayString += (String(lines[i]) + "\n")
                 }
 
                 // Set the primary drawing frame and a base font size
-                let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_X),
-                                                   CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ORIGIN_Y),
-                                                   CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.WIDTH),
-                                                   CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.HEIGHT))
+                let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_X),
+                                                   CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_Y),
+                                                   CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.WIDTH),
+                                                   CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.HEIGHT))
 
                 // Instantiate an NSTextField to display the NSAttributedString render of the code
                 let language: String = common.getLanguage(request.fileURL.path, false)
@@ -97,7 +97,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                         // Calculate image scaling, frame size, etc.
                         let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                                 0.0,
-                                                                CGFloat(BUFFOON_CONSTANTS.THUMBNAIL_SIZE.ASPECT) * request.maximumSize.height,
+                                                                CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ASPECT) * request.maximumSize.height,
                                                                 request.maximumSize.height)
                         
                         // NOTE The `+2.0` is a hack to avoid a line above the image
