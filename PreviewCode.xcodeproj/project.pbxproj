@@ -47,8 +47,6 @@
 		3BFBEC3C2664058400B4E70C /* ThemeTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBEC3B2664058400B4E70C /* ThemeTableCellView.swift */; };
 		3BFD78182663E16D002AD588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78172663E16D002AD588 /* AppDelegate.swift */; };
 		3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD781B2663E16E002AD588 /* MainMenu.xib */; };
-		3BFD78292663E16E002AD588 /* PreviewCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78282663E16E002AD588 /* PreviewCodeTests.swift */; };
-		3BFD78342663E16E002AD588 /* PreviewCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD78332663E16E002AD588 /* PreviewCodeUITests.swift */; };
 		3BFD78482663E27D002AD588 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFD78472663E27D002AD588 /* Quartz.framework */; };
 		3BFD784B2663E27D002AD588 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD784A2663E27D002AD588 /* PreviewViewController.swift */; };
 		3BFD784E2663E27D002AD588 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFD784C2663E27D002AD588 /* PreviewViewController.xib */; };
@@ -141,11 +139,7 @@
 		3BFD781E2663E16E002AD588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PreviewCode.entitlements; sourceTree = "<group>"; };
 		3BFD78242663E16E002AD588 /* PreviewCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PreviewCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BFD78282663E16E002AD588 /* PreviewCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCodeTests.swift; sourceTree = "<group>"; };
-		3BFD782A2663E16E002AD588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFD782F2663E16E002AD588 /* PreviewCodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PreviewCodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BFD78332663E16E002AD588 /* PreviewCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCodeUITests.swift; sourceTree = "<group>"; };
-		3BFD78352663E16E002AD588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFD78452663E27D002AD588 /* Code Previewer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Code Previewer.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFD78472663E27D002AD588 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		3BFD784A2663E27D002AD588 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
@@ -238,8 +232,6 @@
 				3BFD78162663E16D002AD588 /* PreviewCode */,
 				3BFD78492663E27D002AD588 /* Code Previewer */,
 				3BE0EB9F266A845B00C9924E /* Code Thumbnailer */,
-				3BFD78272663E16E002AD588 /* PreviewCodeTests */,
-				3BFD78322663E16E002AD588 /* PreviewCodeUITests */,
 				3BFD78462663E27D002AD588 /* Frameworks */,
 				3BB8E90F2935FF6C00C6D452 /* Misc */,
 				3BFD78152663E16D002AD588 /* Products */,
@@ -285,24 +277,6 @@
 				3B7D83D22A8A301F008A4B2E /* YOU MIUST SUPPLY */,
 			);
 			path = PreviewCode;
-			sourceTree = "<group>";
-		};
-		3BFD78272663E16E002AD588 /* PreviewCodeTests */ = {
-			isa = PBXGroup;
-			children = (
-				3BFD78282663E16E002AD588 /* PreviewCodeTests.swift */,
-				3BFD782A2663E16E002AD588 /* Info.plist */,
-			);
-			path = PreviewCodeTests;
-			sourceTree = "<group>";
-		};
-		3BFD78322663E16E002AD588 /* PreviewCodeUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3BFD78332663E16E002AD588 /* PreviewCodeUITests.swift */,
-				3BFD78352663E16E002AD588 /* Info.plist */,
-			);
-			path = PreviewCodeUITests;
 			sourceTree = "<group>";
 		};
 		3BFD78462663E27D002AD588 /* Frameworks */ = {
@@ -574,7 +548,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BFD78292663E16E002AD588 /* PreviewCodeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,7 +555,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BFD78342663E16E002AD588 /* PreviewCodeUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
