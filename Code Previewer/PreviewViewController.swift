@@ -47,75 +47,66 @@ class PreviewViewController: NSViewController,
         self.errorReportField.stringValue = ""
 
         // Load and process the source file
-        if FileManager.default.isReadableFile(atPath: url.path) {
-            // Only proceed if the file is accessible from here
-            do {
-                // Get the file contents as a string
-                let data: Data = try Data(contentsOf: url, options: [.uncached])
-                
-                // FROM 1.2.2
-                // Get the string's encoding, or fail back to .utf8
-                let encoding: String.Encoding = data.stringEncoding ?? .utf8
-                
-                if let codeFileString: String = String(data: data, encoding: encoding) {
-                    // Instantiate the common code within the closure
-                    let common: Common = Common(false)
-                    if common.initError {
-                        // A key component of Common, eg. 'hightlight.js' is missing,
-                        // so we cannot continue
-                        let error: NSError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
-                        showError(error)
-                        handler(error)
-                        return
-                    }
+        do {
+            // Get the file contents as a string
+            let data: Data = try Data(contentsOf: url, options: [.uncached])
 
-                    // Set the language
-                    let language: String = common.getLanguage(url.path, false)
+            // FROM 1.2.2
+            // Get the string's encoding, or fail back to .utf8
+            let encoding: String.Encoding = data.stringEncoding ?? .utf8
 
-                    // Get the key string first
-                    let codeAttString: NSAttributedString = common.getAttributedString(codeFileString, language)
-
-                    // Set text and scroll view attributes according to style
-                    // TODO Do a better job of checking whether theme is dark or light
-                    self.renderTextView.backgroundColor = common.themeBackgroundColour
-                    self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
-
-                    if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
-                        /*
-                         * NSTextStorage subclasses that return true from the fixesAttributesLazily
-                         * method should avoid directly calling fixAttributes(in:) or else bracket
-                         * such calls with beginEditing() and endEditing() messages.
-                         */
-                        renderTextStorage.beginEditing()
-                        renderTextStorage.setAttributedString(codeAttString)
-                        renderTextStorage.endEditing()
-                        
-                        // Add the subview to the instance's own view and draw
-                        self.view.display()
-
-                        // Call the QLPreviewingController indicating no error
-                        // (argument is nil)
-                        handler(nil)
-                        return
-                    }
-                        
-                    // We couldn't access the preview NSTextView's NSTextStorage
-                    reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
-                } else {
-                    // FROM 1.2.2
-                    // We couldn't convert to data to a valid encoding
-                    let errDesc: String = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
-                    reportError = NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
-                                          code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
-                                          userInfo: [NSLocalizedDescriptionKey: errDesc])
+            if let codeString: String = String(data: data, encoding: encoding) {
+                // Instantiate the common code within the closure
+                let common: Common = Common(false)
+                if common.initError {
+                    // A key component of Common, eg. 'hightlight.js' is missing,
+                    // so we cannot continue
+                    let error: NSError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
+                    showError(error)
+                    handler(error)
+                    return
                 }
-            } catch {
-                // We couldn't read the file so set an appropriate error to report back
-                reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
+
+                // Set the language
+                let language: String = common.getLanguage(url.path, false)
+
+                // Get the key string first
+                let codeAttString: NSAttributedString = common.getAttributedString(codeString, language)
+
+                // Set text and scroll view attributes according to style
+                // TODO Do a better job of checking whether theme is dark or light
+                self.renderTextView.backgroundColor = common.themeBackgroundColour
+                self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
+
+                if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
+                    /*
+                     * NSTextStorage subclasses that return true from the fixesAttributesLazily
+                     * method should avoid directly calling fixAttributes(in:) or else bracket
+                     * such calls with beginEditing() and endEditing() messages.
+                     */
+                    renderTextStorage.beginEditing()
+                    renderTextStorage.setAttributedString(codeAttString)
+                    renderTextStorage.endEditing()
+                    self.view.display()
+
+                    // Call the QLPreviewingController indicating no error (nil)
+                    handler(nil)
+                    return
+                }
+
+                // We couldn't access the preview NSTextView's NSTextStorage
+                reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
+            } else {
+                // FROM 1.2.2
+                // We couldn't convert to data to a valid encoding
+                let errDesc: String = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
+                reportError = NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
+                                      code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
+                                      userInfo: [NSLocalizedDescriptionKey: errDesc])
             }
-        } else {
-            // We couldn't access the file so set an appropriate error to report back
-            reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_INACCESSIBLE)
+        } catch {
+            // We couldn't read the file so set an appropriate error to report back
+            reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
         }
         
         // Display the error locally in the window
@@ -155,8 +146,8 @@ class PreviewViewController: NSViewController,
         self.view.display()
         NSLog("BUFFOON \(errString)")
     }
-    
-    
+
+
     /**
     Generate an NSError for an internal error, specified by its code.
 
@@ -190,5 +181,4 @@ class PreviewViewController: NSViewController,
                     code: code,
                     userInfo: [NSLocalizedDescriptionKey: errDesc])
     }
-
 }
