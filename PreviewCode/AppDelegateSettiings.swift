@@ -901,7 +901,7 @@ extension AppDelegate {
             // images rather then JIT-rendered NSTextViews (too slow)
             if let themePreview: NSImage = NSImage(named: themeCSS) {
                 let imv: NSImageView = NSImageView(image: themePreview)
-                imv.frame = NSMakeRect(2, 1, 128, 78)
+                imv.frame = NSMakeRect(0, 0, 128, 67)
                 cell!.addSubview(imv)
             }
         }
@@ -945,6 +945,12 @@ extension AppDelegate {
                     self.lightThemeLabel.stringValue = theme["name"] as! String
                 }
         }
+    }
+
+
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+
+        return 67.0
     }
 
 

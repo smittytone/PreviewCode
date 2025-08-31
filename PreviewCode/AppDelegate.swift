@@ -182,6 +182,9 @@ class AppDelegate: NSResponder,
 
         // Set the `Settings` tab's tooltips
         initialiseSettings()
+        self.themeTable.intercellSpacing = .zero
+        self.themeTable.rowHeight = 67.0
+        self.themeTable.rowSizeStyle = .custom
 
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
