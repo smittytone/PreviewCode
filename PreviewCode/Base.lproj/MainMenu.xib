@@ -1053,7 +1053,7 @@ running this app once more.</string>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="khS-yJ-RQT"/>
                                             </constraints>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="QuickLook previews and icon thumbnails for soource code and configuration files. " id="Iy5-Qb-15J">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="QuickLook previews and icon thumbnails for source code and configuration files. " id="Iy5-Qb-15J">
                                                 <font key="font" metaFont="systemSemibold" size="16"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
