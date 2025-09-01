@@ -955,9 +955,9 @@ DQ
                 <rect key="frame" x="0.0" y="0.0" width="760" height="600"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JhS-5O-6sp">
+                    <wkWebView wantsLayer="YES" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhS-5O-6sp">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="600"/>
-                        <wkWebViewConfiguration key="configuration">
+                        <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" suppressesIncrementalRendering="YES">
                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                             <wkPreferences key="preferences"/>
                         </wkWebViewConfiguration>
@@ -1288,7 +1288,7 @@ running this app once more.</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="Vp2-Uo-nQg">
                                                 <rect key="frame" x="1" y="1" width="378" height="196"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="78" viewBased="YES" floatsGroupRows="NO" id="NhT-Em-x8n">
                                                         <rect key="frame" x="0.0" y="0.0" width="378" height="196"/>
@@ -1310,7 +1310,7 @@ running this app once more.</string>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 <prototypeCellViews>
                                                                     <tableCellView identifier="previewcode-theme-cell" id="Vne-4M-hBm" customClass="ThemeTableCellView" customModule="PreviewCode" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="348" height="67"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="67"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <userGuides>
                                                                             <userLayoutGuide location="40" affinity="minY"/>
@@ -1334,7 +1334,7 @@ running this app once more.</string>
                                                                         </connections>
                                                                     </tableCellView>
                                                                     <customView identifier="NSTableViewRowViewKey" id="h8h-cb-jhV" customClass="PCTableRowView" customModule="PreviewCode" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="67" width="348" height="96"/>
+                                                                        <rect key="frame" x="0.0" y="67" width="336" height="96"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     </customView>
                                                                 </prototypeCellViews>

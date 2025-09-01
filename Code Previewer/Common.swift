@@ -128,7 +128,7 @@ final class Common: NSObject {
         }
 
         if !self.isThumnbnail && self.settings.doShowLineNumbers {
-            renderedString = addLineNumbers(renderedString ?? NSAttributedString())
+            renderedString = addLineNumbers(renderedString ?? NSAttributedString(), withSeparator: "  ")
         }
 
         // If the rendered string is good, return it
@@ -395,10 +395,10 @@ final class Common: NSObject {
      */
     private func addLineNumbers(_ renderedCode: NSAttributedString, withSeparator: String = "") -> NSAttributedString {
 
-        let returnText = NSMutableAttributedString()
-        let lineBreakSymbol: String = "\n"
-        let lines = renderedCode.components(separatedBy: lineBreakSymbol)
+        let linedCode = NSMutableAttributedString()
+        let lines = renderedCode.components(separatedBy: BUFFOON_CONSTANTS.LINE_BREAK)
 
+        // Determin the maximum digit-width of the line number field
         var formatCount = 2
         var lineCount: Int = lines.count
         while lineCount > 99 {
@@ -406,38 +406,36 @@ final class Common: NSObject {
             lineCount = lineCount / 100
         }
 
+        // Determine the colour according to the usage mode
         var colour: NSColor = self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK ? .white : .black
         if self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO {
             colour = isMacInLightMode() ? .black : .white
         }
-        let numberAtts: [NSAttributedString.Key : Any] = [.foregroundColor: colour,
-                                                          .font: NSFont.monospacedSystemFont(ofSize: self.settings.fontSize, weight: .bold)]
-        let sepAtts: [NSAttributedString.Key : Any] = [.foregroundColor: colour.withAlphaComponent(0.2),
-                                                       .font: NSFont.monospacedSystemFont(ofSize: self.settings.fontSize, weight: .ultraLight)]
 
+        // Set the line number attributes - keep it low key
+        let lineAtts: [NSAttributedString.Key : Any] = [.foregroundColor: colour.withAlphaComponent(0.2),
+                                                        .font: NSFont.monospacedSystemFont(ofSize: self.settings.fontSize, weight: .ultraLight)]
+
+        // Iterate over the rendered lines, prepending the line number
         let formatString = "%0\(formatCount)i"
-        var lineIndex = 1
+        var lineIndex = 0
         for line in lines {
-            let lineNumber = NSAttributedString(string: String(format: formatString, lineIndex),
-                                                attributes: numberAtts)
-            returnText.append(lineNumber)
+            // Add the line number
+            lineIndex += 1
+            linedCode.append(NSAttributedString(string: String(format: formatString, lineIndex), attributes: lineAtts))
 
+            // Add a separator
             if withSeparator.isEmpty {
-                let separator = NSAttributedString(string: " ",
-                                                   attributes: sepAtts)
-                returnText.append(separator)
+                linedCode.append(NSAttributedString(string: " ", attributes: lineAtts))
             } else {
-                let separator = NSAttributedString(string: withSeparator,
-                                                   attributes: sepAtts)
-                returnText.append(separator)
+                linedCode.append(NSAttributedString(string: withSeparator, attributes: lineAtts))
             }
 
-            returnText.append(line)
-            returnText.append(NSAttributedString(string: lineBreakSymbol,
-                                                 attributes: numberAtts))
-            lineIndex += 1
+            // Add the line itself and restore the line break
+            linedCode.append(line)
+            linedCode.append(NSAttributedString(string: BUFFOON_CONSTANTS.LINE_BREAK, attributes: lineAtts))
         }
 
-        return returnText
+        return linedCode
     }
 }
