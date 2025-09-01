@@ -1,6 +1,8 @@
 ## Release Notes
 
-- 2.0.0 *Unreleased*
+- 2.0.1 *1 September 2025*
+    - Textual corrections.
+- 2.0.0 *1 September 2025*
     - Implement new PreviewApps UI.
     - Add optional line numbers to the output.
     - Add a small whitespace margin around previews.
