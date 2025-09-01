@@ -78,6 +78,10 @@ class PreviewViewController: NSViewController,
                 self.renderTextView.backgroundColor = common.themeBackgroundColour
                 self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
 
+                // FROM 2.0.0
+                // Add a small margin around the preview
+                self.renderTextView.textContainerInset = BUFFOON_CONSTANTS.PREVIEW_MARGIN_SIZE
+
                 if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
                     /*
                      * NSTextStorage subclasses that return true from the fixesAttributesLazily

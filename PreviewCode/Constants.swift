@@ -97,8 +97,12 @@ struct BUFFOON_CONSTANTS {
     static let SUITE_NAME                       = ".suite.preview-code"
     static let APP_STORE                        = "https://apps.apple.com/gb/app/previewcode/id1571797683"
     static let MAIN_URL                         = "https://smittytone.net/previewcode/index.html"
+    static let LINE_BREAK: String =             "\n"
     static let MAX_FEEDBACK_SIZE                = 512
     static let FONT_SIZE_OPTIONS: [CGFloat]     = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
+    static let PREVIEW_MARGIN_WIDTH             = 16.0
+    static let PREVIEW_MARGIN_SIZE              = NSSize(width: PREVIEW_MARGIN_WIDTH, height: PREVIEW_MARGIN_WIDTH)
+
 
 
 

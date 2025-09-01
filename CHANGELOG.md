@@ -3,6 +3,7 @@
 - 2.0.0 *Unreleased*
     - Implement new PreviewApps UI.
     - Add optional line numbers to the output.
+    - Add a small whitespace margin around previews.
     - Update the design of the What’s New panel. 
     - Remove unused legacy code.
     - Reorganise project codebase and constants.
