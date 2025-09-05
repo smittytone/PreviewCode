@@ -106,6 +106,7 @@
 				<string>com.apple.xml-property-list</string>
 				<string>org.oasis-open.xliff</string>
 				<string>com.bps.tmx</string>
+				<string>com.psion.opl-source</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>32</integer>

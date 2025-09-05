@@ -264,7 +264,9 @@ final class Common: NSObject {
         // FROM 1.3.7
         if sourceFileUTI == "org.oasis-open.xliff" { return "xml" }
         if sourceFileUTI.hasSuffix(".tmx") { return "xml" }
-        
+        // FROM 2.1.0
+        if sourceFileUTI.contains("opl") { return "scala" }
+
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
         // So split by `.`, ignore the first item, and remove the `-xxx-yyy`
