@@ -1,5 +1,7 @@
 ## Release Notes
 
+- 2.1.0 *Unreleased*
+    - Add `.opl` and `.opa` (Psion Organizer Programming Language) file support.
 - 2.0.1 *1 September 2025*
     - Textual corrections.
 - 2.0.0 *1 September 2025*

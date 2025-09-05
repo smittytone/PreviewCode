@@ -1,4 +1,4 @@
-# PreviewCode 2.0.1
+# PreviewCode 2.1.0
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -51,6 +51,7 @@ You can select from a range of text sizes, choose a monospace font, select the f
 - Lisp (`.lisp`, `.lsp`, `.fasl`)
 - Lua (`.lua`)
 - Objective-C (`.m`)
+- OPL (`.opl`, `.opa`)
 - Pascal (`.pas`)
 - Perl (`.perl`)
 - PHP (`.php`)
