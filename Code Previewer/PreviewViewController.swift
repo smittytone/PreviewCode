@@ -93,6 +93,10 @@ class PreviewViewController: NSViewController,
                     renderTextStorage.endEditing()
                     self.view.display()
 
+                    // FROM 
+                    // Set the parent window's size
+                    setPreviewWindowSize()
+
                     // Call the QLPreviewingController indicating no error (nil)
                     handler(nil)
                     return
@@ -184,5 +188,27 @@ class PreviewViewController: NSViewController,
         return NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
                     code: code,
                     userInfo: [NSLocalizedDescriptionKey: errDesc])
+    }
+
+
+    /**
+     Specify the content size of the parent view.
+
+     FROM
+    */
+    private func setPreviewWindowSize() {
+
+        var screen: NSScreen = NSScreen.screens[0]
+
+        // We've set `screen` to the primary, ie. menubar-displaying,
+        // screen, but ideally we should pick the screen with user focus.
+        // They may be one and the same, of course...
+        if let mainScreen = NSScreen.main, mainScreen != screen {
+            screen = mainScreen
+        }
+
+        let height: CGFloat = screen.frame.size.height * BUFFOON_CONSTANTS.WINDOW_SIZE_SCALE_FACTOR
+        let width: CGFloat = screen.frame.size.width * BUFFOON_CONSTANTS.WINDOW_SIZE_SCALE_FACTOR
+        self.preferredContentSize = NSSize(width: width, height: height)
     }
 }
