@@ -93,7 +93,7 @@ class PreviewViewController: NSViewController,
                     renderTextStorage.endEditing()
                     self.view.display()
 
-                    // FROM
+                    // FROM 2.2.0
                     // Set the parent window's size
                     setPreviewWindowSize()
 
