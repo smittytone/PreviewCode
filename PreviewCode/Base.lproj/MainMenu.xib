@@ -1604,7 +1604,7 @@ running this app once more.</string>
                         <buttonCell key="cell" type="square" title="Button" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7YM-W7-f0A">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
-                            <imageReference key="image" image="ellipsis.circle.fill" catalog="system" symbolScale="default" renderingMode="template"/>
+                            <imageReference key="image" image="gearshape.circle.fill" catalog="system" symbolScale="default" renderingMode="template"/>
                         </buttonCell>
                         <color key="bezelColor" red="0.0" green="0.32549019610000002" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="contentTintColor" red="0.0" green="0.32549019610000002" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1671,10 +1671,10 @@ running this app once more.</string>
     </objects>
     <resources>
         <image name="app_logo" width="64" height="64"/>
-        <image name="ellipsis.circle.fill" catalog="system" width="15" height="15"/>
         <image name="envelope.circle.fill" catalog="system" width="15" height="15"/>
         <image name="folder-icon-dark" width="32" height="16"/>
         <image name="folder-icon-light" width="32" height="16"/>
+        <image name="gearshape.circle.fill" catalog="system" width="15" height="15"/>
         <image name="gearshape.fill" catalog="system" width="16" height="16"/>
         <image name="info.circle.fill" catalog="system" width="15" height="15"/>
         <image name="logotype" width="502" height="52"/>
