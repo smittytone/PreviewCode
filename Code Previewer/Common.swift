@@ -124,11 +124,25 @@ final class Common: NSObject {
         var renderedString: NSAttributedString? = nil
         
         if let hr: Highlighter = self.highlighter {
-            renderedString = hr.highlight(codeFileString, as: language)
-        }
+            if !self.isThumnbnail && self.settings.doShowLineNumbers {
+                // FROM 2.2.0
+                // Use line numbering from HighlighterSwift
+                var lnd = LineNumberData()
+                lnd.fontSize = self.settings.fontSize
+                lnd.minWidth = 2
 
-        if !self.isThumnbnail && self.settings.doShowLineNumbers {
-            renderedString = addLineNumbers(renderedString ?? NSAttributedString(), withSeparator: "  ")
+                // Use our theme mode to specify the colour of the line numbers
+                lnd.usingDarkTheme = self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
+                if self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO {
+                    lnd.usingDarkTheme = !isMacInLightMode()
+                }
+
+                // Render with line numbers
+                renderedString = hr.highlight(codeFileString, as: language, doFastRender: true, lineNumbering: lnd)
+            } else {
+                // Render without line numbers
+                renderedString = hr.highlight(codeFileString, as: language)
+            }
         }
 
         // If the rendered string is good, return it
@@ -394,7 +408,7 @@ final class Common: NSObject {
 
      - Returns A new NSAttributedString containing the line numbers
 
-     */
+
     private func addLineNumbers(_ renderedCode: NSAttributedString, withSeparator: String = "") -> NSAttributedString {
 
         let linedCode = NSMutableAttributedString()
@@ -440,4 +454,5 @@ final class Common: NSObject {
 
         return linedCode
     }
+     */
 }

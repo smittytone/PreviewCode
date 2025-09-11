@@ -1,5 +1,8 @@
 ## Release Notes
 
+- 2.2.0 *Unreleased*
+    - Expand size of preview window.
+    - Migrate of line-numbering code to `HighlighterSwift` 1.2.0.
 - 2.1.0 *6 September 2025*
     - Add `.opl` and `.opa` (Psion Organizer Programming Language) file support.
 - 2.0.1 *1 September 2025*

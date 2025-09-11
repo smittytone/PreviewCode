@@ -623,7 +623,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 111;
+				CURRENT_PROJECT_VERSION = 113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -638,8 +638,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -657,7 +657,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 111;
+				CURRENT_PROJECT_VERSION = 113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -669,8 +669,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -820,7 +820,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 111;
+				CURRENT_PROJECT_VERSION = 113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -838,8 +838,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
@@ -860,7 +860,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 111;
+				CURRENT_PROJECT_VERSION = 113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -874,8 +874,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 2.2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
@@ -976,7 +976,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 111;
+				CURRENT_PROJECT_VERSION = 113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -988,8 +988,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1011,7 +1011,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 111;
+				CURRENT_PROJECT_VERSION = 113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -1023,8 +1023,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1102,7 +1102,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/smittytone/HighlighterSwift.git";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
