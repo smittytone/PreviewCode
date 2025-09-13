@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.0 *Unreleased*
+- 2.2.0 *13 September 2025*
     - Expand size of preview window.
     - Migrate of line-numbering code to `HighlighterSwift` 2.0.0.
     - Update settings icon.
