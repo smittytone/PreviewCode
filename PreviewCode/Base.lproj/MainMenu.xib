@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="24127"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="560" height="356"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
             <value key="minSize" type="size" width="560" height="356"/>
             <value key="maxSize" type="size" width="560" height="356"/>
             <value key="minFullScreenContentSize" type="size" width="560" height="356"/>
@@ -41,7 +41,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oB4-7g-RzQ">
-                        <rect key="frame" x="481" y="13" width="66" height="32"/>
+                        <rect key="frame" x="485" y="20" width="55" height="20"/>
                         <buttonCell key="cell" type="push" title="Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wJq-4j-XSw">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -52,7 +52,7 @@
                         </constraints>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VXv-x3-7nw">
-                        <rect key="frame" x="407" y="13" width="76" height="32"/>
+                        <rect key="frame" x="407" y="20" width="66" height="20"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ahb-sl-jY1">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -188,7 +188,7 @@ Gw
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="PreviewCode" systemMenu="apple" autoenablesItems="NO" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                            <menuItem title="Preferences…" image="gearshape.fill" catalog="system" keyEquivalent="," id="BOF-NM-1cW">
                                 <connections>
                                     <action selector="doShowSettingsWithSender:" target="Voe-Tx-rLC" id="gPz-jS-RX0"/>
                                 </connections>
@@ -316,13 +316,13 @@ Gw
                                     <action selector="doRenderThemes:" target="Voe-Tx-rLC" id="UL5-BF-T2l"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Get Online Help" id="Tys-ee-tfE">
+                            <menuItem title="Get Online Help" image="questionmark.circle" catalog="system" id="Tys-ee-tfE">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="yT2-vs-1y1"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="What's New?" id="8ow-rc-CzH">
+                            <menuItem title="What's New?" image="newspaper" catalog="system" id="8ow-rc-CzH">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="doShowWhatsNew:" target="Voe-Tx-rLC" id="kLX-aN-DbZ"/>
@@ -332,13 +332,13 @@ Gw
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" id="5ad-EI-BC8">
                                     <items>
-                                        <menuItem title="PreviewMarkdown" id="a5a-JN-xae">
+                                        <menuItem title="PreviewMarkdown" image="app" catalog="system" id="a5a-JN-xae">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="P21-Vm-BR5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="PreviewJson" id="dEj-z3-Sk4">
+                                        <menuItem title="PreviewJson" image="app" catalog="system" id="dEj-z3-Sk4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="HZi-Y3-T0i"/>
@@ -348,13 +348,13 @@ Gw
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="YBw-sx-eD7"/>
-                            <menuItem title="Report a Bug..." id="9jb-nj-WtE">
+                            <menuItem title="Report a Bug..." image="ant" catalog="system" id="9jb-nj-WtE">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="doShowFeedbackWithSender:" target="Voe-Tx-rLC" id="M21-xu-8b6"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Rate this App..." id="jLd-Pw-5jM">
+                            <menuItem title="Rate this App..." image="star" catalog="system" id="jLd-Pw-5jM">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="Nqd-Nm-YPb"/>
@@ -365,19 +365,19 @@ Gw
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" id="wXY-AB-12u">
                                     <items>
-                                        <menuItem title="Highlight.js" id="HJD-GL-x7D">
+                                        <menuItem title="Highlight.js" image="document" catalog="system" id="HJD-GL-x7D">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="1cU-ah-pc7"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="HighlighterSwift" id="cGX-As-gSz">
+                                        <menuItem title="HighlighterSwift" image="document" catalog="system" id="cGX-As-gSz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="clF-Vh-npv"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Highlightr" id="9hO-8K-lXX">
+                                        <menuItem title="Highlightr" image="document" catalog="system" id="9hO-8K-lXX">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="doShowSitesWithSender:" target="Voe-Tx-rLC" id="5C7-ch-yd9"/>
@@ -399,7 +399,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="610" height="432"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
             <value key="minSize" type="size" width="610" height="432"/>
             <value key="maxSize" type="size" width="610" height="432"/>
             <value key="minFullScreenContentSize" type="size" width="610" height="432"/>
@@ -455,7 +455,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wao-aS-JHP">
-                        <rect key="frame" x="275" y="13" width="60" height="32"/>
+                        <rect key="frame" x="280" y="20" width="50" height="20"/>
                         <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WzE-6l-rP0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -480,7 +480,7 @@ DQ
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="app_logo" id="nld-FG-AfM"/>
                     </imageView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uyh-RX-zrN">
-                        <rect key="frame" x="200" y="225" width="210" height="32"/>
+                        <rect key="frame" x="207" y="232" width="196" height="20"/>
                         <buttonCell key="cell" type="push" title="Open System Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IsR-bU-vrU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -491,7 +491,7 @@ DQ
                         </constraints>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YVT-Hp-N8B">
-                        <rect key="frame" x="200" y="132" width="210" height="32"/>
+                        <rect key="frame" x="207" y="139" width="196" height="20"/>
                         <buttonCell key="cell" type="push" title="Show Preview Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="10f-FE-x64">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -514,7 +514,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wsQ-ot-4qZ">
-                        <rect key="frame" x="200" y="98" width="210" height="32"/>
+                        <rect key="frame" x="207" y="105" width="196" height="20"/>
                         <buttonCell key="cell" type="push" title="Send Feedback" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zAO-EE-eq3">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -559,7 +559,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="560" height="456"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
             <value key="minSize" type="size" width="560" height="456"/>
             <value key="maxSize" type="size" width="560" height="456"/>
             <value key="minFullScreenContentSize" type="size" width="560" height="456"/>
@@ -597,7 +597,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OfZ-N6-qKG">
-                        <rect key="frame" x="18" y="386" width="524" height="28"/>
+                        <rect key="frame" x="20" y="392" width="520" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Bho-ag-fbv"/>
                         </constraints>
@@ -616,7 +616,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qir-zB-bPV">
-                        <rect key="frame" x="409" y="13" width="76" height="32"/>
+                        <rect key="frame" x="409" y="20" width="66" height="20"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKd-s0-vqX">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -630,7 +630,7 @@ Gw
                         </constraints>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L3S-3t-ZLg">
-                        <rect key="frame" x="483" y="13" width="64" height="32"/>
+                        <rect key="frame" x="487" y="20" width="53" height="20"/>
                         <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ygQ-DZ-akN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -740,7 +740,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y6q-bM-YKo">
-                        <rect key="frame" x="105" y="47" width="264" height="25"/>
+                        <rect key="frame" x="108" y="51" width="257" height="20"/>
                         <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zaq-LP-oz0" id="Xh7-Ib-ERd">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="cellTitle"/>
@@ -849,7 +849,7 @@ DQ
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folder-icon-dark" id="VBl-Jj-74Y"/>
                     </imageView>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KEH-AC-yYX">
-                        <rect key="frame" x="277" y="16" width="92" height="25"/>
+                        <rect key="frame" x="280" y="20" width="88" height="20"/>
                         <popUpButtonCell key="cell" type="push" title="Single" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="IyZ-QV-9AY" id="cAL-Hw-Vqu">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="message"/>
@@ -870,7 +870,7 @@ DQ
                         </constraints>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sIn-aM-jcn">
-                        <rect key="frame" x="370" y="47" width="173" height="25"/>
+                        <rect key="frame" x="373" y="51" width="166" height="20"/>
                         <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8Yr-Zg-nR4" id="ZzR-e5-J7C">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="cellTitle"/>
@@ -888,7 +888,7 @@ DQ
                         </constraints>
                     </popUpButton>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="glN-79-ksA">
-                        <rect key="frame" x="17" y="17" width="25" height="25"/>
+                        <rect key="frame" x="20" y="21" width="20" height="20"/>
                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ziX-I5-EN9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -946,7 +946,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="760" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
             <value key="minSize" type="size" width="760" height="600"/>
             <value key="maxSize" type="size" width="760" height="600"/>
             <value key="minFullScreenContentSize" type="size" width="760" height="600"/>
@@ -967,7 +967,7 @@ DQ
                         </connections>
                     </wkWebView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ed1-Rx-KY0">
-                        <rect key="frame" x="347" y="13" width="66" height="32"/>
+                        <rect key="frame" x="354" y="20" width="52" height="20"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C1d-FE-FgP">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -999,7 +999,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="717" width="800" height="400"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
             <value key="minSize" type="size" width="800" height="400"/>
             <value key="maxSize" type="size" width="800" height="400"/>
             <value key="minFullScreenContentSize" type="size" width="800" height="400"/>
@@ -1636,7 +1636,7 @@ running this app once more.</string>
                     <box boxType="custom" borderType="line" borderWidth="2" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="toV-NQ-YRO">
                         <rect key="frame" x="0.0" y="342" width="800" height="2"/>
                         <view key="contentView" id="YPq-sF-1y9">
-                            <rect key="frame" x="2" y="1" width="796" height="0.0"/>
+                            <rect key="frame" x="2" y="0.0" width="796" height="2"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <constraints>
@@ -1670,7 +1670,10 @@ running this app once more.</string>
         </window>
     </objects>
     <resources>
+        <image name="ant" catalog="system" width="14" height="18"/>
+        <image name="app" catalog="system" width="15" height="14"/>
         <image name="app_logo" width="64" height="64"/>
+        <image name="document" catalog="system" width="14" height="16"/>
         <image name="envelope.circle.fill" catalog="system" width="15" height="15"/>
         <image name="folder-icon-dark" width="32" height="16"/>
         <image name="folder-icon-light" width="32" height="16"/>
@@ -1678,5 +1681,8 @@ running this app once more.</string>
         <image name="gearshape.fill" catalog="system" width="16" height="16"/>
         <image name="info.circle.fill" catalog="system" width="15" height="15"/>
         <image name="logotype" width="502" height="52"/>
+        <image name="newspaper" catalog="system" width="18" height="16"/>
+        <image name="questionmark.circle" catalog="system" width="15" height="15"/>
+        <image name="star" catalog="system" width="17" height="16"/>
     </resources>
 </document>

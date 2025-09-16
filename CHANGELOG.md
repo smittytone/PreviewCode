@@ -1,5 +1,8 @@
 ## Release Notes
 
+- 2.2.1 *Unreleased*
+    - Add macOS 26 icon.
+    - Add macOS 26 menu items.
 - 2.2.0 *13 September 2025*
     - Expand size of preview window.
     - Migrate of line-numbering code to `HighlighterSwift` 2.0.0.

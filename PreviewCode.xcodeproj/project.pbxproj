@@ -32,6 +32,7 @@
 		3B7D83DA2A8A306D008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */; };
 		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
 		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
+		3B97067A2E79432C00FACE20 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B9706792E79432C00FACE20 /* AppIcon.icon */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
 		3BAE671B28D4D3AD001532BD /* AppDelegateFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */; };
 		3BD177892E61B1DE00313D34 /* PCTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PCTextView.swift */; };
@@ -121,6 +122,7 @@
 		3B7D83D72A8A3069008A4B2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewCode/Assets.xcassets"; sourceTree = "<absolute>"; };
 		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
 		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
+		3B9706792E79432C00FACE20 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
 		3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateFonts.swift; sourceTree = "<group>"; };
 		3BB8E9102935FF7E00C6D452 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				3B271DC9268B0A9B00EFC72C /* themes-list.json */,
 				3B7D83D02A8A2FEE008A4B2E /* code-sample.txt */,
 				3BFD781F2663E16E002AD588 /* PreviewCode.entitlements */,
+				3B9706792E79432C00FACE20 /* AppIcon.icon */,
 				3B7D83D22A8A301F008A4B2E /* YOU MIUST SUPPLY */,
 			);
 			path = PreviewCode;
@@ -475,6 +478,7 @@
 				3B7D83D12A8A2FEE008A4B2E /* code-sample.txt in Resources */,
 				3B7D83D82A8A3069008A4B2E /* Assets.xcassets in Resources */,
 				3BFD781D2663E16E002AD588 /* MainMenu.xib in Resources */,
+				3B97067A2E79432C00FACE20 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,7 +627,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -639,7 +643,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -657,7 +661,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -670,7 +674,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -815,12 +819,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_OTHER_FLAGS = "--enable-icon-stack-fallback-generation=disabled";
 				CODE_SIGN_ENTITLEMENTS = PreviewCode/PreviewCode.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -839,7 +845,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.1;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.PreviewCode;
@@ -855,12 +861,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_OTHER_FLAGS = "--enable-icon-stack-fallback-generation=disabled";
 				CODE_SIGN_ENTITLEMENTS = PreviewCode/PreviewCode.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -875,7 +883,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
@@ -976,7 +984,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -989,7 +997,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1011,7 +1019,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -1024,7 +1032,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
