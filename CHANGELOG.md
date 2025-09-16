@@ -3,6 +3,8 @@
 - 2.2.1 *Unreleased*
     - Add macOS 26 icon.
     - Add macOS 26 menu items.
+    - Mitigate macOS 26 NSSlider changes.
+    - Apply button correctly highlights on theme change.
 - 2.2.0 *13 September 2025*
     - Expand size of preview window.
     - Migrate of line-numbering code to `HighlighterSwift` 2.0.0.
