@@ -50,6 +50,12 @@ extension AppDelegate {
         // Make the table the first responder
         self.feedbackText.resignFirstResponder()
         self.window.makeFirstResponder(self.themeTable)
+
+        // FROM 2.2.1
+        // Fix track colour on macOS 26
+        if #available(macOS 26.0, *) {
+            self.fontSizeSlider.tintProminence = .none
+        }
     }
 
 
@@ -945,6 +951,10 @@ extension AppDelegate {
                     self.lightThemeLabel.stringValue = theme["name"] as! String
                 }
         }
+
+        // FROM 2.2.1
+        // Enable the Apply button if something has changed
+        self.applyButton.isEnabled = checkSettingsOnQuit()
     }
 
 

@@ -1096,7 +1096,7 @@ running this app once more.</string>
                                     </userGuides>
                                     <subviews>
                                         <button allowsExpansionToolTips="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iqk-uD-YOH">
-                                            <rect key="frame" x="387" y="16" width="25" height="25"/>
+                                            <rect key="frame" x="390" y="20" width="20" height="20"/>
                                             <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pfi-IW-jUB">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1110,7 +1110,7 @@ running this app once more.</string>
                                             </connections>
                                         </button>
                                         <button allowsExpansionToolTips="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d3m-2N-aqW">
-                                            <rect key="frame" x="13" y="13" width="85" height="32"/>
+                                            <rect key="frame" x="20" y="20" width="71" height="20"/>
                                             <buttonCell key="cell" type="push" title="Defaults" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1le-S0-1OA">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1124,7 +1124,7 @@ running this app once more.</string>
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ki6-Zp-i7e">
-                                            <rect key="frame" x="718" y="13" width="69" height="32"/>
+                                            <rect key="frame" x="725" y="20" width="55" height="20"/>
                                             <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bie-eK-kZ3">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1162,7 +1162,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ev4-EL-3j4">
-                                            <rect key="frame" x="18" y="276" width="764" height="28"/>
+                                            <rect key="frame" x="20" y="282" width="760" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="3Ea-o0-Ql1"/>
                                             </constraints>
@@ -1288,7 +1288,7 @@ running this app once more.</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="Vp2-Uo-nQg">
                                                 <rect key="frame" x="1" y="1" width="378" height="196"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="78" viewBased="YES" floatsGroupRows="NO" id="NhT-Em-x8n">
                                                         <rect key="frame" x="0.0" y="0.0" width="378" height="196"/>
@@ -1407,10 +1407,10 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WyN-Ae-9uG">
-                                            <rect key="frame" x="237" y="218" width="165" height="16"/>
+                                            <rect key="frame" x="237" y="219" width="157" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" title="Atom One Dark" id="YMl-4y-DcY">
-                                                <font key="font" metaFont="system"/>
+                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" title="Atom One Dark" id="YMl-4y-DcY">
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1418,7 +1418,7 @@ running this app once more.</string>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Au0-Eq-psM">
                                             <rect key="frame" x="197" y="240" width="205" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Chosen theme:" id="TnI-bU-bpi">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Theme for this  mode:" id="TnI-bU-bpi">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1435,15 +1435,6 @@ running this app once more.</string>
                                                 <action selector="doSwitchModeWithSender:" target="Voe-Tx-rLC" id="MSv-Ck-pS6"/>
                                             </connections>
                                         </button>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1I-UZ-hsf">
-                                            <rect key="frame" x="237" y="196" width="165" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Atom One Dark" id="UUA-Rx-6df">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8dh-uP-44R">
                                             <rect key="frame" x="112" y="51" width="288" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1455,6 +1446,15 @@ running this app once more.</string>
                                                 <action selector="doChangeValueWithSender:" target="Voe-Tx-rLC" id="fFQ-Ju-GNL"/>
                                             </connections>
                                         </button>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1I-UZ-hsf">
+                                            <rect key="frame" x="237" y="197" width="157" height="14"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" refusesFirstResponder="YES" title="Atom One Dark" id="UUA-Rx-6df">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Iqk-uD-YOH" secondAttribute="bottom" constant="20" symbolic="YES" id="5nW-5C-q3f"/>
