@@ -1196,27 +1196,6 @@ running this app once more.</string>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Th-Nd-g8O">
-                                            <rect key="frame" x="111" y="139" width="285" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Andale Mono" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingMiddle" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8St-Og-TSF" id="0eM-Yy-ldu">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="message"/>
-                                                <menu key="menu" id="cgJ-07-uJK">
-                                                    <items>
-                                                        <menuItem title="Andale Mono" state="on" id="8St-Og-TSF"/>
-                                                        <menuItem title="Courier" id="Km1-Ga-PDF"/>
-                                                        <menuItem title="Menlo" id="dQL-8w-DJl"/>
-                                                        <menuItem title="Monaco" id="PL7-iZ-G7q">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="doUpdateFontsWithSender:" target="Voe-Tx-rLC" id="qzP-j0-hpv"/>
-                                            </connections>
-                                        </popUpButton>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gyl-9d-bWn">
                                             <rect key="frame" x="18" y="146" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1227,7 +1206,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1QL-pO-lcW">
-                                            <rect key="frame" x="18" y="116" width="92" height="16"/>
+                                            <rect key="frame" x="18" y="112" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Style:" id="bGV-HM-N7U">
                                                 <font key="font" metaFont="system"/>
@@ -1236,7 +1215,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TlV-ro-nDd">
-                                            <rect key="frame" x="111" y="109" width="213" height="25"/>
+                                            <rect key="frame" x="111" y="107" width="210" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Regular" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingMiddle" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="LN8-mw-C8w" id="ERz-cX-9pb">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1254,7 +1233,7 @@ running this app once more.</string>
                                             </connections>
                                         </popUpButton>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xjY-jq-ibu">
-                                            <rect key="frame" x="111" y="79" width="141" height="25"/>
+                                            <rect key="frame" x="111" y="76" width="140" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Single" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="TDz-eZ-NjY" id="vel-Zd-ZZf">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1275,7 +1254,7 @@ running this app once more.</string>
                                             </connections>
                                         </popUpButton>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OBC-bR-hl0">
-                                            <rect key="frame" x="18" y="86" width="92" height="16"/>
+                                            <rect key="frame" x="18" y="81" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Line spacing:" id="47T-bJ-Dn2">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -1284,14 +1263,14 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <scrollView fixedFrame="YES" borderType="line" autohidesScrollers="YES" horizontalLineScroll="78" horizontalPageScroll="10" verticalLineScroll="78" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdD-Na-zIg">
-                                            <rect key="frame" x="400" y="52" width="380" height="198"/>
+                                            <rect key="frame" x="400" y="50" width="380" height="207"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="Vp2-Uo-nQg">
-                                                <rect key="frame" x="1" y="1" width="378" height="196"/>
+                                                <rect key="frame" x="1" y="1" width="378" height="205"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="78" viewBased="YES" floatsGroupRows="NO" id="NhT-Em-x8n">
-                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="196"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="205"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -1357,17 +1336,17 @@ running this app once more.</string>
                                             </scroller>
                                         </scrollView>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PjM-pz-TTz" customClass="PCImageView" customModule="PreviewCode" customModuleProvider="target">
-                                            <rect key="frame" x="199" y="218" width="32" height="16"/>
+                                            <rect key="frame" x="191" y="218" width="32" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="folder-icon-light" id="8f6-Vl-yHX"/>
                                         </imageView>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3cp-Eq-Ykf" customClass="PCImageView" customModule="PreviewCode" customModuleProvider="target">
-                                            <rect key="frame" x="199" y="196" width="32" height="16"/>
+                                            <rect key="frame" x="191" y="196" width="32" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="folder-icon-dark" id="OhM-j0-sR8"/>
                                         </imageView>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIF-hf-mlL">
-                                            <rect key="frame" x="112" y="174" width="290" height="14"/>
+                                            <rect key="frame" x="112" y="174" width="292" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" title="Label" usesSingleLineMode="YES" id="wdA-Kx-agb">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -1407,7 +1386,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WyN-Ae-9uG">
-                                            <rect key="frame" x="237" y="219" width="157" height="14"/>
+                                            <rect key="frame" x="229" y="219" width="165" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" title="Atom One Dark" id="YMl-4y-DcY">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -1416,7 +1395,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Au0-Eq-psM">
-                                            <rect key="frame" x="197" y="240" width="205" height="16"/>
+                                            <rect key="frame" x="189" y="240" width="205" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Theme for this  mode:" id="TnI-bU-bpi">
                                                 <font key="font" metaFont="system"/>
@@ -1436,7 +1415,7 @@ running this app once more.</string>
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8dh-uP-44R">
-                                            <rect key="frame" x="112" y="51" width="288" height="18"/>
+                                            <rect key="frame" x="112" y="50" width="280" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Display line numbers" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rg5-GJ-ppE">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1447,7 +1426,7 @@ running this app once more.</string>
                                             </connections>
                                         </button>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1I-UZ-hsf">
-                                            <rect key="frame" x="237" y="197" width="157" height="14"/>
+                                            <rect key="frame" x="229" y="197" width="165" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" refusesFirstResponder="YES" title="Atom One Dark" id="UUA-Rx-6df">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -1455,6 +1434,27 @@ running this app once more.</string>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Th-Nd-g8O">
+                                            <rect key="frame" x="112" y="138" width="280" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Andale Mono" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingMiddle" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8St-Og-TSF" id="0eM-Yy-ldu">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="message"/>
+                                                <menu key="menu" id="cgJ-07-uJK">
+                                                    <items>
+                                                        <menuItem title="Andale Mono" state="on" id="8St-Og-TSF"/>
+                                                        <menuItem title="Courier" id="Km1-Ga-PDF"/>
+                                                        <menuItem title="Menlo" id="dQL-8w-DJl"/>
+                                                        <menuItem title="Monaco" id="PL7-iZ-G7q">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="doUpdateFontsWithSender:" target="Voe-Tx-rLC" id="qzP-j0-hpv"/>
+                                            </connections>
+                                        </popUpButton>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Iqk-uD-YOH" secondAttribute="bottom" constant="20" symbolic="YES" id="5nW-5C-q3f"/>
@@ -1500,7 +1500,7 @@ running this app once more.</string>
                                                 <constraint firstAttribute="height" constant="235" id="VhX-LR-3Uf"/>
                                                 <constraint firstAttribute="width" constant="760" id="pqM-An-Fe7"/>
                                             </constraints>
-                                            <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Enter your comments here..." drawsBackground="YES" allowsEditingTextAttributes="YES" id="Djv-tb-okP">
+                                            <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" placeholderString="Enter your comments here..." drawsBackground="YES" allowsEditingTextAttributes="YES" id="Djv-tb-okP">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1539,7 +1539,7 @@ running this app once more.</string>
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aSO-9Y-H9b">
-                                            <rect key="frame" x="714" y="20" width="73" height="33"/>
+                                            <rect key="frame" x="721" y="27" width="59" height="21"/>
                                             <buttonCell key="cell" type="push" title="Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cs5-nF-oBA">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
