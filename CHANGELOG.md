@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.1 *Unreleased*
+- 2.2.1 *19 September 2025*
     - Add macOS 26 icon.
     - Add macOS 26 menu items.
     - Mitigate macOS 26 NSSlider changes.
@@ -18,7 +18,7 @@
     - Implement new PreviewApps UI.
     - Add optional line numbers to the output.
     - Add a small whitespace margin around previews.
-    - Update the design of the What’s New panel. 
+    - Update the design of the What’s New panel.
     - Remove unused legacy code.
     - Reorganise project codebase and constants.
 - 1.3.7 *1 August 2025*
