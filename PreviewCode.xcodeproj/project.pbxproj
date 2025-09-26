@@ -838,6 +838,7 @@
 				);
 				INFOPLIST_FILE = PreviewCode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PreviewCode;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Tony Smith. All rights reserved.";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -876,6 +877,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_IS_PC=1";
 				INFOPLIST_FILE = PreviewCode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PreviewCode;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Tony Smith. All rights reserved.";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				LD_RUNPATH_SEARCH_PATHS = (
