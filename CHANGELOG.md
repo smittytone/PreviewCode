@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.2 *Unreleased*
+- 2.2.2 *27 September 2025*
     - Update Settings UI for macOS 26.
 - 2.2.1 *19 September 2025*
     - Add macOS 26 icon.
