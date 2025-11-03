@@ -279,7 +279,7 @@ final class Common: NSObject {
         if sourceFileUTI == "org.oasis-open.xliff" { return "xml" }
         if sourceFileUTI.hasSuffix(".tmx") { return "xml" }
         // FROM 2.1.0
-        if sourceFileUTI.contains("opl") { return "scala" }
+        if sourceFileUTI.hasSuffix("opl-source") { return "psion" }
 
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
@@ -393,6 +393,66 @@ final class Common: NSObject {
     }
 
 
+    func processPsionFile(_ code: Substring) -> String {
+
+        var hasBinary = false
+        let ascii: [UInt8] = Array(code.utf8)
+        let binaryPrefixes: [[UInt8]] = [
+            [0x37,0x00,0x00,0x10],
+            [0x6D,0x00,0x00,0x10],
+            [0x85,0x00,0x00,0x10]
+        ]
+
+        for binaryPrefix in binaryPrefixes {
+            var match = 0
+            for i in 0..<4 {
+                if binaryPrefix[i] != ascii[i] {
+                    break
+                }
+
+                match += 1
+            }
+
+            if match == 4 {
+                hasBinary = true
+                break
+            }
+        }
+
+        if hasBinary {
+            // We expect a file with binary data to have bytes
+            // 0-37         - binary daya
+            // 38-          - text data
+            // length-191   - binary data
+
+            var dataString = "REM BINARY OPL DATA AT START OF FILE (38 BYTES)\n\n"
+
+            /*
+            let start: String.Index = String.Index(utf16Offset: 19, in: code)
+            let len = (ascii.count - 191) / 2
+            var end: String.Index
+            if len > 19 {
+                end = String.Index(utf16Offset: len, in: code)
+            } else {
+                end = codeString.endIndex
+            }
+             */
+
+            if let string = String(bytes: Array(ascii[38..<(ascii.count - 191)]), encoding: .utf8) {
+                dataString += string
+            } else {
+                print("not a valid UTF-8 sequence")
+            }
+
+            //dataString += String(codeString[start..<end])
+            dataString += "\nREM BINARY OPL DATA AT TAIL OF FILE (191 BYTES)\n"
+            return dataString
+        } else {
+            return String(code)
+        }
+    }
+
+    
     /**
      Add line numbers to each line within the specified NSAttributedString.
 
