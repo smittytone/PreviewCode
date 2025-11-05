@@ -39,8 +39,8 @@ extension AppDelegate {
         self.messageSendButton.isEnabled = (!self.feedbackText.stringValue.isEmpty && !self.hasSentFeedback)
 
         // Make the text field the first responder
-        self.themeTable.resignFirstResponder()
-        self.window.makeFirstResponder(self.feedbackText)
+        //self.themeTable.resignFirstResponder()
+        //self.window.makeFirstResponder(self.feedbackText)
         self.feedbackText.currentEditor()?.beginDocument()
     }
 

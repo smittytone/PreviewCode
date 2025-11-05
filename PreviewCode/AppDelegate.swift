@@ -101,6 +101,8 @@ class AppDelegate: NSResponder,
     // FROM 2.0.0
     private  var tabManager: PMTabManager       = PMTabManager()
     internal var hasSentFeedback: Bool          = false
+    // FROM 2.2.4
+    internal var oldMag: CGFloat                = 0.0
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -192,7 +194,7 @@ class AppDelegate: NSResponder,
 
         // Centre the main window and display
         setInfoText()
-        self.window.initialFirstResponder = self.themeTable
+        //self.window.initialFirstResponder = self.themeTable
         self.window.delegate = self
         self.window.center()
         self.window.makeKeyAndOrderFront(self)

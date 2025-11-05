@@ -48,8 +48,8 @@ extension AppDelegate {
         self.applyButton.isEnabled = checkSettingsOnQuit()
 
         // Make the table the first responder
-        self.feedbackText.resignFirstResponder()
-        self.window.makeFirstResponder(self.themeTable)
+        //self.feedbackText.resignFirstResponder()
+        self.window.makeFirstResponder(self)
 
         // FROM 2.2.1
         // Fix track colour on macOS 26
@@ -76,6 +76,49 @@ extension AppDelegate {
         // Enable the Apply button if something has changed
         self.applyButton.isEnabled = checkSettingsOnQuit()
     }
+
+
+    override func keyDown(with event: NSEvent) {
+
+        if (event.keyCode == 126 || event.keyCode == 124) && self.fontSizeSlider.floatValue < 6.0 {
+            self.fontSizeSlider.floatValue += 1
+            if self.fontSizeSlider.floatValue > 6.0 {
+                self.fontSizeSlider.floatValue = 6.0
+            }
+
+            doMoveSlider(sender: self)
+        }
+
+        if (event.keyCode == 125 || event.keyCode == 123) && self.fontSizeSlider.floatValue > 0.0 {
+            self.fontSizeSlider.floatValue -= 1
+            if self.fontSizeSlider.floatValue < 0.0 {
+                self.fontSizeSlider.floatValue = 0.0
+            }
+
+            doMoveSlider(sender: self)
+        }
+    }
+
+
+    /*
+    override func magnify(with event: NSEvent) {
+
+        if (event.phase == .changed){
+            if event.magnification < 0 && self.fontSizeSlider.floatValue > 0 {
+                self.fontSizeSlider.floatValue -= 1
+            }
+
+            if event.magnification > 0 && self.fontSizeSlider.floatValue < 6 {
+                self.fontSizeSlider.floatValue += 1
+            }
+
+            doMoveSlider(sender: self)
+            self.oldMag = event.magnification
+        }
+
+        print(event.magnification)
+    }
+     */
 
 
     /**
@@ -957,6 +1000,11 @@ extension AppDelegate {
         self.applyButton.isEnabled = checkSettingsOnQuit()
     }
 
+
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        print("ROW",row)
+        return row >= 0 && row < self.themes.count
+    }
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
 
