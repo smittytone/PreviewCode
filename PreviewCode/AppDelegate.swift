@@ -14,16 +14,16 @@ import Highlighter
 
 
 @main
-class AppDelegate: NSResponder,
-                   NSApplicationDelegate,
-                   URLSessionDelegate,
-                   URLSessionDataDelegate,
-                   WKNavigationDelegate,
-                   NSTableViewDelegate,
-                   NSTableViewDataSource,
-                   NSTextViewDelegate,
-                   NSControlTextEditingDelegate,
-                   NSWindowDelegate {
+final class AppDelegate: NSResponder,
+                         NSApplicationDelegate,
+                         URLSessionDelegate,
+                         URLSessionDataDelegate,
+                         WKNavigationDelegate,
+                         NSTableViewDelegate,
+                         NSTableViewDataSource,
+                         NSTextViewDelegate,
+                         NSControlTextEditingDelegate,
+                         NSWindowDelegate {
 
     // MARK: - Class UI Properies
     
