@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="24127"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="24412"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -88,7 +88,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="tAy-4n-Mlm">
+                    <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="tAy-4n-Mlm">
                         <rect key="frame" x="20" y="22" width="16" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="16" id="6Gr-jl-hYk"/>
@@ -167,8 +167,6 @@ Gw
                 <outlet property="mainTabView" destination="Efa-Tr-CoS" id="4FR-sB-RGJ"/>
                 <outlet property="messageSendButton" destination="aSO-9Y-H9b" id="xza-gW-Mme"/>
                 <outlet property="messageSizeLabel" destination="dY9-23-3mk" id="gvK-Av-dln"/>
-                <outlet property="preferencesWindow" destination="jjd-uj-Puq" id="1ud-bv-mbH"/>
-                <outlet property="reportWindow" destination="nk4-l2-g5W" id="SNf-z1-JQ2"/>
                 <outlet property="settingsButton" destination="CHZ-dY-741" id="xTb-nr-itX"/>
                 <outlet property="settingsHelpButton" destination="Iqk-uD-YOH" id="jnk-9T-46M"/>
                 <outlet property="showLineNumbersCheckbox" destination="8dh-uP-44R" id="1dn-le-dBS"/>
@@ -647,7 +645,7 @@ DQ
                         <rect key="frame" x="20" y="182" width="520" height="160"/>
                         <clipView key="contentView" id="SHm-fd-m1x">
                             <rect key="frame" x="1" y="1" width="518" height="158"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="80" viewBased="YES" floatsGroupRows="NO" id="fuT-RR-f1g">
                                     <rect key="frame" x="0.0" y="0.0" width="518" height="158"/>
@@ -669,7 +667,7 @@ DQ
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="legacy-previewcode-theme-cell" id="9VX-DW-m69" customClass="ThemeTableCellView" customModule="PreviewCode" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="486" height="80"/>
+                                                    <rect key="frame" x="10" y="0.0" width="486" height="80"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <userGuides>
                                                         <userLayoutGuide location="40" affinity="minY"/>
@@ -849,7 +847,7 @@ DQ
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folder-icon-dark" id="VBl-Jj-74Y"/>
                     </imageView>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KEH-AC-yYX">
-                        <rect key="frame" x="280" y="20" width="88" height="20"/>
+                        <rect key="frame" x="280" y="20" width="91" height="20"/>
                         <popUpButtonCell key="cell" type="push" title="Single" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="IyZ-QV-9AY" id="cAL-Hw-Vqu">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="message"/>
@@ -1267,7 +1265,7 @@ running this app once more.</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="Vp2-Uo-nQg">
                                                 <rect key="frame" x="1" y="1" width="378" height="205"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="78" viewBased="YES" floatsGroupRows="NO" id="NhT-Em-x8n">
                                                         <rect key="frame" x="0.0" y="0.0" width="378" height="205"/>
@@ -1663,9 +1661,6 @@ running this app once more.</string>
                     <constraint firstItem="7wo-jV-QYD" firstAttribute="top" secondItem="nG3-Id-QUi" secondAttribute="top" constant="11" id="vHc-Ly-QzN"/>
                 </constraints>
             </view>
-            <connections>
-                <outlet property="initialFirstResponder" destination="NhT-Em-x8n" id="0GT-0y-MfD"/>
-            </connections>
             <point key="canvasLocation" x="605" y="-196"/>
         </window>
     </objects>
