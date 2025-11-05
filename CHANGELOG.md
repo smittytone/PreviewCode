@@ -1,5 +1,7 @@
 ## Release Notes
 
+- 2.2.3 *Unreleased*
+    - Fix for macOS 26.1 deciding thumbnails should match mode.
 - 2.2.2 *27 September 2025*
     - Update Settings UI for macOS 26.
 - 2.2.1 *19 September 2025*
