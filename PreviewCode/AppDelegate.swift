@@ -354,7 +354,7 @@ final class AppDelegate: NSResponder,
     @IBAction
     private func doShowPrefsHelp(sender: Any) {
         
-        let path: String = BUFFOON_CONSTANTS.MAIN_URL + "#customise-the-preview"
+        let path: String = BUFFOON_CONSTANTS.MAIN_URL + "#customize-the-preview"
         NSWorkspace.shared.open(URL(string:path)!)
 
     }
