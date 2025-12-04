@@ -382,6 +382,7 @@ final class Common: NSObject {
     
     /**
      Determine whether the host Mac is in light mode.
+
      FROM 1.3.0
      
      - Returns: `true` if the Mac is in light mode, otherwise `false`.
@@ -393,10 +394,24 @@ final class Common: NSObject {
     }
 
 
-    func processPsionFile(_ code: Substring) -> String {
+    /**
+     Determine whether a Psion .OPL file contains binary data.
+
+     Compare the first four bytes of the file to three four-byte headers to determine
+     whether this the case.
+
+     FROM 2.2.3
+
+     - Parameters:
+        - code:     The file-load data.
+        - encoding: The string encoding of the loaded file, likely UTF8.
+
+     - Returns Text extracted from the data plus header and footer, reading for highlighting.
+     */
+    func processPsionFile(_ code: Data, _ encoding: String.Encoding) -> String {
 
         var hasBinary = false
-        let ascii: [UInt8] = Array(code.utf8)
+        var ascii: [UInt8] = Array(code)
         let binaryPrefixes: [[UInt8]] = [
             [0x37,0x00,0x00,0x10],
             [0x6D,0x00,0x00,0x10],
@@ -404,16 +419,16 @@ final class Common: NSObject {
         ]
 
         for binaryPrefix in binaryPrefixes {
-            var match = 0
+            var matchCount = 0
             for i in 0..<4 {
-                if binaryPrefix[i] != ascii[i] {
+                if binaryPrefix[i] != code[i] {
                     break
                 }
 
-                match += 1
+                matchCount += 1
             }
 
-            if match == 4 {
+            if matchCount == 4 {
                 hasBinary = true
                 break
             }
@@ -425,30 +440,28 @@ final class Common: NSObject {
             // 38-          - text data
             // length-191   - binary data
 
-            var dataString = "REM BINARY OPL DATA AT START OF FILE (38 BYTES)\n\n"
+            // Add header
+            var dataString = "REM " +
+                             String(repeating: "*", count: 43) +
+                             "\nREM BINARY OPL DATA AT START OF FILE (38 BYTES)\nREM " +
+                             String(repeating: "*", count: 43) + "\n\n"
 
-            /*
-            let start: String.Index = String.Index(utf16Offset: 19, in: code)
-            let len = (ascii.count - 191) / 2
-            var end: String.Index
-            if len > 19 {
-                end = String.Index(utf16Offset: len, in: code)
-            } else {
-                end = codeString.endIndex
-            }
-             */
-
-            if let string = String(bytes: Array(ascii[38..<(ascii.count - 191)]), encoding: .utf8) {
-                dataString += string
-            } else {
-                print("not a valid UTF-8 sequence")
+            // Test file used 0x06 as a line break
+            for i in 38..<(ascii.count - 191) {
+                if code[i] == 06 {
+                    ascii[i] = 10
+                }
             }
 
-            //dataString += String(codeString[start..<end])
-            dataString += "\nREM BINARY OPL DATA AT TAIL OF FILE (191 BYTES)\n"
-            return dataString
+            // Add the Ascii text to the string
+            dataString += String(data: Data(ascii[38..<(ascii.count - 191)]), encoding: .utf8) ?? ""
+            return dataString + "\nREM " +
+                   String(repeating: "*", count: 43) +
+                   "\nREM BINARY OPL DATA AT TAIL OF FILE (191 BYTES)\nREM " + 
+                   String(repeating: "*", count: 43) + "\n"
         } else {
-            return String(code)
+            // Not a binary string, so return it untouched ready for highlighting
+            return String(data: code, encoding: encoding) ?? ""
         }
     }
 

@@ -73,12 +73,12 @@ class PreviewViewController: NSViewController,
                 if language == "psion" {
                     // Special case for psion files, which may contain binary data
                     if url.absoluteString.hasSuffix("opl") {
-                        codeAttString = common.getAttributedString(common.processPsionFile(codeString[...]), "scala")
+                        codeAttString = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
                     } else {
                         codeAttString = common.getAttributedString(codeString, "scala")
                     }
                 } else {
-                    // Get the key string first
+                    // Highlight the code
                     codeAttString = common.getAttributedString(codeString, language)
                 }
 
