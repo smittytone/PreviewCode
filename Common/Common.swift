@@ -23,15 +23,15 @@ final class Common: NSObject {
     var themeBackgroundColour: NSColor      = NSColor.white
     var isThemeDark: Bool                   = false
     var initError: Bool                     = false
+    var settings: PCSettings        = PCSettings()
 
 
     // MARK: - Private Properties
 
-    private var font: NSFont?               = nil
-    private var highlighter: Highlighter?   = nil
+    private  var font: NSFont?               = nil
+    private  var highlighter: Highlighter?   = nil
     // FROM 2.0.0
-    private var isThumnbnail: Bool          = false
-    private var settings: PCSettings        = PCSettings()
+    private  var isThumnbnail: Bool          = false
 
     /*
      Replace the following string with your own team ID. This is used to

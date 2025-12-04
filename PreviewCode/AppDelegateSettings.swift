@@ -386,115 +386,6 @@ extension AppDelegate {
 
 
     /**
-     Called by the app at launch to register its initial defaults.
-     */
-     internal func registerSettings() {
-
-        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-            // Check if each preference value exists -- set if it doesn't
-            // Preview body font size, stored as a CGFloat
-            // Default: 16.0
-            let codeFontSizeDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
-            if codeFontSizeDefault == nil {
-                defaults.setValue(CGFloat(BUFFOON_CONSTANTS.DEFAULTS.FONT_SIZE),
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
-            }
-
-            // Font for previews and thumbnails
-            // Default: Menlo
-            let codeFontName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
-            if codeFontName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.FONT,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
-            }
-
-            // FROM 1.3.0
-            // Line spacing
-            // Default: 1.0
-            let lineSpacing:Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
-            if lineSpacing == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.LINE_SPACING,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
-            }
-
-            // FROM 1.3.0
-            // Establish new defaults to store light and dark theme names.
-            // But check for an existing one so the user's choice is at least
-            // partially maintained, ie. if they selected a dark theme before, that
-            // will become the chosen dark them now
-            let newDarkThemeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
-            if newDarkThemeName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.DARK_THEME,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
-            }
-
-            let newLightThemeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
-            if newLightThemeName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.LIGHT_THEME,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
-            }
-
-            let defaultDisplayMode: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
-            if defaultDisplayMode == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
-            }
-
-            // Show the What's New sheet
-            // Default: true
-            // This is a version-specific preference suffixed with, eg, '-2-3'. Once created
-            // this will persist, but with each new major and/or minor version, we make a
-            // new preference that will be read by 'doShowWhatsNew()' to see if the sheet
-            // should be shown this run
-            let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
-            let showNewDefault: Any? = defaults.object(forKey: key)
-            if showNewDefault == nil {
-                defaults.setValue(true, forKey: key)
-            }
-
-            // FROM 2.0.0
-            // Do we show line numbers on previews?
-            // Default: No
-            let showLineNumbers: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_SHOW_LINE_NUMBERS)
-            if showLineNumbers == nil {
-                defaults.setValue(false,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_SHOW_LINE_NUMBERS)
-            }
-
-            /*
-             THESE SETTINGS HAVE BEEN DEPRECATED
-
-            // Thumbnail view base font size, stored as a CGFloat.
-            // Default: 32.0
-            // NOTE Currently unused
-            let thumbFontSizeDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_FONT_SIZE)
-            if thumbFontSizeDefault == nil {
-                defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE),
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_FONT_SIZE)
-            }
-
-            // NOTE Unused from 1.3.0
-            var themeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
-            if themeName == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
-                themeName = BUFFOON_CONSTANTS.DEFAULT_THEME
-            }
-            
-            // Use light background even in dark mode, stored as a bool
-            // Default: false
-            // NOTE Currently unused
-            let useLightDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
-            if useLightDefault == nil {
-                defaults.setValue(false,
-                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
-            }
-            */
-        }
-    }
-
-
-    /**
      Populate the current settings value with those read from disk.
 
      FROM 2.0.0
@@ -932,8 +823,8 @@ extension AppDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
         // Assemble the table cell view
-        let cell: ThemeTableCellView? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? ThemeTableCellView
-        
+        let cell: PCThemeTableCellView? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? PCThemeTableCellView
+
         if cell != nil {
             // Get the index in the the main theme list,
             // and thus the theme from that list
@@ -1017,13 +908,13 @@ extension AppDelegate {
     func textViewDidChangeSelection(_ notification: Notification) {
         
         /* Get the clicked NSTextView and use it to determine the parent
-         * ThemeTableCellView, from which we get the table row that
+         * PCThemeTableCellView, from which we get the table row that
          * we need to select.
          */
         
         let clickedView: PCTextView = notification.object as! PCTextView
-        let parentView: ThemeTableCellView = clickedView.superview as! ThemeTableCellView
-        
+        let parentView: PCThemeTableCellView = clickedView.superview as! PCThemeTableCellView
+
         // parentView.themeIndex -> index in self.themes
         if let idx: IndexSet = getSelectionIndex(parentView.themeIndex) {
             self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
@@ -1100,6 +991,115 @@ extension AppDelegate {
         self.themeScrollView.scrollWheel(with: event)
     }
 
+
+    /**
+     Called by the app at launch to register its initial defaults.
+
+     internal func registerSettings() {
+
+        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
+            // Check if each preference value exists -- set if it doesn't
+            // Preview body font size, stored as a CGFloat
+            // Default: 16.0
+            let codeFontSizeDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
+            if codeFontSizeDefault == nil {
+                defaults.setValue(CGFloat(BUFFOON_CONSTANTS.DEFAULTS.FONT_SIZE),
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
+            }
+
+            // Font for previews and thumbnails
+            // Default: Menlo
+            let codeFontName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
+            if codeFontName == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.FONT,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
+            }
+
+            // FROM 1.3.0
+            // Line spacing
+            // Default: 1.0
+            let lineSpacing:Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            if lineSpacing == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.LINE_SPACING,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            }
+
+            // FROM 1.3.0
+            // Establish new defaults to store light and dark theme names.
+            // But check for an existing one so the user's choice is at least
+            // partially maintained, ie. if they selected a dark theme before, that
+            // will become the chosen dark them now
+            let newDarkThemeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
+            if newDarkThemeName == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.DARK_THEME,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_DARK_NAME)
+            }
+
+            let newLightThemeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
+            if newLightThemeName == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.LIGHT_THEME,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
+            }
+
+            let defaultDisplayMode: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
+            if defaultDisplayMode == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_MODE)
+            }
+
+            // Show the What's New sheet
+            // Default: true
+            // This is a version-specific preference suffixed with, eg, '-2-3'. Once created
+            // this will persist, but with each new major and/or minor version, we make a
+            // new preference that will be read by 'doShowWhatsNew()' to see if the sheet
+            // should be shown this run
+            let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
+            let showNewDefault: Any? = defaults.object(forKey: key)
+            if showNewDefault == nil {
+                defaults.setValue(true, forKey: key)
+            }
+
+            // FROM 2.0.0
+            // Do we show line numbers on previews?
+            // Default: No
+            let showLineNumbers: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_SHOW_LINE_NUMBERS)
+            if showLineNumbers == nil {
+                defaults.setValue(false,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_SHOW_LINE_NUMBERS)
+            }
+
+            /*
+             THESE SETTINGS HAVE BEEN DEPRECATED
+
+            // Thumbnail view base font size, stored as a CGFloat.
+            // Default: 32.0
+            // NOTE Currently unused
+            let thumbFontSizeDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_FONT_SIZE)
+            if thumbFontSizeDefault == nil {
+                defaults.setValue(CGFloat(BUFFOON_CONSTANTS.BASE_THUMBNAIL_FONT_SIZE),
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_FONT_SIZE)
+            }
+
+            // NOTE Unused from 1.3.0
+            var themeName: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
+            if themeName == nil {
+                defaults.setValue(BUFFOON_CONSTANTS.DEFAULT_THEME,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_THEME_NAME)
+                themeName = BUFFOON_CONSTANTS.DEFAULT_THEME
+            }
+
+            // Use light background even in dark mode, stored as a bool
+            // Default: false
+            // NOTE Currently unused
+            let useLightDefault: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
+            if useLightDefault == nil {
+                defaults.setValue(false,
+                                  forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_USE_LIGHT)
+            }
+            */
+        }
+    }
+     */
 
 
     /**

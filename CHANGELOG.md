@@ -7,6 +7,7 @@
     - Fix the link to online help.
     - Fix handling of Paion .OPL files with embedded binary data.
     - Fix main window now in Window menu.
+    - Preparation work for advanced settings.
 - 2.2.2 *27 September 2025*
     - Update Settings UI for macOS 26.
 - 2.2.1 *19 September 2025*

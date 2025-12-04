@@ -77,14 +77,16 @@ class ThumbnailProvider: QLThumbnailProvider {
             let language: String = common.getLanguage(request.fileURL.path, false)
             let codeTextField: NSTextField = NSTextField(frame: codeFrame)
 
-            // FROM 2.2.4
+            // FROM 2.2.3
             // From macOS 26.1, make sure thumbnail backgrounds remain white
             // NOTE This may become a setting in future, but for now retain the styling
             //      we have always presented.
             if #available(macOS 26.1, *) {
-                codeTextField.isBezeled = false
-                codeTextField.drawsBackground = true
-                codeTextField.backgroundColor = .white
+                if !common.settings.thumbnailMatchFinderMode {
+                    codeTextField.isBezeled = false
+                    codeTextField.drawsBackground = true
+                    codeTextField.backgroundColor = .white
+                }
             }
 
             codeTextField.attributedStringValue = common.getAttributedString(displayString, language)

@@ -89,7 +89,10 @@ class PreviewViewController: NSViewController,
 
                 // FROM 2.0.0
                 // Add a small margin around the preview
-                self.renderTextView.textContainerInset = BUFFOON_CONSTANTS.PREVIEW_MARGIN_SIZE
+                if common.settings.doShowMargin {
+                    let marginSize: NSSize = NSMakeSize(common.settings.previewMarginWidth, common.settings.previewMarginWidth)
+                    self.renderTextView.textContainerInset = marginSize
+                }
 
                 if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
                     /*
@@ -100,12 +103,13 @@ class PreviewViewController: NSViewController,
                     renderTextStorage.beginEditing()
                     renderTextStorage.setAttributedString(codeAttString)
                     renderTextStorage.endEditing()
-                    self.view.display()
+                    //self.view.display()
 
                     // FROM 2.2.0
                     // Set the parent window's size
-                    setPreviewWindowSize()
-
+                    setPreviewWindowSize(common.settings.previewWindowScale)
+                    self.view.display()
+                    
                     // Call the QLPreviewingController indicating no error (nil)
                     handler(nil)
                     return
@@ -205,7 +209,7 @@ class PreviewViewController: NSViewController,
 
      FROM
     */
-    private func setPreviewWindowSize() {
+    private func setPreviewWindowSize(_ scale: CGFloat) {
 
         var screen: NSScreen = NSScreen.screens[0]
 
@@ -216,8 +220,8 @@ class PreviewViewController: NSViewController,
             screen = mainScreen
         }
 
-        let height: CGFloat = screen.frame.size.height * BUFFOON_CONSTANTS.WINDOW_SIZE_SCALE_FACTOR
-        let width: CGFloat = screen.frame.size.width * BUFFOON_CONSTANTS.WINDOW_SIZE_SCALE_FACTOR
+        let height: CGFloat = screen.frame.size.height * scale
+        let width: CGFloat = screen.frame.size.width * scale
         self.preferredContentSize = NSSize(width: width, height: height)
     }
 }

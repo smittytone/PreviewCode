@@ -1,5 +1,5 @@
 /*
- *  PCTableRowView.swift
+ *  PCThemeTableRowView.swift
  *  PreviewCode
  *
  *  Created by Tony Smith on 29/08/2025.
@@ -15,7 +15,7 @@ import AppKit
 
 */
 
-class PCTableRowView: NSTableRowView {
+class PCThemeTableRowView: NSTableRowView {
 
     override var isEmphasized: Bool {
         get {

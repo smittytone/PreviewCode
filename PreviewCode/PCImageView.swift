@@ -15,14 +15,14 @@ import Cocoa
 */
 
 class PCImageView: NSImageView {
-    
+
     // MARK: - Private Properties
     
     private var outline: Bool = false
-    
-    
+
+
     // MARK: - Public Properties
-    
+
     var isOutlined: Bool {
         get {
             return self.outline
@@ -32,10 +32,10 @@ class PCImageView: NSImageView {
             self.needsDisplay = true
         }
     }
-    
-    
+
+
     // MARK: - Public Functions
-    
+
     override func draw(_ dirtyRect: NSRect) {
         
         super.draw(dirtyRect)
@@ -64,5 +64,5 @@ class PCImageView: NSImageView {
             gc.restoreGraphicsState()
         }
     }
-    
+
 }

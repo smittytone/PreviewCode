@@ -89,6 +89,11 @@ struct BUFFOON_CONSTANTS {
         static let PREVIEW_THEME_MODE           = "com-bps-previewcode-theme-mode"
         // FROM 2.0.0
         static let PREVIEW_SHOW_LINE_NUMBERS    = "com-bps-previewcode-show-line-numbers"
+        // FROM 2.2.3
+        static let PREVIEW_SHOW_MARGIN          = "com-bps-previewcode-do-show-margin"
+        static let PREVIEW_MARGIN               = "com-bps-previewcode-preview-margin"
+        static let PREVIEW_WINDOW_SCALE         = "com-bps-previewcode-window-scale"
+        static let THUMB_MATCH_MODE             = "com-bps-previewcode-match-mode"
     }
     
     static let PREVIEW_ERR_DOMAIN               = "com.bps.PreviewCode.Code-Previewer"
@@ -101,9 +106,14 @@ struct BUFFOON_CONSTANTS {
     static let MAX_FEEDBACK_SIZE                = 512
     static let FONT_SIZE_OPTIONS: [CGFloat]     = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
     static let PREVIEW_MARGIN_WIDTH             = 16.0
-    static let PREVIEW_MARGIN_SIZE              = NSSize(width: PREVIEW_MARGIN_WIDTH, height: PREVIEW_MARGIN_WIDTH)
-    // FROM 2.2.0
-    static let WINDOW_SIZE_SCALE_FACTOR         = 0.75
+
+    // FROM 2.2.3
+    struct SCALERS {
+
+        static let WINDOW_SIZE_L                = 0.75
+        static let WINDOW_SIZE_M                = 0.50
+        static let WINDOW_SIZE_S                = 0.42
+    }
 
 
     /*

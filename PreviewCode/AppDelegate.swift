@@ -89,6 +89,7 @@ final class AppDelegate: NSResponder,
     // MARK: - Private Properies
 
     internal var currentSettings: PCSettings    = PCSettings()
+    internal let defaultSettings: PCSettings    = PCSettings()
     internal var whatsNewNav: WKNavigation?     = nil
     internal var feedbackTask: URLSessionTask?  = nil
     internal var fonts: [PMFont]                = []
@@ -130,8 +131,8 @@ final class AppDelegate: NSResponder,
         }
         
         // Set application group-level defaults
-        registerSettings()
-        
+        self.defaultSettings.registerSettings(self.appSuiteName, getVersion())
+
         // Add the app's version number to the UI
         let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let build: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
