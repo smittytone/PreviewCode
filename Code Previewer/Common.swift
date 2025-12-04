@@ -279,7 +279,7 @@ final class Common: NSObject {
         if sourceFileUTI == "org.oasis-open.xliff" { return "xml" }
         if sourceFileUTI.hasSuffix(".tmx") { return "xml" }
         // FROM 2.1.0
-        if sourceFileUTI.contains("opl") { return "scala" }
+        if sourceFileUTI.hasSuffix("opl-source") { return "psion" }
 
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
@@ -382,6 +382,7 @@ final class Common: NSObject {
     
     /**
      Determine whether the host Mac is in light mode.
+
      FROM 1.3.0
      
      - Returns: `true` if the Mac is in light mode, otherwise `false`.
@@ -393,6 +394,78 @@ final class Common: NSObject {
     }
 
 
+    /**
+     Determine whether a Psion .OPL file contains binary data.
+
+     Compare the first four bytes of the file to three four-byte headers to determine
+     whether this the case.
+
+     FROM 2.2.3
+
+     - Parameters:
+        - code:     The file-load data.
+        - encoding: The string encoding of the loaded file, likely UTF8.
+
+     - Returns Text extracted from the data plus header and footer, reading for highlighting.
+     */
+    func processPsionFile(_ code: Data, _ encoding: String.Encoding) -> String {
+
+        var hasBinary = false
+        var ascii: [UInt8] = Array(code)
+        let binaryPrefixes: [[UInt8]] = [
+            [0x37,0x00,0x00,0x10],
+            [0x6D,0x00,0x00,0x10],
+            [0x85,0x00,0x00,0x10]
+        ]
+
+        for binaryPrefix in binaryPrefixes {
+            var matchCount = 0
+            for i in 0..<4 {
+                if binaryPrefix[i] != code[i] {
+                    break
+                }
+
+                matchCount += 1
+            }
+
+            if matchCount == 4 {
+                hasBinary = true
+                break
+            }
+        }
+
+        if hasBinary {
+            // We expect a file with binary data to have bytes
+            // 0-37         - binary daya
+            // 38-          - text data
+            // length-191   - binary data
+
+            // Add header
+            var dataString = "REM " +
+                             String(repeating: "*", count: 43) +
+                             "\nREM BINARY OPL DATA AT START OF FILE (38 BYTES)\nREM " +
+                             String(repeating: "*", count: 43) + "\n\n"
+
+            // Test file used 0x06 as a line break
+            for i in 38..<(ascii.count - 191) {
+                if code[i] == 06 {
+                    ascii[i] = 10
+                }
+            }
+
+            // Add the Ascii text to the string
+            dataString += String(data: Data(ascii[38..<(ascii.count - 191)]), encoding: .utf8) ?? ""
+            return dataString + "\nREM " +
+                   String(repeating: "*", count: 43) +
+                   "\nREM BINARY OPL DATA AT TAIL OF FILE (191 BYTES)\nREM " + 
+                   String(repeating: "*", count: 43) + "\n"
+        } else {
+            // Not a binary string, so return it untouched ready for highlighting
+            return String(data: code, encoding: encoding) ?? ""
+        }
+    }
+
+    
     /**
      Add line numbers to each line within the specified NSAttributedString.
 

@@ -69,9 +69,18 @@ class PreviewViewController: NSViewController,
 
                 // Set the language
                 let language: String = common.getLanguage(url.path, false)
-
-                // Get the key string first
-                let codeAttString: NSAttributedString = common.getAttributedString(codeString, language)
+                var codeAttString: NSAttributedString
+                if language == "psion" {
+                    // Special case for psion files, which may contain binary data
+                    if url.absoluteString.hasSuffix("opl") {
+                        codeAttString = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
+                    } else {
+                        codeAttString = common.getAttributedString(codeString, "scala")
+                    }
+                } else {
+                    // Highlight the code
+                    codeAttString = common.getAttributedString(codeString, language)
+                }
 
                 // Set text and scroll view attributes according to style
                 // TODO Do a better job of checking whether theme is dark or light
