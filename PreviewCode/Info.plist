@@ -466,6 +466,7 @@
 				<array>
 					<string>basic</string>
 					<string>bas</string>
+					<string>lis</string>
 				</array>
 			</dict>
 		</dict>
@@ -1600,6 +1601,7 @@
 				<array>
 					<string>opl</string>
 					<string>opa</string>
+					<string>tpl</string>
 				</array>
 			</dict>
 		</dict>
