@@ -4,9 +4,9 @@
     - Add `.LIS` as a Basic file extension for we Amstrad NC100 users.
     - Add `.TPL` as an OPL file extension for Psion users.
     - Fix for macOS 26.1 deciding thumbnails should match mode.
-    - Fix the link to online help.
     - Fix handling of Psion `.OPL` files with embedded binary data.
-    - Fix main window now in Window menu.
+    - Fix the link to online help.
+    - Fix the main window name in the Window menu.
     - Preparation work for advanced settings.
 - 2.2.2 *27 September 2025*
     - Update Settings UI for macOS 26.
