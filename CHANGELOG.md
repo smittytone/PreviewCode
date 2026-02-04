@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.3 *Unreleased*
+- 2.2.3 *12 December 2025*
     - Add `.LIS` as a Basic file extension for we Amstrad NC100 users.
     - Add `.TPL` as an OPL file extension for Psion users.
     - Fix for macOS 26.1 deciding thumbnails should match mode.
