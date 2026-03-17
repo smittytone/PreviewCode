@@ -11,7 +11,7 @@ import Cocoa
 
 
 /**
- A very basic subclass so we can dfraw a line around theme mode icons in Preferences.
+ A very basic subclass so we can draw a line around theme mode icons in Preferences.
 */
 
 class PCImageView: NSImageView {
