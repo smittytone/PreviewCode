@@ -3,7 +3,7 @@
  *  PreviewCode
  *
  *  Created by Tony Smith on 08/10/2024.
- *  Copyright © 2025 Tony Smith. All rights reserved.
+ *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
 import Foundation

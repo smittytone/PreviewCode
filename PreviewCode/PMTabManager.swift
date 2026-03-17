@@ -3,7 +3,7 @@
  *  PreviewMarkdown
  *
  *  Created by Tony Smith on 30/09/2024.
- *  Copyright © 2025 Tony Smith. All rights reserved.
+ *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
 

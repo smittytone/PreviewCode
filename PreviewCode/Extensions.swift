@@ -3,7 +3,7 @@
  *  Code common to Previewer and Thumbnailer: Swift Extensions
  *
  *  Created by Tony Smith on 17/09/2024.
- *  Copyright © 2025 Tony Smith. All rights reserved.
+ *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
 import Foundation

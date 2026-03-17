@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="24412"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="24506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -506,7 +505,7 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="center" id="g12-Ft-65u">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">PreviewCode and HighlighterSwift © 2025, Tony Smith. Contains Highlight.js © 2006-25, Josh Goebel and Other Contributors; and Highlightr © 2016, Juan Pablo Illanes</string>
+                            <string key="title">PreviewCode and HighlighterSwift © 2026, Tony Smith. Contains Highlight.js © 2006-25, Josh Goebel and Other Contributors; and Highlightr © 2016, Juan Pablo Illanes</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -645,7 +644,7 @@ DQ
                         <rect key="frame" x="20" y="182" width="520" height="160"/>
                         <clipView key="contentView" id="SHm-fd-m1x">
                             <rect key="frame" x="1" y="1" width="518" height="158"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="80" viewBased="YES" floatsGroupRows="NO" id="fuT-RR-f1g">
                                     <rect key="frame" x="0.0" y="0.0" width="518" height="158"/>
@@ -667,7 +666,7 @@ DQ
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="legacy-previewcode-theme-cell" id="9VX-DW-m69" customClass="PCThemeTableCellView" customModule="PreviewCode" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="486" height="80"/>
+                                                    <rect key="frame" x="10" y="0.0" width="486" height="80"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <userGuides>
                                                         <userLayoutGuide location="40" affinity="minY"/>
@@ -1024,7 +1023,7 @@ DQ
                                             </constraints>
                                             <textFieldCell key="cell" controlSize="mini" allowsUndo="NO" alignment="left" id="GzG-al-ptw">
                                                 <font key="font" metaFont="menu" size="9"/>
-                                                <string key="title">PreviewCode © 2025, Tony Smith. 
+                                                <string key="title">PreviewCode © 2026, Tony Smith. 
 Contains Highlight.js © 2006-25, Josh Goebel and Other Contributors; and Highlightr © 2016, Juan Pablo Illanes</string>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1265,7 +1264,7 @@ running this app once more.</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="Vp2-Uo-nQg">
                                                 <rect key="frame" x="1" y="1" width="378" height="205"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="78" viewBased="YES" floatsGroupRows="NO" id="NhT-Em-x8n">
                                                         <rect key="frame" x="0.0" y="0.0" width="378" height="205"/>

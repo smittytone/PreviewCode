@@ -129,6 +129,6 @@ Please see the [CHANGELOG](./CHANGELOG.md)
 
 ## Copyright and Credits ##
 
-Primary app code and UI design &copy; 2025, Tony Smith.
+Primary app code and UI design &copy; 2026, Tony Smith.
 
 Code portions &copy; 2016 Juan Pablo Illanes.<br />Code portions &copy; 2006-25, Josh Goebel and Other Contributors
