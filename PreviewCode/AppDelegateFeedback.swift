@@ -80,7 +80,10 @@ extension AppDelegate {
         if !feedback.isEmpty  && !self.hasSentFeedback {
             // Start the connection indicator if it's not already visible
             self.connectionProgress.startAnimation(self)
-            
+
+            // FROM 2.2.4
+            self.hidePanelGenerators()
+
             /*
              Add your own `func sendFeedback(_ feedback: String) -> URLSessionTask?` function
              */
@@ -117,7 +120,7 @@ extension AppDelegate {
         let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
                                        "Unfortunately, your comments could not be send at this time. Please try again later.")
         alert.beginSheetModal(for: self.window) { (resp) in
-            self.window.endSheet(self.window)
+            //self.window.endSheet(self.window)
             self.showPanelGenerators()
         }
     }
@@ -137,7 +140,7 @@ extension AppDelegate {
             
             // Tell the user about the limit by flashing the
             // text field red and back
-            flashField()
+            self.flashField()
         }
 
         // Set the button title according to the amount of feedback text
@@ -154,14 +157,19 @@ extension AppDelegate {
     /**
      Briefly set the Text Field's background to red.
      */
+    @MainActor
     func flashField() {
-        
+
         // Set the background to colour red
         self.feedbackText.backgroundColor = .red
         
         // Switch the background back in 0.25 of a second
         _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { (timer) in
-            self.feedbackText.backgroundColor = nil
+            //self.feedbackText.backgroundColor = nil
+            Task {
+                @MainActor in
+                    self.feedbackText.backgroundColor = nil
+            }
         })
     }
 
@@ -190,10 +198,15 @@ extension AppDelegate {
             alert.beginSheetModal(for: self.window) { (resp) in
                 // Close the feedback window when the modal alert returns
                 let _: Timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { timer in
-                    self.window.endSheet(self.window)
-                    self.showPanelGenerators()
-                    self.hasSentFeedback = true
-                    self.messageSendButton.isEnabled = false
+                    // FROM 2.2.4
+                    // Run call on main thread using Swift Concurrency
+                    Task {
+                        @MainActor in
+                            //self.window.endSheet(self.window)
+                            self.showPanelGenerators()
+                            self.hasSentFeedback = true
+                            self.messageSendButton.isEnabled = false
+                    }
                 }
             }
         }

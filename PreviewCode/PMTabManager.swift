@@ -43,8 +43,9 @@ class PMTabManager {
      - Parameters:
         - button: The NSButton clicked.
      */
+    @MainActor
     func buttonClicked(_ button: NSButton) {
-        
+
         // Check the user isn't just clicking the button for the tab that
         // they're already on. If they do, bail.
         if button == self.buttons[currentIndex] {
@@ -96,8 +97,9 @@ class PMTabManager {
     /**
      Auto-click a button by passing in the 'clicked' button.
      */
+    @MainActor
     func programmaticallyClickButton(_ button: NSButton) {
-        
+
         buttonClicked(button)
     }
 
@@ -105,8 +107,9 @@ class PMTabManager {
     /**
      Auto-click a button by passing in the index of the 'clicked' button.
      */
+    @MainActor
     func programmaticallyClickButton(at index: Int) {
-        
+
         buttonClicked(self.buttons[index])
     }
 }

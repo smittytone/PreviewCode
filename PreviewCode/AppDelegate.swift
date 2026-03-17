@@ -14,10 +14,11 @@ import Highlighter
 
 
 @main
+@MainActor
 final class AppDelegate: NSResponder,
                          NSApplicationDelegate,
-                         URLSessionDelegate,
-                         URLSessionDataDelegate,
+                         @preconcurrency URLSessionDelegate,
+                         @preconcurrency URLSessionDataDelegate,
                          WKNavigationDelegate,
                          NSTableViewDelegate,
                          NSTableViewDataSource,
@@ -113,7 +114,6 @@ final class AppDelegate: NSResponder,
     internal var appSuiteName: String = MNU_SECRETS.PID + BUFFOON_CONSTANTS.SUITE_NAME
 
 
-    
     // MARK: - Class Lifecycle Functions
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -126,10 +126,17 @@ final class AppDelegate: NSResponder,
 
         // FROM 1.1.0
         // Asynchronously get the list of code fonts
+        /*
         DispatchQueue(label: "com.bps.previecode.async-queue").async {
             self.asyncGetFonts()
         }
-        
+         */
+        // FROM 2.2.4
+        // Upgrade to Swift Concurrency
+        Task {
+            self.asyncGetFonts()
+        }
+
         // Set application group-level defaults
         self.defaultSettings.registerSettings(self.appSuiteName, getVersion())
 
