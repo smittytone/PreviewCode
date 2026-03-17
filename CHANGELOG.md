@@ -1,7 +1,8 @@
 ## Release Notes
 
 - 2.2.4 *Unreleased*
-    - Update to `HighlighterSwift` 3.0.0.
+    - Update to `HighlighterSwift` 3.0.1.
+    - Correctly disable tab switching when sending feedback.
 - 2.2.3 *12 December 2025*
     - Add `.LIS` as a Basic file extension for we Amstrad NC100 users.
     - Add `.TPL` as an OPL file extension for Psion users.
