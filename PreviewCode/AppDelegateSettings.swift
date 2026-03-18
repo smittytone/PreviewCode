@@ -764,7 +764,7 @@ extension AppDelegate {
         let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
         let fm: FileManager = FileManager()
         let homeFolder: String = fm.homeDirectoryForCurrentUser.path
-        let common: Common = Common(false)
+        let common: Common = Common(forThumbnail: false)
 
         // Load in the code sample we'll preview the themes with
         guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
