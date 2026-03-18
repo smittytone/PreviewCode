@@ -32,7 +32,8 @@ class PreviewViewController: NSViewController,
     // MARK: - QLPreviewingController Required Functions
 
     func preparePreviewOfFile(at url: URL, completionHandler handler: @escaping (Error?) -> Void) {
-
+    // func preparePreviewOfFile(at url: URL) async throws {
+        
         /*
          * This is the main entry point for macOS' preview system
          */
@@ -57,7 +58,7 @@ class PreviewViewController: NSViewController,
 
             if let codeString: String = String(data: data, encoding: encoding) {
                 // Instantiate the common code within the closure
-                let common: Common = Common(false)
+                let common: Common = Common(forThumbnail: false)
                 if common.initError {
                     // A key component of Common, eg. 'hightlight.js' is missing,
                     // so we cannot continue
@@ -107,7 +108,7 @@ class PreviewViewController: NSViewController,
 
                     // FROM 2.2.0
                     // Set the parent window's size
-                    setPreviewWindowSize(common.settings.previewWindowScale)
+                    setPreviewWindowSize(common.settings)
                     self.view.display()
                     
                     // Call the QLPreviewingController indicating no error (nil)
@@ -207,9 +208,9 @@ class PreviewViewController: NSViewController,
     /**
      Specify the content size of the parent view.
 
-     FROM
+     FROM 2.2.4
     */
-    private func setPreviewWindowSize(_ scale: CGFloat) {
+    private func setPreviewWindowSize(_ settings: PCSettings) {
 
         var screen: NSScreen = NSScreen.screens[0]
 
@@ -220,8 +221,8 @@ class PreviewViewController: NSViewController,
             screen = mainScreen
         }
 
-        let height: CGFloat = screen.frame.size.height * scale
-        let width: CGFloat = screen.frame.size.width * scale
+        let height: CGFloat = screen.frame.size.height * settings.previewWindowScale
+        let width: CGFloat = screen.frame.size.width * settings.previewWindowScale
         self.preferredContentSize = NSSize(width: width, height: height)
     }
 }

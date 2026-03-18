@@ -8,7 +8,6 @@
  */
 
 
-import Foundation
 import AppKit
 import UniformTypeIdentifiers
 import Highlighter
@@ -16,7 +15,7 @@ import Highlighter
 
 // FROM 1.1.0
 // Implement as a class
-final class Common: NSObject {
+final internal class Common {
 
     // MARK: - Public Properties
 
@@ -43,9 +42,9 @@ final class Common: NSObject {
     
     // MARK: - Lifecycle Functions
 
-    init(_ isThumbnail: Bool) {
+    init(forThumbnail isThumbnail: Bool) {
 
-        super.init()
+        //super.init()
 
         // Set local values with default properties
         var highlightJsThemeName: String
