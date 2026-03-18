@@ -113,7 +113,7 @@ extension AppDelegate {
     internal func presentFeedbackError(_ error: FeedbackError) {
 
         let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
-                                       "Unfortunately, your comments could not be send at this time. Please try again later.\n(\(error.localizedDescription))")
+                                       "Unfortunately, your comments could not be send at this time. Please try again later.\n\nReason: \(error.localizedDescription)")
         alert.beginSheetModal(for: self.window) { (resp) in
             // FROM 2.2.4
             // Run call on main thread using Swift Concurrency
