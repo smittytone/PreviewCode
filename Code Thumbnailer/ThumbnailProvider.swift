@@ -25,6 +25,14 @@ class ThumbnailProvider: QLThumbnailProvider {
         case badHighlighter
     }
 
+    // FROM 2.2.4
+    // Make the core generator common to all instances, ie. all thumbnails
+    static private var common: Common? = nil
+    // Set the primary drawing frame and a base font size
+    private let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_X),
+                                               CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_Y),
+                                               CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.WIDTH),
+                                               CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.HEIGHT))
 
     // MARK: - QLThumbnailProvider Required Functions
 
@@ -50,14 +58,16 @@ class ThumbnailProvider: QLThumbnailProvider {
             }
             
             // Instantiate the common code within the closure
-            let common: Common = Common(true)
-            if common.initError {
-                // A key component of Common, eg. 'hightlight.js' is missing,
-                // so we cannot continue
-                handler(nil, ThumbnailerError.badHighlighter)
-                return
+            if ThumbnailProvider.common == nil {
+                ThumbnailProvider.common = Common(forThumbnail: true)
+                if ThumbnailProvider.common == nil || ThumbnailProvider.common!.initError {
+                    // A key component of Common, eg. 'hightlight.js' is missing,
+                    // so we cannot continue
+                    handler(nil, ThumbnailerError.badHighlighter)
+                    return
+                }
             }
-            
+
             // Only render the lines likely to appear in the thumbnail
             let lines: [Substring] = codeString.split(separator: "\n", maxSplits: BUFFOON_CONSTANTS.THUMBNAIL.LINE_COUNT + 1, omittingEmptySubsequences: false)
             var displayString: String = ""
@@ -67,32 +77,26 @@ class ThumbnailProvider: QLThumbnailProvider {
                 displayString += (String(lines[i]) + "\n")
             }
             
-            // Set the primary drawing frame and a base font size
-            let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_X),
-                                               CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_Y),
-                                               CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.WIDTH),
-                                               CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.HEIGHT))
-            
             // Instantiate an NSTextField to display the NSAttributedString render of the code
-            let language: String = common.getLanguage(request.fileURL.path, false)
-            let codeTextField: NSTextField = NSTextField(frame: codeFrame)
+            let language: String = ThumbnailProvider.common!.getLanguage(request.fileURL.path, false)
+            let codeTextField: NSTextField = NSTextField(frame: self.codeFrame)
 
             // FROM 2.2.3
             // From macOS 26.1, make sure thumbnail backgrounds remain white
             // NOTE This may become a setting in future, but for now retain the styling
             //      we have always presented.
             if #available(macOS 26.1, *) {
-                if !common.settings.thumbnailMatchFinderMode {
+                if !ThumbnailProvider.common!.settings.thumbnailMatchFinderMode {
                     codeTextField.isBezeled = false
                     codeTextField.drawsBackground = true
                     codeTextField.backgroundColor = .white
                 }
             }
 
-            codeTextField.attributedStringValue = common.getAttributedString(displayString, language)
-            
+            codeTextField.attributedStringValue = ThumbnailProvider.common!.getAttributedString(displayString, language)
+
             // Generate the bitmap from the rendered code text view
-            guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: codeFrame) else {
+            guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: self.codeFrame) else {
                 handler(nil, ThumbnailerError.badGfxBitmap)
                 return
             }
