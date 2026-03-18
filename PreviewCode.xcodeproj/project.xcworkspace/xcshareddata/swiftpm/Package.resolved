@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smittytone/HighlighterSwift.git",
       "state" : {
-        "branch" : "develop",
-        "revision" : "b206d9ab9ac0cff1d4a838561bbe6d257248b531"
+        "branch" : "main",
+        "revision" : "e34d2c37bed61b80f694e1c53407a7abf1c8795f"
       }
     }
   ],
