@@ -75,11 +75,22 @@ extension AppDelegate {
         // which itself requires the font store to be populated
         // FROM 2.2.4 - Switch to Swift Concurrency
         Task {
-            // Run task on main thread (when it's free?)
+            // Run task on main thread
+
+            /*
+            // This version runs the closure on the main thread immediately,
+            // blocking it until the closure completes
             await MainActor.run {
                 self.fonts = cf
                 self.loadSettings()
             }
+             */
+
+            // This version adds the closure to the main thread queue, so runs
+            // when the main thread becomes free
+            @MainActor in
+                self.fonts = cf
+                self.loadSettings()
         }
     }
     
