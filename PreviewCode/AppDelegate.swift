@@ -17,8 +17,6 @@ import Highlighter
 @MainActor
 final class AppDelegate: NSResponder,
                          NSApplicationDelegate,
-                         @preconcurrency URLSessionDelegate,
-                         @preconcurrency URLSessionDataDelegate,
                          WKNavigationDelegate,
                          NSTableViewDelegate,
                          NSTableViewDataSource,
@@ -77,7 +75,7 @@ final class AppDelegate: NSResponder,
     @IBOutlet weak var defaultsButton: NSButton!
 
     // Window > Feedback Tab Items
-    @IBOutlet weak var feedbackText: PCTextField!
+    @IBOutlet weak var feedbackText: NSTextField!
     @IBOutlet weak var connectionProgress: NSProgressIndicator!
     @IBOutlet weak var messageSizeLabel: NSTextField!
     @IBOutlet weak var messageSendButton: NSButton!
@@ -124,13 +122,6 @@ final class AppDelegate: NSResponder,
         self.helpMenuRenderThemes.isHidden = false
 #endif
 
-        // FROM 1.1.0
-        // Asynchronously get the list of code fonts
-        /*
-        DispatchQueue(label: "com.bps.previecode.async-queue").async {
-            self.asyncGetFonts()
-        }
-         */
         // FROM 2.2.4
         // Upgrade to Swift Concurrency
         Task {

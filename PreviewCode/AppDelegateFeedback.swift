@@ -74,35 +74,31 @@ extension AppDelegate {
     @IBAction
     @objc
     private func doSendFeedback(sender: Any) {
-        
+
         let feedback: String = self.feedbackText.stringValue
-        
         if !feedback.isEmpty  && !self.hasSentFeedback {
-            // Start the connection indicator if it's not already visible
-            self.connectionProgress.startAnimation(self)
-
             // FROM 2.2.4
-            self.hidePanelGenerators()
+            // Use Swift Concurrency
+            // NOTE Use of Task and closure required because @IBAction functions cannot be `async`,
+            //      but we make an `await` call later on
+            Task { @MainActor in
+                // Start the connection indicator if it's not already visible,
+                // and block tab switching via menus
+                self.connectionProgress.startAnimation(self)
+                hidePanelGenerators()
 
-            /*
-             Add your own `func sendFeedback(_ feedback: String) -> URLSessionTask?` function
-             */
-            self.feedbackTask = sendFeedback(feedback)
-            
-            if self.feedbackTask != nil {
-                // We have a valid URL Session Task, so start it to send
-                self.feedbackTask!.resume()
-            } else {
-                // Report the error
-                sendFeedbackError()
+                // Post the feedback asynchronously
+                let error: FeedbackError = await self.nuSendFeedback(feedback)
+                self.connectionProgress.stopAnimation(self)
+                if error.code != .noError {
+                    // Error - inform the user
+                    presentFeedbackError(error)
+                } else {
+                    // No error - feedback sent successfully
+                    presentFeedbackSuccess()
+                }
             }
-            
-            return
         }
-        
-        // FROM 1.2.5
-        // Restore menus
-        showPanelGenerators()
     }
 
 
@@ -111,33 +107,62 @@ extension AppDelegate {
     /**
      Present an error message specific to sending feedback.
 
-     This is called from multiple locations: if the initial request can't be created,
-     there was a send failure, or a server error.
+     - Parameters:
+        - error - An Error of type struct FeedbackError.
      */
-    internal func sendFeedbackError() {
+    internal func presentFeedbackError(_ error: FeedbackError) {
 
-        hidePanelGenerators()
         let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
-                                       "Unfortunately, your comments could not be send at this time. Please try again later.")
+                                       "Unfortunately, your comments could not be send at this time. Please try again later.\n(\(error.localizedDescription))")
         alert.beginSheetModal(for: self.window) { (resp) in
-            //self.window.endSheet(self.window)
-            self.showPanelGenerators()
+            // FROM 2.2.4
+            // Run call on main thread using Swift Concurrency
+            Task {
+                @MainActor in
+                    self.showPanelGenerators()
+            }
+        }
+    }
+
+
+    /**
+     Present a message on successfully sending feedback.
+
+     FROM 2.2.4
+     */
+    internal func presentFeedbackSuccess() {
+
+        let alert: NSAlert = showAlert("Thanks For Your Feedback!",
+                                       "Your comments have been received and we’ll take a look at them shortly.")
+        alert.beginSheetModal(for: self.window) { (resp) in
+            // Close the feedback window when the modal alert returns
+            let _: Timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { timer in
+                // Run call on main thread using Swift Concurrency
+                Task {
+                    @MainActor in
+                        self.showPanelGenerators()
+                        self.hasSentFeedback = true
+                        self.messageSendButton.isEnabled = false
+                }
+            }
         }
     }
 
 
     // MARK: - NSTextFieldDelegate Functions
-    
+
     func controlTextDidChange(_ note: Notification) {
         
         // Trap text changes so that no more than
         // can be entered into the text field
 
         if self.feedbackText.stringValue.count > BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE {
-            // Prune the feedback to kMaxFeedbackCharacters chars
-            let edit: Substring = self.feedbackText.stringValue.prefix(BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE)
-            self.feedbackText.stringValue = String(edit)
-            
+            // FROM 2.2.4
+            // Chop the feedback field's attributed string, not its plain string
+            let attStr = NSMutableAttributedString(attributedString: self.feedbackText.attributedStringValue)
+            attStr.deleteCharacters(in: NSRange(location: BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE, length: attStr.length - BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE))
+            self.feedbackText.attributedStringValue = attStr as NSAttributedString
+
             // Tell the user about the limit by flashing the
             // text field red and back
             self.flashField()
@@ -157,25 +182,27 @@ extension AppDelegate {
     /**
      Briefly set the Text Field's background to red.
      */
-    @MainActor
     func flashField() {
 
         // Set the background to colour red
         self.feedbackText.backgroundColor = .red
-        
+
         // Switch the background back in 0.25 of a second
         _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { (timer) in
-            //self.feedbackText.backgroundColor = nil
+            // FROM 2.2.4
+            // Migrate to Swift Concurrency
             Task {
                 @MainActor in
-                    self.feedbackText.backgroundColor = nil
+                self.feedbackText.backgroundColor = .white
             }
         })
     }
 
 
+
     // MARK: - URLSession Delegate Functions
 
+    /*
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
 
         // Some sort of connection error - report it
@@ -211,5 +238,5 @@ extension AppDelegate {
             }
         }
     }
-
+     */
 }

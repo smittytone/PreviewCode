@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="24506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -1491,7 +1492,7 @@ running this app once more.</string>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bg1-og-rL9" customClass="PCTextField" customModule="PreviewCode" customModuleProvider="target">
+                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bg1-og-rL9">
                                             <rect key="frame" x="20" y="63" width="760" height="235"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="235" id="VhX-LR-3Uf"/>
