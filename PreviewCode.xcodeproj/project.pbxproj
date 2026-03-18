@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0EC8512F6B1C0600C32894 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EC8502F6B1C0600C32894 /* Entities.swift */; };
 		3B1108B826714ADA00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B726714ADA00A36A48 /* Highlighter */; };
 		3B1108BA26714AE700A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108B926714AE700A36A48 /* Highlighter */; };
 		3B1108BC26714AED00A36A48 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 3B1108BB26714AED00A36A48 /* Highlighter */; };
@@ -104,6 +105,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B0EC8502F6B1C0600C32894 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		3B1A5B782E6097AA002AECE4 /* PMTabManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMTabManager.swift; sourceTree = "<group>"; };
 		3B1A5B7A2E60A447002AECE4 /* PCSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCSettings.swift; sourceTree = "<group>"; };
 		3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				3BD1778E2E61F7BE00313D34 /* PCTextField.swift */,
 				3B3F580C29D5892900E227C7 /* PCImageView.swift */,
 				3B1A5B7E2E60BD8A002AECE4 /* Extensions.swift */,
+				3B0EC8502F6B1C0600C32894 /* Entities.swift */,
 				3BFD781B2663E16E002AD588 /* MainMenu.xib */,
 				3BFD781E2663E16E002AD588 /* Info.plist */,
 				3B271DC9268B0A9B00EFC72C /* themes-list.json */,
@@ -544,6 +547,7 @@
 				3B3F580D29D5892900E227C7 /* PCImageView.swift in Sources */,
 				3BD1778F2E61F7BE00313D34 /* PCTextField.swift in Sources */,
 				3B6ABAC52669649500A436AA /* Common.swift in Sources */,
+				3B0EC8512F6B1C0600C32894 /* Entities.swift in Sources */,
 				3B2D12E42E2A810500046D72 /* AppDelegateFeedback.swift in Sources */,
 				3B7D83D52A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
 				3BD177892E61B1DE00313D34 /* PCTextView.swift in Sources */,
