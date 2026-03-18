@@ -23,7 +23,7 @@ final class Common: NSObject {
     var themeBackgroundColour: NSColor      = NSColor.white
     var isThemeDark: Bool                   = false
     var initError: Bool                     = false
-    var settings: PCSettings        = PCSettings()
+    var settings: PCSettings                = PCSettings()
 
 
     // MARK: - Private Properties
@@ -302,41 +302,41 @@ final class Common: NSObject {
         // as aliases, eg. 'pascal' -> 'delphi'; or all use the same language,
         // eg. all shells -> 'bash'
         switch(sourceLanguage) {
-        case "objective-c":
-            sourceLanguage = isForTag ? "obj-c" : "objectivec"
-        case "objective-c-plus-plus":
-            sourceLanguage = isForTag ? "obj-c++" : "objectivec"
-        case "c-plus-plus":
-            sourceLanguage = isForTag ? "c++" : "cpp"
-        case "shell", "zsh", "csh", "ksh", "tsch":
-            if !isForTag { sourceLanguage = "bash" }
-        case "pascal":
-            if !isForTag { sourceLanguage = "delphi" }
-        case "assembly":
-            // FROM 1.4.2 -- Correct 'armasm' -> 'arm'
-            if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "arm" }
-            if sourceFileExtension == "asm" || sourceFileExtension == "nasm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
-        case "nasm-assembly":
-            sourceLanguage = isForTag ? "x86-64" : "x86asm"
-        case "6809-assembly":
-            sourceLanguage = isForTag ? "6809" : "x86asm"
-        case "latex":
-            if !isForTag { sourceLanguage = "tex" }
-        case "csharp":
-            if isForTag { sourceLanguage = "c#" }
-        case "fsharp":
-            if isForTag { sourceLanguage = "f#" }
-        case "brainfuck":
-            if isForTag { sourceLanguage = "brainf**k" }
-        case "terraform":
-            if !isForTag { sourceLanguage = "go" }
-        case "make":
-            sourceLanguage = "makefile"
-        case "vuejs":
-            sourceLanguage = "javascript"
-        default:
-            // NOP
-            break
+            case "objective-c":
+                sourceLanguage = isForTag ? "obj-c" : "objectivec"
+            case "objective-c-plus-plus":
+                sourceLanguage = isForTag ? "obj-c++" : "objectivec"
+            case "c-plus-plus":
+                sourceLanguage = isForTag ? "c++" : "cpp"
+            case "shell", "zsh", "csh", "ksh", "tsch":
+                if !isForTag { sourceLanguage = "bash" }
+            case "pascal":
+                if !isForTag { sourceLanguage = "delphi" }
+            case "assembly":
+                // FROM 1.4.2 -- Correct 'armasm' -> 'arm'
+                if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "arm" }
+                if sourceFileExtension == "asm" || sourceFileExtension == "nasm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
+            case "nasm-assembly":
+                sourceLanguage = isForTag ? "x86-64" : "x86asm"
+            case "6809-assembly":
+                sourceLanguage = isForTag ? "6809" : "x86asm"
+            case "latex":
+                if !isForTag { sourceLanguage = "tex" }
+            case "csharp":
+                if isForTag { sourceLanguage = "c#" }
+            case "fsharp":
+                if isForTag { sourceLanguage = "f#" }
+            case "brainfuck":
+                if isForTag { sourceLanguage = "brainf**k" }
+            case "terraform":
+                if !isForTag { sourceLanguage = "go" }
+            case "make":
+                sourceLanguage = "makefile"
+            case "vuejs":
+                sourceLanguage = "javascript"
+            default:
+                // NOP
+                break
         }
         
         return sourceLanguage
@@ -465,67 +465,4 @@ final class Common: NSObject {
         }
     }
 
-    
-    /**
-     Add line numbers to each line within the specified NSAttributedString.
-
-     Numbers are zero padded to the number of digits in the highest line number.
-
-     FROM 2.0.0
-
-     EXPERIMENTAL
-
-     - Parameters:
-        - renderedCode  The already-styled NSAttributedString, ie. the code.
-        - withSeparator An extra separator string placed between number and line.
-
-     - Returns A new NSAttributedString containing the line numbers
-
-
-    private func addLineNumbers(_ renderedCode: NSAttributedString, withSeparator: String = "") -> NSAttributedString {
-
-        let linedCode = NSMutableAttributedString()
-        let lines = renderedCode.components(separatedBy: BUFFOON_CONSTANTS.LINE_BREAK)
-
-        // Determin the maximum digit-width of the line number field
-        var formatCount = 2
-        var lineCount: Int = lines.count
-        while lineCount > 99 {
-            formatCount += 1
-            lineCount = lineCount / 100
-        }
-
-        // Determine the colour according to the usage mode
-        var colour: NSColor = self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK ? .white : .black
-        if self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO {
-            colour = isMacInLightMode() ? .black : .white
-        }
-
-        // Set the line number attributes - keep it low key
-        let lineAtts: [NSAttributedString.Key : Any] = [.foregroundColor: colour.withAlphaComponent(0.2),
-                                                        .font: NSFont.monospacedSystemFont(ofSize: self.settings.fontSize, weight: .ultraLight)]
-
-        // Iterate over the rendered lines, prepending the line number
-        let formatString = "%0\(formatCount)i"
-        var lineIndex = 0
-        for line in lines {
-            // Add the line number
-            lineIndex += 1
-            linedCode.append(NSAttributedString(string: String(format: formatString, lineIndex), attributes: lineAtts))
-
-            // Add a separator
-            if withSeparator.isEmpty {
-                linedCode.append(NSAttributedString(string: " ", attributes: lineAtts))
-            } else {
-                linedCode.append(NSAttributedString(string: withSeparator, attributes: lineAtts))
-            }
-
-            // Add the line itself and restore the line break
-            linedCode.append(line)
-            linedCode.append(NSAttributedString(string: BUFFOON_CONSTANTS.LINE_BREAK, attributes: lineAtts))
-        }
-
-        return linedCode
-    }
-     */
 }
