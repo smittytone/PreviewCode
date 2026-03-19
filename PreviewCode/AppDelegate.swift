@@ -90,7 +90,6 @@ final class AppDelegate: NSResponder,
     internal var currentSettings: PCSettings    = PCSettings()
     internal let defaultSettings: PCSettings    = PCSettings()
     internal var whatsNewNav: WKNavigation?     = nil
-    internal var feedbackTask: URLSessionTask?  = nil
     internal var fonts: [PMFont]                = []
     internal var themes: [Any]                  = []
     internal var darkThemes: [Int]              = []
@@ -123,8 +122,10 @@ final class AppDelegate: NSResponder,
         self.helpMenuRenderThemes.isHidden = false
 #endif
 
-        // FROM 2.2.4
-        // Upgrade to Swift Concurrency
+        // Pre-load fonts in a separate thread
+        // NOTE This ultimately calls `loadSettings()` which we delay until after the fonts
+        //      have loaded asynchronously because they reference loaded fonts.
+        // FROM 2.4.1 - Upgrade to Swift Concurrency
         Task {
             asyncGetFonts()
         }
@@ -219,7 +220,6 @@ final class AppDelegate: NSResponder,
     @IBAction
     private func doClose(_ sender: Any) {
 
-        // FROM 2.0.0
         closeBasics()
         closeSettings()
     }
@@ -232,7 +232,6 @@ final class AppDelegate: NSResponder,
      */
     internal func closeBasics() {
 
-        // FROM 1.3.0
         // Reset the QL thumbnail cache... just in case (don't think this does anything)
         _ = runProcess(app: "/usr/bin/qlmanage", with: ["-r", "cache"])
 
@@ -258,8 +257,8 @@ final class AppDelegate: NSResponder,
                                            false)
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
-            alert.beginSheetModal(for: self.window) { (response: NSApplication.ModalResponse) in
-                if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            alert.beginSheetModal(for: self.window) { (response) in
+                if response == .alertFirstButtonReturn {
                     // The user clicked 'Quit': now check for feedback changes
                     self.closeFeedback()
                 }
@@ -289,8 +288,8 @@ final class AppDelegate: NSResponder,
                                            false)
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
-            alert.beginSheetModal(for: self.window) { (response: NSApplication.ModalResponse) in
-                if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            alert.beginSheetModal(for: self.window) { (response) in
+                if response == .alertFirstButtonReturn {
                     // The user clicked 'Quit'
                     self.window.close()
                 }

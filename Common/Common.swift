@@ -44,8 +44,6 @@ final internal class Common {
 
     init(forThumbnail isThumbnail: Bool) {
 
-        //super.init()
-
         // Set local values with default properties
         var highlightJsThemeName: String
 
