@@ -5,6 +5,7 @@
     - Migrate to Swift Concurrency.
     - Correctly disable tab switching when sending feedback.
     - Fix truncation of feedback text to prevent loss of styling.
+    - Fix issue with warning on feedback character-limit exceeded.
 - 2.2.3 *12 December 2025*
     - Add `.LIS` as a Basic file extension for we Amstrad NC100 users.
     - Add `.TPL` as an OPL file extension for Psion users.
