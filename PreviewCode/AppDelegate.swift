@@ -103,6 +103,7 @@ final class AppDelegate: NSResponder,
     internal var hasSentFeedback: Bool          = false
     // FROM 2.2.4
     internal var oldMag: CGFloat                = 0.0
+    internal var timer: Timer?                  = nil
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -125,7 +126,7 @@ final class AppDelegate: NSResponder,
         // FROM 2.2.4
         // Upgrade to Swift Concurrency
         Task {
-            self.asyncGetFonts()
+            asyncGetFonts()
         }
 
         // Set application group-level defaults
@@ -252,7 +253,7 @@ final class AppDelegate: NSResponder,
 
         // Are there any unsaved changes to the settings?
         if checkSettingsOnQuit() {
-            let alert: NSAlert = showAlert("You have unsaved settings",
+            let alert: NSAlert = makeAlert("You have unsaved settings",
                                            "Do you wish to cancel and save or change them, or quit the app anyway?",
                                            false)
             alert.addButton(withTitle: "Quit")
@@ -283,7 +284,7 @@ final class AppDelegate: NSResponder,
 
         // Does the feeback page contain text? If so let the user know
         if self.feedbackText.stringValue.count > 0 && !self.hasSentFeedback {
-            let alert: NSAlert = showAlert("You have unsent feedback",
+            let alert: NSAlert = makeAlert("You have unsent feedback",
                                            "Do you wish to cancel and send it, or quit the app anyway?",
                                            false)
             alert.addButton(withTitle: "Quit")

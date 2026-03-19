@@ -1193,7 +1193,7 @@ extension AppDelegate {
     private func doClosePreferences(sender: Any) {
 
         if checkPrefs() {
-            let alert: NSAlert = showAlert("You have made changes",
+            let alert: NSAlert = makeAlert("You have made changes",
                                            "Do you wish to go back and save them, or ignore them? ",
                                            false)
             alert.addButton(withTitle: "Go Back")

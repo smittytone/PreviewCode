@@ -85,7 +85,7 @@ extension AppDelegate {
 
      - Returns:     The NSAlert.
      */
-    internal func showAlert(_ head: String, _ message: String, _ addOkButton: Bool = true, _ isCritical: Bool = false) -> NSAlert {
+    internal func makeAlert(_ head: String, _ message: String, _ addOkButton: Bool = true, _ isCritical: Bool = false) -> NSAlert {
 
         let alert: NSAlert = NSAlert()
         alert.messageText = head
