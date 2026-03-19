@@ -79,8 +79,8 @@ extension AppDelegate {
         if !feedback.isEmpty  && !self.hasSentFeedback {
             // FROM 2.2.4
             // Use Swift Concurrency
-            // NOTE Use of Task and closure required because @IBAction functions cannot be `async`,
-            //      but we make an `await` call later on
+            // NOTE Use of Task and closure required because @IBAction functions
+            //      cannot be `async`, but we make an `await` call later on
             Task { @MainActor in
                 // Start the connection indicator if it's not already visible,
                 // and block tab switching via menus
@@ -112,15 +112,10 @@ extension AppDelegate {
      */
     internal func presentFeedbackError(_ error: FeedbackError) {
 
-        let alert: NSAlert = showAlert("Feedback Could Not Be Sent",
+        let alert: NSAlert = makeAlert("Feedback Could Not Be Sent",
                                        "Unfortunately, your comments could not be send at this time. Please try again later.\n\nReason: \(error.localizedDescription)")
         alert.beginSheetModal(for: self.window) { (resp) in
-            // FROM 2.2.4
-            // Run call on main thread using Swift Concurrency
-            Task {
-                @MainActor in
-                    self.showPanelGenerators()
-            }
+            self.showPanelGenerators()
         }
     }
 
@@ -132,19 +127,12 @@ extension AppDelegate {
      */
     internal func presentFeedbackSuccess() {
 
-        let alert: NSAlert = showAlert("Thanks For Your Feedback!",
+        let alert: NSAlert = makeAlert("Thanks For Your Feedback!",
                                        "Your comments have been received and we’ll take a look at them shortly.")
         alert.beginSheetModal(for: self.window) { (resp) in
-            // Close the feedback window when the modal alert returns
-            let _: Timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { timer in
-                // Run call on main thread using Swift Concurrency
-                Task {
-                    @MainActor in
-                        self.showPanelGenerators()
-                        self.hasSentFeedback = true
-                        self.messageSendButton.isEnabled = false
-                }
-            }
+            self.showPanelGenerators()
+            self.hasSentFeedback = true
+            self.messageSendButton.isEnabled = false
         }
     }
 
@@ -165,7 +153,7 @@ extension AppDelegate {
 
             // Tell the user about the limit by flashing the
             // text field red and back
-            self.flashField()
+            flashField()
         }
 
         // Set the button title according to the amount of feedback text
@@ -184,16 +172,34 @@ extension AppDelegate {
      */
     func flashField() {
 
+        // FROM 2.2.4
+        // Make sure we don't have a timer in play
+        guard self.timer == nil else { return }
+
         // Set the background to colour red
-        self.feedbackText.backgroundColor = .red
+        // Must run on `MainActor` and we set `.high` so it's done immediately
+        Task(priority: .high) {
+            await MainActor.run {
+                self.feedbackText.isEnabled = false
+                self.feedbackText.backgroundColor = .red
+                self.feedbackText.textColor = .white
+            }
+        }
 
         // Switch the background back in 0.25 of a second
-        _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { (timer) in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { (timer) in
+            timer.invalidate()
+
             // FROM 2.2.4
             // Migrate to Swift Concurrency
-            Task {
-                @MainActor in
-                self.feedbackText.backgroundColor = .white
+            // Must run on `MainActor` and we set `.high` so it's done immediately
+            Task(priority: .high) {
+                await MainActor.run {
+                    self.feedbackText.backgroundColor = .textBackgroundColor
+                    self.feedbackText.textColor = .labelColor
+                    self.feedbackText.isEnabled = true
+                    self.timer = nil
+                }
             }
         })
     }
@@ -220,7 +226,7 @@ extension AppDelegate {
             sendFeedbackError()
         } else {
             // The comment was submitted successfully
-            let alert: NSAlert = showAlert("Thanks For Your Feedback!",
+            let alert: NSAlert = makeAlert("Thanks For Your Feedback!",
                                            "Your comments have been received and we’ll take a look at them shortly.")
             alert.beginSheetModal(for: self.window) { (resp) in
                 // Close the feedback window when the modal alert returns

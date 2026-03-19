@@ -115,9 +115,8 @@ extension AppDelegate {
                     timer.invalidate()
                     // FROM 2.2.4
                     // Run call on main thread using Swift Concurrency
-                    Task {
-                        @MainActor in
-                            self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
+                    Task { @MainActor in
+                        self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
                     }
                 }
             }
