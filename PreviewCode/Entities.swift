@@ -27,7 +27,7 @@ public struct FeedbackError: Error, LocalizedError {
                     return "received a bad status code from the feedback server"
                 }
             case .badSession:
-                return "could not connect to the feedback server — please check your WiFi"
+                return "could not connect to the feedback server"
             case .badErrorUnknown:
                 return "unknown"
             }
