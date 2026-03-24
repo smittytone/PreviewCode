@@ -116,7 +116,7 @@ extension AppDelegate {
 
      - Returns: The date string.
      */
-    internal func getDateForFeedback() -> String {
+    internal func getFeedbackDate() -> String {
 
         let date: Date = Date()
         let dateFormatter: DateFormatter = DateFormatter()
@@ -132,7 +132,7 @@ extension AppDelegate {
 
      - Returns: The user-agent string.
      */
-    internal func getUserAgentForFeedback() -> String {
+    internal func getUserAgent() -> String {
 
         // Refactor code out into separate function for clarity
 
