@@ -1,7 +1,7 @@
 ## Release Notes
 
 - 2.2.4 *Unreleased*
-    - Update to `HighlighterSwift` 3.0.1.
+    - Update to `HighlighterSwift` 3.0.2.
     - Migrate to Swift Concurrency.
     - Correctly disable tab switching when sending feedback.
     - Fix truncation of feedback text to prevent loss of styling.
