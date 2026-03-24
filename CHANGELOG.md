@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.4 *Unreleased*
+- 2.2.4 *24 March 2026*
     - Update to `HighlighterSwift` 3.0.2.
     - Migrate to Swift Concurrency.
     - Correctly disable tab switching when sending feedback.
