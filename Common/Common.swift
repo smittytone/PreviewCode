@@ -277,6 +277,8 @@ final internal class Common {
         if sourceFileUTI.hasSuffix(".tmx") { return "xml" }
         // FROM 2.1.0
         if sourceFileUTI.hasSuffix("opl-source") { return "psion" }
+        // FROM 2.2.5
+        if sourceFileUTI.contains("dita.") { return "xml" }
 
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`

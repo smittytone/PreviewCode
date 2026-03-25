@@ -1529,8 +1529,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>XMP</string>
-			<key>UTTypeIconName</key>
-			<string>XMP</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>com.seriflabs.xmp</string>
 			<key>UTTypeTagSpecification</key>
@@ -1602,6 +1602,56 @@
 					<string>opl</string>
 					<string>opa</string>
 					<string>tpl</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DITA Topic</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.dita.document</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://docs.oasis-open.org/dita/v1.2/os/spec/DITA1.2-spec.html</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>dita</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/dita+xml</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DITA Map</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.dita.map</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://docs.oasis-open.org/dita/v1.2/os/spec/DITA1.2-spec.html</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ditamap</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/dita+xml</string>
 				</array>
 			</dict>
 		</dict>
