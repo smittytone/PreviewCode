@@ -2,6 +2,10 @@
 
 - 2.2.5 *Unreleased*
     - Add DITA topic (`.dita`) and map (`.ditamap`) file support.
+    - Add support for the `public.toml` UTI (for `.cfg` files).
+    - Add support for the `com.microsoft.ini` UTI (for `.ini` files).
+    - Add support for the `org.iso.sql` UTI (for `.sql` files).
+    - Fix rendering of `.opl` thumbnails.
 - 2.2.4 *24 March 2026*
     - Update to `HighlighterSwift` 3.0.2.
     - Migrate to Swift Concurrency.
