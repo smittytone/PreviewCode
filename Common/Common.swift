@@ -223,22 +223,23 @@ final internal class Common {
 
 
     /**
-    Determine the source file's language from its UTI.
+     Determine the source file's language from its UTI.
 
-    For example, `public.swift-source` -> `swift`.
+     For example, `public.swift-source` -> `swift`.
 
-    If `isForTag` is `true`, it returns the actual name of the language,
-    not the naming used by Highlight.js, which it returns if `isForTag`
-    is `false`. This is because these are not always the same,
-    eg. `c++` vs `cpp`, `pascal` vs `delphi`.
+     If `isForTag` is `true`, it returns the actual name of the language,
+     not the naming used by Highlight.js, which it returns if `isForTag`
+     is `false`. This is because these are not always the same,
+     eg. `c++` vs `cpp`, `pascal` vs `delphi`.
+
+     FROM 2.2.5 -- Remove `isForTag` arg.
 
     - Parameters:
         - sourceFilePath: The path to the source code file.
-        - isForTag:       Are we rendering a thumbnail tag (`true`) or not (`false`).
 
     - Returns: The source code's language.
     */
-    func getLanguage(_ sourceFilePath: String, _ isForTag: Bool) -> String {
+    func getLanguage(_ sourceFilePath: String) -> String {
 
         // FROM 1.2.2 -- make sure these are lowercase
         let sourceFileUTI: String = getSourceFileUTI(sourceFilePath).lowercased()
@@ -279,6 +280,9 @@ final internal class Common {
         if sourceFileUTI.hasSuffix("opl-source") { return "psion" }
         // FROM 2.2.5
         if sourceFileUTI.contains("dita.") { return "xml" }
+        if sourceFileUTI.hasSuffix(".toml") { return "toml" }
+        if sourceFileUTI.hasSuffix(".ini") { return "makefile" }
+        if sourceFileUTI.hasSuffix(".sql") { return "sql" }
 
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
@@ -302,33 +306,27 @@ final internal class Common {
         // eg. all shells -> 'bash'
         switch(sourceLanguage) {
             case "objective-c":
-                sourceLanguage = isForTag ? "obj-c" : "objectivec"
+                sourceLanguage = "objectivec"
             case "objective-c-plus-plus":
-                sourceLanguage = isForTag ? "obj-c++" : "objectivec"
+                sourceLanguage = "objectivec"
             case "c-plus-plus":
-                sourceLanguage = isForTag ? "c++" : "cpp"
+                sourceLanguage = "cpp"
             case "shell", "zsh", "csh", "ksh", "tsch":
-                if !isForTag { sourceLanguage = "bash" }
+                sourceLanguage = "bash"
             case "pascal":
-                if !isForTag { sourceLanguage = "delphi" }
+                sourceLanguage = "delphi"
             case "assembly":
                 // FROM 1.4.2 -- Correct 'armasm' -> 'arm'
-                if sourceFileExtension == "s" { sourceLanguage = isForTag ? "ARM" : "arm" }
-                if sourceFileExtension == "asm" || sourceFileExtension == "nasm" { sourceLanguage = isForTag ? "x86-64" : "x86asm" }
+                if sourceFileExtension == "s" { sourceLanguage = "arm" }
+                if sourceFileExtension == "asm" || sourceFileExtension == "nasm" { sourceLanguage = "x86asm" }
             case "nasm-assembly":
-                sourceLanguage = isForTag ? "x86-64" : "x86asm"
+                sourceLanguage = "x86asm"
             case "6809-assembly":
-                sourceLanguage = isForTag ? "6809" : "x86asm"
+                sourceLanguage = "x86asm"
             case "latex":
-                if !isForTag { sourceLanguage = "tex" }
-            case "csharp":
-                if isForTag { sourceLanguage = "c#" }
-            case "fsharp":
-                if isForTag { sourceLanguage = "f#" }
-            case "brainfuck":
-                if isForTag { sourceLanguage = "brainf**k" }
+                sourceLanguage = "tex"
             case "terraform":
-                if !isForTag { sourceLanguage = "go" }
+                sourceLanguage = "go"
             case "make":
                 sourceLanguage = "makefile"
             case "vuejs":

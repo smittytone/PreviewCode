@@ -69,7 +69,7 @@ class PreviewViewController: NSViewController,
                 }
 
                 // Set the language
-                let language: String = common.getLanguage(url.path, false)
+                let language: String = common.getLanguage(url.path)
                 var codeAttString: NSAttributedString
                 if language == "psion" {
                     // Special case for psion files, which may contain binary data
