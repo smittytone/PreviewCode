@@ -78,7 +78,23 @@ class ThumbnailProvider: QLThumbnailProvider {
             }
             
             // Instantiate an NSTextField to display the NSAttributedString render of the code
-            let language: String = ThumbnailProvider.common!.getLanguage(request.fileURL.path, false)
+            let language: String = ThumbnailProvider.common!.getLanguage(request.fileURL.path)
+
+            // FROM 2.2.5 -- handle Psion files
+            var codeAttString: NSAttributedString
+            if language == "psion" {
+                // Special case for psion files, which may contain binary data
+                if request.fileURL.absoluteString.hasSuffix("opl") {
+                    // NOTE In this case only, the thumbnail's source string may be rendered way too big
+                    codeAttString = ThumbnailProvider.common!.getAttributedString(ThumbnailProvider.common!.processPsionFile(data, encoding), "scala")
+                } else {
+                    codeAttString = ThumbnailProvider.common!.getAttributedString(displayString, "scala")
+                }
+            } else {
+                // All other languages
+                codeAttString = ThumbnailProvider.common!.getAttributedString(displayString, language)
+            }
+
             let codeTextField: NSTextField = NSTextField(frame: self.codeFrame)
 
             // FROM 2.2.3
@@ -93,7 +109,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                 }
             }
 
-            codeTextField.attributedStringValue = ThumbnailProvider.common!.getAttributedString(displayString, language)
+            codeTextField.attributedStringValue = codeAttString
 
             // Generate the bitmap from the rendered code text view
             guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: self.codeFrame) else {
