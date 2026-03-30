@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.5 *Unreleased*
+- 2.2.5 *30 March 2024*
     - Add DITA topic (`.dita`) and map (`.ditamap`) file support.
     - Add support for the `public.toml` UTI (for `.cfg` files).
     - Add support for the `com.microsoft.ini` UTI (for `.ini` files).
@@ -13,10 +13,10 @@
     - Fix truncation of feedback text to prevent loss of styling.
     - Fix issue with warning on feedback character-limit exceeded.
 - 2.2.3 *12 December 2025*
-    - Add `.LIS` as a Basic file extension for we Amstrad NC100 users.
-    - Add `.TPL` as an OPL file extension for Psion users.
+    - Add `.lis` as a Basic file extension for we Amstrad NC100 users.
+    - Add `.tpl` as an OPL file extension for Psion users.
     - Fix for macOS 26.1 deciding thumbnails should match mode.
-    - Fix handling of Psion `.OPL` files with embedded binary data.
+    - Fix handling of Psion `.opl` files with embedded binary data.
     - Fix the link to online help.
     - Fix the main window name in the Window menu.
     - Preparation work for advanced settings.
@@ -54,7 +54,7 @@
     - Update code highlighter.
     - Codebase re-org phase I.
 - 1.3.5 *20 April 2025*
-    - Support macOS 15's new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
+    - Support macOS 15’s new `org.lua` (Lua), `org.tug` (LaTex, Tex), `org.clojure` (Clojure) language UTIs.
     - Get `.conf` back from <b>PreviewText</b>.
     - Remove links to deprecated PreviewText and PreviewYaml.
 - 1.3.4 *14 September 2024*
