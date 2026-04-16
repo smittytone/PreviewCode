@@ -1,6 +1,9 @@
 ## Release Notes
 
-- 2.2.5 *30 March 2024*
+- 2.2.6 *Unreleased*
+    - Fix font-size slider control’s colouring.
+    - Update dependencies.
+- 2.2.5 *30 March 2026*
     - Add DITA topic (`.dita`) and map (`.ditamap`) file support.
     - Add support for the `public.toml` UTI (for `.cfg` files).
     - Add support for the `com.microsoft.ini` UTI (for `.ini` files).

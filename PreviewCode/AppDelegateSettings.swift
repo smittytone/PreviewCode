@@ -51,10 +51,10 @@ extension AppDelegate {
         //self.feedbackText.resignFirstResponder()
         self.window.makeFirstResponder(self)
 
-        // FROM 2.2.1
+        // FROM 2.2.6
         // Fix track colour on macOS 26
         if #available(macOS 26.0, *) {
-            self.fontSizeSlider.tintProminence = .none
+            self.fontSizeSlider.tintProminence = .secondary
         }
     }
 
