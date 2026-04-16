@@ -14,21 +14,23 @@ import Foundation
  Values are pre-set to the app defaults.
  */
 
-class PCSettings {
+final class PCSettings {
 
-    // MARK: Properties
-    var fontName: String                    = BUFFOON_CONSTANTS.DEFAULTS.FONT
-    var fontSize: CGFloat                   = CGFloat(BUFFOON_CONSTANTS.DEFAULTS.FONT_SIZE)
-    var lineSpacing: CGFloat                = BUFFOON_CONSTANTS.DEFAULTS.LINE_SPACING
-    var darkThemeName: String               = BUFFOON_CONSTANTS.DEFAULTS.DARK_THEME
-    var lightThemeName: String              = BUFFOON_CONSTANTS.DEFAULTS.LIGHT_THEME
-    var themeDisplayMode: Int               = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
-    var doShowLineNumbers: Bool             = false
+    // MARK: Public Properties
+
+    public var fontName: String                    = BUFFOON_CONSTANTS.DEFAULTS.FONT
+    public var fontSize: CGFloat                   = CGFloat(BUFFOON_CONSTANTS.DEFAULTS.FONT_SIZE)
+    public var lineSpacing: CGFloat                = BUFFOON_CONSTANTS.DEFAULTS.LINE_SPACING
+    public var darkThemeName: String               = BUFFOON_CONSTANTS.DEFAULTS.DARK_THEME
+    public var lightThemeName: String              = BUFFOON_CONSTANTS.DEFAULTS.LIGHT_THEME
+    public var themeDisplayMode: Int               = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
+    public var doShowLineNumbers: Bool             = false
     // FROM 2.2.3
-    var doShowMargin: Bool                  = false                                             // Advanced
-    var previewMarginWidth: CGFloat         = BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH            // Advanced
-    var previewWindowScale: CGFloat         = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_L           // Advanced
-    var thumbnailMatchFinderMode: Bool      = false                                             // Advanced
+    public var doShowMargin: Bool                  = false                                             // Advanced DEPRECATED
+    public var previewMarginWidth: CGFloat         = BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH            // Advanced
+    public var previewWindowScale: CGFloat         = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_L           // Advanced
+    public var thumbnailMatchFinderMode: Bool      = false                                             // Advanced
+
 
     // MARK: Retrieve and Persist Functions
 
@@ -38,8 +40,8 @@ class PCSettings {
      - Parameters:
         - suite The App Suite name under which the defaults are recorded.
      */
-    func loadSettings(_ suite: String) {
-        
+    public func loadSettings(_ suite: String) {
+
         // The suite name is the app group name, set in each extension's entitlements, and the host app's
         if let defaults = UserDefaults(suiteName: suite) {
             self.fontName = defaults.string(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME) ?? BUFFOON_CONSTANTS.DEFAULTS.FONT
@@ -65,8 +67,8 @@ class PCSettings {
      - Parameters:
         - suite The App Suite name under which the defaults are recorded.
      */
-    func saveSettings(_ suite: String) {
-        
+    public func saveSettings(_ suite: String) {
+
         if let defaults = UserDefaults(suiteName: suite) {
             // TO-DO Test each on to see if the setting needs to be saved
             defaults.setValue(self.fontName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
@@ -94,7 +96,7 @@ class PCSettings {
         - suite:   The app suite name.
         - version: The app version number.
      */
-    func registerSettings(_ suite: String, _ version: String) {
+    public func registerSettings(_ suite: String, _ version: String) {
 
         if let defaults = UserDefaults(suiteName: suite) {
             // Check if each preference value exists -- set if it doesn't
