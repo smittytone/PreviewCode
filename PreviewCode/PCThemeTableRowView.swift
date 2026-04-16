@@ -12,7 +12,6 @@ import AppKit
 /**
  Subclass NSTableRowView so we can make sure that auto-selected rows in the `Settings` tab's
  theme table are correctly focused. Click to focus always works anyway.
-
 */
 
 class PCThemeTableRowView: NSTableRowView {
