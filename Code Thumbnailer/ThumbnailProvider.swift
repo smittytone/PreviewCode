@@ -47,11 +47,19 @@ class ThumbnailProvider: QLThumbnailProvider {
         do {
             // Get the file contents as a string, making sure it's not cached
             // as we're not going to read it again any time soon
-            let data: Data = try Data(contentsOf: request.fileURL, options: [.uncached])
-            
+            // FROM 2.3.0 - Only read in a minimal amount of data
+            let codeFileHandle = try FileHandle(forReadingFrom: request.fileURL)
+            try codeFileHandle.seek(toOffset: 0)
+            guard let data = try codeFileHandle.read(upToCount: BUFFOON_CONSTANTS.MAX_THUMBNAIL_READ_SIZE) else {
+                try codeFileHandle.close()
+                handler(nil, ThumbnailerError.badFileUnreadable(request.fileURL.path))
+                return
+            }
+
+            try codeFileHandle.close()
+
             // Get the string's encoding, or fail back to .utf8
             let encoding: String.Encoding = data.stringEncoding ?? .utf8
-            
             guard let codeString: String = String(data: data, encoding: encoding) else {
                 handler(nil, ThumbnailerError.badFileLoad(request.fileURL.path))
                 return
@@ -68,15 +76,6 @@ class ThumbnailProvider: QLThumbnailProvider {
                 }
             }
 
-            // Only render the lines likely to appear in the thumbnail
-            let lines: [Substring] = codeString.split(separator: "\n", maxSplits: BUFFOON_CONSTANTS.THUMBNAIL.LINE_COUNT + 1, omittingEmptySubsequences: false)
-            var displayString: String = ""
-            for i in 0..<lines.count {
-                // Break at line THUMBNAIL_LINE_COUNT
-                if i >= BUFFOON_CONSTANTS.THUMBNAIL.LINE_COUNT { break }
-                displayString += (String(lines[i]) + "\n")
-            }
-            
             // Instantiate an NSTextField to display the NSAttributedString render of the code
             let language: String = ThumbnailProvider.common!.getLanguage(request.fileURL.path)
 
@@ -88,14 +87,15 @@ class ThumbnailProvider: QLThumbnailProvider {
                     // NOTE In this case only, the thumbnail's source string may be rendered way too big
                     codeAttString = ThumbnailProvider.common!.getAttributedString(ThumbnailProvider.common!.processPsionFile(data, encoding), "scala")
                 } else {
-                    codeAttString = ThumbnailProvider.common!.getAttributedString(displayString, "scala")
+                    codeAttString = ThumbnailProvider.common!.getAttributedString(codeString, "scala")
                 }
             } else {
                 // All other languages
-                codeAttString = ThumbnailProvider.common!.getAttributedString(displayString, language)
+                codeAttString = ThumbnailProvider.common!.getAttributedString(codeString, language)
             }
 
             let codeTextField: NSTextField = NSTextField(frame: self.codeFrame)
+            codeTextField.attributedStringValue = codeAttString
 
             // FROM 2.2.3
             // From macOS 26.1, make sure thumbnail backgrounds remain white
@@ -109,8 +109,6 @@ class ThumbnailProvider: QLThumbnailProvider {
                 }
             }
 
-            codeTextField.attributedStringValue = codeAttString
-
             // Generate the bitmap from the rendered code text view
             guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: self.codeFrame) else {
                 handler(nil, ThumbnailerError.badGfxBitmap)
@@ -121,6 +119,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             codeTextField.cacheDisplay(in: codeFrame, to: bodyImageRep)
             
             if let image: CGImage = bodyImageRep.cgImage {
+                // Calculate image scaling, frame size, etc.
                 let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                         0.0,
                                                         CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ASPECT) * request.maximumSize.height,
@@ -134,7 +133,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                 
                 // Pass a QLThumbnailReply and no error to the supplied handler
                 handler(QLThumbnailReply(contextSize: thumbnailFrame.size) { (context) -> Bool in
-                    // `scaleFrame` and `cgImage` are immutable
+                    // `scaleFrame` and `image` are immutable
                     context.draw(image, in: scaleFrame, byTiling: false)
                     return true
                 }, nil)
