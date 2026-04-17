@@ -104,6 +104,7 @@ struct BUFFOON_CONSTANTS {
     static let MAIN_URL                         = "https://smittytone.net/previewcode/index.html"
     static let LINE_BREAK                       = "\n"
     static let MAX_FEEDBACK_SIZE                = 512
+    static let MAX_THUMBNAIL_READ_SIZE          = 1024
     static let FONT_SIZE_OPTIONS: [CGFloat]     = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
     static let PREVIEW_MARGIN_WIDTH             = 16.0
     static let PREVIEW_MARGIN_WIDTH_MIN         = 0.0
