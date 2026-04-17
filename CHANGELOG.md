@@ -1,5 +1,9 @@
 ## Release Notes
 
+- 2.3.0 *Unreleased*
+    - Revise *PreviewCode*’s **Settings** pane UI.
+    - Add advanced settings UI.
+    - Minimise file data loading during thumbnailing.
 - 2.2.6 *17 April 2026*
     - Fix font-size slider control’s colouring.
     - Update dependencies.
