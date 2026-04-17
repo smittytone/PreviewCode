@@ -31,8 +31,7 @@ class PreviewViewController: NSViewController,
 
     // MARK: - QLPreviewingController Required Functions
 
-    func preparePreviewOfFile(at url: URL, completionHandler handler: @escaping (Error?) -> Void) {
-    // func preparePreviewOfFile(at url: URL) async throws {
+    func preparePreviewOfFile(at url: URL) async throws {
         
         /*
          * This is the main entry point for macOS' preview system
@@ -62,10 +61,8 @@ class PreviewViewController: NSViewController,
                 if common.initError {
                     // A key component of Common, eg. 'hightlight.js' is missing,
                     // so we cannot continue
-                    let error: NSError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
-                    showError(error)
-                    handler(error)
-                    return
+                    reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
+                    throw reportError!
                 }
 
                 // Set the language
@@ -88,6 +85,10 @@ class PreviewViewController: NSViewController,
                 self.renderTextView.backgroundColor = common.themeBackgroundColour
                 self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
 
+                // FROM 2.2.0
+                // Set the parent window's size
+                setPreviewWindowSize(common.settings)
+
                 // FROM 2.0.0
                 // Add a small margin around the preview
                 if common.settings.doShowMargin {
@@ -106,18 +107,13 @@ class PreviewViewController: NSViewController,
                     renderTextStorage.endEditing()
                     //self.view.display()
 
-                    // FROM 2.2.0
-                    // Set the parent window's size
-                    setPreviewWindowSize(common.settings)
-                    self.view.display()
-                    
                     // Call the QLPreviewingController indicating no error (nil)
-                    handler(nil)
+                    //handler(nil)
                     return
                 }
 
                 // We couldn't access the preview NSTextView's NSTextStorage
-                reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
+                reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
             } else {
                 // FROM 1.2.2
                 // We couldn't convert to data to a valid encoding
@@ -128,15 +124,12 @@ class PreviewViewController: NSViewController,
             }
         } catch {
             // We couldn't read the file so set an appropriate error to report back
-            reportError = setError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
+            reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
         }
         
-        // Display the error locally in the window
-        showError(reportError!)
-
-        // Call the QLPreviewingController indicating an error
-        // (argument is not nil)
-        handler(reportError)
+        // FROM 2.3.0
+        // Throw to indicate an error
+        throw reportError!
     }
 
 
@@ -154,23 +147,6 @@ class PreviewViewController: NSViewController,
     // MARK: - Utility Functions
     
     /**
-     Place an error message in its various outlets.
-     
-     - parameters:
-        - error: The error as an NSError.
-     */
-   func showError(_ error: NSError) {
-        
-        let errString: String = error.userInfo[NSLocalizedDescriptionKey] as! String
-        self.errorReportField.stringValue = errString
-        self.errorReportField.isHidden = false
-        self.renderTextScrollView.isHidden = true
-        self.view.display()
-        NSLog("BUFFOON \(errString)")
-    }
-
-
-    /**
     Generate an NSError for an internal error, specified by its code.
 
     Codes are listed in `Constants.swift`
@@ -180,7 +156,7 @@ class PreviewViewController: NSViewController,
 
     - Returns: The described error as an NSError.
     */
-    func setError(_ code: Int) -> NSError {
+    func makeError(_ code: Int) -> NSError {
 
         var errDesc: String
 
