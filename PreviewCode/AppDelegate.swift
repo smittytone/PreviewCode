@@ -22,6 +22,8 @@ final class AppDelegate: NSResponder,
                          NSTableViewDataSource,
                          NSTextViewDelegate,
                          NSControlTextEditingDelegate,
+                         NSTextFieldDelegate,
+                         NSPopoverDelegate,
                          NSWindowDelegate {
 
     // MARK: - Class UI Properies
@@ -66,13 +68,18 @@ final class AppDelegate: NSResponder,
     @IBOutlet weak var lightThemeIcon: PCImageView!
     @IBOutlet weak var themeHelpLabel: NSTextField!
     @IBOutlet weak var lineSpacingPopup: NSPopUpButton!
-    @IBOutlet weak var themeScrollView: NSScrollView!
-    @IBOutlet weak var themeTable: NSTableView!
+    //@IBOutlet weak var themeScrollView: NSScrollView!
+    //@IBOutlet weak var themeTable: NSTableView!
     @IBOutlet weak var applyButton: NSButton!
     // FROM 2.0.0
-    @IBOutlet weak var showLineNumbersCheckbox: NSButton!
+    //@IBOutlet weak var showLineNumbersCheckbox: NSButton!
     @IBOutlet weak var settingsHelpButton: NSButton!
     @IBOutlet weak var defaultsButton: NSButton!
+    // FROM 2.3.0
+    @IBOutlet weak var lightThemeListButton: NSButton!
+    @IBOutlet weak var darkThemeListButton: NSButton!
+    @IBOutlet weak var nuThemeTable: NSTableView!
+    @IBOutlet weak var showLineNumbersSwitch: NSSwitch!
 
     // Window > Feedback Tab Items
     @IBOutlet weak var feedbackText: NSTextField!
@@ -83,6 +90,17 @@ final class AppDelegate: NSResponder,
     // What's New Sheet
     @IBOutlet var whatsNewWindow: NSWindow!
     @IBOutlet var whatsNewWebView: WKWebView!
+
+    // FROM 2.3.0
+    // Advanced Settings Sheet
+    @IBOutlet weak var advancedSettingsSheet: NSWindow!
+    @IBOutlet weak var applyAdvancedButton: NSButton!
+    @IBOutlet weak var previewSizeAdvancedPopup: NSPopUpButton!
+    @IBOutlet weak var tintTumbnailsAdvancedSwitch: NSSwitch!
+    @IBOutlet weak var tintTumbnailsAdvancedLabel: NSTextField!
+    @IBOutlet weak var previewMarginSizeText: NSTextField!
+    @IBOutlet weak var previewMarginRangeText: NSTextField!
+    @IBOutlet weak var advancedHelpButton: NSButton!
 
 
     // MARK: - Private Properies
@@ -103,6 +121,9 @@ final class AppDelegate: NSResponder,
     // FROM 2.2.4
     internal var oldMag: CGFloat                = 0.0
     internal var timer: Timer?                  = nil
+    // FROM 2.3.0
+    internal var themePopover: NSPopover?       = nil
+    internal var buttonClicked: NSButton?       = nil
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -185,13 +206,19 @@ final class AppDelegate: NSResponder,
 
         // Set the `Settings` tab's tooltips
         initialiseSettings()
-        self.themeTable.intercellSpacing = .zero
-        self.themeTable.rowHeight = 67.0
-        self.themeTable.rowSizeStyle = .custom
+        //self.themeTable.intercellSpacing = .zero
+        //self.themeTable.rowHeight = 67.0
+        //self.themeTable.rowSizeStyle = .custom
+        
+        // FROM 2.3.0
+        self.previewMarginSizeText.delegate = self
+        self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
+
+
 
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
-        doShowWhatsNew(self)
+        //doShowWhatsNew(self)
 
         // Centre the main window and display
         setInfoText()
@@ -353,26 +380,16 @@ final class AppDelegate: NSResponder,
     @IBAction
     private func doShowPrefsHelp(sender: Any) {
         
-        let path: String = BUFFOON_CONSTANTS.MAIN_URL + "#customize-the-preview"
+        let path: String
+        if sender as? NSButton == self.advancedHelpButton {
+            path = BUFFOON_CONSTANTS.MAIN_URL + "#advanced-settings"
+        } else {
+            path = BUFFOON_CONSTANTS.MAIN_URL + "#customize-the-preview"
+        }
+
         NSWorkspace.shared.open(URL(string:path)!)
 
     }
-
-
-    /**
-     Open the System Preferences app at the Extensions pane.
-
-     UNUSED 2.0.0
-
-     - Parameters:
-        - sender: The source of the action.
-
-    @IBAction
-    private func doOpenSysPrefs(sender: Any) {
-
-        NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
-    }
-     */
 
 
     @IBAction

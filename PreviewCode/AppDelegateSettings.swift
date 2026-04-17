@@ -26,6 +26,9 @@ extension AppDelegate {
         self.themeHelpLabel.toolTip = "Which theme mode PreviewCode will apply"
         self.settingsHelpButton.toolTip = "Get online help for this page"
         self.defaultsButton.toolTip = "Restore default settings"
+        // FROM 2.3.0
+        self.darkThemeListButton.toolTip = "If enabled, click to select a dark mode theme"
+        self.lightThemeListButton.toolTip = "If enabled, click to select a light mode theme"
     }
 
 
@@ -42,7 +45,11 @@ extension AppDelegate {
         loadThemeList()
 
         // Load the table with the current themes
-        loadTable()
+        //loadTable()
+
+        // FROM 2.3.0
+        // Update the UI
+        setThemeControls()
 
         // Enable the Apply button if something has changed
         self.applyButton.isEnabled = checkSettingsOnQuit()
@@ -55,6 +62,16 @@ extension AppDelegate {
         // Fix track colour on macOS 26
         if #available(macOS 26.0, *) {
             self.fontSizeSlider.tintProminence = .secondary
+        }
+
+        // FROM 2.3.0
+        // Disable this advanced switch below 26.1
+        if #available(macOS 26.1, *) {
+            self.tintTumbnailsAdvancedLabel.isEnabled = true
+            self.tintTumbnailsAdvancedSwitch.isEnabled = true
+        } else {
+            self.tintTumbnailsAdvancedLabel.isEnabled = false
+            self.tintTumbnailsAdvancedSwitch.isEnabled = false
         }
     }
 
@@ -98,27 +115,6 @@ extension AppDelegate {
             doMoveSlider(sender: self)
         }
     }
-
-
-    /*
-    override func magnify(with event: NSEvent) {
-
-        if (event.phase == .changed){
-            if event.magnification < 0 && self.fontSizeSlider.floatValue > 0 {
-                self.fontSizeSlider.floatValue -= 1
-            }
-
-            if event.magnification > 0 && self.fontSizeSlider.floatValue < 6 {
-                self.fontSizeSlider.floatValue += 1
-            }
-
-            doMoveSlider(sender: self)
-            self.oldMag = event.magnification
-        }
-
-        print(event.magnification)
-    }
-     */
 
 
     /**
@@ -167,10 +163,8 @@ extension AppDelegate {
     @IBAction
     internal func doChangeValue(sender: Any) {
 
-        // NOTE This just causes the theme table to refresh and
-        //      checks for settings changes, updating the `Apply`
-        //      button as needed.
-        willShowSettingsPage()
+        // Enable the Apply button if something has changed
+        self.applyButton.isEnabled = checkSettingsOnQuit()
     }
 
 
@@ -195,8 +189,8 @@ extension AppDelegate {
         // Update the UI
         setThemeControls()
 
-        // Reload the table and its selection
-        willShowSettingsPage()
+        // Enable the Apply button if something has changed
+        self.applyButton.isEnabled = checkSettingsOnQuit()
     }
 
 
@@ -214,21 +208,30 @@ extension AppDelegate {
                 self.darkThemeLabel.textColor = NSColor.gray
                 self.lightThemeIcon.isOutlined = true
                 self.darkThemeIcon.isOutlined = false
-                self.themeHelpLabel.stringValue = "Always use the chosen light theme"
+                // FROM 2.3.0
+                self.lightThemeListButton.isEnabled = true
+                self.darkThemeListButton.isEnabled = false
+                self.themeHelpLabel.stringValue = "Always use the light theme selected below"
             case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
                 self.darkRadioButton.state = .on
                 self.lightThemeLabel.textColor = NSColor.gray
                 self.darkThemeLabel.textColor = NSColor.labelColor
                 self.lightThemeIcon.isOutlined = false
                 self.darkThemeIcon.isOutlined = true
-                self.themeHelpLabel.stringValue = "Always use the chosen dark theme"
+                // FROM 2.3.0
+                self.lightThemeListButton.isEnabled = false
+                self.darkThemeListButton.isEnabled = true
+                self.themeHelpLabel.stringValue = "Always use the dark theme selected below"
             default:
                 self.autoRadioButton.state = .on
                 self.lightThemeLabel.textColor = NSColor.labelColor
                 self.darkThemeLabel.textColor = NSColor.labelColor
                 self.darkThemeIcon.isOutlined = true
                 self.lightThemeIcon.isOutlined = true
-                self.themeHelpLabel.stringValue = "Use the chosen theme for macOS’ current mode"
+                // FROM 2.3.0
+                self.lightThemeListButton.isEnabled = true
+                self.darkThemeListButton.isEnabled = true
+                self.themeHelpLabel.stringValue = "Use the themes selected below that match macOS’ current mode"
         }
     }
 
@@ -319,7 +322,7 @@ extension AppDelegate {
         }
 
         // Load the table with themes
-        loadTable(settings)
+        //loadTable(settings)
 
         // FROM 1.3.0
         // Set the mode control
@@ -344,7 +347,20 @@ extension AppDelegate {
         }
 
         // FROM 2.0.0
-        self.showLineNumbersCheckbox.state = settings.doShowLineNumbers ? .on : .off
+        //self.showLineNumbersCheckbox.state = settings.doShowLineNumbers ? .on : .off
+        self.showLineNumbersSwitch.state = settings.doShowLineNumbers ? .on : .off
+
+        // FROM 2.3.0
+        var idx = 2
+        if settings.previewWindowScale == BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_S {
+            idx = 0
+        } else if settings.previewWindowScale == BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_M {
+            idx = 1
+        }
+
+        self.previewSizeAdvancedPopup.selectItem(at: idx)
+        self.previewMarginSizeText.stringValue = String(format:"%.1f", settings.previewMarginWidth)
+        self.tintTumbnailsAdvancedSwitch.state = settings.thumbnailMatchFinderMode ? .on : .off
     }
 
 
@@ -379,7 +395,22 @@ extension AppDelegate {
         displayedSettings.lineSpacing = linespacingValues[self.lineSpacingPopup.indexOfSelectedItem]
 
         // FROM 2.0.0
-        displayedSettings.doShowLineNumbers = self.showLineNumbersCheckbox.state == .on
+        displayedSettings.doShowLineNumbers = self.showLineNumbersSwitch.state == .on
+
+        // FROM 2.3.0
+        // Advanced Settings
+        displayedSettings.thumbnailMatchFinderMode = self.tintTumbnailsAdvancedSwitch.state == .on
+        let idx = self.previewSizeAdvancedPopup.indexOfSelectedItem
+        switch idx {
+            case 1:
+                displayedSettings.previewWindowScale = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_M
+            case 2:
+                displayedSettings.previewWindowScale = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_L
+            default:
+                displayedSettings.previewWindowScale = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_S
+        }
+
+        displayedSettings.previewMarginWidth = Double(self.previewMarginSizeText.stringValue) ?? BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH
 
         return displayedSettings
     }
@@ -464,12 +495,43 @@ extension AppDelegate {
             settingsHaveChanged = self.currentSettings.doShowLineNumbers != displayedSettings.doShowLineNumbers
         }
 
+        // FROM 2.3.0
+        if !settingsHaveChanged {
+            settingsHaveChanged = self.currentSettings.thumbnailMatchFinderMode != displayedSettings.thumbnailMatchFinderMode
+        }
+
+        if !settingsHaveChanged {
+            settingsHaveChanged = self.currentSettings.previewWindowScale != displayedSettings.previewWindowScale
+        }
+
+        if !settingsHaveChanged {
+            settingsHaveChanged = (self.currentSettings.previewMarginWidth != displayedSettings.previewMarginWidth) &&
+                                   !(displayedSettings.previewMarginWidth.isClose(to: self.currentSettings.previewMarginWidth))
+        }
+
         return settingsHaveChanged
     }
 
 
+    // MARK: - Advanced Settings
+
+    @IBAction
+    internal func doShowAdvancedSettings(sender: Any) {
+
+        self.window.beginSheet(self.advancedSettingsSheet)
+    }
+
+
+    @IBAction
+    internal func doCloseAdvancedSettings(sender: Any) {
+
+        self.window.endSheet(self.advancedSettingsSheet)
+        willShowSettingsPage()
+    }
+
+
     // MARK: - Table Data Functions
-    
+
     /**
      Set up the themes table.
 
@@ -477,8 +539,8 @@ extension AppDelegate {
 
      - Parameters:
         - settings: A settings object, or `nil`.
-     */
-    private func loadTable(_ settings: PCSettings? = nil) {
+     *
+    private func loadTable(_ settings: PCSettings? = nil) {  // DEP
 
         // De-select and update the themes table
         self.themeTable.reloadData()
@@ -505,21 +567,41 @@ extension AppDelegate {
 
         self.themeTable.nextResponder = self
     }
-
+     */
 
     /**
      Generate a selection index for the displayed table.
      
      Bases the selection on whether the full data set is being displayed
      or only a subset.
-     
+
+     UPDATED 2.3.0
+
      - Parameters:
         - indexInFullThemeList: the selected row's reference to an entry in the main list of themes.
      
      - Returns: The row to select
      */
     private func getSelectionIndex(_ indexInFullThemeList: Int) -> IndexSet? {
-        
+
+        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
+            return getSubIndex(self.darkThemes, indexInFullThemeList)
+        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
+            return getSubIndex(self.lightThemes, indexInFullThemeList)
+        } else {
+            if let button = self.buttonClicked {
+                if button == self.darkThemeListButton {
+                    return getSubIndex(self.darkThemes, indexInFullThemeList)
+                } else {
+                    return getSubIndex(self.lightThemes, indexInFullThemeList)
+                }
+            }
+
+            // Should never be triggered
+            return IndexSet(integer: indexInFullThemeList)
+        }
+
+        /*
         // Assume we're showing all themes as the default
         var returnIndexSet: IndexSet? = IndexSet(integer: indexInFullThemeList)
 
@@ -543,6 +625,30 @@ extension AppDelegate {
         }
         
         return returnIndexSet
+        */
+    }
+
+
+    /**
+     Convert the index of on item in the primary list (eg. themes) into the index
+     of the same item in a subset list (eg. dark themes).
+
+     - Parameters:
+        - list:  A subset list.
+        - index: The index of the item in the primary list.
+
+     - Returns: The index of the item in the subset list, or `nil` on error.
+
+     */
+    private func getSubIndex(_ list: [Int], _ index: Int) -> IndexSet? {
+
+        for i: Int in 0..<list.count {
+            if list[i] == index {
+                return IndexSet(integer: i)
+            }
+        }
+
+        return nil
     }
 
 
@@ -586,9 +692,11 @@ extension AppDelegate {
 
 
     /**
-     Calculate a main theme list index from a sub-list index.
+     Calculate a primary list index from a subset list index.
      If the mode is AUTO, just return the passed value.
-     
+
+     UPDATED 2.3.0
+
      - Parameters:
         - subListIndex: The sub-list row index.
      
@@ -596,15 +704,21 @@ extension AppDelegate {
      */
     private func getBaseIndex(_ subListIndex: Int) -> Int {
 
-        var fullListIndex: Int = subListIndex
-        
         if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-            fullListIndex = self.darkThemes[subListIndex]
+            return self.darkThemes[subListIndex]
         } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-            fullListIndex = self.lightThemes[subListIndex]
+            return self.lightThemes[subListIndex]
+        } else {
+            if let button = self.buttonClicked {
+                if button == self.darkThemeListButton {
+                    return self.darkThemes[subListIndex]
+                } else {
+                    return self.lightThemes[subListIndex]
+                }
+            }
+
+            return subListIndex
         }
-        
-        return fullListIndex
     }
 
 
@@ -703,7 +817,7 @@ extension AppDelegate {
         // Remember this called only one per run
         self.themes = themeMap["themes"] as! [Any]
         for i: Int in 0..<self.themes.count {
-            // Record themes by type: these arrays
+            // Record themes by type: these subset arrays
             // record indices from from the main array
             let theme: [String: Any] = self.themes[i] as! [String: Any]
             let isDark: Bool = theme["dark"] as! Bool
@@ -815,6 +929,16 @@ extension AppDelegate {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
                 return self.lightThemes.count
             default:
+                if tableView == self.nuThemeTable {
+                    if let button = self.buttonClicked {
+                        if button == self.darkThemeListButton {
+                            return self.darkThemes.count
+                        } else {
+                            return self.lightThemes.count
+                        }
+                    }
+                }
+
                 return self.themes.count
         }
     }
@@ -823,27 +947,25 @@ extension AppDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
         // Assemble the table cell view
-        let cell: PCThemeTableCellView? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? PCThemeTableCellView
+        guard let cell: PCThemeTableCellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? PCThemeTableCellView else { return nil }
 
-        if cell != nil {
-            // Get the index in the the main theme list,
-            // and thus the theme from that list
-            let index: Int = getBaseIndex(row)
-            let theme: [String: Any] = self.themes[index] as! [String: Any]
-            let themeCSS: String = theme["css"] as! String
-            
-            // Populate cell
-            cell!.themePreviewTitle.stringValue = theme["name"] as! String
-            cell!.themeIndex = index
-            
-            // FROM 1.1.0
-            // Generate the theme preview view programmatically, and use
-            // images rather then JIT-rendered NSTextViews (too slow)
-            if let themePreview: NSImage = NSImage(named: themeCSS) {
-                let imv: NSImageView = NSImageView(image: themePreview)
-                imv.frame = NSMakeRect(0, 0, 128, 67)
-                cell!.addSubview(imv)
-            }
+        // Get the index in the the main theme list,
+        // and thus the theme from that list
+        let index: Int = getBaseIndex(row)
+        let theme: [String: Any] = self.themes[index] as! [String: Any]
+        let themeCSS: String = theme["css"] as! String
+
+        // Populate cell
+        cell.themePreviewTitle.stringValue = theme["name"] as! String
+        cell.themeIndex = index
+
+        // FROM 1.1.0
+        // Generate the theme preview view programmatically, and use
+        // images rather then JIT-rendered NSTextViews (too slow)
+        if let themePreview: NSImage = NSImage(named: themeCSS) {
+            let imv: NSImageView = NSImageView(image: themePreview)
+            imv.frame = tableView == self.nuThemeTable ? NSMakeRect(8, 8, 256, 134) : NSMakeRect(0, 0, 128, 67)
+            cell.addSubview(imv)
         }
 
         return cell
@@ -856,25 +978,34 @@ extension AppDelegate {
          * that we need to select.
          */
 
-        // Make sure the table becomes first responder so that the selection
-        // is highlighted correctly
-        //let tv = notification.object as! NSTableView
-        //if tv.selectedRow != -1 {
-        //    let w = tv.window
-        //    self.window.makeFirstResponder(tv)
-        //}
+        // Make sure the table has a selection (it may not on first run)
+        let tv = notification.object as! NSTableView
+        guard tv.selectedRow != -1 else { return }
 
         // FROM 1.3.0
         // Make the changes according to the currently selected mode
         switch self.themeDisplayMode {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
-                self.lightThemeIndex = getBaseIndex(self.themeTable.selectedRow)
+                self.lightThemeIndex = getBaseIndex(tv.selectedRow)
                 self.lightThemeLabel.stringValue = themeName(for: self.lightThemeIndex)
             case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
-                self.darkThemeIndex = getBaseIndex(self.themeTable.selectedRow)
+                self.darkThemeIndex = getBaseIndex(tv.selectedRow)
                 self.darkThemeLabel.stringValue = themeName(for: self.darkThemeIndex)
             default:
-                // Get the referenced theme (all are listed) and use it to make the correct
+                if let button = self.buttonClicked {
+                    if button == self.darkThemeListButton {
+                        self.darkThemeIndex = getBaseIndex(tv.selectedRow)
+                        self.darkThemeLabel.stringValue = themeName(for: self.darkThemeIndex)
+                    } else {
+                        self.lightThemeIndex = getBaseIndex(tv.selectedRow)
+                        self.lightThemeLabel.stringValue = themeName(for: self.lightThemeIndex)
+                    }
+
+                    self.applyButton.isEnabled = checkSettingsOnQuit()
+                    return
+                }
+
+                /* Get the referenced theme (all are listed) and use it to make the correct
                 // theme selection: light or dark
                 let theme: [String: Any] = self.themes[self.themeTable.selectedRow] as! [String: Any]
                 if theme["dark"] as! Bool {
@@ -884,6 +1015,7 @@ extension AppDelegate {
                     self.lightThemeIndex = self.themeTable.selectedRow
                     self.lightThemeLabel.stringValue = theme["name"] as! String
                 }
+                 */
         }
 
         // FROM 2.2.1
@@ -893,20 +1025,22 @@ extension AppDelegate {
 
 
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+
         print("ROW",row)
         return row >= 0 && row < self.themes.count
     }
 
+
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
 
-        return 67.0
+        return tableView == self.nuThemeTable ? 150.0 : 67.0
     }
 
 
     // MARK: - NSTextView Delegate Functions
     
-    func textViewDidChangeSelection(_ notification: Notification) {
-        
+    func textViewDidChangeSelection(_ notification: Notification) { // DEP
+
         /* Get the clicked NSTextView and use it to determine the parent
          * PCThemeTableCellView, from which we get the table row that
          * we need to select.
@@ -917,7 +1051,7 @@ extension AppDelegate {
 
         // parentView.themeIndex -> index in self.themes
         if let idx: IndexSet = getSelectionIndex(parentView.themeIndex) {
-            self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
+            //self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
             //self.preferencesWindow.makeFirstResponder(self.themeTable)
 
             // FROM 1.3.0
@@ -928,6 +1062,42 @@ extension AppDelegate {
                 self.lightThemeIndex = parentView.themeIndex
             }
         }
+    }
+
+
+    // MARK: - NSTextFieldDelegate Functions
+
+    /**
+     Verify input values.
+
+     FROM 2.3.0
+    */
+    func controlTextDidEndEditing(_ obj: Notification) {
+
+        if let doubleValue = Double(self.previewMarginSizeText.stringValue) {
+            let min = Double(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN).rounded(.towardZero)
+            let max = Double(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX).rounded(.towardZero)
+
+            if doubleValue > min && doubleValue <= max {
+                // Value within supported range, so write the formatted value back from where it will later be read
+                self.previewMarginSizeText.stringValue = String(format:"%.1f", doubleValue)
+                return
+            }
+
+            // Erroneous value: numeric but out of range
+            // Set value to either end
+            if doubleValue < min {
+                self.previewMarginSizeText.stringValue = String(format:"%.1f", min)
+            } else if doubleValue > max {
+                self.previewMarginSizeText.stringValue = String(format:"%.1f", max)
+            }
+        } else {
+            // Erroneous value: not numeric
+            self.previewMarginSizeText.stringValue = String(format:"%.1f", self.currentSettings.previewMarginWidth)
+        }
+
+        // Warn the user
+        NSSound.beep()
     }
 
 
@@ -958,7 +1128,7 @@ extension AppDelegate {
                     if cssName.starts(with: char) {
                         // Matched key to theme name initial:
                         // Select the row, scroll to it and exit
-                        self.themeTable.scrollRowToVisible(getRowIndex(i))
+                        self.nuThemeTable.scrollRowToVisible(getRowIndex(i))
                         //self.preferencesWindow.makeFirstResponder(self.themeTable)
                         return
                     }
@@ -968,8 +1138,8 @@ extension AppDelegate {
                 // Select the last item on the list and exit
                 if char == "z" {
                     if let idx: IndexSet = getSelectionIndex(self.themes.count - 1) {
-                        self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
-                        self.themeTable.scrollRowToVisible(getRowIndex(self.themes.count - 1))
+                        self.nuThemeTable.selectRowIndexes(idx, byExtendingSelection: false)
+                        self.nuThemeTable.scrollRowToVisible(getRowIndex(self.themes.count - 1))
                         //self.preferencesWindow.makeFirstResponder(self.themeTable)
                         return
                     }
@@ -988,9 +1158,96 @@ extension AppDelegate {
         
         // Relay scroll events to the NSScrollView
         
-        self.themeScrollView.scrollWheel(with: event)
+        //self.themeScrollView.scrollWheel(with: event)
     }
 
+
+    // MARK: - Popover Functions
+
+    /**
+     Assemble the popover and its components if it hasn't been assembled yet.
+     */
+    private func makePopover() {
+
+        if self.themePopover == nil {
+            self.themePopover = NSPopover()
+
+            // Define a scroll view with a table as its content§...
+            let scrollListView = NSScrollView()
+            scrollListView.hasVerticalScroller = true
+            scrollListView.autohidesScrollers = true
+            scrollListView.borderType = .noBorder
+            scrollListView.documentView = self.nuThemeTable
+
+            // ...and a view controller to manage it
+            let pvc = NSViewController()
+            pvc.view = scrollListView
+            pvc.view.frame = NSMakeRect(0.0, 0.0, 500.0, 900.0)
+
+            // Set up the popover
+            self.themePopover!.contentViewController = pvc
+            self.themePopover!.contentSize = CGSize(width: 500.0, height: 900.0)
+            self.themePopover!.behavior = NSPopover.Behavior.transient
+            self.themePopover!.delegate = self
+        }
+    }
+
+
+    @IBAction
+    private func doShowThemeList(_ sender: Any) {
+
+        // Determine the button that was clicked...
+        self.buttonClicked = nil
+        if let theSender = sender as? NSButton {
+            self.buttonClicked = theSender
+        }
+
+        // ...and make sure one was!
+        guard self.buttonClicked != nil else { return }
+
+        // Assemble the popover if needed
+        makePopover()
+
+        // Update the table - reload for appropriate button
+        self.nuThemeTable.reloadData()
+
+        // Select the current theme and show the popover
+        if self.buttonClicked! == self.darkThemeListButton {
+            showPopover(self.darkThemeIndex, self.darkThemeListButton)
+        } else {
+            showPopover(self.lightThemeIndex, self.lightThemeListButton)
+        }
+    }
+
+
+    /**
+     Present a theme-list popover.
+
+     - Parameters:
+        - index:  The index of a list item to select.
+        - button: The triggering button, for popover positioning.
+     */
+    private func showPopover(_ index: Int, _ button: NSButton) {
+
+        if let idx: IndexSet = getSelectionIndex(index) {
+            // We can use '.min()' because 'idx' should contain only one value
+            let row: Int = idx.min()!
+            self.nuThemeTable.selectRowIndexes(idx, byExtendingSelection: false)
+            self.nuThemeTable.scrollRowToVisible(row)
+        } else {
+            // Scroll to the top
+            self.nuThemeTable.scrollRowToVisible(0)
+        }
+
+        // Present the popover
+        self.themePopover!.show(relativeTo: button.bounds,
+                                of: button,
+                                preferredEdge: NSRectEdge.maxY)
+
+    }
+
+    
+    // MARK: - Legacy Functions
 
     /**
      Called by the app at launch to register its initial defaults.
