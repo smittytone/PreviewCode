@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.2.6 *Unreleased*
+- 2.2.6 *17 April 2026*
     - Fix font-size slider control’s colouring.
     - Update dependencies.
 - 2.2.5 *30 March 2026*
