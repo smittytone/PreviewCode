@@ -21,7 +21,6 @@ final internal class Common {
 
     var themeBackgroundColour: NSColor      = NSColor.white
     var isThemeDark: Bool                   = false
-    var initError: Bool                     = false
     var settings: PCSettings                = PCSettings()
 
 
@@ -42,7 +41,7 @@ final internal class Common {
     
     // MARK: - Lifecycle Functions
 
-    init(forThumbnail isThumbnail: Bool) {
+    init?(forThumbnail isThumbnail: Bool) {
 
         // Set local values with default properties
         var highlightJsThemeName: String
@@ -85,22 +84,17 @@ final internal class Common {
         }
 
         // Instantiate the instance's highlighter
-        if let hr: Highlighter = Highlighter() {
-            hr.setTheme(highlightJsThemeName)
-            hr.theme.setCodeFont(self.font!)
-            
-            // Requires HighligherSwift 1.1.3
-            if !isThumbnail {
-                hr.theme.lineSpacing = (self.settings.lineSpacing - 1.0) * self.settings.fontSize
-            }
-            
-            self.themeBackgroundColour = hr.theme.themeBackgroundColour
-            self.highlighter = hr
-        } else {
-            // TODO Need a better notification for
-            //      highlighter instantiation errors
-            self.initError = true
+        self.highlighter = Highlighter()
+        guard let hltr = self.highlighter else { return nil }
+        hltr.setTheme(highlightJsThemeName)
+        hltr.theme.setCodeFont(self.font!)
+
+        // Requires HighligherSwift 1.1.3
+        if !isThumbnail {
+            hltr.theme.lineSpacing = (self.settings.lineSpacing - 1.0) * self.settings.fontSize
         }
+
+        self.themeBackgroundColour = hltr.theme.themeBackgroundColour
     }
 
     
