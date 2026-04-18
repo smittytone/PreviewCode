@@ -7,8 +7,12 @@
  */
 
 
-import Cocoa
+import AppKit
 import Quartz
+
+/*
+ To synchronize two NSScrollViews, you can use the NSView.boundsDidChangeNotification to observe scrolling events and adjust the other scroll view's position accordingly. Set NSView.postsBoundsChangedNotifications to true for the scroll view you want to observe, and implement a notification handler to update the other scroll view's position
+ */
 
 
 class PreviewViewController: NSViewController,
@@ -18,8 +22,6 @@ class PreviewViewController: NSViewController,
 
     @IBOutlet var renderTextView: NSTextView!
     @IBOutlet var renderTextScrollView: NSScrollView!
-    // FROM 1.1.0
-    @IBOutlet var errorReportField: NSTextField!
 
 
     // MARK: - Public Properties
@@ -31,39 +33,36 @@ class PreviewViewController: NSViewController,
 
     // MARK: - QLPreviewingController Required Functions
 
+    // FROM 2.2.0
+    // Update to use Swift Concurrency
     func preparePreviewOfFile(at url: URL) async throws {
-        
+
         /*
          * This is the main entry point for macOS' preview system
          */
 
         // Get an error message ready for use
         var reportError: NSError? = nil
-        
-        // FROM 1.1.0
-        // Hide the error field
         self.renderTextScrollView.isHidden = false
-        self.errorReportField.isHidden = true
-        self.errorReportField.stringValue = ""
 
         // Load and process the source file
         do {
             // Get the file contents as a string
             let data: Data = try Data(contentsOf: url, options: [.uncached])
-
-            // FROM 1.2.2
-            // Get the string's encoding, or fail back to .utf8
             let encoding: String.Encoding = data.stringEncoding ?? .utf8
 
             if let codeString: String = String(data: data, encoding: encoding) {
-                // Instantiate the common code within the closure
-                let common: Common = Common(forThumbnail: false)
-                if common.initError {
-                    // A key component of Common, eg. 'hightlight.js' is missing,
-                    // so we cannot continue
+                /*
+                 Instantiate the common code within the closure
+                 */
+                guard let common = Common(forThumbnail: false) else {
                     reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
                     throw reportError!
                 }
+
+                /*
+                 Attributed string acquisition
+                 */
 
                 // Set the language
                 let language: String = common.getLanguage(url.path)
@@ -80,14 +79,18 @@ class PreviewViewController: NSViewController,
                     codeAttString = common.getAttributedString(codeString, language)
                 }
 
-                // Set text and scroll view attributes according to style
-                // TODO Do a better job of checking whether theme is dark or light
-                self.renderTextView.backgroundColor = common.themeBackgroundColour
-                self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
+                /*
+                 Window and mode configuration
+                 */
 
                 // FROM 2.2.0
                 // Set the parent window's size
                 setPreviewWindowSize(common.settings)
+
+                // Set text and scroll view attributes according to style
+                // TODO Do a better job of checking whether theme is dark or light
+                self.renderTextView.backgroundColor = common.themeBackgroundColour
+                self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
 
                 // FROM 2.0.0
                 // Add a small margin around the preview
@@ -95,6 +98,10 @@ class PreviewViewController: NSViewController,
                     let marginSize: NSSize = NSMakeSize(common.settings.previewMarginWidth, common.settings.previewMarginWidth)
                     self.renderTextView.textContainerInset = marginSize
                 }
+
+                /*
+                 Attributed String Presentation
+                 */
 
                 if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
                     /*
@@ -105,10 +112,6 @@ class PreviewViewController: NSViewController,
                     renderTextStorage.beginEditing()
                     renderTextStorage.setAttributedString(codeAttString)
                     renderTextStorage.endEditing()
-                    //self.view.display()
-
-                    // Call the QLPreviewingController indicating no error (nil)
-                    //handler(nil)
                     return
                 }
 
@@ -126,26 +129,15 @@ class PreviewViewController: NSViewController,
             // We couldn't read the file so set an appropriate error to report back
             reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
         }
-        
+
         // FROM 2.3.0
         // Throw to indicate an error
         throw reportError!
     }
 
 
-    func preparePreviewOfSearchableItem(identifier: String, queryString: String?, completionHandler handler: @escaping (Error?) -> Void) {
-
-        // Is this ever called?
-        NSLog("BUFFOON searchable identifier: \(identifier)")
-        NSLog("BUFFOON searchable query:      " + (queryString ?? "nil"))
-
-        // Hand control back to QuickLook
-        handler(nil)
-    }
-
-
     // MARK: - Utility Functions
-    
+
     /**
     Generate an NSError for an internal error, specified by its code.
 

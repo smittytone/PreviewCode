@@ -842,8 +842,8 @@ extension AppDelegate {
      
      - Returns: The contents of the loaded file
      */
-    private func loadBundleFile(_ fileName: String, _ type: String = "json") -> String? {
-        
+    private func loadBundleFile(_ fileName: String, ofType type: String = "json") -> String? {
+
         // Load the required resource and return its contents
         guard let filePath: String = Bundle.main.path(forResource: fileName, ofType: type)
         else {
@@ -878,10 +878,10 @@ extension AppDelegate {
         let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
         let fm: FileManager = FileManager()
         let homeFolder: String = fm.homeDirectoryForCurrentUser.path
-        let common: Common = Common(forThumbnail: false)
+        guard let common = Common(forThumbnail: false) else { return }
 
         // Load in the code sample we'll preview the themes with
-        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, "txt") else { return }
+        guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, ofType: "txt") else { return }
 
         loadThemeList()
 
@@ -929,6 +929,9 @@ extension AppDelegate {
             case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
                 return self.lightThemes.count
             default:
+                // Both popovers are available so issue a row-count
+                // according to the specific popover selected (determined
+                // by which parent button was clicked)
                 if tableView == self.nuThemeTable {
                     if let button = self.buttonClicked {
                         if button == self.darkThemeListButton {
@@ -947,7 +950,9 @@ extension AppDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
         // Assemble the table cell view
-        guard let cell: PCThemeTableCellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell"), owner: self) as? PCThemeTableCellView else { return nil }
+        let cellID = NSUserInterfaceItemIdentifier(rawValue: "previewcode-theme-cell")
+        guard let cell: PCThemeTableCellView = tableView.makeView(withIdentifier: cellID,
+                                                                  owner: self) as? PCThemeTableCellView else { return nil }
 
         // Get the index in the the main theme list,
         // and thus the theme from that list
@@ -960,8 +965,7 @@ extension AppDelegate {
         cell.themeIndex = index
 
         // FROM 1.1.0
-        // Generate the theme preview view programmatically, and use
-        // images rather then JIT-rendered NSTextViews (too slow)
+        // Use images rather then JIT-rendered NSTextViews (too slow)
         if let themePreview: NSImage = NSImage(named: themeCSS) {
             let imv: NSImageView = NSImageView(image: themePreview)
             imv.frame = tableView == self.nuThemeTable ? NSMakeRect(8, 8, 256, 134) : NSMakeRect(0, 0, 128, 67)
@@ -1000,22 +1004,7 @@ extension AppDelegate {
                         self.lightThemeIndex = getBaseIndex(tv.selectedRow)
                         self.lightThemeLabel.stringValue = themeName(for: self.lightThemeIndex)
                     }
-
-                    self.applyButton.isEnabled = checkSettingsOnQuit()
-                    return
                 }
-
-                /* Get the referenced theme (all are listed) and use it to make the correct
-                // theme selection: light or dark
-                let theme: [String: Any] = self.themes[self.themeTable.selectedRow] as! [String: Any]
-                if theme["dark"] as! Bool {
-                    self.darkThemeIndex = self.themeTable.selectedRow
-                    self.darkThemeLabel.stringValue = theme["name"] as! String
-                } else {
-                    self.lightThemeIndex = self.themeTable.selectedRow
-                    self.lightThemeLabel.stringValue = theme["name"] as! String
-                }
-                 */
         }
 
         // FROM 2.2.1
@@ -1026,19 +1015,41 @@ extension AppDelegate {
 
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
 
-        print("ROW",row)
-        return row >= 0 && row < self.themes.count
+        let rowMax: Int
+        if tableView == self.nuThemeTable {
+            switch self.themeDisplayMode {
+                case BUFFOON_CONSTANTS.DISPLAY_MODE.DARK:
+                    rowMax = self.darkThemes.count
+                case BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT:
+                    rowMax = self.lightThemes.count
+                default:
+                    if let button = self.buttonClicked {
+                        if button == self.darkThemeListButton {
+                            rowMax = self.darkThemes.count
+                        } else {
+                            rowMax = self.lightThemes.count
+                        }
+                    } else {
+                        rowMax = self.themes.count
+                    }
+            }
+        } else {
+            rowMax = self.themes.count
+        }
+
+        print("ROW \(row) OF \(rowMax)")
+        return row >= 0 && row < rowMax
     }
 
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
 
-        return tableView == self.nuThemeTable ? 150.0 : 67.0
+        return tableView == self.nuThemeTable ? 150.0 : 68.0
     }
 
 
     // MARK: - NSTextView Delegate Functions
-    
+    /*
     func textViewDidChangeSelection(_ notification: Notification) { // DEP
 
         /* Get the clicked NSTextView and use it to determine the parent
@@ -1063,6 +1074,7 @@ extension AppDelegate {
             }
         }
     }
+     */
 
 
     // MARK: - NSTextFieldDelegate Functions

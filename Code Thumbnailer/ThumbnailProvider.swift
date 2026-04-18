@@ -68,7 +68,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             // Instantiate the common code within the closure
             if ThumbnailProvider.common == nil {
                 ThumbnailProvider.common = Common(forThumbnail: true)
-                if ThumbnailProvider.common == nil || ThumbnailProvider.common!.initError {
+                if ThumbnailProvider.common == nil {
                     // A key component of Common, eg. 'hightlight.js' is missing,
                     // so we cannot continue
                     handler(nil, ThumbnailerError.badHighlighter)
