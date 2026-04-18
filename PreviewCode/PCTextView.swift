@@ -12,6 +12,8 @@ import Cocoa
 
 /**
  A very basic subclass so we can adjust the cursor hovering over theme previews.
+
+ UNUSED IN 2.3.0 -- WILL BE REMOVED IN FUTURE
 */
 
 class PCTextView: NSTextView {
