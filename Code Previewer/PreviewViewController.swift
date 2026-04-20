@@ -10,10 +10,6 @@
 import AppKit
 import Quartz
 
-/*
- To synchronize two NSScrollViews, you can use the NSView.boundsDidChangeNotification to observe scrolling events and adjust the other scroll view's position accordingly. Set NSView.postsBoundsChangedNotifications to true for the scroll view you want to observe, and implement a notification handler to update the other scroll view's position
- */
-
 
 class PreviewViewController: NSViewController,
                              QLPreviewingController {
@@ -43,7 +39,6 @@ class PreviewViewController: NSViewController,
 
         // Get an error message ready for use
         var reportError: NSError? = nil
-        self.renderTextScrollView.isHidden = false
 
         // Load and process the source file
         do {
@@ -87,16 +82,20 @@ class PreviewViewController: NSViewController,
                 // Set the parent window's size
                 setPreviewWindowSize(common.settings)
 
-                // Set text and scroll view attributes according to style
-                // TODO Do a better job of checking whether theme is dark or light
+                // Added this var to make subsequent code elements sync with
+                // other PreviewApps' `PreviewViewController` code
+                let renderPreviewLight = !common.isThemeDark
+
+                // Update the view mode
                 self.renderTextView.backgroundColor = common.themeBackgroundColour
-                self.renderTextScrollView.scrollerKnobStyle = common.isThemeDark ? .light : .dark
+                self.renderTextScrollView.scrollerKnobStyle = renderPreviewLight ? .dark : .light
+                self.view.appearance = renderPreviewLight ? NSAppearance(named: .aqua) : NSAppearance(named: .darkAqua)
 
                 // FROM 2.0.0
                 // Add a small margin around the preview
-                if common.settings.doShowMargin {
-                    let marginSize: NSSize = NSMakeSize(common.settings.previewMarginWidth, common.settings.previewMarginWidth)
-                    self.renderTextView.textContainerInset = marginSize
+                if common.settings.previewMarginWidth > 0.0 {
+                    self.renderTextView.textContainerInset = NSMakeSize(common.settings.previewMarginWidth,
+                                                                        common.settings.previewMarginWidth)
                 }
 
                 /*
@@ -148,7 +147,7 @@ class PreviewViewController: NSViewController,
 
     - Returns: The described error as an NSError.
     */
-    func makeError(_ code: Int) -> NSError {
+    private func makeError(_ code: Int) -> NSError {
 
         var errDesc: String
 
