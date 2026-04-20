@@ -68,8 +68,6 @@ final class AppDelegate: NSResponder,
     @IBOutlet weak var lightThemeIcon: PCImageView!
     @IBOutlet weak var themeHelpLabel: NSTextField!
     @IBOutlet weak var lineSpacingPopup: NSPopUpButton!
-    //@IBOutlet weak var themeScrollView: NSScrollView!
-    //@IBOutlet weak var themeTable: NSTableView!
     @IBOutlet weak var applyButton: NSButton!
     // FROM 2.0.0
     //@IBOutlet weak var showLineNumbersCheckbox: NSButton!
@@ -206,15 +204,10 @@ final class AppDelegate: NSResponder,
 
         // Set the `Settings` tab's tooltips
         initialiseSettings()
-        //self.themeTable.intercellSpacing = .zero
-        //self.themeTable.rowHeight = 67.0
-        //self.themeTable.rowSizeStyle = .custom
         
         // FROM 2.3.0
         self.previewMarginSizeText.delegate = self
         self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
-
-
 
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
@@ -222,7 +215,6 @@ final class AppDelegate: NSResponder,
 
         // Centre the main window and display
         setInfoText()
-        //self.window.initialFirstResponder = self.themeTable
         self.window.delegate = self
         self.window.center()
         self.window.makeKeyAndOrderFront(self)

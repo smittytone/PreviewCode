@@ -330,10 +330,6 @@ extension AppDelegate {
         setThemeControls()
 
         // FROM 1.3.0
-        // Set the responder chain for keyed selection
-        //self.themeTable.nextResponder = self
-
-        // FROM 1.3.0
         // Set the line spacing selector
         switch(round(settings.lineSpacing * 100) / 100.0) {
             case 1.25:
@@ -535,7 +531,7 @@ extension AppDelegate {
     /**
      Set up the themes table.
 
-     FROM 2.0.0 Optionally pass in a settings object to use.
+     UNUSED FROM 2.0.0 Optionally pass in a settings object to use.
 
      - Parameters:
         - settings: A settings object, or `nil`.
@@ -600,32 +596,6 @@ extension AppDelegate {
             // Should never be triggered
             return IndexSet(integer: indexInFullThemeList)
         }
-
-        /*
-        // Assume we're showing all themes as the default
-        var returnIndexSet: IndexSet? = IndexSet(integer: indexInFullThemeList)
-
-        // But check if we're actually viewing a subset
-        if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-            returnIndexSet = nil
-            for i: Int in 0..<self.darkThemes.count {
-                if self.darkThemes[i] == indexInFullThemeList {
-                    returnIndexSet = IndexSet(integer: i)
-                    break
-                }
-            }
-        } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-            returnIndexSet = nil
-            for i: Int in 0..<self.lightThemes.count {
-                if self.lightThemes[i] == indexInFullThemeList {
-                    returnIndexSet = IndexSet(integer: i)
-                    break
-                }
-            }
-        }
-        
-        return returnIndexSet
-        */
     }
 
 
@@ -1046,35 +1016,6 @@ extension AppDelegate {
 
         return tableView == self.nuThemeTable ? 150.0 : 68.0
     }
-
-
-    // MARK: - NSTextView Delegate Functions
-    /*
-    func textViewDidChangeSelection(_ notification: Notification) { // DEP
-
-        /* Get the clicked NSTextView and use it to determine the parent
-         * PCThemeTableCellView, from which we get the table row that
-         * we need to select.
-         */
-        
-        let clickedView: PCTextView = notification.object as! PCTextView
-        let parentView: PCThemeTableCellView = clickedView.superview as! PCThemeTableCellView
-
-        // parentView.themeIndex -> index in self.themes
-        if let idx: IndexSet = getSelectionIndex(parentView.themeIndex) {
-            //self.themeTable.selectRowIndexes(idx, byExtendingSelection: false)
-            //self.preferencesWindow.makeFirstResponder(self.themeTable)
-
-            // FROM 1.3.0
-            // Update the indices for each type
-            if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK {
-                self.darkThemeIndex = parentView.themeIndex
-            } else if self.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.LIGHT {
-                self.lightThemeIndex = parentView.themeIndex
-            }
-        }
-    }
-     */
 
 
     // MARK: - NSTextFieldDelegate Functions
