@@ -211,7 +211,7 @@ final class AppDelegate: NSResponder,
 
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
-        //doShowWhatsNew(self)
+        doShowWhatsNew(self)
 
         // Centre the main window and display
         setInfoText()
