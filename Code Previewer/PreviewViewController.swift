@@ -6,7 +6,6 @@
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
-
 import AppKit
 import Quartz
 
@@ -43,10 +42,10 @@ class PreviewViewController: NSViewController,
         // Load and process the source file
         do {
             // Get the file contents as a string
-            let data: Data = try Data(contentsOf: url, options: [.uncached])
-            let encoding: String.Encoding = data.stringEncoding ?? .utf8
+            let data = try Data(contentsOf: url, options: [.uncached])
+            let encoding = data.stringEncoding ?? .utf8
 
-            if let codeString: String = String(data: data, encoding: encoding) {
+            if let code = String(data: data, encoding: encoding) {
                 /*
                  Instantiate the common code within the closure
                  */
@@ -61,17 +60,17 @@ class PreviewViewController: NSViewController,
 
                 // Set the language
                 let language: String = common.getLanguage(url.path)
-                var codeAttString: NSAttributedString
+                var attributedCode: NSAttributedString
                 if language == "psion" {
                     // Special case for psion files, which may contain binary data
                     if url.absoluteString.hasSuffix("opl") {
-                        codeAttString = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
+                        attributedCode = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
                     } else {
-                        codeAttString = common.getAttributedString(codeString, "scala")
+                        attributedCode = common.getAttributedString(code, "scala")
                     }
                 } else {
                     // Highlight the code
-                    codeAttString = common.getAttributedString(codeString, language)
+                    attributedCode = common.getAttributedString(code, language)
                 }
 
                 /*
@@ -82,8 +81,9 @@ class PreviewViewController: NSViewController,
                 // Set the parent window's size
                 setPreviewWindowSize(common.settings)
 
-                // Added this var to make subsequent code elements sync with
-                // other PreviewApps' `PreviewViewController` code
+                // FROM 2.3.0
+                // The force-light-mode-preview-in-dark-mode setting is now a general
+                // preview-colours-should-be-opposite-the-mode setting.
                 let renderPreviewLight = !common.isThemeDark
 
                 // Update the view mode
@@ -94,22 +94,22 @@ class PreviewViewController: NSViewController,
                 // FROM 2.0.0
                 // Add a small margin around the preview
                 if common.settings.previewMarginWidth > 0.0 {
-                    self.renderTextView.textContainerInset = NSMakeSize(common.settings.previewMarginWidth,
-                                                                        common.settings.previewMarginWidth)
+                    self.renderTextView.textContainerInset = NSSize(width: common.settings.previewMarginWidth,
+                                                                    height: common.settings.previewMarginWidth)
                 }
 
                 /*
                  Attributed String Presentation
                  */
 
-                if let renderTextStorage: NSTextStorage = self.renderTextView.textStorage {
+                if let renderTextStorage = self.renderTextView.textStorage {
                     /*
                      * NSTextStorage subclasses that return true from the fixesAttributesLazily
                      * method should avoid directly calling fixAttributes(in:) or else bracket
                      * such calls with beginEditing() and endEditing() messages.
                      */
                     renderTextStorage.beginEditing()
-                    renderTextStorage.setAttributedString(codeAttString)
+                    renderTextStorage.setAttributedString(attributedCode)
                     renderTextStorage.endEditing()
                     return
                 }
