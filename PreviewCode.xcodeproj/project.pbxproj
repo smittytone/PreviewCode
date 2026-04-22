@@ -31,8 +31,7 @@
 		3B7D83D82A8A3069008A4B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D83D72A8A3069008A4B2E /* Assets.xcassets */; };
 		3B7D83D92A8A306C008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */; };
 		3B7D83DA2A8A306D008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */; };
-		3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Highlight.js Licence */; };
-		3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C9302666222D00C7CC14 /* Highlightr Licence */; };
+		3B95C9312666222D00C7CC14 /* Licences.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Licences.md */; };
 		3B97067A2E79432C00FACE20 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B9706792E79432C00FACE20 /* AppIcon.icon */; };
 		3BA25E332F924D61003AB70C /* PCTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA25E322F924D61003AB70C /* PCTextField.swift */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
@@ -122,8 +121,7 @@
 		3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_CODES.swift; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewApps/REPLACE_WITH_YOUR_CODES.swift"; sourceTree = "<absolute>"; };
 		3B7D83D42A8A3034008A4B2E /* REPLACE_WITH_YOUR_FUNCTIONS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_FUNCTIONS.swift; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewApps/REPLACE_WITH_YOUR_FUNCTIONS.swift"; sourceTree = "<absolute>"; };
 		3B7D83D72A8A3069008A4B2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewCode/Assets.xcassets"; sourceTree = "<absolute>"; };
-		3B95C92F2666222D00C7CC14 /* Highlight.js Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlight.js Licence"; sourceTree = "<group>"; };
-		3B95C9302666222D00C7CC14 /* Highlightr Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Highlightr Licence"; sourceTree = "<group>"; };
+		3B95C92F2666222D00C7CC14 /* Licences.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licences.md; sourceTree = "<group>"; };
 		3B9706792E79432C00FACE20 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = AppIcon.icon; path = "../../../Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewCode/AppIcon.icon"; sourceTree = "<group>"; };
 		3BA25E322F924D61003AB70C /* PCTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCTextField.swift; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
@@ -310,8 +308,7 @@
 				3BFD784C2663E27D002AD588 /* PreviewViewController.xib */,
 				3BFD784F2663E27D002AD588 /* Info.plist */,
 				3BFD78502663E27D002AD588 /* Code_Previewer.entitlements */,
-				3B95C92F2666222D00C7CC14 /* Highlight.js Licence */,
-				3B95C9302666222D00C7CC14 /* Highlightr Licence */,
+				3B95C92F2666222D00C7CC14 /* Licences.md */,
 			);
 			path = "Code Previewer";
 			sourceTree = "<group>";
@@ -511,8 +508,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B95C9322666222D00C7CC14 /* Highlightr Licence in Resources */,
-				3B95C9312666222D00C7CC14 /* Highlight.js Licence in Resources */,
+				3B95C9312666222D00C7CC14 /* Licences.md in Resources */,
 				3BFD784E2663E27D002AD588 /* PreviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -655,7 +651,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 2.3.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
@@ -688,7 +684,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 2.3.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bps.PreviewCode.Code-Thumbnailer";
@@ -867,7 +863,7 @@
 				);
 				LOCALIZATION_EXPORT_SUPPORTED = NO;
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = NO;
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 2.3.0;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "-D TARGET_IS_PC";
@@ -911,7 +907,7 @@
 				);
 				LOCALIZATION_EXPORT_SUPPORTED = NO;
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = NO;
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 2.3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
@@ -1027,7 +1023,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 2.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1064,7 +1060,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 2.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
