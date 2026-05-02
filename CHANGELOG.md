@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.3.0 *Unreleased*
+- 2.3.0 *02 May 2026*
     - Revise *PreviewCode*’s **Settings** pane UI.
     - Add advanced settings UI.
     - Minimise file data loading during thumbnailing.
