@@ -280,3 +280,39 @@ extension NSAttributedString {
         return parts
     }
 }
+
+
+extension NSBitmapImageRep {
+
+    /**
+     Return a copy of the image in the specified size.
+
+     - Parameters
+        - newSize: The chosen size.
+
+     - Returns The resized version of the image, or `nil` on error.
+     */
+    func resize(to newSize: NSSize) -> NSBitmapImageRep? {
+
+        if let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil,
+                                         pixelsWide: Int(newSize.width),
+                                         pixelsHigh: Int(newSize.height),
+                                         bitsPerSample: 8,
+                                         samplesPerPixel: 4,
+                                         hasAlpha: true,
+                                         isPlanar: false,
+                                         colorSpaceName: .calibratedRGB,
+                                         bytesPerRow: 0,
+                                         bitsPerPixel: 0) {
+            bitmap.size = newSize
+            NSGraphicsContext.saveGraphicsState()
+            NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap)
+            draw(in: NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height), from: .zero, operation: .copy, fraction: 1.0, respectFlipped: true, hints: nil)
+            NSGraphicsContext.restoreGraphicsState()
+
+            return bitmap
+        }
+
+        return nil
+    }
+}
