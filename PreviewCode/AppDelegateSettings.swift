@@ -8,6 +8,7 @@
  */
 
 import AppKit
+import Highlighter
 
 
 extension AppDelegate {
@@ -845,44 +846,98 @@ extension AppDelegate {
     @IBAction
     private func doRenderThemes(_ sender: Any) {
 
-        let renderFrame: CGRect = NSMakeRect(0, 0, 256, 134)
+        // FROM 2.3.1 -- bump size to @2x
+        let renderFrame: CGRect = NSMakeRect(0, 0, 512, 268)
         let fm: FileManager = FileManager()
         let homeFolder: String = fm.homeDirectoryForCurrentUser.path
         guard let common = Common(forThumbnail: false) else { return }
 
         // Load in the code sample we'll preview the themes with
         guard let loadedCode = loadBundleFile(BUFFOON_CONSTANTS.FILE_CODE_SAMPLE, ofType: "txt") else { return }
+        print("IMAGE FOLDER: \(homeFolder)")
 
+#if RENDER_HS_THEMES // Set in Build Settings > Active Compilation Condition
+        let hltr = Highlighter()
+        let nativeThemes = hltr!.availableThemes()
+        print("THEME COUNT: \(nativeThemes.count)")
+        for theme in nativeThemes {
+            hltr!.setTheme(theme)
+            if let pas = hltr!.highlight(loadedCode, as: "swift") {
+                let ptv = PCTextView(frame: renderFrame)
+                ptv.isSelectable = false
+
+                if let renderTextStorage = ptv.textStorage {
+                    renderTextStorage.beginEditing()
+                    renderTextStorage.setAttributedString(pas)
+                    renderTextStorage.endEditing()
+                    ptv.backgroundColor = hltr!.theme.themeBackgroundColour
+                }
+
+                if let imageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
+                    ptv.cacheDisplay(in: renderFrame, to: imageRep)
+                    let sizes = [NSMakeSize(256, 134), NSMakeSize(512, 268), NSMakeSize(768, 402)]
+                    for (i, size) in sizes.enumerated() {
+                        if let scaledImage = imageRep.resize(to: size) {
+                            if let data: Data = scaledImage.representation(using: .png, properties: [:]) {
+                                do {
+                                    var sizeFactor = ""
+                                    if i > 0 {
+                                        sizeFactor = "@\(i + 1)x"
+                                    }
+                                    let path: String = homeFolder + "/native-" + theme + sizeFactor + ".png"
+                                    try data.write(to: URL(fileURLWithPath: path))
+                                } catch {
+                                    // NOP
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return
+#else
         loadThemeList()
-
         for i: Int in 0..<self.themes.count {
-            let name: String = codedName(i)
+            let name = codedName(i)
             common.updateTheme(name)
-            let pas: NSAttributedString = common.getAttributedString(loadedCode, "swift")
-            let ptv: PCTextView = PCTextView(frame: renderFrame)
+            let pas = common.getAttributedString(loadedCode, "swift")
+            let ptv = PCTextView(frame: renderFrame)
             ptv.isSelectable = false
 
-            if let renderTextStorage: NSTextStorage = ptv.textStorage {
+            if let renderTextStorage = ptv.textStorage {
                 renderTextStorage.beginEditing()
                 renderTextStorage.setAttributedString(pas)
                 renderTextStorage.endEditing()
                 ptv.backgroundColor = common.themeBackgroundColour
             }
 
-            if let imageRep: NSBitmapImageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
+            if let imageRep = ptv.bitmapImageRepForCachingDisplay(in: renderFrame) {
                 ptv.cacheDisplay(in: renderFrame, to: imageRep)
-                if let data: Data = imageRep.representation(using: .png, properties: [:]) {
-                    do {
-                        let theme: [String: Any] = self.themes[i] as! [String: Any]
-                        let filename: String = theme["css"] as! String
-                        let path: String = homeFolder + "/" + filename + ".png"
-                        try data.write(to: URL(fileURLWithPath: path))
-                    } catch {
-                        // NOP
+                let sizes = [NSMakeSize(256, 134), NSMakeSize(512, 268), NSMakeSize(768, 402)]
+                for (j, size) in sizes.enumerated() {
+                    if let scaledImage = imageRep.resize(to: size) {
+                        if let data: Data = scaledImage.representation(using: .png, properties: [:]) {
+                            do {
+                                var sizeFactor = ""
+                                if j > 0 {
+                                    sizeFactor = "@\(j + 1)x"
+                                }
+
+                                let theme: [String: Any] = self.themes[i] as! [String: Any]
+                                let filename: String = theme["css"] as! String
+                                let path: String = homeFolder + "/" + filename + sizeFactor + ".png"
+                                try data.write(to: URL(fileURLWithPath: path))
+                            } catch {
+                                // NOP
+                            }
+                        }
                     }
                 }
             }
         }
+#endif
     }
 
 
