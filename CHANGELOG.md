@@ -1,5 +1,7 @@
 ## Release Notes
 
+- 2.3.1 *Unreleased*
+    - Update to `HighlighterSwift` 3.1.0 to leverage its correction of certain themes.
 - 2.3.0 *02 May 2026*
     - Revise *PreviewCode*’s **Settings** pane UI.
     - Add advanced settings UI.
