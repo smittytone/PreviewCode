@@ -56,6 +56,13 @@ final class PCSettings {
             self.previewMarginWidth = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_MARGIN))
             self.previewWindowScale = CGFloat(defaults.float(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_WINDOW_SCALE))
             self.thumbnailMatchFinderMode = defaults.bool(forKey: BUFFOON_CONSTANTS.PREFS_IDS.THUMB_MATCH_MODE)
+
+            // FROM 2.3.1
+            // Apply corrections for theme name changes
+            if self.lightThemeName == "light.vs" {
+                self.lightThemeName = "light.vs-light"
+                saveSettings(suite)
+            }
         }
     }
 
