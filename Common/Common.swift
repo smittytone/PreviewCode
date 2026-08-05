@@ -305,7 +305,7 @@ final internal class Common {
                 sourceLanguage = "objectivec"
             case "c-plus-plus":
                 sourceLanguage = "cpp"
-            case "shell", "zsh", "csh", "ksh", "tsch":
+            case "shell", "zsh", "csh", "ksh", "tcsh":
                 sourceLanguage = "bash"
             case "pascal":
                 sourceLanguage = "delphi"

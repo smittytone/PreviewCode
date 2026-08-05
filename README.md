@@ -1,4 +1,4 @@
-# PreviewCode 2.3.1
+# PreviewCode 2.3.2
 
 *PreviewCode* provides macOS QuickLook file previews and Finder icon thumbnails for more than 50 programming and scripting languages, header files, and data files.
 
@@ -65,10 +65,11 @@ You can select from a range of text sizes, choose a monospace font, select the f
 
 ### Shell Scripting
 
-- Bash (`.sh`)
+- Shell (`.sh`)
+- Bash (`.bash`)
 - C Shell (`.csh`)
 - Korn Shell (`.ksh`)
-- TCSH (`.tsch`)
+- TCSH (`.tcsh`)
 - Z Shell (`.zsh`)
 
 ### Assembly

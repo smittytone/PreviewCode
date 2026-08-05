@@ -47,6 +47,7 @@
 				<string>public.csh-script</string>
 				<string>public.ksh-script</string>
 				<string>public.tcsh-script</string>
+				<string>public.bash-script</string>
 				<string>public.css</string>
 				<string>public.ada-source</string>
 				<string>public.assembly-source</string>

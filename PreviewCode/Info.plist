@@ -1210,7 +1210,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>tsch</string>
+					<string>tcsh</string>
 				</array>
 			</dict>
 		</dict>
@@ -1691,6 +1691,25 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>ini</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.bash-script</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Bash Shell</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>public.bash-script</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>bash</string>
 				</array>
 			</dict>
 		</dict>
