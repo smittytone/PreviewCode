@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.3.2 *Unreleased*
+- 2.3.2 *6 August 2026*
     - Fix failure to preview `.bash` and `.tcsh` files.
 - 2.3.1 *26 May 2026*
     - Update to `HighlighterSwift` 3.1.0 to leverage its correction of certain themes.
