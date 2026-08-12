@@ -29,7 +29,7 @@ final internal class Common {
     private  var font: NSFont?               = nil
     private  var highlighter: Highlighter?   = nil
     // FROM 2.0.0
-    private  var isThumnbnail: Bool          = false
+    private  var isThumbnail: Bool          = false
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -41,7 +41,7 @@ final internal class Common {
     
     // MARK: - Lifecycle Functions
 
-    init?(forThumbnail isThumbnail: Bool) {
+    init?(forThumbnail: Bool) {
 
         // Set local values with default properties
         var highlightJsThemeName: String
@@ -49,11 +49,11 @@ final internal class Common {
         // Read in the user preferences to update the above values
         self.settings.loadSettings(self.appSuiteName)
 
-        if isThumbnail {
+        if forThumbnail {
             // Thumbnails use fixed, light-on-dark values
             highlightJsThemeName = setTheme(BUFFOON_CONSTANTS.THUMBNAIL.THEME)
             self.settings.fontSize = CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.FONT_SIZE)
-            self.isThumnbnail = true
+            self.isThumbnail = true
         } else {
             // Set preview theme details
             // FROM 1.3.0 -- adjust by current state or user setting
@@ -64,7 +64,7 @@ final internal class Common {
                     highlightJsThemeName = setTheme(self.settings.darkThemeName)
                     self.isThemeDark = true
                 default:
-                    let isLight: Bool = isMacInLightMode()
+                    let isLight = NSApp.inLightMode
                     highlightJsThemeName = isLight ? setTheme(self.settings.lightThemeName) : setTheme(self.settings.darkThemeName)
                     self.isThemeDark = !isLight
             }
@@ -77,7 +77,7 @@ final internal class Common {
         }
 
         // Generate the font we'll use, at the required size
-        if let chosenFont: NSFont = NSFont(name: self.settings.fontName, size: self.settings.fontSize) {
+        if let chosenFont = NSFont(name: self.settings.fontName, size: self.settings.fontSize) {
             self.font = chosenFont
         } else {
             self.font = NSFont.systemFont(ofSize: self.settings.fontSize)
@@ -114,8 +114,8 @@ final internal class Common {
         // Run the specified code string through Highlightr/Highlight.js
         var renderedString: NSAttributedString? = nil
         
-        if let hr: Highlighter = self.highlighter {
-            if !self.isThumnbnail && self.settings.doShowLineNumbers {
+        if let hltr = self.highlighter {
+            if !self.isThumbnail && self.settings.doShowLineNumbers {
                 // FROM 2.2.0
                 // Use line numbering from HighlighterSwift
                 var lnd = LineNumberData()
@@ -125,19 +125,19 @@ final internal class Common {
                 // Use our theme mode to specify the colour of the line numbers
                 lnd.usingDarkTheme = self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.DARK
                 if self.settings.themeDisplayMode == BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO {
-                    lnd.usingDarkTheme = !isMacInLightMode()
+                    lnd.usingDarkTheme = !NSApp.inLightMode
                 }
 
                 // Render with line numbers
-                renderedString = hr.highlight(codeFileString, as: language, doFastRender: true, lineNumbering: lnd)
+                renderedString = hltr.highlight(codeFileString, as: language, doFastRender: true, lineNumbering: lnd)
             } else {
                 // Render without line numbers
-                renderedString = hr.highlight(codeFileString, as: language)
+                renderedString = hltr.highlight(codeFileString, as: language)
             }
         }
 
         // If the rendered string is good, return it
-        if let ras: NSAttributedString = renderedString {
+        if let ras = renderedString {
             // Trap any incorrectly parsed language names
             if (ras.string != "undefined") {
                 // FROM 1.2.0
@@ -148,7 +148,7 @@ final internal class Common {
                     .font: self.font!
                 ]
 
-                let hs: NSMutableAttributedString = NSMutableAttributedString(string: "Language: \(language)\n", attributes: debugAtts)
+                let hs = NSMutableAttributedString(string: "Language: \(language)\n", attributes: debugAtts)
                 hs.append(ras)
                 return hs as NSAttributedString
 #else
@@ -186,10 +186,10 @@ final internal class Common {
      */
     func updateTheme(_ themeData: String) {
         
-        let themeName: String = setTheme(themeData)
-        if let highlightr: Highlighter = self.highlighter {
-            highlightr.setTheme(themeName)
-            self.themeBackgroundColour = highlightr.theme.themeBackgroundColour
+        let themeName = setTheme(themeData)
+        if let hltr = self.highlighter {
+            hltr.setTheme(themeName)
+            self.themeBackgroundColour = hltr.theme.themeBackgroundColour
         }
     }
 
@@ -204,7 +204,7 @@ final internal class Common {
      */
     private func setTheme(_ themeString: String) -> String {
 
-        var themeParts: [String] = themeString.components(separatedBy: ".")
+        var themeParts = themeString.components(separatedBy: ".")
 
         // Just in case...
         if themeParts.count != 2 {
@@ -236,8 +236,8 @@ final internal class Common {
     func getLanguage(_ sourceFilePath: String) -> String {
 
         // FROM 1.2.2 -- make sure these are lowercase
-        let sourceFileUTI: String = getSourceFileUTI(sourceFilePath).lowercased()
-        let sourceFileExtension: String = (sourceFilePath as NSString).pathExtension.lowercased()
+        let sourceFileUTI = getSourceFileUTI(sourceFilePath).lowercased()
+        let sourceFileExtension = (sourceFilePath as NSString).pathExtension.lowercased()
 
         // Trap 'non-standard' UTIs
         if sourceFileUTI.hasPrefix("com.apple.applescript") { return "applescript" }
@@ -281,10 +281,10 @@ final internal class Common {
         // Remaining UTIs follow a standard structure:
         // eg. `public.objective-c-source`
         // So split by `.`, ignore the first item, and remove the `-xxx-yyy`
-        var sourceLanguage: String = BUFFOON_CONSTANTS.DEFAULTS.LANGUAGE_UTI
+        var sourceLanguage = BUFFOON_CONSTANTS.DEFAULTS.LANGUAGE_UTI
         let parts = sourceFileUTI.components(separatedBy: ".")
         if parts.count > 0 {
-            let index: Int = parts.count - 1
+            let index = parts.count - 1
             var endIndex: Range<String.Index>? = parts[index].range(of: "-source")
             if endIndex == nil { endIndex = parts[index].range(of: "-header") }
             if endIndex == nil { endIndex = parts[index].range(of: "-script") }
@@ -347,19 +347,19 @@ final internal class Common {
     private func getSourceFileUTI(_ sourceFilePath: String) -> String {
 
         // Create a URL reference to the sample file
-        var sourceFileUTI: String = ""
+        var sourceFileUTI = ""
         let sourceFileURL = URL(fileURLWithPath: sourceFilePath)
 
         do {
             // Read back the UTI from the URL
             // Use Big Sur's UTType API
             if #available(macOS 11, *) {
-                if let uti: UTType = try sourceFileURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
+                if let uti = try sourceFileURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
                     sourceFileUTI = uti.identifier
                 }
             } else {
                 // NOTE '.typeIdentifier' yields an optional
-                if let uti: String = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
+                if let uti = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
                     sourceFileUTI = uti
                 }
             }
@@ -368,20 +368,6 @@ final internal class Common {
         }
 
         return sourceFileUTI
-    }
-    
-    
-    /**
-     Determine whether the host Mac is in light mode.
-
-     FROM 1.3.0
-     
-     - Returns: `true` if the Mac is in light mode, otherwise `false`.
-     */
-    private func isMacInLightMode() -> Bool {
-        
-        let appearNameString: String = NSApp.effectiveAppearance.name.rawValue
-        return (appearNameString == "NSAppearanceNameAqua")
     }
 
 
@@ -436,6 +422,12 @@ final internal class Common {
                              String(repeating: "*", count: 43) +
                              "\nREM BINARY OPL DATA AT START OF FILE (38 BYTES)\nREM " +
                              String(repeating: "*", count: 43) + "\n\n"
+
+            // FROM 2.3.4
+            // Check we have the mimimum number of bytes
+            guard ascii.count >= 229 else {
+                return String(data: code, encoding: encoding) ?? ""
+            }
 
             // Test file used 0x06 as a line break
             for i in 38..<(ascii.count - 191) {
