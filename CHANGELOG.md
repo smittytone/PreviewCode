@@ -8,6 +8,7 @@
     - Minimise saving of default settings values.
     - Improve light mode checking.
     - Remove redundant code.
+    - Fix bug whereby selection line spacing `1.15` just selected `1`.
 - 2.3.2 *6 August 2026*
     - Fix failure to preview `.bash` and `.tcsh` files.
 - 2.3.1 *26 May 2026*
