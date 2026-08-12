@@ -61,7 +61,7 @@ final class PCSettings {
             // Apply corrections for theme name changes
             if self.lightThemeName == "light.vs" {
                 self.lightThemeName = "light.vs-light"
-                saveSettings(suite)
+                defaults.setValue(self.lightThemeName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LIGHT_NAME)
             }
         }
     }
@@ -77,7 +77,6 @@ final class PCSettings {
     public func saveSettings(_ suite: String) {
 
         if let defaults = UserDefaults(suiteName: suite) {
-            // TO-DO Test each on to see if the setting needs to be saved
             defaults.setValue(self.fontName, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_NAME)
             defaults.setValue(self.fontSize, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_FONT_SIZE)
             defaults.setValue(self.lineSpacing, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
