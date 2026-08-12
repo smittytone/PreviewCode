@@ -13,6 +13,9 @@ import WebKit
 import Highlighter
 
 
+typealias ThemeRecord = [String: Any]
+
+
 @main
 @MainActor
 final class AppDelegate: NSResponder,
@@ -107,7 +110,7 @@ final class AppDelegate: NSResponder,
     internal let defaultSettings: PCSettings    = PCSettings()
     internal var whatsNewNav: WKNavigation?     = nil
     internal var fonts: [PMFont]                = []
-    internal var themes: [Any]                  = []
+    internal var themes: [ThemeRecord]          = []
     internal var darkThemes: [Int]              = []
     internal var lightThemes: [Int]             = []
     internal var themeDisplayMode: Int          = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO

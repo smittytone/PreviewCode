@@ -310,7 +310,7 @@ extension AppDelegate {
 
         // Use the loaded theme names to find and set the human-reabable name in the UI
         for i in 0..<self.themes.count {
-            let theme: [String: Any] = self.themes[i] as! [String: Any]
+            let theme = self.themes[i]
             let codedName = codedName(i)
 
             if settings.lightThemeName == codedName {
@@ -693,7 +693,7 @@ extension AppDelegate {
      */
     private func themeName(for: Int) -> String {
 
-        let theme: [String: Any] = self.themes[`for`] as! [String: Any]
+        let theme = self.themes[`for`]
         return theme["name"] as! String
     }
 
@@ -709,7 +709,7 @@ extension AppDelegate {
 
     private func codedName(_ index: Int) -> String {
 
-        let theme: [String: Any] = self.themes[index] as! [String: Any]
+        let theme = self.themes[index]
         let isDark = theme["dark"] as! Bool
         let cssName = theme["css"] as! String
         return (isDark ? "dark." : "light.") + cssName
@@ -741,18 +741,18 @@ extension AppDelegate {
         
         // FROM 1.1.0
         // Theme list is now a JSON file
-        var themeMap: [String: Any] = [:]
+        var themeMap: ThemeRecord = [:]
         if let data = themesString.data(using: .utf8) {
             themeMap = try! JSONSerialization.jsonObject(with: data,  options: []) as! [String: Any]
         }
         
         // Set the theme selection
         // Remember this called only one per run
-        self.themes = themeMap["themes"] as! [Any]
+        self.themes = themeMap["themes"] as! [ThemeRecord]
         for i in 0..<self.themes.count {
             // Record themes by type: these subset arrays
             // record indices from from the main array
-            let theme: [String: Any] = self.themes[i] as! [String: Any]
+            let theme = self.themes[i]
             let isDark = theme["dark"] as! Bool
             if isDark {
                 self.darkThemes.append(i)
@@ -887,7 +887,7 @@ extension AppDelegate {
                                     sizeFactor = "@\(j + 1)x"
                                 }
 
-                                let theme: [String: Any] = self.themes[i] as! [String: Any]
+                                let theme = self.themes[i]
                                 let filename = theme["css"] as! String
                                 let path = homeFolder + "/" + filename + sizeFactor + ".png"
                                 try data.write(to: URL(fileURLWithPath: path))
@@ -944,7 +944,7 @@ extension AppDelegate {
         // Get the index in the the main theme list,
         // and thus the theme from that list
         let index = getBaseIndex(row)
-        let theme: [String: Any] = self.themes[index] as! [String: Any]
+        let theme = self.themes[index]
         let themeCSS = theme["css"] as! String
 
         // Populate cell
@@ -1091,7 +1091,7 @@ extension AppDelegate {
             // Find a the first theme with that character
             while true {
                 for i in 0..<self.themes.count {
-                    let theme: [String: Any] = self.themes[i] as! [String: Any]
+                    let theme = self.themes[i]
                     let cssName = theme["css"] as! String
 
                     if cssName.starts(with: char) {
