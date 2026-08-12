@@ -63,7 +63,7 @@ class PreviewViewController: NSViewController,
                 var attributedCode: NSAttributedString
                 if language == "psion" {
                     // Special case for psion files, which may contain binary data
-                    if url.absoluteString.hasSuffix("opl") {
+                    if url.pathExtension.lowercased() == "opl" {
                         attributedCode = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
                     } else {
                         attributedCode = common.getAttributedString(code, "scala")
@@ -119,14 +119,17 @@ class PreviewViewController: NSViewController,
             } else {
                 // FROM 1.2.2
                 // We couldn't convert to data to a valid encoding
-                let errDesc: String = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
+                let errDesc = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
                 reportError = NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
                                       code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
                                       userInfo: [NSLocalizedDescriptionKey: errDesc])
             }
         } catch {
             // We couldn't read the file so set an appropriate error to report back
-            reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
+            // FROM 2.3.5 -- don't suppress error thrown after the first
+            if reportError == nil {
+                reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.FILE_WONT_OPEN)
+            }
         }
 
         // FROM 2.3.0
