@@ -65,8 +65,8 @@
                 <outlet property="settingsHelpButton" destination="Iqk-uD-YOH" id="jnk-9T-46M"/>
                 <outlet property="showLineNumbersSwitch" destination="ZSG-ND-ehj" id="8Zw-4I-RW1"/>
                 <outlet property="themeHelpLabel" destination="kIF-hf-mlL" id="5J2-81-ZkJ"/>
-                <outlet property="tintTumbnailsAdvancedLabel" destination="HxE-1q-YWj" id="Vnt-X5-1MW"/>
-                <outlet property="tintTumbnailsAdvancedSwitch" destination="Pwc-3l-e3p" id="iu3-8g-zAs"/>
+                <outlet property="tintThumbnailsAdvancedLabel" destination="HxE-1q-YWj" id="5Gr-5J-cva"/>
+                <outlet property="tintThumbnailsAdvancedSwitch" destination="Pwc-3l-e3p" id="mfg-ZL-VE4"/>
                 <outlet property="versionLabel" destination="TIH-wq-nlU" id="VCq-ki-Hag"/>
                 <outlet property="whatsNewWebView" destination="JhS-5O-6sp" id="hrq-0G-CPr"/>
                 <outlet property="whatsNewWindow" destination="tKr-h4-TOq" id="iur-bh-TiO"/>

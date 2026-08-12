@@ -33,7 +33,7 @@ extension AppDelegate {
      */
     internal func runProcess(app path: String, with args: [String]) -> Bool {
 
-        let task: Process = Process()
+        let task = Process()
         task.executableURL = URL(fileURLWithPath: path)
         task.arguments = args
 
@@ -51,22 +51,21 @@ extension AppDelegate {
         // Block until the task has completed (short tasks ONLY)
         task.waitUntilExit()
 
-        if !task.isRunning {
-            if (task.terminationStatus != 0) {
-                // Command failed -- collect the output if there is any
-                let outputHandle = outputPipe.fileHandleForReading
-                var outString: String = ""
-                if let line = String(data: outputHandle.availableData, encoding: String.Encoding.utf8) {
-                    outString = line
-                }
-
-                if outString.count > 0 {
-                    print("\(outString)")
-                } else {
-                    print("Error", "Exit code \(task.terminationStatus)")
-                }
-                return false
+        if (task.terminationStatus != 0) {
+            // Command failed -- collect the output if there is any
+            let outputHandle = outputPipe.fileHandleForReading
+            var outString = ""
+            if let line = String(data: outputHandle.availableData, encoding: .utf8) {
+                outString = line
             }
+
+            if outString.count > 0 {
+                print("\(outString)")
+            } else {
+                print("Error", "Exit code \(task.terminationStatus)")
+            }
+
+            return false
         }
 
         return true
@@ -87,7 +86,7 @@ extension AppDelegate {
      */
     internal func makeAlert(_ head: String, _ message: String, _ addOkButton: Bool = true, _ isCritical: Bool = false) -> NSAlert {
 
-        let alert: NSAlert = NSAlert()
+        let alert = NSAlert()
         alert.messageText = head
         alert.informativeText = message
         if addOkButton { alert.addButton(withTitle: "OK") }
@@ -105,8 +104,8 @@ extension AppDelegate {
      */
     internal func getVersion() -> String {
 
-        let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let parts: [String] = (version as NSString).components(separatedBy: ".")
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let parts = (version as NSString).components(separatedBy: ".")
         return parts[0] + "-" + parts[1]
     }
 
@@ -118,8 +117,8 @@ extension AppDelegate {
      */
     internal func getFeedbackDate() -> String {
 
-        let date: Date = Date()
-        let dateFormatter: DateFormatter = DateFormatter()
+        let date = Date()
+        let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
@@ -136,11 +135,11 @@ extension AppDelegate {
 
         // Refactor code out into separate function for clarity
 
-        let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
-        let bundle: Bundle = Bundle.main
-        let app: String = bundle.object(forInfoDictionaryKey: "CFBundleExecutable") as! String
-        let version: String = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let build: String = bundle.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+        let sysVer = ProcessInfo.processInfo.operatingSystemVersion
+        let bundle = Bundle.main
+        let app = bundle.object(forInfoDictionaryKey: "CFBundleExecutable") as! String
+        let version = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let build = bundle.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         return "\(app)/\(version)-\(build) (macOS/\(sysVer.majorVersion).\(sysVer.minorVersion).\(sysVer.patchVersion))"
     }
 
@@ -157,7 +156,7 @@ extension AppDelegate {
      */
     internal func getLocalFileUTI(_ filename: String) -> String {
         
-        var localUTI: String = "NONE"
+        var localUTI = "NONE"
         let samplePath = Bundle.main.resourcePath! + "/" + filename
         
         if FileManager.default.fileExists(atPath: samplePath) {
@@ -168,12 +167,12 @@ extension AppDelegate {
                 // Read back the UTI from the URL
                 // Use Big Sur's UTType API
                 if #available(macOS 11, *) {
-                    if let uti: UTType = try sampleURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
+                    if let uti = try sampleURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
                         localUTI = uti.identifier
                     }
                 } else {
                     // NOTE '.typeIdentifier' yields an optional
-                    if let uti: String = try sampleURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
+                    if let uti = try sampleURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
                         localUTI = uti
                     }
                 }
@@ -206,32 +205,7 @@ extension AppDelegate {
         self.helpMenuWhatsNew.isEnabled = true
         self.mainMenuSettings.isEnabled = true
     }
-    
-    
-    /**
-     Get system and state information and record it for use during run.
 
-     UNUSED 2.0.0
-
-    internal func recordSystemState() {
-        
-        // First ensure we are running on Mojave or above - Dark Mode is not supported by earlier versons
-        let sysVer: OperatingSystemVersion = ProcessInfo.processInfo.operatingSystemVersion
-        self.isMontereyPlus = (sysVer.majorVersion >= 12)
-    }
-     */
-    
-    /**
-     Determine whether the host Mac is in light mode.
-     
-     - Returns: `true` if the Mac is in light mode, otherwise `false`.
-     */
-    internal func isMacInLightMode() -> Bool {
-        
-        let appearNameString: String = NSApp.effectiveAppearance.name.rawValue
-        return (appearNameString == "NSAppearanceNameAqua")
-    }
-    
 
     func applicationSupportsSecureRestorableState() -> Bool {
 

@@ -43,7 +43,7 @@ final class AppDelegate: NSResponder,
     @IBOutlet var helpMenuReportBug: NSMenuItem!
     @IBOutlet var mainMenuSettings: NSMenuItem!
     
-    // Main Widnow
+    // Main Window
     @IBOutlet var window: NSWindow!
     @IBOutlet weak var infoButton: NSButton!
     @IBOutlet weak var settingsButton: NSButton!
@@ -94,8 +94,8 @@ final class AppDelegate: NSResponder,
     @IBOutlet weak var advancedSettingsSheet: NSWindow!
     @IBOutlet weak var applyAdvancedButton: NSButton!
     @IBOutlet weak var previewSizeAdvancedPopup: NSPopUpButton!
-    @IBOutlet weak var tintTumbnailsAdvancedSwitch: NSSwitch!
-    @IBOutlet weak var tintTumbnailsAdvancedLabel: NSTextField!
+    @IBOutlet weak var tintThumbnailsAdvancedSwitch: NSSwitch!
+    @IBOutlet weak var tintThumbnailsAdvancedLabel: NSTextField!
     @IBOutlet weak var previewMarginSizeText: NSTextField!
     @IBOutlet weak var previewMarginRangeText: NSTextField!
     @IBOutlet weak var advancedHelpButton: NSButton!
@@ -142,7 +142,7 @@ final class AppDelegate: NSResponder,
 #endif
 
         // Pre-load fonts in a separate thread
-        // NOTE This ultimately calls `loadSettings()` which we delay until after the fonts
+        // NOTE This ultimately calls `AppDelegateSettings.populateSettings()` which we delay until after the fonts
         //      have loaded asynchronously because they reference loaded fonts.
         // FROM 2.4.1 - Upgrade to Swift Concurrency
         Task {
@@ -211,7 +211,7 @@ final class AppDelegate: NSResponder,
 
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
-        doShowWhatsNew(self)
+        doShowWhatsNew(nil)
 
         // Centre the main window and display
         setInfoText()

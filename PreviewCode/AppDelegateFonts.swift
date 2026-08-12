@@ -82,7 +82,7 @@ extension AppDelegate {
             // blocking it until the closure completes
             await MainActor.run {
                 self.fonts = cf
-                self.loadSettings()
+                self.populateSettings()
             }
              */
 
@@ -90,7 +90,7 @@ extension AppDelegate {
             // when the main thread becomes free
             @MainActor in
                 self.fonts = cf
-                self.loadSettings()
+                self.populateSettings()
         }
     }
     
@@ -171,12 +171,16 @@ extension AppDelegate {
      */
     internal func getPostScriptName() -> String? {
 
-        if let selectedFont: String = self.fontNamePopup.titleOfSelectedItem {
-            let selectedStyle: Int = fontFacePopup.indexOfSelectedItem
-            for family: PMFont in self.fonts {
+        if let selectedFont = self.fontNamePopup.titleOfSelectedItem {
+            let selectedStyle = fontFacePopup.indexOfSelectedItem
+
+            // FROM 2.3.3 -- bail if there's no popup selection
+            guard selectedStyle >= 0 else { return nil }
+
+            for family in self.fonts {
                 if family.displayName == selectedFont {
-                    if let styles: [PMFont] = family.styles {
-                        let font: PMFont = styles[selectedStyle]
+                    if let styles = family.styles {
+                        let font = styles[selectedStyle]
                         return font.postScriptName
                     }
                 }
