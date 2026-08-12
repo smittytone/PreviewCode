@@ -23,11 +23,12 @@ class ThumbnailProvider: QLThumbnailProvider {
         case badGfxBitmap
         case badGfxDraw
         case badHighlighter
+        case ignoredError
     }
 
     // FROM 2.2.4
     // Make the core generator common to all instances, ie. all thumbnails
-    static private var common: Common? = nil
+    private var common: Common? = nil
     // Set the primary drawing frame and a base font size
     private let codeFrame: CGRect = NSMakeRect(CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_X),
                                                CGFloat(BUFFOON_CONSTANTS.THUMBNAIL.ORIGIN_Y),
@@ -41,34 +42,42 @@ class ThumbnailProvider: QLThumbnailProvider {
         /*
          * This is the main entry point for macOS' thumbnailing system
          */
-        
+
+        // FROM 2.3.3 -- move this up so it's available outside the `do` block, and make it optional
+        var codeFileHandle: FileHandle? = nil
+
         // Load the source file using a co-ordinator as we don't know what thread this function
         // will be executed in when it's called by macOS' QuickLook code
         do {
-            // Get the file contents as a string, making sure it's not cached
-            // as we're not going to read it again any time soon
+            // Get the file contents as a string
             // FROM 2.3.0 - Only read in a minimal amount of data
-            let codeFileHandle = try FileHandle(forReadingFrom: request.fileURL)
-            try codeFileHandle.seek(toOffset: 0)
-            guard let data = try codeFileHandle.read(upToCount: BUFFOON_CONSTANTS.MAX_THUMBNAIL_READ_SIZE) else {
-                try codeFileHandle.close()
-                handler(nil, ThumbnailerError.badFileUnreadable(request.fileURL.path))
-                return
+            codeFileHandle = try FileHandle(forReadingFrom: request.fileURL)
+
+            // FROM 2.3.3 -- if `codeFileHandle` is still `nil` for some reason, bail
+            guard let cfh = codeFileHandle else {
+                throw ThumbnailerError.ignoredError
             }
 
-            try codeFileHandle.close()
+            guard let data = try cfh.read(upToCount: BUFFOON_CONSTANTS.MAX_THUMBNAIL_READ_SIZE) else {
+                // Can read file, buy can't read data (maybe none to be had?) so bail
+                throw ThumbnailerError.ignoredError
+            }
+
+            // Close the open file because it's no longer needed
+            // NOTE Should not fail because we've opened it and read data
+            try cfh.close()
 
             // Get the string's encoding, or fail back to .utf8
-            let encoding: String.Encoding = data.stringEncoding ?? .utf8
-            guard let codeString: String = String(data: data, encoding: encoding) else {
+            let encoding = data.stringEncoding ?? .utf8
+            guard let codeString = String(data: data, encoding: encoding) else {
                 handler(nil, ThumbnailerError.badFileLoad(request.fileURL.path))
                 return
             }
             
             // Instantiate the common code within the closure
-            if ThumbnailProvider.common == nil {
-                ThumbnailProvider.common = Common(forThumbnail: true)
-                if ThumbnailProvider.common == nil {
+            if self.common == nil {
+                self.common = Common(forThumbnail: true)
+                if self.common == nil {
                     // A key component of Common, eg. 'hightlight.js' is missing,
                     // so we cannot continue
                     handler(nil, ThumbnailerError.badHighlighter)
@@ -77,24 +86,24 @@ class ThumbnailProvider: QLThumbnailProvider {
             }
 
             // Instantiate an NSTextField to display the NSAttributedString render of the code
-            let language: String = ThumbnailProvider.common!.getLanguage(request.fileURL.path)
+            let language = self.common!.getLanguage(request.fileURL.path)
 
             // FROM 2.2.5 -- handle Psion files
             var codeAttString: NSAttributedString
             if language == "psion" {
                 // Special case for psion files, which may contain binary data
-                if request.fileURL.absoluteString.hasSuffix("opl") {
+                if request.fileURL.pathExtension.lowercased() == "opl" {
                     // NOTE In this case only, the thumbnail's source string may be rendered way too big
-                    codeAttString = ThumbnailProvider.common!.getAttributedString(ThumbnailProvider.common!.processPsionFile(data, encoding), "scala")
+                    codeAttString = self.common!.getAttributedString(self.common!.processPsionFile(data, encoding), "scala")
                 } else {
-                    codeAttString = ThumbnailProvider.common!.getAttributedString(codeString, "scala")
+                    codeAttString = self.common!.getAttributedString(codeString, "scala")
                 }
             } else {
                 // All other languages
-                codeAttString = ThumbnailProvider.common!.getAttributedString(codeString, language)
+                codeAttString = self.common!.getAttributedString(codeString, language)
             }
 
-            let codeTextField: NSTextField = NSTextField(frame: self.codeFrame)
+            let codeTextField = NSTextField(frame: self.codeFrame)
             codeTextField.attributedStringValue = codeAttString
 
             // FROM 2.2.3
@@ -102,7 +111,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             // NOTE This may become a setting in future, but for now retain the styling
             //      we have always presented.
             if #available(macOS 26.1, *) {
-                if !ThumbnailProvider.common!.settings.thumbnailMatchFinderMode {
+                if !self.common!.settings.thumbnailMatchFinderMode {
                     codeTextField.isBezeled = false
                     codeTextField.drawsBackground = true
                     codeTextField.backgroundColor = .white
@@ -110,7 +119,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             }
 
             // Generate the bitmap from the rendered code text view
-            guard let bodyImageRep: NSBitmapImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: self.codeFrame) else {
+            guard let bodyImageRep = codeTextField.bitmapImageRepForCachingDisplay(in: self.codeFrame) else {
                 handler(nil, ThumbnailerError.badGfxBitmap)
                 return
             }
@@ -118,7 +127,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             // Draw the code view into the bitmap
             codeTextField.cacheDisplay(in: codeFrame, to: bodyImageRep)
             
-            if let image: CGImage = bodyImageRep.cgImage {
+            if let image = bodyImageRep.cgImage {
                 // Calculate image scaling, frame size, etc.
                 let thumbnailFrame: CGRect = NSMakeRect(0.0,
                                                         0.0,
@@ -143,7 +152,14 @@ class ThumbnailProvider: QLThumbnailProvider {
             handler(nil, ThumbnailerError.badGfxDraw)
             return
         } catch {
-            // NOP: fall through to error
+            // FROM 2.3.4
+            do {
+                if let cfh = codeFileHandle {
+                    try cfh.close()
+                }
+            } catch {
+                // NOP -- pass through error
+            }
         }
         
         // We didn't draw anything because of 'can't find file' error
