@@ -18,10 +18,10 @@ class PMTabManager {
 
     // MARK: - Public Properties
     
-    var buttons: [NSButton] = []
-    var callbacks: [(()->Void)?] = []
-    var parent: AppDelegate? = nil
-    var currentIndex: Int = 0
+    var buttons: [NSButton]         = []
+    var callbacks: [(()->Void)?]    = []
+    var currentIndex: Int           = 0
+    weak var parent: AppDelegate?   = nil
 
 
     // MARK: - Functions
@@ -54,12 +54,12 @@ class PMTabManager {
         }
 
         // Make sure we have access to the parent controller
-        guard let appDelegate: AppDelegate = self.parent else {
+        guard let appDelegate = self.parent else {
             return
         }
         
         // Select the required tab based on the button clicked
-        if let nextIndex: Int = self.buttons.firstIndex(of: button) {
+        if let nextIndex = self.buttons.firstIndex(of: button) {
             self.currentIndex = nextIndex
             
             // Enable the current tab's button and disable the rest
