@@ -25,21 +25,23 @@ extension AppDelegate {
         - sender: The source of the action.
      */
     @IBAction
-    internal func doShowWhatsNew(_ sender: Any) {
-        
-        // Check how we got here
-        var doShowSheet: Bool = type(of: self) != type(of: sender)
-        
-        if !doShowSheet {
+    internal func doShowWhatsNew(_ sender: Any?) {
+
+        // Check how we got here: programmatically (`nil` passed in) or
+        // from menu click (menu reference passed in)
+        var doShowSheet = false
+        if sender == nil {
             // We are coming from the 'appDidFinishLoading()' so check
             // if we need to show the sheet by the checking the prefs
             if let defaults = UserDefaults(suiteName: self.appSuiteName) {
                 // Get the version-specific preference key
-                let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
+                let key = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
                 doShowSheet = defaults.bool(forKey: key)
             }
+        } else {
+            doShowSheet = true
         }
-      
+
         // Configure and show the sheet
         if doShowSheet {
             // FROM 1.2.5
@@ -85,7 +87,7 @@ extension AppDelegate {
 
          // Set this version's preference
          if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-             let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
+             let key = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
              defaults.setValue(false, forKey: key)
 
 #if DEBUG
