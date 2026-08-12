@@ -1,5 +1,13 @@
 ## Release Notes
 
+- 2.3.3 *Unreleased*
+    - Improve Thumbnail Provider's thread safety.
+    - Improve Thumbnail Provider's error handling.
+    - Improve Preview Provider's error handling.
+    - Better Psion `.opl` file detection and reading safety.
+    - Minimise saving of default settings values.
+    - Improve light mode checking.
+    - Remove redundant code.
 - 2.3.2 *6 August 2026*
     - Fix failure to preview `.bash` and `.tcsh` files.
 - 2.3.1 *26 May 2026*
