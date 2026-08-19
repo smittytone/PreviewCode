@@ -74,7 +74,7 @@ extension AppDelegate {
     @objc
     private func doSendFeedback(sender: Any) {
 
-        let feedback: String = self.feedbackText.stringValue
+        let feedback = self.feedbackText.stringValue
         if !feedback.isEmpty  && !self.hasSentFeedback {
             // FROM 2.2.4
             // Use Swift Concurrency
@@ -87,7 +87,7 @@ extension AppDelegate {
                 hidePanelGenerators()
 
                 // Post the feedback asynchronously
-                let error: FeedbackError = await self.nuSendFeedback(feedback)
+                let error = await self.nuSendFeedback(feedback)
                 self.connectionProgress.stopAnimation(self)
                 if error.code != .noError {
                     // Error - inform the user
@@ -111,8 +111,8 @@ extension AppDelegate {
      */
     internal func presentFeedbackError(_ error: FeedbackError) {
 
-        let alert: NSAlert = makeAlert("Feedback Could Not Be Sent",
-                                       "Unfortunately, your comments could not be send at this time. Please try again later.\n\nReason: \(error.localizedDescription)")
+        let alert = makeAlert("Feedback Could Not Be Sent",
+                              "Unfortunately, your comments could not be send at this time. Please try again later.\n\nReason: \(error.localizedDescription)")
         alert.beginSheetModal(for: self.window) { (resp) in
             self.showPanelGenerators()
         }
@@ -126,8 +126,8 @@ extension AppDelegate {
      */
     internal func presentFeedbackSuccess() {
 
-        let alert: NSAlert = makeAlert("Thanks For Your Feedback!",
-                                       "Your comments have been received and we’ll take a look at them shortly.")
+        let alert = makeAlert("Thanks For Your Feedback!",
+                              "Your comments have been received and we’ll take a look at them shortly.")
         alert.beginSheetModal(for: self.window) { (resp) in
             self.showPanelGenerators()
             self.hasSentFeedback = true
@@ -176,14 +176,10 @@ extension AppDelegate {
         guard self.timer == nil else { return }
 
         // Set the background to colour red
-        // Must run on `MainActor` and we set `.high` so it's done immediately
-        Task(priority: .high) {
-            await MainActor.run {
-                self.feedbackText.isEnabled = false
-                self.feedbackText.backgroundColor = .red
-                self.feedbackText.textColor = .white
-            }
-        }
+        // Already runs on `MainActor` as thius function is called by an NSTextFieldDelegate method
+        self.feedbackText.isEnabled = false
+        self.feedbackText.backgroundColor = .red
+        self.feedbackText.textColor = .white
 
         // Switch the background back in 0.25 of a second
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { (timer) in
@@ -203,45 +199,4 @@ extension AppDelegate {
         })
     }
 
-
-
-    // MARK: - URLSession Delegate Functions
-
-    /*
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-
-        // Some sort of connection error - report it
-        self.connectionProgress.stopAnimation(self)
-        sendFeedbackError()
-    }
-
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-
-        // The operation to send the comment completed
-        self.connectionProgress.stopAnimation(self)
-        if let _ = error {
-            // An error took place - report it
-            sendFeedbackError()
-        } else {
-            // The comment was submitted successfully
-            let alert: NSAlert = makeAlert("Thanks For Your Feedback!",
-                                           "Your comments have been received and we’ll take a look at them shortly.")
-            alert.beginSheetModal(for: self.window) { (resp) in
-                // Close the feedback window when the modal alert returns
-                let _: Timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { timer in
-                    // FROM 2.2.4
-                    // Run call on main thread using Swift Concurrency
-                    Task {
-                        @MainActor in
-                            //self.window.endSheet(self.window)
-                            self.showPanelGenerators()
-                            self.hasSentFeedback = true
-                            self.messageSendButton.isEnabled = false
-                    }
-                }
-            }
-        }
-    }
-     */
 }

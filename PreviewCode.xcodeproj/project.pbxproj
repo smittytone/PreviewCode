@@ -33,10 +33,8 @@
 		3B7D83DA2A8A306D008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */; };
 		3B95C9312666222D00C7CC14 /* Licences.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B95C92F2666222D00C7CC14 /* Licences.md */; };
 		3B97067A2E79432C00FACE20 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B9706792E79432C00FACE20 /* AppIcon.icon */; };
-		3BA25E332F924D61003AB70C /* PCTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA25E322F924D61003AB70C /* PCTextField.swift */; };
 		3BA5D03B269081BF00AF4EF2 /* PMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5D03A269081BF00AF4EF2 /* PMFont.swift */; };
 		3BAE671B28D4D3AD001532BD /* AppDelegateFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */; };
-		3BD177892E61B1DE00313D34 /* PCTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6ABACB2669703800A436AA /* PCTextView.swift */; };
 		3BD1778D2E61F62900313D34 /* PCThemeTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1778C2E61F62900313D34 /* PCThemeTableRowView.swift */; };
 		3BDE3EF6267CE9890037351C /* AppDelegateMisc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE3EF5267CE9890037351C /* AppDelegateMisc.swift */; };
 		3BE0EB9D266A845B00C9924E /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE0EB9C266A845B00C9924E /* QuickLookThumbnailing.framework */; };
@@ -116,14 +114,12 @@
 		3B3F580C29D5892900E227C7 /* PCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCImageView.swift; sourceTree = "<group>"; };
 		3B60F44F2E3B9EED009A7975 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		3B669A6B2AFBBFAC005AAFA3 /* new */ = {isa = PBXFileReference; lastKnownFileType = folder; name = new; path = "../../../Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewCode/new"; sourceTree = "<group>"; };
-		3B6ABACB2669703800A436AA /* PCTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCTextView.swift; sourceTree = "<group>"; };
 		3B7D83D02A8A2FEE008A4B2E /* code-sample.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "code-sample.txt"; sourceTree = "<group>"; };
 		3B7D83D32A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_CODES.swift; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewApps/REPLACE_WITH_YOUR_CODES.swift"; sourceTree = "<absolute>"; };
 		3B7D83D42A8A3034008A4B2E /* REPLACE_WITH_YOUR_FUNCTIONS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = REPLACE_WITH_YOUR_FUNCTIONS.swift; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewApps/REPLACE_WITH_YOUR_FUNCTIONS.swift"; sourceTree = "<absolute>"; };
 		3B7D83D72A8A3069008A4B2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/smitty/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewCode/Assets.xcassets"; sourceTree = "<absolute>"; };
 		3B95C92F2666222D00C7CC14 /* Licences.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licences.md; sourceTree = "<group>"; };
 		3B9706792E79432C00FACE20 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = AppIcon.icon; path = "../../../Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/PreviewCode/AppIcon.icon"; sourceTree = "<group>"; };
-		3BA25E322F924D61003AB70C /* PCTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCTextField.swift; sourceTree = "<group>"; };
 		3BA5D03A269081BF00AF4EF2 /* PMFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMFont.swift; sourceTree = "<group>"; };
 		3BAE671A28D4D3AD001532BD /* AppDelegateFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateFonts.swift; sourceTree = "<group>"; };
 		3BB8E9102935FF7E00C6D452 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -275,8 +271,6 @@
 				3BDE3EF5267CE9890037351C /* AppDelegateMisc.swift */,
 				3B1A5B782E6097AA002AECE4 /* PMTabManager.swift */,
 				3BA5D03A269081BF00AF4EF2 /* PMFont.swift */,
-				3B6ABACB2669703800A436AA /* PCTextView.swift */,
-				3BA25E322F924D61003AB70C /* PCTextField.swift */,
 				3BD1778C2E61F62900313D34 /* PCThemeTableRowView.swift */,
 				3BFBEC3B2664058400B4E70C /* PCThemeTableCellView.swift */,
 				3B3F580C29D5892900E227C7 /* PCImageView.swift */,
@@ -545,8 +539,6 @@
 				3B0EC8512F6B1C0600C32894 /* Entities.swift in Sources */,
 				3B2D12E42E2A810500046D72 /* AppDelegateFeedback.swift in Sources */,
 				3B7D83D52A8A3034008A4B2E /* REPLACE_WITH_YOUR_CODES.swift in Sources */,
-				3BA25E332F924D61003AB70C /* PCTextField.swift in Sources */,
-				3BD177892E61B1DE00313D34 /* PCTextView.swift in Sources */,
 				3BFD78592663E2C9002AD588 /* Constants.swift in Sources */,
 				3B7D83D62A8A3034008A4B2E /* REPLACE_WITH_YOUR_FUNCTIONS.swift in Sources */,
 				3B2D12E62E2A82ED00046D72 /* AppDelegateWhatsNew.swift in Sources */,
@@ -635,7 +627,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -671,7 +663,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -841,7 +833,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -886,7 +878,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -1007,7 +999,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;
@@ -1044,7 +1036,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Y5J3K52DNA;

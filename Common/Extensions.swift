@@ -214,8 +214,8 @@ extension NSAttributedString {
         var parts: [NSAttributedString] = []
         let subStrings = self.string.components(separatedBy: separator)
         var range = NSRange(location: 0, length: 0)
-        for string in subStrings {
-            range.length = string.utf16.count
+        for subString in subStrings {
+            range.length = subString.utf16.count
             let attributedString = attributedSubstring(from: range)
             parts.append(attributedString)
             range.location += range.length + separator.utf16.count

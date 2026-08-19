@@ -165,13 +165,13 @@ class PreviewViewController: NSViewController,
                 errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_MD_STRING
             case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER:
                 errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_HIGHLIGHTER
-        default:
-            errDesc = "UNKNOWN ERROR"
+            default:
+                errDesc = "UNKNOWN ERROR"
         }
 
         return NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
-                    code: code,
-                    userInfo: [NSLocalizedDescriptionKey: errDesc])
+                       code: code,
+                       userInfo: [NSLocalizedDescriptionKey: errDesc])
     }
 
 
@@ -182,17 +182,20 @@ class PreviewViewController: NSViewController,
     */
     private func setPreviewWindowSize(_ settings: PCSettings) {
 
-        var screen: NSScreen = NSScreen.screens[0]
+        // This app will never be run headless, so this should not really be necessary
+        if NSScreen.screens.count > 0 {
+            var screen: NSScreen = NSScreen.screens[0]
 
-        // We've set `screen` to the primary, ie. menubar-displaying,
-        // screen, but ideally we should pick the screen with user focus.
-        // They may be one and the same, of course...
-        if let mainScreen = NSScreen.main, mainScreen != screen {
-            screen = mainScreen
+            // We've set `screen` to the primary, ie. menubar-displaying,
+            // screen, but ideally we should pick the screen with user focus.
+            // They may be one and the same, of course...
+            if let mainScreen = NSScreen.main, mainScreen != screen {
+                screen = mainScreen
+            }
+
+            let height = screen.frame.size.height * settings.previewWindowScale
+            let width = screen.frame.size.width * settings.previewWindowScale
+            self.preferredContentSize = NSSize(width: width, height: height)
         }
-
-        let height: CGFloat = screen.frame.size.height * settings.previewWindowScale
-        let width: CGFloat = screen.frame.size.width * settings.previewWindowScale
-        self.preferredContentSize = NSSize(width: width, height: height)
     }
 }

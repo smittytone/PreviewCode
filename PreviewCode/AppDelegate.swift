@@ -156,22 +156,20 @@ final class AppDelegate: NSResponder,
         self.defaultSettings.registerSettings(self.appSuiteName, getVersion())
 
         // Add the app's version number to the UI
-        let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let build: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "unknown"
         versionLabel.stringValue = "Version \(version) (\(build))"
 
         // Disable the Help menu Spotlight features
-        let dummyHelpMenu: NSMenu = NSMenu(title: "Dummy")
-        let theApp = NSApplication.shared
-        theApp.helpMenu = dummyHelpMenu
-        
+        NSApplication.shared.helpMenu = NSMenu(title: "Dummy")
+
         // FROM 1.2.0
         // Output language list for debugging
 #if DEBUG
-        if let hr: Highlighter = Highlighter() {
-            let list: [String] = hr.supportedLanguages()
+        if let hr = Highlighter() {
+            let languages = hr.supportedLanguages()
             print("***** Languages  *****")
-            for language in list {
+            for language in languages {
                 print(language)
             }
             print("**********************")
@@ -207,14 +205,14 @@ final class AppDelegate: NSResponder,
 
         // Set the `Settings` tab's tooltips
         initialiseSettings()
-        
-        // FROM 2.3.0
-        self.previewMarginSizeText.delegate = self
-        self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
 
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
         doShowWhatsNew(nil)
+
+        // FROM 2.3.0
+        self.previewMarginSizeText.delegate = self
+        self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
 
         // Centre the main window and display
         setInfoText()
@@ -274,9 +272,9 @@ final class AppDelegate: NSResponder,
 
         // Are there any unsaved changes to the settings?
         if checkSettingsOnQuit() {
-            let alert: NSAlert = makeAlert("You have unsaved settings",
-                                           "Do you wish to cancel and save or change them, or quit the app anyway?",
-                                           false)
+            let alert = makeAlert("You have unsaved settings",
+                                  "Do you wish to cancel and save or change them, or quit the app anyway?",
+                                  false)
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
             alert.beginSheetModal(for: self.window) { (response) in
@@ -305,9 +303,9 @@ final class AppDelegate: NSResponder,
 
         // Does the feeback page contain text? If so let the user know
         if self.feedbackText.stringValue.count > 0 && !self.hasSentFeedback {
-            let alert: NSAlert = makeAlert("You have unsent feedback",
-                                           "Do you wish to cancel and send it, or quit the app anyway?",
-                                           false)
+            let alert = makeAlert("You have unsent feedback",
+                                  "Do you wish to cancel and send it, or quit the app anyway?",
+                                  false)
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
             alert.beginSheetModal(for: self.window) { (response) in
@@ -337,9 +335,9 @@ final class AppDelegate: NSResponder,
     private func doShowSites(sender: Any) {
         
         // Open the websites for contributors, help and suc
-        let item: NSMenuItem = sender as! NSMenuItem
-        var path: String = BUFFOON_CONSTANTS.MAIN_URL
-        
+        guard let item = sender as? NSMenuItem else { return }
+        var path = BUFFOON_CONSTANTS.MAIN_URL
+
         // Depending on the menu selected, set the load path
         if item == self.helpMenuOnlineHelp {
             path += "#how-to-use-previewcode"
@@ -360,7 +358,10 @@ final class AppDelegate: NSResponder,
         }
         
         // Open the selected website
-        NSWorkspace.shared.open(URL(string:path)!)
+        // FROM 2.5.0 -- more safely
+        if let url = URL(string: path) {
+            NSWorkspace.shared.open(url)
+        }
     }
 
 
@@ -382,8 +383,9 @@ final class AppDelegate: NSResponder,
             path = BUFFOON_CONSTANTS.MAIN_URL + "#customise-the-preview"
         }
 
-        NSWorkspace.shared.open(URL(string:path)!)
-
+        if let url = URL(string: path) {
+            NSWorkspace.shared.open(url)
+        }
     }
 
 
@@ -430,8 +432,8 @@ final class AppDelegate: NSResponder,
             .foregroundColor: NSColor.labelColor
         ]
 
-        let infoText: NSMutableAttributedString = NSMutableAttributedString(string: "You need only run this app once, to register its Code Previewer and Code Thumbnailer application extensions with macOS. You can then manage these extensions in ", attributes: bodyAtts)
-        let boldText: NSAttributedString = NSAttributedString(string: "System Settings > Extensions > Quick Look", attributes: boldAtts)
+        let infoText = NSMutableAttributedString(string: "You need only run this app once, to register its Code Previewer and Code Thumbnailer application extensions with macOS. You can then manage these extensions in ", attributes: bodyAtts)
+        let boldText = NSAttributedString(string: "System Settings > Extensions > Quick Look", attributes: boldAtts)
         infoText.append(boldText)
         infoText.append(NSAttributedString(string: ".\n\nCases where previews cannot be rendered can usually be resolved by logging out of your Mac, logging in again and running this app once more.", attributes: bodyAtts))
         self.infoLabel.attributedStringValue = infoText

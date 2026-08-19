@@ -40,7 +40,7 @@ class PCImageView: NSImageView {
         
         super.draw(dirtyRect)
 
-        if let gc: NSGraphicsContext = NSGraphicsContext.current {
+        if let gc = NSGraphicsContext.current {
             // Lock the context
             gc.saveGraphicsState()
 
@@ -54,9 +54,9 @@ class PCImageView: NSImageView {
             }
 
             // Make the outline
-            let highlightPath: NSBezierPath = NSBezierPath(roundedRect: self.bounds,
-                                                           xRadius: 4.0,
-                                                           yRadius: 4.0)
+            let highlightPath = NSBezierPath(roundedRect: self.bounds,
+                                             xRadius: 4.0,
+                                             yRadius: 4.0)
             highlightPath.lineWidth = 2.0
             highlightPath.stroke()
 

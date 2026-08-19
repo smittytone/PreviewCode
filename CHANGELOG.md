@@ -4,7 +4,7 @@
     - Improve Thumbnail Provider's thread safety.
     - Improve Thumbnail Provider's error handling.
     - Improve Preview Provider's error handling.
-    - Better Psion `.opl` file detection and reading safety.
+    - Better Psion `.opl` file binary content detection and reading safety.
     - Minimise saving of default settings values.
     - Improve light mode checking.
     - Remove redundant code.

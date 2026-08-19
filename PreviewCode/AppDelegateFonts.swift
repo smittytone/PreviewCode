@@ -31,9 +31,9 @@ extension AppDelegate {
     internal func asyncGetFonts() {
 
         var cf: [PMFont] = []
-        let monoTrait: UInt = NSFontTraitMask.fixedPitchFontMask.rawValue
-        let fm: NSFontManager = NSFontManager.shared
-        let families: [String] = fm.availableFontFamilies
+        let monoTrait = NSFontTraitMask.fixedPitchFontMask.rawValue
+        let fm = NSFontManager.shared
+        let families = fm.availableFontFamilies
         for family in families {
             // Remove known unwanted fonts
             if family.hasPrefix(".") || family == "Apple Braille" || family == "Apple Color Emoji" {
@@ -41,17 +41,18 @@ extension AppDelegate {
             }
 
             // For each family, examine its fonts for suitable ones
-            if let fonts: [[Any]] = fm.availableMembers(ofFontFamily: family) {
+            if let fonts = fm.availableMembers(ofFontFamily: family) {
                 // This will hold a font family: individual fonts will be added to
                 // the 'styles' array
-                var familyRecord: PMFont = PMFont()
+                var familyRecord = PMFont()
                 familyRecord.displayName = family
 
-                for font: [Any] in fonts {
-                    let fontTraits: UInt = font[3] as! UInt
+                for font in fonts {
+                    let fontTraits = font[3] as! UInt
                     if monoTrait & fontTraits != 0 {
                         // The font is good to use, so add it to the list
-                        var fontRecord: PMFont = PMFont()
+                        var fontRecord = PMFont()
+                        // We can be fairly sure the following a typeable as described
                         fontRecord.postScriptName = font[0] as! String
                         fontRecord.styleName = font[1] as! String
                         fontRecord.traits = fontTraits
@@ -103,13 +104,13 @@ extension AppDelegate {
      */
     internal func setStylePopup(_ styleToSelect: String? = nil) {
         
-        if let selectedFamily: String = self.fontNamePopup.titleOfSelectedItem {
+        if let selectedFamily = self.fontNamePopup.titleOfSelectedItem {
             self.fontFacePopup.removeAllItems()
-            for family: PMFont in self.fonts {
+            for family in self.fonts {
                 if selectedFamily == family.displayName {
-                    if let styles: [PMFont] = family.styles {
+                    if let styles = family.styles {
                         self.fontFacePopup.isEnabled = true
-                        for style: PMFont in styles {
+                        for style in styles {
                             self.fontFacePopup.addItem(withTitle: style.styleName)
                         }
 
@@ -151,9 +152,9 @@ extension AppDelegate {
      */
     internal func selectFontByPostScriptName(_ postScriptName: String) {
 
-        for family: PMFont in self.fonts {
-            if let styles: [PMFont] = family.styles {
-                for style: PMFont in styles {
+        for family in self.fonts {
+            if let styles = family.styles {
+                for style in styles {
                     if style.postScriptName == postScriptName {
                         self.fontNamePopup.selectItem(withTitle: family.displayName)
                         setStylePopup(style.styleName)
@@ -180,8 +181,10 @@ extension AppDelegate {
             for family in self.fonts {
                 if family.displayName == selectedFont {
                     if let styles = family.styles {
-                        let font = styles[selectedStyle]
-                        return font.postScriptName
+                        if selectedStyle < styles.count {
+                            let font = styles[selectedStyle]
+                            return font.postScriptName
+                        }
                     }
                 }
             }

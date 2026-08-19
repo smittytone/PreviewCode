@@ -19,17 +19,17 @@ final internal class Common {
 
     // MARK: - Public Properties
 
-    var themeBackgroundColour: NSColor      = NSColor.white
-    var isThemeDark: Bool                   = false
-    var settings: PCSettings                = PCSettings()
+    var themeBackgroundColour: NSColor          = .white
+    var isThemeDark: Bool                       = false
+    var settings: PCSettings                    = PCSettings()
 
 
     // MARK: - Private Properties
 
-    private  var font: NSFont?               = nil
-    private  var highlighter: Highlighter?   = nil
+    private  var font: NSFont?                  = nil
+    private  var highlighter: Highlighter?      = nil
     // FROM 2.0.0
-    private  var isThumbnail: Bool          = false
+    private  var isThumbnail: Bool              = false
 
     /*
      Replace the following string with your own team ID. This is used to
@@ -87,10 +87,11 @@ final internal class Common {
         self.highlighter = Highlighter()
         guard let hltr = self.highlighter else { return nil }
         hltr.setTheme(highlightJsThemeName)
+        // We can be sure `self.font` is not nil from the previous `if let...` block
         hltr.theme.setCodeFont(self.font!)
 
         // Requires HighligherSwift 1.1.3
-        if !isThumbnail {
+        if !forThumbnail {
             hltr.theme.lineSpacing = (self.settings.lineSpacing - 1.0) * self.settings.fontSize
         }
 

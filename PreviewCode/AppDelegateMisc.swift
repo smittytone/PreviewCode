@@ -104,9 +104,9 @@ extension AppDelegate {
      */
     internal func getVersion() -> String {
 
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let parts = (version as NSString).components(separatedBy: ".")
-        return parts[0] + "-" + parts[1]
+        let bundleVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown.unknown"
+        let parts = bundleVersion.components(separatedBy: ".")
+        return parts.joined(separator: "-")
     }
 
 
@@ -137,9 +137,9 @@ extension AppDelegate {
 
         let sysVer = ProcessInfo.processInfo.operatingSystemVersion
         let bundle = Bundle.main
-        let app = bundle.object(forInfoDictionaryKey: "CFBundleExecutable") as! String
-        let version = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let build = bundle.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+        let app = bundle.object(forInfoDictionaryKey: "CFBundleExecutable") as? String ?? "PreviewCode"
+        let version = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+        let build = bundle.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "unknown"
         return "\(app)/\(version)-\(build) (macOS/\(sysVer.majorVersion).\(sysVer.minorVersion).\(sysVer.patchVersion))"
     }
 

@@ -45,9 +45,6 @@ extension AppDelegate {
         //      not be necessary here
         loadThemeList()
 
-        // Load the table with the current themes
-        //loadTable()
-
         // FROM 2.3.0
         // Update the UI
         setThemeControls()
@@ -133,11 +130,11 @@ extension AppDelegate {
         // If the user re-selects the current font family,
         // only update the style popup if a different family
         // has been selected
-        let item = sender as! NSPopUpButton
+        guard let item = sender as? NSPopUpButton else { return }
         if item == self.fontNamePopup {
-            let currentFontPSName = self.currentSettings.fontName as NSString
+            let currentFontPSName = self.currentSettings.fontName
             let selectedFontName = item.titleOfSelectedItem ?? BUFFOON_CONSTANTS.DEFAULTS.FONT_NAME
-            if !(currentFontPSName.contains(selectedFontName)) {
+            if !currentFontPSName.contains(selectedFontName) {
                 // Update the menu of available styles
                 // because a different font has been selected
                 setStylePopup(self.fontFacePopup.titleOfSelectedItem ?? "Regular")
@@ -248,13 +245,13 @@ extension AppDelegate {
     @IBAction
     internal func doApplyCurrentSettings(sender: Any) {
 
-         // First, make sure changes have been made
-         if checkSettingsOnQuit() {
-             // Changes are present, so save them.
-             // NOTE This call updates the current settings values from the Settings tab UI.
-             saveSettings()
-             willShowSettingsPage()
-         }
+        // First, make sure changes have been made
+        if checkSettingsOnQuit() {
+            // Changes are present, so save them.
+            // NOTE This call updates the current settings values from the Settings tab UI.
+            saveSettings()
+            willShowSettingsPage()
+        }
     }
 
 
@@ -268,11 +265,11 @@ extension AppDelegate {
      - Parameters:
         - sender: The source of the action.
      */
-   @IBAction
-   internal func doApplyDefaultSettings(sender: Any) {
+    @IBAction
+    internal func doApplyDefaultSettings(sender: Any) {
 
-       displaySettings(PCSettings())
-       willShowSettingsPage()
+        displaySettings(PCSettings())
+        willShowSettingsPage()
     }
 
 
@@ -314,11 +311,11 @@ extension AppDelegate {
             let codedName = codedName(i)
 
             if settings.lightThemeName == codedName {
-                self.lightThemeLabel.stringValue = theme["name"] as! String
+                self.lightThemeLabel.stringValue = theme["name"] as? String ?? BUFFOON_CONSTANTS.DEFAULTS.LIGHT_THEME
             }
 
             if settings.darkThemeName == codedName {
-                self.darkThemeLabel.stringValue = theme["name"] as! String
+                self.darkThemeLabel.stringValue = theme["name"] as? String ?? BUFFOON_CONSTANTS.DEFAULTS.DARK_THEME
             }
         }
 
@@ -344,7 +341,6 @@ extension AppDelegate {
         }
 
         // FROM 2.0.0
-        //self.showLineNumbersCheckbox.state = settings.doShowLineNumbers ? .on : .off
         self.showLineNumbersSwitch.state = settings.doShowLineNumbers ? .on : .off
 
         // FROM 2.3.0
@@ -741,28 +737,32 @@ extension AppDelegate {
         
         // FROM 1.1.0
         // Theme list is now a JSON file
-        var themeMap: ThemeRecord = [:]
+        var themeMap: ThemeRecord? = nil
         if let data = themesString.data(using: .utf8) {
-            themeMap = try! JSONSerialization.jsonObject(with: data,  options: []) as! [String: Any]
+            themeMap = try? JSONSerialization.jsonObject(with: data,  options: []) as? [String: Any]
         }
         
         // Set the theme selection
         // Remember this called only one per run
-        self.themes = themeMap["themes"] as! [ThemeRecord]
-        for i in 0..<self.themes.count {
-            // Record themes by type: these subset arrays
-            // record indices from from the main array
-            let theme = self.themes[i]
-            let isDark = theme["dark"] as! Bool
-            if isDark {
-                self.darkThemes.append(i)
-            } else {
-                self.lightThemes.append(i)
-            }
-            
+        if let tm = themeMap {
+            self.themes = tm["themes"] as! [ThemeRecord]
+            for i in 0..<self.themes.count {
+                // Record themes by type: these subset arrays
+                // record indices from from the main array
+                let theme = self.themes[i]
+                let isDark = theme["dark"] as! Bool
+                if isDark {
+                    self.darkThemes.append(i)
+                } else {
+                    self.lightThemes.append(i)
+                }
+
 #if DEBUG
-            print("\(i + 1) \(theme["name"] as! String) " + (isDark ? "[D]" : "[L]"))
+                print("\(i + 1) \(theme["name"] as! String) " + (isDark ? "[D]" : "[L]"))
 #endif
+            }
+        } else {
+            // ERROR - Could not load or process app's interior JSON file
         }
     }
 
@@ -809,8 +809,8 @@ extension AppDelegate {
     private func doRenderThemes(_ sender: Any) {
 
         // FROM 2.3.1 -- bump size to @2x
-        let renderFrame: CGRect = NSMakeRect(0, 0, 512, 268)
-        let fm = FileManager()
+        let renderFrame = NSMakeRect(0, 0, 512, 268)
+        let fm = FileManager.default
         let homeFolder = fm.homeDirectoryForCurrentUser.path
         guard let common = Common(forThumbnail: false) else { return }
 
@@ -865,7 +865,7 @@ extension AppDelegate {
             let name = codedName(i)
             common.updateTheme(name)
             let pas = common.getAttributedString(loadedCode, "swift")
-            let ptv = PCTextView(frame: renderFrame)
+            let ptv = NSTextView(frame: renderFrame)
             ptv.isSelectable = false
 
             if let renderTextStorage = ptv.textStorage {
@@ -1081,7 +1081,7 @@ extension AppDelegate {
          * so on.
          */
         
-        if let chars: String = event.charactersIgnoringModifiers {
+        if let chars = event.charactersIgnoringModifiers {
             // Get the tapped character -- should be only one
             var char = String(chars.first!)
             if char.isEmpty || char.range(of: "[a-z]", options: .regularExpression) == nil {
@@ -1106,7 +1106,7 @@ extension AppDelegate {
                 // Reached the end without a selection?
                 // Select the last item on the list and exit
                 if char == "z" {
-                    if let idx: IndexSet = getSelectionIndex(self.themes.count - 1) {
+                    if let idx = getSelectionIndex(self.themes.count - 1) {
                         self.nuThemeTable.selectRowIndexes(idx, byExtendingSelection: false)
                         self.nuThemeTable.scrollRowToVisible(getRowIndex(self.themes.count - 1))
                         //self.preferencesWindow.makeFirstResponder(self.themeTable)

@@ -16,11 +16,11 @@ extension AppDelegate {
     /**
      Show the 'What's New' sheet.
  
-     If we're on a new, non-patch version, of the user has explicitly
-     asked to see it with a menu click See if we're coming from a menu click
-     (`sender != self`) or directly in code from *appDidFinishLoading()*
-     (`sender == self`)
- 
+     Show if we're on a new, non-patch version, or the user has explicitly
+     asked to see it with a menu click. See if we're coming from a menu click
+     (`sender != nil`) or directly in code from *appDidFinishLoading()*
+     (`sender == nil`)
+
      - Parameters:
         - sender: The source of the action.
      */
@@ -29,8 +29,9 @@ extension AppDelegate {
 
         // Check how we got here: programmatically (`nil` passed in) or
         // from menu click (menu reference passed in)
-        var doShowSheet = false
-        if sender == nil {
+        var doShowSheet = sender != nil
+
+        if !doShowSheet {
             // We are coming from the 'appDidFinishLoading()' so check
             // if we need to show the sheet by the checking the prefs
             if let defaults = UserDefaults(suiteName: self.appSuiteName) {
@@ -38,8 +39,6 @@ extension AppDelegate {
                 let key = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
                 doShowSheet = defaults.bool(forKey: key)
             }
-        } else {
-            doShowSheet = true
         }
 
         // Configure and show the sheet
