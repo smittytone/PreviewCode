@@ -1,9 +1,9 @@
 /*
  *  AppDelegateFeedback.swift
- *  PreviewCode
+ *  PreviewApps
  *  Extension for AppDelegate providing feedback handling functionality.
  *
- *  Created by Tony Smith on 18/07/2025.
+ *  Created by Tony Smith on 08/10/2024.
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
@@ -14,8 +14,6 @@ extension AppDelegate {
 
     /**
      Set up the UI for the first time.
-
-     FROM 2.0.0
      */
     internal func initialiseFeedback() {
 
@@ -28,55 +26,39 @@ extension AppDelegate {
 
 
     /**
-     Update UI when we are about to switch to it.
-
-     // FROM 2.0.0
+     Update UI when we are about to switch to it
      */
+    @MainActor
     internal func willShowFeedbackPage() {
 
         // Disable the Feedback > Send button if we have sent a message.
         // It will be re-enabled by typing something
         self.messageSendButton.isEnabled = (!self.feedbackText.stringValue.isEmpty && !self.hasSentFeedback)
-
-        // Move focus to the feedback textfield
-        // NOTE Doesn't work, so commented out for now
-        //self.feedbackText.currentEditor()?.beginDocument()
     }
 
 
     /**
      Check if feedback has been entered and, if so, whether it has been sent.
 
-     FROM 2.0.0
-
-     - Returns: `true` if there is feedback to warn the user about, otherwise `false`.
+     - Returns:
+        `true` if there is feedback to warn the user about, otherwise `false`.
      */
     internal func checkFeedbackOnQuit() -> Bool {
 
-        // If the user has never accessed the page
-        if self.feedbackText.stringValue.isEmpty || self.hasSentFeedback {
-            return false
-        }
-
-        return true
+        return !(self.feedbackText.stringValue.isEmpty || self.hasSentFeedback)
     }
 
 
     /**
-     User has clicked the `Send` button.
-
-     Get the message (if there is one) from the text field and submit it.
-     
-     - Parameters:
-        - sender: The source of the action.
+     The user clicked the Feedback > Send button, so get the message (if there is one)
+     from the text field and send it off.
      */
-    @IBAction
     @objc
+    @IBAction
     private func doSendFeedback(sender: Any) {
 
         let feedback = self.feedbackText.stringValue
         if !feedback.isEmpty  && !self.hasSentFeedback {
-            // FROM 2.2.4
             // Use Swift Concurrency
             // NOTE Use of Task and closure required because @IBAction functions
             //      cannot be `async`, but we make an `await` call later on
@@ -91,10 +73,10 @@ extension AppDelegate {
                 self.connectionProgress.stopAnimation(self)
                 if error.code != .noError {
                     // Error - inform the user
-                    presentFeedbackError(error)
+                    await presentFeedbackError(error)
                 } else {
                     // No error - feedback sent successfully
-                    presentFeedbackSuccess()
+                    await presentFeedbackSuccess()
                 }
             }
         }
@@ -106,45 +88,43 @@ extension AppDelegate {
     /**
      Present an error message specific to sending feedback.
 
-     - Parameters:
-        - error - An Error of type struct FeedbackError.
+     This is called from multiple locations: if the initial request can't be created,
+     there was a send failure, or a server error.
      */
-    internal func presentFeedbackError(_ error: FeedbackError) {
+    internal func presentFeedbackError(_ error: FeedbackError) async {
 
+        hidePanelGenerators()
         let alert = makeAlert("Feedback Could Not Be Sent",
                               "Unfortunately, your comments could not be send at this time. Please try again later.\n\nReason: \(error.localizedDescription)")
-        alert.beginSheetModal(for: self.window) { (resp) in
-            self.showPanelGenerators()
-        }
+
+        let _ = await alert.beginSheetModal(for: self.window)
+        self.showPanelGenerators()
     }
 
 
     /**
      Present a message on successfully sending feedback.
-
-     FROM 2.2.4
      */
-    internal func presentFeedbackSuccess() {
+    internal func presentFeedbackSuccess() async {
 
         let alert = makeAlert("Thanks For Your Feedback!",
                               "Your comments have been received and we’ll take a look at them shortly.")
-        alert.beginSheetModal(for: self.window) { (resp) in
-            self.showPanelGenerators()
-            self.hasSentFeedback = true
-            self.messageSendButton.isEnabled = false
-        }
+
+        let _ = await alert.beginSheetModal(for: self.window)
+        self.showPanelGenerators()
+        self.hasSentFeedback = true
+        self.messageSendButton.isEnabled = false
     }
 
 
     // MARK: - NSTextFieldDelegate Functions
 
     func controlTextDidChange(_ note: Notification) {
-        
+
         // Trap text changes so that no more than
         // can be entered into the text field
 
         if self.feedbackText.stringValue.count > BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE {
-            // FROM 2.2.4
             // Chop the feedback field's attributed string, not its plain string
             let attStr = NSMutableAttributedString(attributedString: self.feedbackText.attributedStringValue)
             attStr.deleteCharacters(in: NSRange(location: BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE, length: attStr.length - BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE))
@@ -171,12 +151,12 @@ extension AppDelegate {
      */
     func flashField() {
 
-        // FROM 2.2.4
         // Make sure we don't have a timer in play
         guard self.timer == nil else { return }
 
         // Set the background to colour red
-        // Already runs on `MainActor` as thius function is called by an NSTextFieldDelegate method
+        // NOTE Already being run on `MainActor` as this function is called by an
+        //      NSTextFieldDelegate method, `controlTextDidChange()`
         self.feedbackText.isEnabled = false
         self.feedbackText.backgroundColor = .red
         self.feedbackText.textColor = .white
@@ -185,9 +165,8 @@ extension AppDelegate {
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { (timer) in
             timer.invalidate()
 
-            // FROM 2.2.4
-            // Migrate to Swift Concurrency
             // Must run on `MainActor` and we set `.high` so it's done immediately
+            // See Note above, but we follow that pattern here to silence build errors
             Task(priority: .high) {
                 await MainActor.run {
                     self.feedbackText.backgroundColor = .textBackgroundColor

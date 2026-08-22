@@ -1,5 +1,5 @@
 /*
- *  AppDelegateSettings.swift
+ *  PCAppDelegateSettings.swift
  *  PreviewCode
  *  Extension for AppDelegate providing settings handling functionality.
  *
@@ -413,7 +413,7 @@ extension AppDelegate {
 
      FROM 2.0.0
      */
-    internal func populateSettings() {
+    internal func loadSettings() {
 
         // Get the settings off the disk
         self.currentSettings.loadSettings(self.appSuiteName)

@@ -5,6 +5,7 @@
     - Improve Thumbnail Provider's error handling.
     - Improve Preview Provider's error handling.
     - Better Psion `.opl` file binary content detection and reading safety.
+    - Adopt `org.tug.tex` UTI for `.tex` files.
     - Minimise saving of default settings values.
     - Improve light mode checking.
     - Remove redundant code.

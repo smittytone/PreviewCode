@@ -1,5 +1,5 @@
 /*
- *  PMTabManager.swift
+ *  PATabManager.swift
  *  PreviewApps
  *
  *  Created by Tony Smith on 30/09/2024.
@@ -14,7 +14,7 @@ import AppKit
     Manager class for the tabless NSTabView.
  */
 
-class PMTabManager {
+class PATabManager {
 
     // MARK: - Public Properties
 

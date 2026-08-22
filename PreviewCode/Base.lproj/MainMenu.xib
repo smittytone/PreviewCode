@@ -291,7 +291,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="760" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1409"/>
             <value key="minSize" type="size" width="760" height="600"/>
             <value key="maxSize" type="size" width="760" height="600"/>
             <value key="minFullScreenContentSize" type="size" width="760" height="600"/>
@@ -344,7 +344,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="717" width="800" height="400"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1409"/>
             <value key="minSize" type="size" width="800" height="400"/>
             <value key="maxSize" type="size" width="800" height="400"/>
             <value key="minFullScreenContentSize" type="size" width="800" height="400"/>
@@ -1215,7 +1215,7 @@ running this app once more.</string>
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="206" width="600" height="220"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1204"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1409"/>
             <value key="minSize" type="size" width="600" height="220"/>
             <value key="maxSize" type="size" width="600" height="220"/>
             <value key="minFullScreenContentSize" type="size" width="600" height="220"/>

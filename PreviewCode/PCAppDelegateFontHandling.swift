@@ -11,7 +11,6 @@
 
 import AppKit
 import WebKit
-import UniformTypeIdentifiers
 
 
 extension AppDelegate {
@@ -30,8 +29,10 @@ extension AppDelegate {
      */
     internal func asyncGetFonts() {
 
-        var cf: [PMFont] = []
+        var cf: [PAFont] = []
+
         let monoTrait = NSFontTraitMask.fixedPitchFontMask.rawValue
+
         let fm = NSFontManager.shared
         let families = fm.availableFontFamilies
         for family in families {
@@ -44,17 +45,16 @@ extension AppDelegate {
             if let fonts = fm.availableMembers(ofFontFamily: family) {
                 // This will hold a font family: individual fonts will be added to
                 // the 'styles' array
-                var familyRecord = PMFont()
+                var familyRecord = PAFont()
                 familyRecord.displayName = family
 
                 for font in fonts {
-                    let fontTraits = font[3] as! UInt
+                    let fontTraits = font[3] as? UInt ?? 0
                     if monoTrait & fontTraits != 0 {
-                        // The font is good to use, so add it to the list
-                        var fontRecord = PMFont()
+                        var fontRecord = PAFont()
                         // We can be fairly sure the following a typeable as described
-                        fontRecord.postScriptName = font[0] as! String
-                        fontRecord.styleName = font[1] as! String
+                        fontRecord.postScriptName = font[0] as? String ?? "error"
+                        fontRecord.styleName = font[1] as? String ?? "error"
                         fontRecord.traits = fontTraits
 
                         if familyRecord.styles == nil {
@@ -83,7 +83,7 @@ extension AppDelegate {
             // blocking it until the closure completes
             await MainActor.run {
                 self.fonts = cf
-                self.populateSettings()
+                self.loadSettings()
             }
              */
 
@@ -91,7 +91,7 @@ extension AppDelegate {
             // when the main thread becomes free
             @MainActor in
                 self.fonts = cf
-                self.populateSettings()
+                self.loadSettings()
         }
     }
     

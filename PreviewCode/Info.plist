@@ -225,26 +225,6 @@
 				<string>public.source-code</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>LaTEX Markup</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>com.bps.latex-source</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>latex</string>
-					<string>tex</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.source-code</string>
-			</array>
-			<key>UTTypeDescription</key>
 			<string>Elixir Source</string>
 			<key>UTTypeIcons</key>
 			<dict/>
@@ -1514,7 +1494,6 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>latex</string>
-					<string>tex</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -1710,6 +1689,25 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>bash</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Tex</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>org.tug.tex</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tex</string>
 				</array>
 			</dict>
 		</dict>

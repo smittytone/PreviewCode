@@ -1,5 +1,6 @@
 /*
- *  Entities.swift
+ *  PAEntities.swift
+ *  PreviewApps
  *
  *  Created by Tony Smith on 18/03/2026.
  *  Copyright © 2026 Tony Smith. All rights reserved.
@@ -7,6 +8,10 @@
 
 import Foundation
 
+
+/**
+ Async-issued feedback posting error strings and types.
+ */
 
 public struct FeedbackError: Error, LocalizedError {
 

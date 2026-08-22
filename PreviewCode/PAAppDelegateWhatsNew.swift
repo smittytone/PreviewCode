@@ -1,25 +1,23 @@
 /*
  *  AppDelegateWhatsNew.swift
- *  PreviewCode
+ *  PreviewApps
  *  Extension for AppDelegate providing What's New sheet functionality.
  *
- *  Created by Tony Smith on 18/07/2025.
+ *  Created by Tony Smith on 10/10/2024.
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
+
 import AppKit
-import WebKit
 
 
 extension AppDelegate {
 
     /**
-     Show the 'What's New' sheet.
- 
-     Show if we're on a new, non-patch version, or the user has explicitly
-     asked to see it with a menu click. See if we're coming from a menu click
-     (`sender != nil`) or directly in code from *appDidFinishLoading()*
-     (`sender == nil`)
+     Show the **What's New** sheet.
+
+     See if we're coming from a menu click (`sender != self`) or directly
+     in code from *appDidFinishLoading()* (`sender == nil`)
 
      - Parameters:
         - sender: The source of the action.
@@ -43,18 +41,18 @@ extension AppDelegate {
 
         // Configure and show the sheet
         if doShowSheet {
-            // FROM 1.2.5
-            // Hide menus we don't want used while the panel is open
+            // Hide menus we don't want used while panel is open
             hidePanelGenerators()
-            
+
             // First, get the folder path
             let htmlFolderPath = Bundle.main.resourcePath! + "/new"
 
-            //Set up the WKWebBiew: no elasticity, horizontal scroller
+            // Set WebView properties: limit scrollers and elasticity
             self.whatsNewWebView.enclosingScrollView?.hasHorizontalScroller = false
             self.whatsNewWebView.enclosingScrollView?.horizontalScrollElasticity = .none
             self.whatsNewWebView.enclosingScrollView?.verticalScrollElasticity = .none
             self.whatsNewWebView.configuration.suppressesIncrementalRendering = true
+            self.whatsNewWebView.configuration.limitsNavigationsToAppBoundDomains = true
 
             // Just in case, make sure we can load the file
             if FileManager.default.fileExists(atPath: htmlFolderPath) {
@@ -67,61 +65,36 @@ extension AppDelegate {
 
 
     /**
-     Close the 'What's New' sheet.
-     
+     Close the **What's New** sheet.
+
      Make sure we clear the preference flag for this minor version, so that
      the sheet is not displayed next time the app is run (unless the version changes)
-     
+
      - Parameters:
         - sender: The source of the action.
      */
     @IBAction
-    private func doCloseWhatsNew(_ sender: Any) {
+    internal func doCloseWhatsNew(_ sender: Any) {
 
-         // Close the sheet
-         self.window.endSheet(self.whatsNewWindow)
-        
-         // Scroll the web view back to the top
-         self.whatsNewWebView.evaluateJavaScript("window.scrollTo(0,0)", completionHandler: nil)
+        // Close the sheet
+        self.window.endSheet(self.whatsNewWindow)
 
-         // Set this version's preference
-         if let defaults = UserDefaults(suiteName: self.appSuiteName) {
-             let key = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
-             defaults.setValue(false, forKey: key)
+        // Scroll the web view back to the top
+        self.whatsNewWebView.evaluateJavaScript("window.scrollTo(0,0)", completionHandler: nil)
 
+        // Set this version's preference
+        if let defaults = UserDefaults(suiteName: self.appSuiteName) {
+            let key = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + getVersion()
 #if DEBUG
-             print("\(key) reset back to true")
-             defaults.setValue(true, forKey: key)
+            print("\(key) reset back to true")
+            defaults.setValue(true, forKey: key)
+#else
+            defaults.setValue(false, forKey: key)
 #endif
-         }
-         
-         // FROM 1.2.5
-         // Restore menus
-         showPanelGenerators()
-    }
-
-
-    // MARK: - WKWebNavigation Delegate Functions
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-
-        // Asynchronously show the sheet once the HTML has loaded
-        // (triggered by delegate method)
-
-        if let nav = self.whatsNewNav {
-            if nav == navigation {
-                // Display the sheet
-                // FROM 1.3.2 -- add timer to prevent 'white flash'
-                Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { timer in
-                    timer.invalidate()
-                    // FROM 2.2.4
-                    // Run call on main thread using Swift Concurrency
-                    Task { @MainActor in
-                        self.window.beginSheet(self.whatsNewWindow, completionHandler: nil)
-                    }
-                }
-            }
         }
+
+        // Restore menus
+        showPanelGenerators()
     }
 
 }

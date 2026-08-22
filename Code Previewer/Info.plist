@@ -113,6 +113,7 @@
 				<string>com.bps.vuejs-source</string>
 				<string>com.bps.elm-source</string>
 				<string>com.bps.typescript-source</string>
+				<string>org.tug.tex</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

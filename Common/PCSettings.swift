@@ -125,7 +125,7 @@ final class PCSettings {
             // FROM 1.3.0
             // Line spacing
             // Default: 1.0
-            let lineSpacing:Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
+            let lineSpacing: Any? = defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
             if lineSpacing == nil {
                 defaults.setValue(BUFFOON_CONSTANTS.DEFAULTS.LINE_SPACING,
                                   forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_LINE_SPACING)
@@ -160,7 +160,7 @@ final class PCSettings {
             // this will persist, but with each new major and/or minor version, we make a
             // new preference that will be read by 'doShowWhatsNew()' to see if the sheet
             // should be shown this run
-            let key: String = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + version
+            let key = BUFFOON_CONSTANTS.PREFS_IDS.MAIN_WHATS_NEW + version
             let showNewDefault: Any? = defaults.object(forKey: key)
             if showNewDefault == nil {
                 defaults.setValue(true, forKey: key)

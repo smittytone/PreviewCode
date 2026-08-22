@@ -109,7 +109,7 @@ final class AppDelegate: NSResponder,
     internal var currentSettings: PCSettings    = PCSettings()
     internal let defaultSettings: PCSettings    = PCSettings()
     internal var whatsNewNav: WKNavigation?     = nil
-    internal var fonts: [PMFont]                = []
+    internal var fonts: [PAFont]                = []
     internal var themes: [ThemeRecord]          = []
     internal var darkThemes: [Int]              = []
     internal var lightThemes: [Int]             = []
@@ -117,7 +117,7 @@ final class AppDelegate: NSResponder,
     internal var darkThemeIndex: Int            = 30    // atom-one-dark
     internal var lightThemeIndex: Int           = 29    // atom-one-light
     // FROM 2.0.0
-    private  var tabManager: PMTabManager       = PMTabManager()
+    private  var tabManager: PATabManager       = PATabManager()
     internal var hasSentFeedback: Bool          = false
     // FROM 2.2.4
     internal var oldMag: CGFloat                = 0.0
@@ -145,7 +145,7 @@ final class AppDelegate: NSResponder,
 #endif
 
         // Pre-load fonts in a separate thread
-        // NOTE This ultimately calls `AppDelegateSettings.populateSettings()` which we delay until after the fonts
+        // NOTE This ultimately calls `AppDelegateSettings.loadSettings()` which we delay until after the fonts
         //      have loaded asynchronously because they reference loaded fonts.
         // FROM 2.4.1 - Upgrade to Swift Concurrency
         Task {
@@ -206,13 +206,13 @@ final class AppDelegate: NSResponder,
         // Set the `Settings` tab's tooltips
         initialiseSettings()
 
-        // Show the `What's New` panel if we need to
-        // NOTE Has to take place at the end of the function
-        doShowWhatsNew(nil)
-
         // FROM 2.3.0
         self.previewMarginSizeText.delegate = self
         self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
+
+        // Show the `What's New` panel if we need to
+        // NOTE Has to take place at the end of the function
+        doShowWhatsNew(nil)
 
         // Centre the main window and display
         setInfoText()
@@ -238,10 +238,12 @@ final class AppDelegate: NSResponder,
         - sender: The source of the action.
      */
     @IBAction
-    private func doClose(_ sender: Any) {
+    internal func doClose(_ sender: Any) {
 
-        closeBasics()
-        closeSettings()
+        Task { @MainActor in
+            await closeBasics()
+            await closeSettings()
+        }
     }
 
 
@@ -250,10 +252,7 @@ final class AppDelegate: NSResponder,
 
      FROM 2.0.0
      */
-    internal func closeBasics() {
-
-        // Reset the QL thumbnail cache... just in case (don't think this does anything)
-        _ = runProcess(app: "/usr/bin/qlmanage", with: ["-r", "cache"])
+    internal func closeBasics() async {
 
         // Close the What's New sheet if it's open
         if self.whatsNewWindow.isVisible {
@@ -268,7 +267,7 @@ final class AppDelegate: NSResponder,
 
      FROM 2.0.0
      */
-    internal func closeSettings() {
+    internal func closeSettings() async {
 
         // Are there any unsaved changes to the settings?
         if checkSettingsOnQuit() {
@@ -277,19 +276,16 @@ final class AppDelegate: NSResponder,
                                   false)
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
-            alert.beginSheetModal(for: self.window) { (response) in
-                if response == .alertFirstButtonReturn {
-                    // The user clicked 'Quit': now check for feedback changes
-                    self.closeFeedback()
-                }
-            }
 
-            // Exit the close process to allow the user to save their changed settings
-            return
+            let response = await alert.beginSheetModal(for: self.window)
+            if response != .alertFirstButtonReturn {
+                // The user clicked 'Cancel'
+                return
+            }
         }
 
         // Move on to the next phase: the feedback check
-        closeFeedback()
+        await closeFeedback()
     }
 
 
@@ -299,7 +295,7 @@ final class AppDelegate: NSResponder,
 
      FROM 2.0.0
      */
-    internal func closeFeedback() {
+    internal func closeFeedback() async {
 
         // Does the feeback page contain text? If so let the user know
         if self.feedbackText.stringValue.count > 0 && !self.hasSentFeedback {
@@ -308,15 +304,12 @@ final class AppDelegate: NSResponder,
                                   false)
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
-            alert.beginSheetModal(for: self.window) { (response) in
-                if response == .alertFirstButtonReturn {
-                    // The user clicked 'Quit'
-                    self.window.close()
-                }
-            }
 
-            // Exit the close process to allow the user to send their entered feedback
-            return
+            let response = await alert.beginSheetModal(for: self.window)
+            if response != .alertFirstButtonReturn {
+                // The user clicked 'Cancel'
+                return
+            }
         }
 
         // No feedback text to send/ignore so close the window which will trigger an app closure
@@ -330,8 +323,8 @@ final class AppDelegate: NSResponder,
      - Parameters:
         - sender: The source of the action.
      */
-    @IBAction
     @objc
+    @IBAction
     private func doShowSites(sender: Any) {
         
         // Open the websites for contributors, help and suc
@@ -358,7 +351,7 @@ final class AppDelegate: NSResponder,
         }
         
         // Open the selected website
-        // FROM 2.5.0 -- more safely
+        // FROM 2.2.3 -- more safely
         if let url = URL(string: path) {
             NSWorkspace.shared.open(url)
         }
@@ -383,6 +376,8 @@ final class AppDelegate: NSResponder,
             path = BUFFOON_CONSTANTS.MAIN_URL + "#customise-the-preview"
         }
 
+        // Open the selected website
+        // FROM 2.2.3 -- more safely
         if let url = URL(string: path) {
             NSWorkspace.shared.open(url)
         }
@@ -439,28 +434,5 @@ final class AppDelegate: NSResponder,
         self.infoLabel.attributedStringValue = infoText
     }
 
-
-    // MARK: - NSWindowDelegate Functions
-
-    /**
-     Catch when the user clicks on the window's red close button.
-
-     FROM 2.0.0
-     */
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
-
-        if !checkFeedbackOnQuit() && !checkSettingsOnQuit() {
-            // No unsaved settings or unsent feedback, so we're good to close
-            return true
-        }
-
-        // Close mmanually
-        // NOTE The above check will fail if there are settings changes and/or
-        //      unsent feedback, in which case the following calls will trigger
-        //      alerts
-        closeBasics()
-        closeSettings()
-        return false
-    }
 }
 

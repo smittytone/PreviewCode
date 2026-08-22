@@ -350,22 +350,9 @@ final internal class Common {
         // Create a URL reference to the sample file
         var sourceFileUTI = ""
         let sourceFileURL = URL(fileURLWithPath: sourceFilePath)
-
-        do {
-            // Read back the UTI from the URL
-            // Use Big Sur's UTType API
-            if #available(macOS 11, *) {
-                if let uti = try sourceFileURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
-                    sourceFileUTI = uti.identifier
-                }
-            } else {
-                // NOTE '.typeIdentifier' yields an optional
-                if let uti = try sourceFileURL.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier {
-                    sourceFileUTI = uti
-                }
-            }
-        } catch {
-            // NOP
+        // Call below is deprecated but replacement requires macOS 13
+        if let uti = try? sourceFileURL.resourceValues(forKeys: [.contentTypeKey]).contentType {
+            sourceFileUTI = uti.identifier
         }
 
         return sourceFileUTI

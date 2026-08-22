@@ -119,6 +119,9 @@ struct BUFFOON_CONSTANTS {
         static let WINDOW_SIZE_S                = 0.42
     }
 
+    // FROM 2.3.3
+    static let APP_NAME                         = "PreviewCode"
+
 
     /*
      These entries are now no longer used. They are retained here for reference
