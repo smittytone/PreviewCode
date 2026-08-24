@@ -13,6 +13,8 @@ import Highlighter
 
 extension AppDelegate {
 
+    // MARK: - Operational Functions
+    
     /**
      Initialise UI elements.
 
@@ -49,13 +51,6 @@ extension AppDelegate {
         // Update the UI
         setThemeControls()
 
-        // Enable the Apply button if something has changed
-        self.applyButton.isEnabled = checkSettingsOnQuit()
-
-        // Make the table the first responder
-        //self.feedbackText.resignFirstResponder()
-        self.window.makeFirstResponder(self)
-
         // FROM 2.2.6
         // Fix track colour on macOS 26
         if #available(macOS 26.0, *) {
@@ -71,6 +66,12 @@ extension AppDelegate {
             self.tintThumbnailsAdvancedLabel.isEnabled = false
             self.tintThumbnailsAdvancedSwitch.isEnabled = false
         }
+
+        // Enable the Apply button if something has changed
+        self.applyButton.isEnabled = checkSettingsOnQuit()
+
+        // Make the table the first responder
+        self.window.makeFirstResponder(self)
     }
 
 

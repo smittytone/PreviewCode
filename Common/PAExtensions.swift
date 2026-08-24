@@ -1,12 +1,11 @@
 /*
- *  Extensions.swift
- *  Code common to Previewer and Thumbnailer: Swift Extensions
+ *  PAExtension.swift
+ *  PreviewApps
  *
- *  Created by Tony Smith on 17/09/2024.
+ *  Created by Tony Smith on 18/06/2021.
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
-import Foundation
 import AppKit
 
 
@@ -79,6 +78,29 @@ extension NSMutableAttributedString {
 
 
 extension NSAttributedString {
+
+    /**
+     Return the width of the rendered string in points.
+     */
+    var width: CGFloat {
+        let rectA = boundingRect(
+          with: NSSize(width: Double.infinity, height: Double.infinity),
+          options: [.usesLineFragmentOrigin]
+        )
+
+        let textStorage = NSTextStorage(attributedString: self)
+        let textContainer = NSTextContainer()
+        let layoutManager = NSLayoutManager()
+
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        textContainer.lineFragmentPadding = 0.0
+        layoutManager.glyphRange(for: textContainer)
+
+        let rectB = layoutManager.usedRect(for: textContainer)
+        return ceil(max(rectA.width, rectB.width))
+    }
+
 
     /**
      Split the instance as per splitting a regular string.

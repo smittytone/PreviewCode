@@ -6,6 +6,8 @@
 //
 
 import AppKit
+import Highlighter
+
 
 extension AppDelegate {
 
@@ -24,6 +26,29 @@ extension AppDelegate {
     internal func localShows() {
 
         self.helpMenuReportBug.isEnabled = true
+    }
+
+
+    internal func localApplicationDidFinishLaunching() {
+
+#if DEBUG
+        // FROM 1.1.0
+        // Use for rendering theme selection graphics
+        self.helpMenuRenderThemes.isHidden = false
+#endif
+
+#if DEBUG
+        // FROM 1.2.0
+        // Output language list for debugging
+        if let hr = Highlighter() {
+            let languages = hr.supportedLanguages()
+            print("***** Languages  *****")
+            for language in languages {
+                print(language)
+            }
+            print("**********************")
+        }
+#endif
     }
 
 }

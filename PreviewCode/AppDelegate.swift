@@ -137,16 +137,11 @@ final class AppDelegate: NSResponder,
     // MARK: - Class Lifecycle Functions
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        
-        // FROM 1.1.0
-        // Use for rendering theme selection graphics
-#if DEBUG
-        self.helpMenuRenderThemes.isHidden = false
-#endif
 
         // Pre-load fonts in a separate thread
-        // NOTE This ultimately calls `AppDelegateSettings.loadSettings()` which we delay until after the fonts
-        //      have loaded asynchronously because they reference loaded fonts.
+        // NOTE This ultimately calls `AppDelegateSettings.loadSettings()`
+        //      which we delay until after the fonts have loaded asynchronously
+        //      because they reference loaded fonts.
         // FROM 2.4.1 - Upgrade to Swift Concurrency
         Task {
             asyncGetFonts()
@@ -155,26 +150,15 @@ final class AppDelegate: NSResponder,
         // Set application group-level defaults
         self.defaultSettings.registerSettings(self.appSuiteName, getVersion())
 
-        // Add the app's version number to the UI
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
-        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "unknown"
-        versionLabel.stringValue = "Version \(version) (\(build))"
-
         // Disable the Help menu Spotlight features
         NSApplication.shared.helpMenu = NSMenu(title: "Dummy")
 
-        // FROM 1.2.0
-        // Output language list for debugging
-#if DEBUG
-        if let hr = Highlighter() {
-            let languages = hr.supportedLanguages()
-            print("***** Languages  *****")
-            for language in languages {
-                print(language)
-            }
-            print("**********************")
-        }
-#endif
+        self.infoButton.toolTip = "About \(BUFFOON_CONSTANTS.APP_NAME) 2"
+        self.settingsButton.toolTip = "Set preview styles and content"
+        self.feedbackButton.toolTip = "Send feedback to the developer"
+        self.infoButton.alphaValue = 1.0
+        self.settingsButton.alphaValue = 1.0
+        self.feedbackButton.alphaValue = 1.0
 
         // FROM 2.0.0
         // Configure the tab manager
@@ -182,21 +166,10 @@ final class AppDelegate: NSResponder,
         self.tabManager.buttons.append(self.infoButton)
         self.tabManager.buttons.append(self.settingsButton)
         self.tabManager.buttons.append(self.feedbackButton)
-        self.infoButton.toolTip = "About PreviewCode 2"
-        self.settingsButton.toolTip = "Set preview styles and content"
-        self.feedbackButton.toolTip = "Send feedback to the developer"
-        self.infoButton.alphaValue = 1.0
-        self.settingsButton.alphaValue = 1.0
-        self.feedbackButton.alphaValue = 1.0
-
         // Add callback closures, one per tab, to the tab manager
         self.tabManager.callbacks.append(nil)   // Info tab
-        self.tabManager.callbacks.append {      // Settings tab
-            self.willShowSettingsPage()
-        }
-        self.tabManager.callbacks.append {
-            self.willShowFeedbackPage()         // Feedback tab
-        }
+        self.tabManager.callbacks.append { self.willShowSettingsPage() }
+        self.tabManager.callbacks.append { self.willShowFeedbackPage() }
 
         // Clear the `Feedback` tab
         // NOTE Don't initialise the Settings tab here too:
@@ -210,12 +183,15 @@ final class AppDelegate: NSResponder,
         self.previewMarginSizeText.delegate = self
         self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
 
+        localApplicationDidFinishLaunching()
+
         // Show the `What's New` panel if we need to
         // NOTE Has to take place at the end of the function
         doShowWhatsNew(nil)
 
         // Centre the main window and display
-        setInfoText()
+        setInfoText(self.infoLabel)
+        setversionText(self.versionLabel)
         self.window.delegate = self
         self.window.center()
         self.window.makeKeyAndOrderFront(self)
@@ -359,12 +335,7 @@ final class AppDelegate: NSResponder,
 
 
     /**
-     Alternative route to help, from the **Preferences** panel.
-
-     FROM 1.3.0
-
-     - Parameters:
-        - sender: The source of the action.
+     Alternative route to help.
      */
     @IBAction
     private func doShowPrefsHelp(sender: Any) {
@@ -381,6 +352,17 @@ final class AppDelegate: NSResponder,
         if let url = URL(string: path) {
             NSWorkspace.shared.open(url)
         }
+    }
+
+
+    /**
+     Open the System Preferences app at the Extensions pane.
+     */
+    @objc
+    @IBAction
+    private func doOpenSysPrefs(sender: Any) {
+
+        NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Extensions.prefPane"))
     }
 
 
@@ -414,7 +396,7 @@ final class AppDelegate: NSResponder,
      Create and display the information text label. This is done programmatically
      because we're using an NSAttributedString rather than a plain string.
      */
-    private func setInfoText() {
+    private func setInfoText(_ text: NSTextField) {
 
         // Set the attributes
         let bodyAtts: [NSAttributedString.Key: Any] = [
@@ -427,12 +409,22 @@ final class AppDelegate: NSResponder,
             .foregroundColor: NSColor.labelColor
         ]
 
-        let infoText = NSMutableAttributedString(string: "You need only run this app once, to register its Code Previewer and Code Thumbnailer application extensions with macOS. You can then manage these extensions in ", attributes: bodyAtts)
+        let infoText = NSMutableAttributedString(string: "You need only run this app once, to register its JSON Previewer and JSON Thumbnailer application extensions with macOS. You can then manage these extensions in ", attributes: bodyAtts)
         let boldText = NSAttributedString(string: "System Settings > Extensions > Quick Look", attributes: boldAtts)
         infoText.append(boldText)
         infoText.append(NSAttributedString(string: ".\n\nCases where previews cannot be rendered can usually be resolved by logging out of your Mac, logging in again and running this app once more.", attributes: bodyAtts))
-        self.infoLabel.attributedStringValue = infoText
+        text.attributedStringValue = infoText
+    }
+
+
+    /**
+     Add the app's version number to the UI.
+     */
+    private func setversionText(_ text: NSTextField) {
+
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "unknown"
+        text.stringValue = "Version \(version) (\(build))"
     }
 
 }
-
