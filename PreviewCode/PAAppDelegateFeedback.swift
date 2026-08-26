@@ -1,5 +1,5 @@
 /*
- *  AppDelegateFeedback.swift
+ *  PAAppDelegateFeedback.swift
  *  PreviewApps
  *  Extension for AppDelegate providing feedback handling functionality.
  *

@@ -32,7 +32,7 @@ extension NSMutableAttributedString {
     /**
      Swap the paragraph style in all of the attributes of an NSMutableAttributedString
      with the supplied new paragraph style.
-     
+
      - Parameters:
         - paraStyle: The injected NSParagraphStyle.
      */
@@ -177,25 +177,25 @@ extension CGFloat {
 
     /**
      Determine if the instance is near enough the specified value as makes no odds.
-     
+
      - Parameters
         - value: The float value we're comparing the instance to.
-     
+
      - Returns `true` if the values are proximate, otherwise `false`.
      */
     func isClose(to value: CGFloat) -> Bool {
-        
+
         let rndA = (self * 100).rounded() / 100
         let rndB = (value * 100).rounded() / 100
-        
+
         if self == value || rndA == rndB {
             return true
         }
-        
+
         let absA: CGFloat = abs(self)
         let absB: CGFloat = abs(value)
         let diff: CGFloat = abs(self - value)
-        
+
         if self == .zero || value == .zero || (absA + absB) < Self.leastNormalMagnitude {
             return diff < Self.ulpOfOne * Self.leastNormalMagnitude
         } else {
@@ -241,7 +241,7 @@ extension NSColor {
 
     /**
      Class function to return an NSColor object that matches the colour supplied as a RGBA hex value.
-     
+
      - Parameters:
         - colourValue: The colour as a hex string `RRGGBBAA`, eg `FF00AA88`.
 
@@ -255,43 +255,29 @@ extension NSColor {
             // The colour is defined by a hex value
             colourString = String(colourString.dropFirst(1))
         }
-        
-        // Colours in hex strings have 3, 6 or 8 (6 + alpha) values
-        if ![8, 6, 3].contains(colourString.count) {
-            return NSColor.gray
-        }
 
-        var r: UInt64 = 0, g: UInt64 = 0, b: UInt64 = 0, a: UInt64 = 0
-        var divisor: CGFloat
+        // Colours in hex strings have 3, 6 or 8 (6 + alpha) values
+        guard [8, 6, 3].contains(colourString.count) else { return NSColor.gray }
+        guard let colourValue = Int(colourString, radix: 16) else { return NSColor.gray }
+
+        var r: UInt64 = 0, g: UInt64 = 0, b: UInt64 = 0
+        var divisor: CGFloat = 255.0
         var alpha: CGFloat = 1.0
 
-        if colourString.count == 6 || colourString.count == 8 {
-            // Decode a six-character hex string
-            let rString = colourString[0..<2]
-            let gString = colourString[2..<4]
-            let bString = colourString[4..<6]
-
-            Scanner(string: rString).scanHexInt64(&r)
-            Scanner(string: gString).scanHexInt64(&g)
-            Scanner(string: bString).scanHexInt64(&b)
-
-            divisor = 255.0
-            
-            if colourString.count == 8 {
-                // Decode the eight-character hex string's alpha value
-                let aString = colourString[6..<8]
-                Scanner(string: aString).scanHexInt64(&a)
-                alpha = CGFloat(a) / divisor
-            }
+        if colourString.count == 6 {
+            r = UInt64((colourValue >> 16) & 0xFF)
+            g = UInt64((colourValue >> 8) & 0xFF)
+            b = UInt64(colourValue & 0xFF)
+        } else if colourString.count == 8 {
+            r = UInt64((colourValue >> 24) & 0xFF)
+            g = UInt64((colourValue >> 16) & 0xFF)
+            b = UInt64((colourValue >> 8) & 0xFF)
+            alpha = CGFloat(colourValue & 0xFF) / divisor
         } else {
             // Decode a three-character hex string
-            let rString = colourString[0..<1]
-            let gString = colourString[1..<2]
-            let bString = colourString[2..<3]
-
-            Scanner(string: rString).scanHexInt64(&r)
-            Scanner(string: gString).scanHexInt64(&g)
-            Scanner(string: bString).scanHexInt64(&b)
+            r = UInt64((colourValue >> 8) & 0xF)
+            g = UInt64((colourValue >> 4) & 0xF)
+            b = UInt64(colourValue & 0xF)
             divisor = 15.0
         }
 

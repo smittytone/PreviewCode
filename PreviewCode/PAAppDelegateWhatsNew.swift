@@ -1,5 +1,5 @@
 /*
- *  AppDelegateWhatsNew.swift
+ *  PAAppDelegateWhatsNew.swift
  *  PreviewApps
  *  Extension for AppDelegate providing What's New sheet functionality.
  *

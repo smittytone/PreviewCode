@@ -1,5 +1,5 @@
 /*
- *  AppDelegateMisc.swift
+ *  PAAppDelegateMisc.swift
  *  PreviewApps
  *  Extension for AppDelegate providing functionality used across PreviewApps.
  *

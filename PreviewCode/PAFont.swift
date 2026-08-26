@@ -9,16 +9,15 @@
 
 import Foundation
 
-
 /**
  Internal font record structure.
  */
 
 struct PAFont {
 
-    var postScriptName: String = ""
-    var displayName: String = ""
-    var styleName: String = ""
-    var traits: UInt = 0
-    var styles: [PAFont]? = nil
+    var postScriptName: String  = ""
+    var displayName: String     = ""
+    var styleName: String       = ""
+    var traits: UInt            = 0
+    var styles: [PAFont]?       = nil
 }
