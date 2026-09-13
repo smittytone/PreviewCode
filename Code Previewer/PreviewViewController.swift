@@ -45,85 +45,86 @@ class PreviewViewController: NSViewController,
             let data = try Data(contentsOf: url, options: [.uncached])
             let encoding = data.stringEncoding ?? .utf8
 
-            if let code = String(data: data, encoding: encoding) {
-                /*
-                 Instantiate the common code within the closure
-                 */
-                guard let common = Common(forThumbnail: false) else {
-                    reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
-                    throw reportError!
-                }
-
-                /*
-                 Attributed string acquisition
-                 */
-
-                // Set the language
-                let language: String = common.getLanguage(url.path)
-                var attributedCode: NSAttributedString
-                if language == "psion" {
-                    // Special case for psion files, which may contain binary data
-                    if url.pathExtension.lowercased() == "opl" {
-                        attributedCode = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
-                    } else {
-                        attributedCode = common.getAttributedString(code, "scala")
-                    }
-                } else {
-                    // Highlight the code
-                    attributedCode = common.getAttributedString(code, language)
-                }
-
-                /*
-                 Window and mode configuration
-                 */
-
-                // FROM 2.2.0
-                // Set the parent window's size
-                setPreviewWindowSize(common.settings)
-
-                // FROM 2.3.0
-                // The force-light-mode-preview-in-dark-mode setting is now a general
-                // preview-colours-should-be-opposite-the-mode setting.
-                let renderPreviewLight = !common.isThemeDark
-
-                // Update the view mode
-                self.renderTextView.backgroundColor = common.themeBackgroundColour
-                self.renderTextScrollView.scrollerKnobStyle = renderPreviewLight ? .dark : .light
-                self.view.appearance = renderPreviewLight ? NSAppearance(named: .aqua) : NSAppearance(named: .darkAqua)
-
-                // FROM 2.0.0
-                // Add a small margin around the preview
-                if common.settings.previewMarginWidth > 0.0 {
-                    self.renderTextView.textContainerInset = NSSize(width: common.settings.previewMarginWidth,
-                                                                    height: common.settings.previewMarginWidth)
-                }
-
-                /*
-                 Attributed String Presentation
-                 */
-
-                if let renderTextStorage = self.renderTextView.textStorage {
-                    /*
-                     * NSTextStorage subclasses that return true from the fixesAttributesLazily
-                     * method should avoid directly calling fixAttributes(in:) or else bracket
-                     * such calls with beginEditing() and endEditing() messages.
-                     */
-                    renderTextStorage.beginEditing()
-                    renderTextStorage.setAttributedString(attributedCode)
-                    renderTextStorage.endEditing()
-                    return
-                }
-
-                // We couldn't access the preview NSTextView's NSTextStorage
-                reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
-            } else {
+            guard let code = String(data: data, encoding: encoding) else {
                 // FROM 1.2.2
                 // We couldn't convert to data to a valid encoding
                 let errDesc = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
                 reportError = NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
                                       code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
                                       userInfo: [NSLocalizedDescriptionKey: errDesc])
+                throw reportError!
             }
+            
+            /*
+             Instantiate the common code within the closure
+             */
+            guard let common = Common(forThumbnail: false) else {
+                reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER)
+                throw reportError!
+            }
+
+            /*
+             Attributed string acquisition
+             */
+
+            // Set the language
+            let language: String = common.getLanguage(url.path)
+            var attributedCode: NSAttributedString
+            if language == "psion" {
+                // Special case for psion files, which may contain binary data
+                if url.pathExtension.lowercased() == "opl" {
+                    attributedCode = common.getAttributedString(common.processPsionFile(data, encoding), "scala")
+                } else {
+                    attributedCode = common.getAttributedString(code, "scala")
+                }
+            } else {
+                // Highlight the code
+                attributedCode = common.getAttributedString(code, language)
+            }
+
+            /*
+             Window and mode configuration
+             */
+
+            // FROM 2.2.0
+            // Set the parent window's size
+            setPreviewWindowSize(common.settings)
+
+            // FROM 2.3.0
+            // The force-light-mode-preview-in-dark-mode setting is now a general
+            // preview-colours-should-be-opposite-the-mode setting.
+            let renderPreviewLight = !common.isThemeDark
+
+            // Update the view mode
+            self.renderTextView.backgroundColor = common.themeBackgroundColour
+            self.renderTextScrollView.scrollerKnobStyle = renderPreviewLight ? .dark : .light
+            self.view.appearance = renderPreviewLight ? NSAppearance(named: .aqua) : NSAppearance(named: .darkAqua)
+
+            // FROM 2.0.0
+            // Add a small margin around the preview
+            if common.settings.previewMarginWidth > 0.0 {
+                self.renderTextView.textContainerInset = NSSize(width: common.settings.previewMarginWidth,
+                                                                height: common.settings.previewMarginWidth)
+            }
+
+            /*
+             Attributed String Presentation
+             */
+
+            if let renderTextStorage = self.renderTextView.textStorage {
+                /*
+                 * NSTextStorage subclasses that return true from the fixesAttributesLazily
+                 * method should avoid directly calling fixAttributes(in:) or else bracket
+                 * such calls with beginEditing() and endEditing() messages.
+                 */
+                renderTextStorage.beginEditing()
+                renderTextStorage.setAttributedString(attributedCode)
+                renderTextStorage.endEditing()
+                return
+            }
+
+            // We couldn't access the preview NSTextView's NSTextStorage
+            reportError = makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING)
         } catch {
             // We couldn't read the file so set an appropriate error to report back
             // FROM 2.3.5 -- don't suppress error thrown after the first
