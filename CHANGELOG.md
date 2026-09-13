@@ -1,9 +1,9 @@
 ## Release Notes
 
 - 2.3.3 *Unreleased*
-    - Improve Thumbnail Provider's thread safety.
-    - Improve Thumbnail Provider's error handling.
-    - Improve Preview Provider's error handling.
+    - Improve Code Thumbnailer’s thread safety.
+    - Improve Code Thumbnailer’s error handling.
+    - Improve Code Previewer’s error handling.
     - Better Psion `.opl` file binary content detection and reading safety.
     - Adopt `org.tug.tex` UTI for `.tex` files.
     - Minimise saving of default settings values.
