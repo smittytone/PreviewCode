@@ -16,11 +16,11 @@
 - 2.3.1 *26 May 2026*
     - Update to `HighlighterSwift` 3.1.0 to leverage its correction of certain themes.
 - 2.3.0 *02 May 2026*
+    - **BREAKING** Minimum macOS version is now macOS 12 Monterey.
     - Revise *PreviewCode*’s **Settings** pane UI.
     - Add advanced settings UI.
     - Minimise file data loading during thumbnailing.
     - Remove legacy UI.
-    - **BREAKING** Minimum macOS version is now macOS 12 Monterey.
 - 2.2.6 *17 April 2026*
     - Fix font-size slider control’s colouring.
     - Update dependencies.
