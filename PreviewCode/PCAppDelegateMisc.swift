@@ -1,9 +1,10 @@
-//
-//  PCAppDelegateMisc.swift
-//  PreviewCode
-//
-//  Created by Tony Smith on 21/08/2026.
-//
+/*
+ *  PCAppDelegateMisc.swift
+ *  PreviewCode
+ *
+ *  Created by Tony Smith on 21/08/2026.
+ *  Copyright © 2026 Tony Smith. All rights reserved.
+ */
 
 import AppKit
 import Highlighter

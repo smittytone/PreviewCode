@@ -1,7 +1,6 @@
 /*
  *  PAAppDelegateFeedback.swift
  *  PreviewApps
- *  Extension for AppDelegate providing feedback handling functionality.
  *
  *  Created by Tony Smith on 08/10/2024.
  *  Copyright © 2026 Tony Smith. All rights reserved.

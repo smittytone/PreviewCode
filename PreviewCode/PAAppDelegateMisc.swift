@@ -1,14 +1,10 @@
 /*
  *  PAAppDelegateMisc.swift
  *  PreviewApps
- *  Extension for AppDelegate providing functionality used across PreviewApps.
- *
- *  These functions can be used by all PreviewApps
  *
  *  Created by Tony Smith on 18/06/20214.
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
-
 
 import AppKit
 import WebKit

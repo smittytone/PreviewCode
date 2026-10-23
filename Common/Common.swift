@@ -1,12 +1,10 @@
 /*
  *  Common.swift
  *  PreviewCode
- *  Code common to Code Previewer and Code Thumbnailer
  *
  *  Created by Tony Smith on 30/05/2021.
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
-
 
 import AppKit
 import UniformTypeIdentifiers

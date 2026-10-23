@@ -6,8 +6,8 @@
  *  Copyright © 2026 Tony Smith. All rights reserved.
  */
 
-
 import Foundation
+
 
 /**
  Internal font record structure.
