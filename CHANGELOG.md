@@ -4,6 +4,7 @@
     - Improve Code Thumbnailer’s thread safety.
     - Improve Code Thumbnailer’s error handling.
     - Improve Code Previewer’s error handling.
+    - Improve text-entry value validity checking.
     - Better Psion `.opl` file binary content detection and reading safety.
     - Adopt `org.tug.tex` UTI for `.tex` files.
     - Minimise saving of default settings values.
