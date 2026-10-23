@@ -26,10 +26,10 @@ final class PCSettings {
     public var themeDisplayMode: Int               = BUFFOON_CONSTANTS.DISPLAY_MODE.AUTO
     public var doShowLineNumbers: Bool             = false
     // FROM 2.2.3
-    public var doShowMargin: Bool                  = false                                             // Advanced DEPRECATED
-    public var previewMarginWidth: CGFloat         = BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH            // Advanced
-    public var previewWindowScale: CGFloat         = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_L           // Advanced
-    public var thumbnailMatchFinderMode: Bool      = false                                             // Advanced
+    public var doShowMargin: Bool                  = false                                                  // Advanced DEPRECATED
+    public var previewMarginWidth: CGFloat         = BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH    // Advanced
+    public var previewWindowScale: CGFloat         = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_L                // Advanced
+    public var thumbnailMatchFinderMode: Bool      = false                                                  // Advanced
 
 
     // MARK: Retrieve and Persist Functions
@@ -193,7 +193,7 @@ final class PCSettings {
 
             // Preview inset margin width
             if defaults.object(forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_MARGIN) == nil {
-                defaults.setValue(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_MARGIN)
+                defaults.setValue(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH, forKey: BUFFOON_CONSTANTS.PREFS_IDS.PREVIEW_MARGIN)
             }
         }
     }

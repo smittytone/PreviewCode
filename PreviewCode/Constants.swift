@@ -106,10 +106,6 @@ struct BUFFOON_CONSTANTS {
     static let MAX_FEEDBACK_SIZE                = 512
     static let MAX_THUMBNAIL_READ_SIZE          = 1024
     static let FONT_SIZE_OPTIONS: [CGFloat]     = [10.0, 12.0, 14.0, 16.0, 18.0, 24.0, 28.0]
-    static let PREVIEW_MARGIN_WIDTH             = 16.0
-    static let PREVIEW_MARGIN_WIDTH_MIN         = 0.0
-    static let PREVIEW_MARGIN_WIDTH_MAX         = 256.0
-    static let PREVIEW_MARGIN_SIZE              = NSSize(width: PREVIEW_MARGIN_WIDTH, height: PREVIEW_MARGIN_WIDTH)
 
     // FROM 2.2.3
     struct SCALERS {
@@ -121,6 +117,14 @@ struct BUFFOON_CONSTANTS {
 
     // FROM 2.3.3
     static let APP_NAME                         = "PreviewCode"
+
+    struct PREVIEW_SIZE {
+
+        static let MARGIN_WIDTH_MIN     = 0.0
+        static let MARGIN_WIDTH_MAX     = 256.0
+        static let MARGIN_WIDTH         = 16.0
+        static let MARGIN_SIZE          = NSSize(width: MARGIN_WIDTH, height: MARGIN_WIDTH)
+    }
 
 
     /*

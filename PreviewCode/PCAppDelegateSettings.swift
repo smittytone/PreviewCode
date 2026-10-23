@@ -403,7 +403,7 @@ extension AppDelegate {
                 displayedSettings.previewWindowScale = BUFFOON_CONSTANTS.SCALERS.WINDOW_SIZE_S
         }
 
-        displayedSettings.previewMarginWidth = Double(self.previewMarginSizeText.stringValue) ?? BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH
+        displayedSettings.previewMarginWidth = Double(self.previewMarginSizeText.stringValue) ?? BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH
 
         return displayedSettings
     }
@@ -518,8 +518,40 @@ extension AppDelegate {
     @IBAction
     internal func doCloseAdvancedSettings(sender: Any) {
 
-        self.window.endSheet(self.advancedSettingsSheet)
-        willShowSettingsPage()
+        if advancedValuesGood() {
+            self.window.endSheet(self.advancedSettingsSheet)
+            willShowSettingsPage()
+        }
+    }
+
+
+    /**
+     Check that advanced settings textfield values are of the right type
+     and within range, presenting a warning if they are not.
+
+     FROM 2.0.3
+
+     - Returns: `true` if the values are good, otherwise `false`.
+     */
+    internal func advancedValuesGood() -> Bool {
+
+        let warningMessage: String
+        if let previewMargin = Float(self.previewMarginSizeText.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            if previewMargin >= 0.0 && previewMargin <= 256.0 {
+                return true
+            }
+
+            warningMessage = "The preview margin value is outside the range \(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MAX)"
+        } else {
+            warningMessage = "The preview margin value must be a number in the range \(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MAX)"
+        }
+
+        Task { @MainActor in
+            let alert = makeAlert("Something’s not right!", warningMessage)
+            _ = await alert.beginSheetModal(for: self.advancedSettingsSheet)
+        }
+
+        return false
     }
 
 
@@ -1045,8 +1077,8 @@ extension AppDelegate {
     func controlTextDidEndEditing(_ obj: Notification) {
 
         if let doubleValue = Double(self.previewMarginSizeText.stringValue) {
-            let min = Double(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN).rounded(.towardZero)
-            let max = Double(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX).rounded(.towardZero)
+            let min = Double(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MIN).rounded(.towardZero)
+            let max = Double(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MAX).rounded(.towardZero)
 
             if doubleValue > min && doubleValue <= max {
                 // Value within supported range, so write the formatted value back from where it will later be read

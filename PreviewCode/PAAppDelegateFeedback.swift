@@ -123,26 +123,27 @@ extension AppDelegate {
 
         // Trap text changes so that no more than
         // can be entered into the text field
+        if note.object as? NSTextField == self.feedbackText {
+            if self.feedbackText.stringValue.count > BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE {
+                // Chop the feedback field's attributed string, not its plain string
+                let attStr = NSMutableAttributedString(attributedString: self.feedbackText.attributedStringValue)
+                attStr.deleteCharacters(in: NSRange(location: BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE, length: attStr.length - BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE))
+                self.feedbackText.attributedStringValue = attStr as NSAttributedString
 
-        if self.feedbackText.stringValue.count > BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE {
-            // Chop the feedback field's attributed string, not its plain string
-            let attStr = NSMutableAttributedString(attributedString: self.feedbackText.attributedStringValue)
-            attStr.deleteCharacters(in: NSRange(location: BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE, length: attStr.length - BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE))
-            self.feedbackText.attributedStringValue = attStr as NSAttributedString
+                // Tell the user about the limit by flashing the
+                // text field red and back
+                flashField()
+            }
 
-            // Tell the user about the limit by flashing the
-            // text field red and back
-            flashField()
+            // Set the button title according to the amount of feedback text
+            self.messageSendButton.isEnabled = !self.feedbackText.stringValue.isEmpty
+            if self.hasSentFeedback {
+                self.hasSentFeedback = false
+            }
+
+            // Set the text length label
+            self.messageSizeLabel.stringValue = "\(self.feedbackText.stringValue.count)/\(BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE)"
         }
-
-        // Set the button title according to the amount of feedback text
-        self.messageSendButton.isEnabled = !self.feedbackText.stringValue.isEmpty
-        if self.hasSentFeedback {
-            self.hasSentFeedback = false
-        }
-
-        // Set the text length label
-        self.messageSizeLabel.stringValue = "\(self.feedbackText.stringValue.count)/\(BUFFOON_CONSTANTS.MAX_FEEDBACK_SIZE)"
     }
 
 

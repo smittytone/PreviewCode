@@ -181,7 +181,7 @@ final class AppDelegate: NSResponder,
 
         // FROM 2.3.0
         self.previewMarginSizeText.delegate = self
-        self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_MARGIN_WIDTH_MAX)"
+        self.previewMarginRangeText.stringValue = "Valid range \(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MIN)-\(BUFFOON_CONSTANTS.PREVIEW_SIZE.MARGIN_WIDTH_MAX)"
 
         localApplicationDidFinishLaunching()
 
