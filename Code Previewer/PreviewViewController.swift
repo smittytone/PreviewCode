@@ -45,10 +45,7 @@ class PreviewViewController: NSViewController,
         guard let code = String(data: data, encoding: encoding) else {
             // FROM 1.2.2
             // We couldn't convert to data to a valid encoding
-            let errDesc = "\(BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING) \(encoding)"
-            throw NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
-                                  code: BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING,
-                                  userInfo: [NSLocalizedDescriptionKey: errDesc])
+            throw makeError(BUFFOON_CONSTANTS.ERRORS.CODES.BAD_ENC_STRING, "unexpected encoding: \(encoding)")
         }
 
         /*
@@ -129,11 +126,14 @@ class PreviewViewController: NSViewController,
      Codes are listed in `Constants.swift`
 
      - Parameters:
-        - code: The internal error code.
+        - code:  The internal error code.
+        - extra: Additional text for specific errors
 
      - Returns: The described error as an NSError.
-    */
-    private func makeError(_ code: Int) -> NSError {
+     */
+    func makeError(_ code: Int, _ extra: String = "") -> NSError {
+
+        // NSError generation function
 
         var errDesc: String
 
@@ -144,15 +144,15 @@ class PreviewViewController: NSViewController,
                 errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.FILE_WONT_OPEN
             case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_TS_STRING:
                 errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_TS_STRING
-            case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_MD_STRING:
-                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_MD_STRING
+            case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_ENC_STRING:
+                errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_ENC_STRING + " \(extra)"
             case BUFFOON_CONSTANTS.ERRORS.CODES.BAD_HIGHLIGHTER:
                 errDesc = BUFFOON_CONSTANTS.ERRORS.MESSAGES.BAD_HIGHLIGHTER
             default:
                 errDesc = "UNKNOWN ERROR"
         }
 
-        return NSError(domain: BUFFOON_CONSTANTS.PREVIEW_ERR_DOMAIN,
+        return NSError(domain: BUFFOON_CONSTANTS.APP_CODE_PREVIEWER,
                        code: code,
                        userInfo: [NSLocalizedDescriptionKey: errDesc])
     }
