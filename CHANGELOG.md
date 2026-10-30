@@ -1,6 +1,6 @@
 ## Release Notes
 
-- 2.3.3 *Unreleased*
+- 2.3.3 *24 October 2026*
     - Improve Code Thumbnailer’s thread safety.
     - Improve Code Thumbnailer’s error handling.
     - Improve Code Previewer’s error handling.
