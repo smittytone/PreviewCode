@@ -1,5 +1,7 @@
 ## Release Notes
 
+- 2.3.4 *Unreleased*
+    - Update to `HighlighterSwift` 4.0.0.
 - 2.3.3 *24 October 2026*
     - Improve Code Thumbnailer’s thread safety.
     - Improve Code Thumbnailer’s error handling.
